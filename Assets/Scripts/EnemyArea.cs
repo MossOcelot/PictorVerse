@@ -7,6 +7,6 @@ public class EnemyArea : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(GameObject.FindWithTag("Monster"));
+        Debug.Log(GameObject.FindWithTag("Pokemon"));
     }
 }
