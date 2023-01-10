@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2495990260480819719}
   - component: {fileID: 2495990260480819712}
   - component: {fileID: 2495990260480819713}
-  - component: {fileID: 357078907469820466}
-  - component: {fileID: 3203690704599891356}
+  - component: {fileID: -1664839114164182119}
+  - component: {fileID: 8558309964252385450}
   m_Layer: 0
   m_Name: Monster-1 (1)
   m_TagString: Monster
@@ -124,22 +124,7 @@ CircleCollider2D:
   m_Offset: {x: 0.09, y: 0}
   serializedVersion: 2
   m_Radius: 0.9076464
---- !u!114 &357078907469820466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2495990260480819714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfb518ae0376ddc4b97911a0fae2c739, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  position_player: {x: 0, y: 0, z: 0}
-  speed: 2
-  distanceBetween: 15
---- !u!58 &3203690704599891356
+--- !u!58 &-1664839114164182119
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,3 +140,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 15
+--- !u!114 &8558309964252385450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2495990260480819714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfb518ae0376ddc4b97911a0fae2c739, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  position_player: {x: 0, y: 0, z: 0}
+  speed: 2
+  distanceBetween: 15

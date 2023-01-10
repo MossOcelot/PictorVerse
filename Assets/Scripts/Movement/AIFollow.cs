@@ -7,7 +7,6 @@ public class AIFollow : MonoBehaviour
     public Vector3 position_player;
     public float speed;
     public float distanceBetween;
-
     private float distance;
     // Update is called once per frame
     void Update()
@@ -30,6 +29,7 @@ public class AIFollow : MonoBehaviour
         {
             position_player = target.gameObject.transform.position;
         }
+        
     }
 
 }
