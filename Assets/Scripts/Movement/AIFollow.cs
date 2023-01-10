@@ -19,7 +19,7 @@ public class AIFollow : MonoBehaviour
         if (distance < distanceBetween)
         {
             transform.position = Vector2.MoveTowards(this.transform.position, position_player, speed * Time.deltaTime);
-            
+
         }
     }
 
@@ -27,9 +27,9 @@ public class AIFollow : MonoBehaviour
     {
         if (target.gameObject.CompareTag("Player"))
         {
-            position_player = target.gameObject.transform.position;
+            position_player = target.gameObject.transform.position; //praew
         }
-        
+
     }
 
 }
