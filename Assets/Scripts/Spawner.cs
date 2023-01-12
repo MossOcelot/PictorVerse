@@ -17,6 +17,28 @@ public class Spawner : MonoBehaviour
     private Vector2 center;
     private float radius;
 
+    void Start()
+    {
+        position = gameObject.GetComponent<Transform>().position;
+        center = new Vector2(position.x, position.y);
+        radius = area_spawn.radius;
+
+        GameObject monster = objectToSpawn;
+        monster.GetComponent<AIFollow>().position_spawner = gameObject.GetComponent<Transform>().position;
+        for (int i = 0; i < number_of_monster; i++)
+        {
+            Vector2 randomPoint = Generate();
+            Instantiate(monster, randomPoint, Quaternion.identity);
+            
+        }
+    }
+
+    private void Update()
+    {
+        remonster();
+
+    }
+
     public Vector2 Generate()
     {
         float angle = UnityEngine.Random.Range(0f, 2f * Mathf.PI);
@@ -38,25 +60,7 @@ public class Spawner : MonoBehaviour
         return objectsInArea;
     }
     // Start is called before the first frame update
-    void Start()
-    {
-        position = gameObject.GetComponent<Transform>().position;
-        center = new Vector2(position.x, position.y);
-        radius = area_spawn.radius;
-
-        for(int i = 0; i < number_of_monster ; i++)
-        {
-            Vector2 randomPoint = Generate();
-            Instantiate(objectToSpawn, randomPoint, Quaternion.identity);
-        }
-        Debug.Log("Hello");
-    }
-
-    private void Update()
-    {
-        remonster();
-    }
-
+    
     private void remonster()
     {
         List<Collider2D> objects = GetObjects();

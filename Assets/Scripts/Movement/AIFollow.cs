@@ -5,23 +5,22 @@ using static UnityEngine.GraphicsBuffer;
 
 public class AIFollow : MonoBehaviour
 {
-    
     public Vector3 position_player;
     public Vector3 firstposition_AI;
-    private Vector3 position_spawner;
+   
+    public Vector3 position_spawner;
 
     public float speed;
     public float distanceBetween;
     public bool isFollowPlayer;
     public GameObject spawner_area;
-    private float radius;
-    private float distance_spawner;
+    public float radius;
+    public float distance_spawner;
     private float distance;
     // Update is called once per frame
     private void Start()
     {
         firstposition_AI = gameObject.transform.position;
-        position_spawner = spawner_area.GetComponent<Transform>().position;
         radius = spawner_area.GetComponent<CircleCollider2D>().radius;
     }
     void Update()
@@ -40,10 +39,10 @@ public class AIFollow : MonoBehaviour
 
     private void followPlayer()
     {
-        
+
         distance = Vector2.Distance(transform.position, position_player);
         distance_spawner = Vector3.Distance(transform.position, position_spawner);
-        
+
         Vector2 direction = position_player - transform.position;
         direction.Normalize();
         // ถ้าอยู่ในระยะตามเงื่อนไขให้ติดตามผู้เล่น
@@ -68,6 +67,6 @@ public class AIFollow : MonoBehaviour
             transform.position = Vector2.MoveTowards(this.transform.position, firstposition_AI, speed * Time.deltaTime);
         }
     }
-    
+
 
 }
