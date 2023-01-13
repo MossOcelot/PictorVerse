@@ -45,12 +45,12 @@ public class AIFollow : MonoBehaviour
 
         Vector2 direction = position_player - transform.position;
         direction.Normalize();
-        // �����������е�����͹����Դ���������
+        // ถ้าอยู่ในระยะตามเงื่อนไขให้ติดตามผู้เล่น
         /*
-         ���͹�
-        1. ���м����� ���¡������з���˹���� monster ����
-        2. ���з���ѵ������ͼ����� ������Թ�֧�ش�ش����
-        3. ���з���͡��ҧ�ҡ �ش Spawn 
+         เงื่อนไข
+        1. ระยะผู้เล่น น้อยกว่าระยะที่กำหนดให้ monster ตามไป
+        2. ระยะที่ศัตรูไม่เจอผู้เล่น เมื่อเดินถึงจุดสุดท้าย
+        3. ระยะที่ออกห่างจาก จุด Spawn 
          */
         if (isFollowPlayer)
         {
@@ -67,7 +67,7 @@ public class AIFollow : MonoBehaviour
             isFollowPlayer = false;
             position_player = new Vector3(0, 0, 0);
         }
-        // ��Ҽ�����������������������Թ��Ѻ������
+        // ถ้าผู้เล่นไม่ได้อยู่ในระยะให้เดินกลับที่เดิม
         if (!isFollowPlayer)
         {
             transform.position = Vector2.MoveTowards(this.transform.position, firstposition_AI, speed * Time.deltaTime);
