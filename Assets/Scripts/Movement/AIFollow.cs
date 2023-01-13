@@ -45,12 +45,12 @@ public class AIFollow : MonoBehaviour
 
         Vector2 direction = position_player - transform.position;
         direction.Normalize();
-        // ถ้าอยู่ในระยะตามเงื่อนไขให้ติดตามผู้เล่น
+        // ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝะต๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิด๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ
         /*
-         เงื่อนไข
-        1. ระยะผู้เล่น น้อยกว่าระยะที่กำหนดให้ monster ตามไป
-        2. ระยะที่ศัตรูไม่เจอผู้เล่น เมื่อเดินถึงจุดสุดท้าย
-        3. ระยะที่ออกห่างจาก จุด Spawn 
+         ๏ฟฝ๏ฟฝ๏ฟฝอน๏ฟฝ
+        1. ๏ฟฝ๏ฟฝ๏ฟฝะผ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝยก๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝะท๏ฟฝ๏ฟฝ๏ฟฝหน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ monster ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ
+        2. ๏ฟฝ๏ฟฝ๏ฟฝะท๏ฟฝ๏ฟฝ๏ฟฝัต๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอผ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝึง๏ฟฝุด๏ฟฝุด๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ
+        3. ๏ฟฝ๏ฟฝ๏ฟฝะท๏ฟฝ๏ฟฝ๏ฟฝอก๏ฟฝ๏ฟฝาง๏ฟฝาก ๏ฟฝุด Spawn 
          */
         if (distance < distanceBetween && distance != 0 && isFollowPlayer && distance_spawner <= radius)
         {
@@ -61,7 +61,7 @@ public class AIFollow : MonoBehaviour
             isFollowPlayer = false;
             position_player = new Vector3(0, 0, 0);
         }
-        // ถ้าผู้เล่นไม่ได้อยู่ในระยะให้เดินกลับที่เดิม
+        // ๏ฟฝ๏ฟฝาผ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝิน๏ฟฝ๏ฟฝับ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ
         if (!isFollowPlayer)
         {
             transform.position = Vector2.MoveTowards(this.transform.position, firstposition_AI, speed * Time.deltaTime);
