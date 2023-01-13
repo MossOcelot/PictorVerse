@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2495990260480819713}
   - component: {fileID: -1664839114164182119}
   - component: {fileID: 8558309964252385450}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Monster-1 (1)
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 15
+  m_Radius: 5
 --- !u!114 &8558309964252385450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,5 +153,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position_player: {x: 0, y: 0, z: 0}
+  firstposition_AI: {x: 0, y: 0, z: 0}
   speed: 2
   distanceBetween: 15
+  isFollowPlayer: 0
+  spawner_area: {fileID: 6002927469698903204, guid: 5eba7cae13cf4644e9e5634b58f4f9ee, type: 3}
+  radius: 0
