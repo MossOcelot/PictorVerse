@@ -52,9 +52,15 @@ public class AIFollow : MonoBehaviour
         2. ���з���ѵ������ͼ����� ������Թ�֧�ش�ش����
         3. ���з���͡��ҧ�ҡ �ش Spawn 
          */
-        if (distance < distanceBetween && distance != 0 && isFollowPlayer && distance_spawner <= radius)
+        if (isFollowPlayer)
         {
-            transform.position = Vector2.MoveTowards(this.transform.position, position_player, speed * Time.deltaTime);
+            if(distance != 0)
+            {
+                if(distance < distanceBetween && distance_spawner <= radius)
+                {
+                    transform.position = Vector2.MoveTowards(this.transform.position, position_player, speed * Time.deltaTime);
+                }
+            }
         }
         else
         {
