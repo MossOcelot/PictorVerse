@@ -36,4 +36,12 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Speed", movement.sqrMagnitude);
     }
+
+    private void OnCollisionEnter2D(Collision2D target)
+    {
+        if (target.gameObject.CompareTag("Monster"))
+        {
+            Destroy(target.gameObject);
+        }        
+    }
 }
