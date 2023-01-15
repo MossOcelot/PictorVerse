@@ -10,6 +10,7 @@ public class Spawner : MonoBehaviour
     public CircleCollider2D area_spawn;
     public LayerMask layerMask;
     public int number_of_monster;
+    
     private int count_monster;
 
     private int loss_monster;
@@ -25,6 +26,7 @@ public class Spawner : MonoBehaviour
 
         GameObject monster = objectToSpawn;
         monster.GetComponent<AIFollow>().position_spawner = gameObject.GetComponent<Transform>().position;
+        monster.GetComponent<Monster_Status>().birthplace = gameObject.name;
         for (int i = 0; i < number_of_monster; i++)
         {
             Vector2 randomPoint = Generate();
@@ -49,22 +51,25 @@ public class Spawner : MonoBehaviour
     }
    
 
-    public List<Collider2D> GetObjects()
+    public int countObject()
     {
-        List<Collider2D> objectsInArea = new List<Collider2D>();
+        int number_monsterInArea = 0;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(center, radius, layerMask);
         foreach (Collider2D collider in colliders)
         {
-            objectsInArea.Add(collider);
+            
+            if (collider.GetComponent<Monster_Status>().birthplace == gameObject.name) {
+                number_monsterInArea += 1;
+            }
+            
         }
-        return objectsInArea;
+        return number_monsterInArea;
     }
     // Start is called before the first frame update
     
     private void remonster()
     {
-        List<Collider2D> objects = GetObjects();
-        count_monster = objects.Count / 2;
+        count_monster = countObject() / 2;
 
         if (count_monster < number_of_monster)
         {
