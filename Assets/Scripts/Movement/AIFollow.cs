@@ -45,23 +45,29 @@ public class AIFollow : MonoBehaviour
 
         Vector2 direction = position_player - transform.position;
         direction.Normalize();
-        // ถ้าอยู่ในระยะตามเงื่อนไขให้ติดตามผู้เล่น
+        // เธ–เนเธฒเธญเธขเธนเนเนเธเธฃเธฐเธขเธฐเธ•เธฒเธกเน€เธเธทเนเธญเธเนเธเนเธซเนเธ•เธดเธ”เธ•เธฒเธกเธเธนเนเน€เธฅเนเธ
         /*
-         เงื่อนไข
-        1. ระยะผู้เล่น น้อยกว่าระยะที่กำหนดให้ monster ตามไป
-        2. ระยะที่ศัตรูไม่เจอผู้เล่น เมื่อเดินถึงจุดสุดท้าย
-        3. ระยะที่ออกห่างจาก จุด Spawn 
+         เน€เธเธทเนเธญเธเนเธ
+        1. เธฃเธฐเธขเธฐเธเธนเนเน€เธฅเนเธ เธเนเธญเธขเธเธงเนเธฒเธฃเธฐเธขเธฐเธ—เธตเนเธเธณเธซเธเธ”เนเธซเน monster เธ•เธฒเธกเนเธ
+        2. เธฃเธฐเธขเธฐเธ—เธตเนเธจเธฑเธ•เธฃเธนเนเธกเนเน€เธเธญเธเธนเนเน€เธฅเนเธ เน€เธกเธทเนเธญเน€เธ”เธดเธเธ–เธถเธเธเธธเธ”เธชเธธเธ”เธ—เนเธฒเธข
+        3. เธฃเธฐเธขเธฐเธ—เธตเนเธญเธญเธเธซเนเธฒเธเธเธฒเธ เธเธธเธ” Spawn 
          */
-        if (distance < distanceBetween && distance != 0 && isFollowPlayer && distance_spawner <= radius)
+        if (isFollowPlayer)
         {
-            transform.position = Vector2.MoveTowards(this.transform.position, position_player, speed * Time.deltaTime);
+            if(distance != 0)
+            {
+                if(distance < distanceBetween && distance_spawner <= radius)
+                {
+                    transform.position = Vector2.MoveTowards(this.transform.position, position_player, speed * Time.deltaTime);
+                }
+            }
         }
         else
         {
             isFollowPlayer = false;
             position_player = new Vector3(0, 0, 0);
         }
-        // ถ้าผู้เล่นไม่ได้อยู่ในระยะให้เดินกลับที่เดิม
+        // เธ–เนเธฒเธเธนเนเน€เธฅเนเธเนเธกเนเนเธ”เนเธญเธขเธนเนเนเธเธฃเธฐเธขเธฐเนเธซเนเน€เธ”เธดเธเธเธฅเธฑเธเธ—เธตเนเน€เธ”เธดเธก
         if (!isFollowPlayer)
         {
             transform.position = Vector2.MoveTowards(this.transform.position, firstposition_AI, speed * Time.deltaTime);
