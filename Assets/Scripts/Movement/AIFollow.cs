@@ -52,15 +52,9 @@ public class AIFollow : MonoBehaviour
         2. ระยะที่ศัตรูไม่เจอผู้เล่น เมื่อเดินถึงจุดสุดท้าย
         3. ระยะที่ออกห่างจาก จุด Spawn 
          */
-        if (isFollowPlayer)
+        if (isFollowPlayer && distance != 0 && distance < distanceBetween && distance_spawner <= radius)
         {
-            if(distance != 0)
-            {
-                if(distance < distanceBetween && distance_spawner <= radius)
-                {
-                    transform.position = Vector2.MoveTowards(this.transform.position, position_player, speed * Time.deltaTime);
-                }
-            }
+            transform.position = Vector2.MoveTowards(this.transform.position, position_player, speed * Time.deltaTime);
         }
         else
         {
