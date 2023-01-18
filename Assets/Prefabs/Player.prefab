@@ -12,10 +12,11 @@ GameObject:
   - component: {fileID: 1258568719042420001}
   - component: {fileID: 322077292804187136}
   - component: {fileID: 5233189482989031995}
-  - component: {fileID: 7646554508856446391}
   - component: {fileID: 4635473349442346632}
+  - component: {fileID: 7646554508856446391}
+  - component: {fileID: -6222869793604445581}
   m_Layer: 0
-  m_Name: Player (2)
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,20 +130,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &7646554508856446391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7606089270694869673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaae5fca62fb9424691cc563f2520393, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  animator: {fileID: 322077292804187136}
 --- !u!61 &4635473349442346632
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -169,3 +156,36 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8313191, y: 3.67062}
   m_EdgeRadius: 0
+--- !u!114 &7646554508856446391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7606089270694869673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaae5fca62fb9424691cc563f2520393, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  status: {fileID: -6222869793604445581}
+  animator: {fileID: 322077292804187136}
+  walk_distance: 0
+  energy_for_walk: 5
+--- !u!114 &-6222869793604445581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7606089270694869673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa3c0f1b140aa144e855a1ecaf9a10e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playername: 
+  HP: 100
+  energy: 1000
+  static_useEnergy: 0
