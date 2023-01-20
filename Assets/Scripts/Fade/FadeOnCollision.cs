@@ -13,7 +13,7 @@ public class FadeOnCollision : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if ((collider is BoxCollider2D || collider is CircleCollider2D) && playerLayer == (playerLayer | (1 << collider.gameObject.layer)))
+        if (collider.CompareTag("Player"))
         {
             _ = StartCoroutine(FadeTo(0.15f, 0.5f));
         }
@@ -21,8 +21,7 @@ public class FadeOnCollision : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collider)
     {
-     
-        if ((collider is BoxCollider2D || collider is CircleCollider2D) && playerLayer == (playerLayer | (1 << collider.gameObject.layer)))
+        if (collider.CompareTag("Player"))
         {
             StartCoroutine(FadeTo(1f, 0.5f));
         }
