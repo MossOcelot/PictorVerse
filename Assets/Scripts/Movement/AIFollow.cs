@@ -5,10 +5,13 @@ using static UnityEngine.GraphicsBuffer;
 
 public class AIFollow : MonoBehaviour
 {
+
+    
     public Vector3 position_player;
     public Vector3 firstposition_AI;
    
     public Vector3 position_spawner;
+    private Vector3 directionVector;
 
     public float speed;
     public float distanceBetween;
@@ -20,8 +23,11 @@ public class AIFollow : MonoBehaviour
     // Update is called once per frame
     private void Start()
     {
+       
+        
         firstposition_AI = gameObject.transform.position;
         radius = spawner_area.GetComponent<CircleCollider2D>().radius;
+       
     }
     void Update()
     {
@@ -73,6 +79,8 @@ public class AIFollow : MonoBehaviour
             transform.position = Vector2.MoveTowards(this.transform.position, firstposition_AI, speed * Time.deltaTime);
         }
     }
+    
 
+    
 
 }
