@@ -22,10 +22,11 @@ public class CanvasUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
         {
             inventoryUI.SetActive(!inventoryUI.activeSelf);
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
             MainUI.SetActive(!MainUI.activeSelf);
         }
+        //if (Input.GetKeyDown(KeyCode.M))
+        //{
+        //    MainUI.SetActive(!MainUI.activeSelf);
+        //}
     }
 }
