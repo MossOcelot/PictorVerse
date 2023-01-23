@@ -44,8 +44,6 @@ public class PlayerMovement : MonoBehaviour
             iswalk = false;
         }
         count_distance_for_walk();
-
-
     }
 
     

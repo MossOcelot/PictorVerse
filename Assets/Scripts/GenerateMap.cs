@@ -10,7 +10,7 @@ public class GenerateMap : MonoBehaviour
     public int regionColorAmount;
 
     public List<Color> myRegionColors = new List<Color>();
-    public void Start()
+    public void Update()
     {
         CreateVoronoiDiagram();
     }
