@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStatus : MonoBehaviour
 {
@@ -11,14 +13,17 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField]
     private int energy;
     public int static_useEnergy;
-    public void setEnergy(int useEnergy)
-    {
-        this.energy += useEnergy;
-    }
+    public static PlayerStatus Instance;
 
-    public int getEnergy()
+    private void Awake()
     {
-        return this.energy;
+        if (Instance != null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        Instance = this;
+        GameObject.DontDestroyOnLoad(this.gameObject);
     }
 
     
@@ -32,5 +37,16 @@ public class PlayerStatus : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+
+    public void setEnergy(int useEnergy)
+    {
+        this.energy += useEnergy;
+    }
+
+    public int getEnergy()
+    {
+        return this.energy;
     }
 }

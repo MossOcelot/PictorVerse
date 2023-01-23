@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerStatus status;
     private Rigidbody2D rb;
     public Animator animator;
-    public static PlayerMovement Instance;
+    
     public float walk_distance = 0;
     private bool iswalk;
 
@@ -25,15 +25,8 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerposition = transform.position;
-
-        if(Instance!= null)
-        {
-            Destroy(this.gameObject);
-            return;
-        }
-        Instance = this;    
-        GameObject.DontDestroyOnLoad(this.gameObject);
     }
+
     private void Update()
     {
         Movement();
@@ -46,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
         count_distance_for_walk();
     }
 
-    
     private void Movement()
     {
         int energy = status.getEnergy();
