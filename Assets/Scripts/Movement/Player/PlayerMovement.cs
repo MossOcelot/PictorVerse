@@ -5,9 +5,13 @@ using static UnityEngine.GraphicsBuffer;
 
 public class PlayerMovement : MonoBehaviour
 {
+    // กำหนด LayerMask
+    public LayerMask interactableLayer;
+
     public float defaultMoveSpeed = 5f;
     private float moveSpeed;
     private bool isMoving;
+
 
     [SerializeField]
     private PlayerStatus status;
@@ -30,10 +34,14 @@ public class PlayerMovement : MonoBehaviour
         playerposition = transform.position;
     }
 
-    
+
     private void Update()
     {
-        Movement();
+        //กำหนดการหยุดของ layerMask
+        if (IsWalkable(movement))
+        {
+            Movement();
+        }
         if (movement.x != 0 || movement.y != 0)
         {
             iswalk = true;
@@ -42,12 +50,14 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             iswalk = false;
-            isMoving = false; 
+            isMoving = false;
         }
         count_distance_for_walk();
         //Set การหยุดหรือไม่หยุดของ Animation
         animator.SetBool("isMoving", isMoving);
 
+        if (Input.GetKeyDown(KeyCode.Z))
+            Interact();
     }
 
 
@@ -62,23 +72,23 @@ public class PlayerMovement : MonoBehaviour
         {
             moveSpeed = defaultMoveSpeed;
         }
-        
-          movement.x = Input.GetAxisRaw("Horizontal");
-          movement.y = Input.GetAxisRaw("Vertical");
-  
+
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+
 
         //หันหน้า
-        if (movement!= Vector2.zero)
+        if (movement != Vector2.zero)
         {
             animator.SetFloat("moveX", movement.x);
             animator.SetFloat("moveY", movement.y);
 
         }
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-        
+
         AnimationMovement();
-        
-     }
+
+    }
     private void AnimationMovement()
     {
         animator.SetFloat("Horizontal", movement.x);
@@ -95,10 +105,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void count_distance_for_walk() {
-        if(iswalk)
+        if (iswalk)
         {
-           var distance = Vector2.Distance(transform.position, playerposition);
-           if (distance >= 10)
+            var distance = Vector2.Distance(transform.position, playerposition);
+            if (distance >= 10)
             {
                 walk_distance += 10;
                 playerposition = transform.position;
@@ -113,4 +123,27 @@ public class PlayerMovement : MonoBehaviour
         status.static_useEnergy += energy;
     }
 
+    //เซ็ท ห้ามให้ player เข้าเมื่อเจอ IsWalkable
+    private bool IsWalkable(Vector3 movement)
+    {
+        if (Physics2D.OverlapCircle(movement, 0.3f, interactableLayer) != null)
+        {
+            return false;
+        }
+        return true;
+    }
+    void Interact()
+    {
+        var facingDir = new Vector3(animator.GetFloat("moveX"), animator.GetFloat("moveY"));
+        var interactPos = transform.position + facingDir;
+
+        // Debug.DrawLine(transform.position, interactPos, Color.green, 0.5f);
+
+        var collider = Physics2D.OverlapCircle(interactPos, 0.3f, interactableLayer);
+
+        if (collider != null)
+        {
+            collider.GetComponent<Interactable>()?.Interact();
+        }
+    }
 }
