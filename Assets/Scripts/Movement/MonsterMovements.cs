@@ -70,6 +70,8 @@ public class MonsterMovements : MonoBehaviour
     {
         anim.SetFloat("MoveX", directionVector.x);
         anim.SetFloat("MoveY", directionVector.y);
+        anim.SetFloat("Speed", directionVector.sqrMagnitude);
+
 
     }
     private void nCollisionEnter2D(Collision2D other)
