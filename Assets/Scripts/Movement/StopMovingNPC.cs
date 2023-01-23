@@ -4,6 +4,7 @@ public class StopMovingNPC : MonoBehaviour
 {
     private Vector3 previousVelocity;
     private Rigidbody2D rb;
+    private bool isMoving;
 
     private void Start()
     {
