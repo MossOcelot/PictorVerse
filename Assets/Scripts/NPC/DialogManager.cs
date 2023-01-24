@@ -14,7 +14,7 @@ public class DialogManager : MonoBehaviour
 
     public event Action OnShowDialog;
     public event Action OnCloseDialog;
-
+    
 
     public static DialogManager Instance { get; private set; }
     private void Awake()
@@ -35,6 +35,18 @@ public class DialogManager : MonoBehaviour
         StartCoroutine(TypeDialog(dialog.Lines[0]));
 
     }
+    public IEnumerator TypeDialog(string line)
+    {
+        isTyping = true;
+        dialogText.text = "";
+        foreach (var letter in line.ToCharArray())
+        {
+            dialogText.text += letter;
+            yield return new WaitForSeconds(1f / lettersPerSecond);
+
+        }
+        isTyping = false;
+    }
 
     public void HandleUpdate()
     {
@@ -53,16 +65,5 @@ public class DialogManager : MonoBehaviour
             }
         }
     }
-    public IEnumerator TypeDialog(string dialog)
-    {
-        isTyping = true;
-        dialogText.text = "";
-        foreach (var letter in dialog.ToCharArray())
-        {
-            dialogText.text += letter;
-            yield return new WaitForSeconds(1f / lettersPerSecond);
-        
-        }
-        isTyping = false;
-    }
+   
 }

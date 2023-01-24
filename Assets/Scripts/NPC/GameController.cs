@@ -6,6 +6,9 @@ public enum GameState {FreeRoam,Dialog}
 
 public class GameController : MonoBehaviour
 {
+
+    [SerializeField] PlayerMovement playercontroller;
+     
     GameState state;
     private void Start()
     {
@@ -16,12 +19,17 @@ public class GameController : MonoBehaviour
         };
         DialogManager.Instance.OnCloseDialog += () =>
         {
-            Debug.Log("Helloworld");
+
+            Debug.Log("OnCloseDialog");
+            //if (state = GameState.FreeRoam)
+            {
+                Debug.Log("Helloworld");
+
+            }
 
         };
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (state == GameState.Dialog)
