@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     Vector2 playerposition;
 
     Vector2 movement;
-
+    bool isTyping;
     private void Start()
     {
         moveSpeed = defaultMoveSpeed;
@@ -48,11 +48,13 @@ public class PlayerMovement : MonoBehaviour
         {
             iswalk = true;
             isMoving = true;
+            isTyping = true;
         }
         else
         {
             iswalk = false;
             isMoving = false;
+            isTyping = false;
         }
         count_distance_for_walk();
         //Set การหยุดหรือไม่หยุดของ Animation
