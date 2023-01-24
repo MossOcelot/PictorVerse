@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     public float walk_distance = 0;
     private bool iswalk;
 
+    
+
     [SerializeField]
     private int energy_for_walk;
     Vector2 playerposition;
@@ -58,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Z))
             Interact();
+
+        
     }
 
 
