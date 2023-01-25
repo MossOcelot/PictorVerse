@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MonsterMovements : MonoBehaviour
 {
+    private Vector3 previousVelocity;
+
+    private bool isMoving;
 
     private Vector3 directionVector;
     private Transform myTransform;
@@ -11,6 +14,7 @@ public class MonsterMovements : MonoBehaviour
     private Rigidbody2D myRigidbody;
     private Animator anim;
     public Collider2D bounds;
+    
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -21,16 +25,17 @@ public class MonsterMovements : MonoBehaviour
 
     private void Update()
     {
-              Move();     
+        Move();
+        anim.SetBool("isMoving", isMoving);
+
     }
 
     private void Move()
     {
         Vector3 temp = myTransform.position + directionVector * speed * Time.deltaTime;
-        if (bounds.bounds.Contains(temp)) 
+        if (bounds.bounds.Contains(temp))
         {
             myRigidbody.MovePosition(temp);
-
         }
         else
         {
@@ -71,22 +76,56 @@ public class MonsterMovements : MonoBehaviour
         anim.SetFloat("MoveX", directionVector.x);
         anim.SetFloat("MoveY", directionVector.y);
         anim.SetFloat("Speed", directionVector.sqrMagnitude);
-
-
     }
-    private void nCollisionEnter2D(Collision2D other)
-    {
-        Vector3 temp = directionVector;
-        ChangeDirection();
 
-        int loops = 0;
-        while (temp == directionVector && loops < 100)
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
         {
-            loops++;
-            ChangeDirection();
+            previousVelocity = myRigidbody.velocity;
+            myRigidbody.velocity = Vector2.zero;
+            myRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+            {
+                //Debug.Log("Now key code => W");
+                anim.SetInteger("Direction", 2);
+            }
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            {
+                //Debug.Log("Now key code => A");
+                anim.SetInteger("Direction", 1);
+            }
+            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            {
+                //Debug.Log("Now key code => S");
+                anim.SetInteger("Direction", 0);
+            }
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            {
+                //Debug.Log("Now key code => D");
+                anim.SetInteger("Direction", 3);
+            }
+
+            isMoving = true;
         }
     }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            myRigidbody.constraints = RigidbodyConstraints2D.None;
+            myRigidbody.velocity = previousVelocity;
+            isMoving = false;
+
+
+        }
+
+
+    }
+
+   
+   
 }
 
-//MoveX = Horizontal
-//MoveY = Vertical

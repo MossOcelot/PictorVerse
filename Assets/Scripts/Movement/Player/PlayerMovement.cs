@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     Vector2 playerposition;
 
     Vector2 movement;
-    bool isTyping;
+   
     private void Start()
     {
         moveSpeed = defaultMoveSpeed;
@@ -39,33 +39,26 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        //กำหนดการหยุดของ layerMask
-        if (IsWalkable(movement))
-        {
-            Movement();
-        }
+        
+          Movement();
+        
         if (movement.x != 0 || movement.y != 0)
         {
             iswalk = true;
             isMoving = true;
-            isTyping = true;
+            
         }
         else
         {
             iswalk = false;
             isMoving = false;
-            isTyping = false;
+            
         }
         count_distance_for_walk();
         //Set การหยุดหรือไม่หยุดของ Animation
         animator.SetBool("isMoving", isMoving);
 
-        if (Input.GetKeyDown(KeyCode.Z))
-            Interact();
-
-        
     }
-
 
     private void Movement()
     {
@@ -129,27 +122,6 @@ public class PlayerMovement : MonoBehaviour
         status.static_useEnergy += energy;
     }
 
-    //เซ็ท ห้ามให้ player เข้าเมื่อเจอ IsWalkable
-    private bool IsWalkable(Vector3 movement)
-    {
-        if (Physics2D.OverlapCircle(movement, 0.3f, interactableLayer) != null)
-        {
-            return false;
-        }
-        return true;
-    }
-    void Interact()
-    {
-        var facingDir = new Vector3(animator.GetFloat("moveX"), animator.GetFloat("moveY"));
-        var interactPos = transform.position + facingDir;
-
-        // Debug.DrawLine(transform.position, interactPos, Color.green, 0.5f);
-
-        var collider = Physics2D.OverlapCircle(interactPos, 0.3f, interactableLayer);
-
-        if (collider != null)
-        {
-            collider.GetComponent<Interactable>()?.Interact();
-        }
-    }
+    
+   
 }
