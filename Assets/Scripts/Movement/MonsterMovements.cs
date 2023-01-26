@@ -15,6 +15,7 @@ public class MonsterMovements : MonoBehaviour
     private Animator anim;
     public Collider2D bounds;
     
+    
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -82,28 +83,25 @@ public class MonsterMovements : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+
             previousVelocity = myRigidbody.velocity;
             myRigidbody.velocity = Vector2.zero;
             myRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
 
-            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) )
             {
-                //Debug.Log("Now key code => W");
                 anim.SetInteger("Direction", 2);
             }
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
-                //Debug.Log("Now key code => A");
                 anim.SetInteger("Direction", 1);
             }
             if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
             {
-                //Debug.Log("Now key code => S");
                 anim.SetInteger("Direction", 0);
             }
             if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
-                //Debug.Log("Now key code => D");
                 anim.SetInteger("Direction", 3);
             }
 
@@ -119,13 +117,10 @@ public class MonsterMovements : MonoBehaviour
             myRigidbody.velocity = previousVelocity;
             isMoving = false;
 
-
         }
 
 
     }
 
-   
-   
 }
 
