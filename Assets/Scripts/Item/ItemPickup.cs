@@ -7,8 +7,11 @@ public class ItemPickup : InteractiveObject
     public Item item;
     public override void Interact()
     {
+        Debug.Log("pick up");
         base.Interact();
         pickUp();
+
+
     }
     void pickUp()
     {

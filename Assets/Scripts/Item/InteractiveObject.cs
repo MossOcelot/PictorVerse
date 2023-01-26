@@ -15,7 +15,7 @@ public class InteractiveObject : MonoBehaviour
     {
         Transform player = GameObject.FindGameObjectWithTag("Player").transform;
         float distance = Vector3.Distance(player.position, interactItem.position);
-        if (distance <= radius && !hasInteract)
+        if (distance <= radius && !hasInteract && Input.GetKeyDown(KeyCode.F))
         {
             hasInteract = true;
             Interact();
