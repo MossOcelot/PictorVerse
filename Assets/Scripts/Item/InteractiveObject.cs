@@ -6,15 +6,16 @@ public class InteractiveObject : MonoBehaviour
 {
     // Start is called before the first frame update
     public float radius = 3f; //initial distance of interact
-    public Transform player;
+   
     public Transform interactItem;
     bool hasInteract = false; // check if touching an item
 
     // Update is called once per frame
     void Update()
     {
+        Transform player = GameObject.FindGameObjectWithTag("Player").transform;
         float distance = Vector3.Distance(player.position, interactItem.position);
-        if (distance <= radius && !hasInteract)
+        if (distance <= radius && !hasInteract && Input.GetKeyDown(KeyCode.F))
         {
             hasInteract = true;
             Interact();

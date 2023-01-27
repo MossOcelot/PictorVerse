@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerStatus status;
     private Rigidbody2D rb;
     public Animator animator;
-
+    
     public float walk_distance = 0;
     private bool iswalk;
 
@@ -35,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerposition = transform.position;
     }
-
 
     private void Update()
     {

@@ -5,15 +5,12 @@ using UnityEngine;
 public class CanvasUI : MonoBehaviour
 {
     public GameObject inventoryUI;
-    public GameObject MainUI;
-    //public Transform itemParents;
-    //Inventory inventory;
+    public GameObject invOnscreen;
 
-    // Start is called before the first frame update
     void Start()
     {
         inventoryUI.SetActive(!inventoryUI.activeSelf);
-        MainUI.SetActive(MainUI.activeSelf);
+        invOnscreen.SetActive(invOnscreen.activeSelf);
     }
 
     // Update is called once per frame
@@ -22,11 +19,7 @@ public class CanvasUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
         {
             inventoryUI.SetActive(!inventoryUI.activeSelf);
-            MainUI.SetActive(!MainUI.activeSelf);
+            invOnscreen.SetActive(!invOnscreen.activeSelf);
         }
-        //if (Input.GetKeyDown(KeyCode.M))
-        //{
-        //    MainUI.SetActive(!MainUI.activeSelf);
-        //}
     }
 }
