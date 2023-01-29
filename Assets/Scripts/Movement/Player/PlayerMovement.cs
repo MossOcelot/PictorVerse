@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
 
     Vector2 movement;
 
+    
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -88,7 +90,9 @@ public class PlayerMovement : MonoBehaviour
     private void useEnergy(int energy)
     {
         status.setEnergy(-energy);
-        status.static_useEnergy += energy;
+        int energy_static = status.getMyStatic()["static_useEnergy"] + energy;
+        status.setMyStatic(0, energy_static);
     }
 
+    
 }
