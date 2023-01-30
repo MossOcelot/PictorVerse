@@ -22,6 +22,9 @@ public class Shop_manager : MonoBehaviour
     private int total;
 
     [SerializeField]
+    private int sell_price;
+
+    [SerializeField]
     GameObject buyshelf;
     public GameObject shoppingCartShelf;
     [SerializeField]
@@ -53,6 +56,11 @@ public class Shop_manager : MonoBehaviour
             this.total = value; 
         }
     }
+
+    public void changeSellPrice(int value)
+    {
+        this.sell_price = value;
+    }
     public List<InventoryItem> getPlayerSelectItems()
     {
         return this.player_select_items;
@@ -63,7 +71,7 @@ public class Shop_manager : MonoBehaviour
         this.player_select_items.Clear();
     }
 
-    Color32 stick_tags(string rarity)
+    public Color32 stick_tags(string rarity)
     {
         if (rarity == "common")
         {
@@ -84,6 +92,8 @@ public class Shop_manager : MonoBehaviour
         return item_tag[0];
     }
 
+
+    // Buy Shelf
     public void OrganizeItem()
     {
         List<InventoryItem> items = npc.gameObject.GetComponent<NPC_Shop>().getBuy_items_list();

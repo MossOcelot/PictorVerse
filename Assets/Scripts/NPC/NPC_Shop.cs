@@ -71,6 +71,7 @@ public class NPC_Shop : MonoBehaviour
             shop.transform.GetChild(0).gameObject.GetComponent<Shop_manager>().player = target.gameObject;
             shop.transform.GetChild(0).gameObject.GetComponent<Shop_manager>().npc = gameObject;
             shop.transform.GetChild(0).gameObject.GetComponent<Shop_manager>().OrganizeItem();
+            shop.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = NPC_status.npc_img;
             cofirmBtn = shop.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.transform.GetChild(18).gameObject.GetComponent<Button>();
             cofirmBtn.AddEventListener(target.gameObject, OnShopConfirmBuy);
         }
@@ -95,13 +96,15 @@ public class NPC_Shop : MonoBehaviour
         List<InventoryItem> playerItems = back_shop.getPlayerSelectItems();
         foreach(InventoryItem item in playerItems )
         {
+            InventoryItem new_item = item.ChangeOwner(status.name);
+
             // update stock
             int len_buy_item_list = buy_items_list.Count;
             for(int i = 0; i < len_buy_item_list; i++)
             {
-                if (buy_items_list[i].item.item_id == item.item.item_id)
+                if (buy_items_list[i].item.item_id == new_item.item.item_id)
                 {
-                    int remain = buy_items_list[i].quantity - item.quantity;
+                    int remain = buy_items_list[i].quantity - new_item.quantity;
                     buy_items_list[i] = buy_items_list[i].ChangeQuantity(remain);
 
                     back_shop.UpdateQuatityItem(i, remain);
@@ -111,7 +114,7 @@ public class NPC_Shop : MonoBehaviour
             // item in bag player
             if (status.getBag().Count == 0)
             {
-                status.addItemInBag(item);
+                status.addItemInBag(new_item);
                 continue;
             }
 
@@ -119,17 +122,17 @@ public class NPC_Shop : MonoBehaviour
             int n = 0;
             for (int i = 0; i < len_ItemBag; i++)
             {
-                if (status.getBag()[i].item.item_id == item.item.item_id)
+                if (status.getBag()[i].item.item_id == new_item.item.item_id)
                 {
                     // not have over stack function
-                    int newQuantity = status.getBag()[i].quantity + item.quantity;
+                    int newQuantity = status.getBag()[i].quantity + new_item.quantity;
                     InventoryItem updateItem = status.getBag()[i].ChangeQuantity(newQuantity);
                     status.setItemInBag(i, updateItem);
                     n += 1;
                 }
             }
             if (n == 0) {
-                status.addItemInBag(item);
+                status.addItemInBag(new_item);
             }
         }
         back_shop.clearPlayerSelectItem();

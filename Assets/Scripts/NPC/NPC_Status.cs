@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class NPC_Status : MonoBehaviour
 {
+    public Sprite npc_img;
     public int npc_id => GetInstanceID();
     public string npc_name;
     [SerializeField]

@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7882264635300423266
 SpriteRenderer:
@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1f57ff81f770544497ea47a9019b953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  npc_img: {fileID: 7882264635300423266}
   npc_name: 10
   birthday: 10101
   live_place: 10

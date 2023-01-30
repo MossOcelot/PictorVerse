@@ -22,6 +22,7 @@ public class Item : ScriptableObject
     [SerializeField]
     public rarity_type rarity;
     [SerializeField]
+    public float weight;
     [field: TextArea]
     public string description;
     

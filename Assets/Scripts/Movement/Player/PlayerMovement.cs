@@ -1,11 +1,16 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    // กำหนด LayerMask
+    public LayerMask interactableLayer;
+
+    public float defaultMoveSpeed = 5f;
+    private float moveSpeed;
+    private bool isMoving;
 
     [SerializeField]
     private PlayerStatus status;
@@ -31,33 +36,51 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         Movement();
-        if (movement.x != 0 || movement.y != 0) { 
+        if (movement.x != 0 || movement.y != 0)
+        {
             iswalk = true;
-        } else
+            isMoving = true;
+
+        }
+        else
         {
             iswalk = false;
+            isMoving = false;
+
         }
         count_distance_for_walk();
+        //Set การหยุดหรือไม่หยุดของ Animation
+        animator.SetBool("isMoving", isMoving);
     }
 
-    
+
     private void Movement()
     {
         int energy = status.getEnergy();
         if (energy == 0)
         {
             moveSpeed = 1f;
-        } else
-        {
-            moveSpeed = 5f;
         }
+        else
+        {
+            moveSpeed = defaultMoveSpeed;
+        }
+
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
+
+        //หันหน้า
+        if (movement != Vector2.zero)
+        {
+            animator.SetFloat("moveX", movement.x);
+            animator.SetFloat("moveY", movement.y);
+
+        }
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+
         AnimationMovement();
-        
-        
+
     }
     private void AnimationMovement()
     {

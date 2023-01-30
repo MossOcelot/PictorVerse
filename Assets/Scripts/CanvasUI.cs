@@ -6,13 +6,11 @@ public class CanvasUI : MonoBehaviour
 {
     public GameObject inventoryUI;
     public GameObject invOnscreen;
-    public GameObject saleInterface;
 
     void Start()
     {
         inventoryUI.SetActive(!inventoryUI.activeSelf);
         invOnscreen.SetActive(invOnscreen.activeSelf);
-        saleInterface.SetActive(!saleInterface.activeSelf);
     }
 
     // Update is called once per frame
@@ -22,11 +20,6 @@ public class CanvasUI : MonoBehaviour
         {
             inventoryUI.SetActive(!inventoryUI.activeSelf);
             invOnscreen.SetActive(!invOnscreen.activeSelf);
-        }
-        else if (Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.Log("sale");
-            saleInterface.SetActive(!saleInterface.activeSelf);
         }
     }
 }
