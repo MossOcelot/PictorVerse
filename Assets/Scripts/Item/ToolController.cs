@@ -22,6 +22,7 @@ public class ToolController : MonoBehaviour
         {
             UseTool();
         }
+       
     }
 
     private void UseTool()
@@ -31,11 +32,18 @@ public class ToolController : MonoBehaviour
 
         foreach (Collider2D c in coliders)
         {
-            Tool hit = c.GetComponent<Tool>();
-            if (hit != null)
+            if (c.tag == "ItemCutD")
             {
-                hit.Hit();
-                break;
+                Tool hit = c.GetComponent<Tool>();
+                if (hit != null)
+                {
+                    hit.Hit();
+                    break;
+                }
+            }
+            else
+            {
+                Debug.Log("OUT");
             }
         }
     }
