@@ -13,6 +13,7 @@ public class PlayerStatus : MonoBehaviour
         public int static_spendBuy;
     };
 
+    public int player_id => GetInstanceID();
     [SerializeField]
     private string playername;
     [SerializeField]
@@ -44,7 +45,10 @@ public class PlayerStatus : MonoBehaviour
     {
         return this.cash;
     }
-
+    public List<InventoryItem> getItemInBag()
+    {
+        return this.myBag;
+    }
     public void addItemInBag(InventoryItem newitem) 
     { 
         this.myBag.Add(newitem);
@@ -54,7 +58,10 @@ public class PlayerStatus : MonoBehaviour
     {
         this.myBag[index] = item;
     }
-
+    public void deleteItemInBag(InventoryItem item)
+    {
+        this.myBag.Remove(item);
+    }
     public Dictionary<string, int> getMyStatic()
     {
         return new Dictionary<string, int>
@@ -77,16 +84,6 @@ public class PlayerStatus : MonoBehaviour
         {
             this.myStatic.static_spendVAT = value;
         }
-    }
-
-    public void deleteItemInBag(InventoryItem item)
-    {
-        this.myBag.Remove(item);
-    }
-
-    public List<InventoryItem> getBag()
-    {
-        return this.myBag;
     }
 
     private void Update()

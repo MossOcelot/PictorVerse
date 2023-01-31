@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2849445946001014848}
   - component: {fileID: 7733659612588439163}
   - component: {fileID: 7180987515779447496}
-  - component: {fileID: 5327046677759896055}
   - component: {fileID: 743252879643754035}
+  - component: {fileID: 5327046677759896055}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -156,26 +156,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8313191, y: 3.67062}
   m_EdgeRadius: 0
---- !u!114 &5327046677759896055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5367514012540739305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaae5fca62fb9424691cc563f2520393, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  defaultMoveSpeed: 5
-  status: {fileID: 743252879643754035}
-  animator: {fileID: 2849445946001014848}
-  walk_distance: 0
-  energy_for_walk: 5
 --- !u!114 &743252879643754035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,3 +177,23 @@ MonoBehaviour:
     static_useEnergy: 0
     static_spendVAT: 0
     static_spendBuy: 0
+--- !u!114 &5327046677759896055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5367514012540739305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaae5fca62fb9424691cc563f2520393, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  defaultMoveSpeed: 5
+  status: {fileID: 743252879643754035}
+  animator: {fileID: 2849445946001014848}
+  walk_distance: 0
+  energy_for_walk: 5

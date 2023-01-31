@@ -14,12 +14,12 @@ public class NPC_Shop : MonoBehaviour
     private List<InventoryItem> buy_items_list;
     [SerializeField]
     private List<InventoryItem> resource;
-
+    public List<string> product_type;
     [SerializeField] 
     private Transform shop_manager;
     [SerializeField]
     private GameObject myshop;
-
+    
     public int VAT;
 
     GameObject shop;
@@ -61,6 +61,28 @@ public class NPC_Shop : MonoBehaviour
     public List<InventoryItem> getResource()
     {
         return this.resource;
+    }
+
+    public void setFinancial_detail(string command, int value)
+    {
+        if (command == "balance")
+        {
+            this.financial_shop_detail.balance = value;
+        }
+        else if (command == "debt")
+        {
+            this.financial_shop_detail.debt = value;
+        }
+    }
+
+    public int GetFinancial_balance()
+    {
+        return this.financial_shop_detail.balance;
+    }
+
+    public int GetFinancial_debt()
+    {
+        return this.financial_shop_detail.debt;
     }
 
     private void OnTriggerEnter2D(Collider2D target)
@@ -112,21 +134,21 @@ public class NPC_Shop : MonoBehaviour
                 }
             }
             // item in bag player
-            if (status.getBag().Count == 0)
+            if (status.getItemInBag().Count == 0)
             {
                 status.addItemInBag(new_item);
                 continue;
             }
 
-            int len_ItemBag = status.getBag().Count;
+            int len_ItemBag = status.getItemInBag().Count;
             int n = 0;
             for (int i = 0; i < len_ItemBag; i++)
             {
-                if (status.getBag()[i].item.item_id == new_item.item.item_id)
+                if (status.getItemInBag()[i].item.item_id == new_item.item.item_id)
                 {
                     // not have over stack function
-                    int newQuantity = status.getBag()[i].quantity + new_item.quantity;
-                    InventoryItem updateItem = status.getBag()[i].ChangeQuantity(newQuantity);
+                    int newQuantity = status.getItemInBag()[i].quantity + new_item.quantity;
+                    InventoryItem updateItem = status.getItemInBag()[i].ChangeQuantity(newQuantity);
                     status.setItemInBag(i, updateItem);
                     n += 1;
                 }

@@ -1,6 +1,8 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.AccessControl;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
@@ -12,6 +14,8 @@ public class Shop_manager : MonoBehaviour
 
     [SerializeField]
     private List<InventoryItem> player_select_items;
+    [SerializeField]
+    private List<InventoryItem> player_sell_items;
     public Color32[] item_tag;
 
     [SerializeField]
@@ -24,18 +28,26 @@ public class Shop_manager : MonoBehaviour
     [SerializeField]
     private int sell_price;
 
-    [SerializeField]
-    GameObject buyshelf;
+    public GameObject buyshelf;
     public GameObject shoppingCartShelf;
+    public GameObject SellShelf;
+    [SerializeField]
+    GameObject BagInventoryItems;
     [SerializeField]
     GameObject buyCardTemplate;
     [SerializeField]
     GameObject CartCardTemplate;
+    [SerializeField]
+    GameObject ItemBoxTemplate;
     GameObject buy_item_card;
     GameObject shoppingCartCard;
+    GameObject ItemBag;
+    GameObject SellItem;
 
     Button selectBtn;
     Button removeBtn;
+    Button selectSellBtn;
+    Button removeSellBtn;
     float VAT;
 
     public int[] getAccounts()
@@ -57,6 +69,10 @@ public class Shop_manager : MonoBehaviour
         }
     }
 
+    public int getSellPrice()
+    {
+        return this.sell_price;
+    }
     public void changeSellPrice(int value)
     {
         this.sell_price = value;
@@ -70,6 +86,17 @@ public class Shop_manager : MonoBehaviour
     {
         this.player_select_items.Clear();
     }
+
+    public List<InventoryItem> getPlayerSellItems()
+    {
+        return this.player_sell_items;
+    }
+
+    public void clearPlayerSellItems()
+    {
+        this.player_sell_items.Clear();
+    }
+
 
     public Color32 stick_tags(string rarity)
     {
@@ -210,6 +237,129 @@ public class Shop_manager : MonoBehaviour
                 Destroy(shoppingCartShelf.gameObject.transform.GetChild(i).gameObject);
 
                 buyshelf.gameObject.transform.GetChild(itemIndex).gameObject.GetComponent<Button>().interactable = true;
+                return;
+            }
+        }
+    }
+
+    // OnUnpackPlayerBag
+    public void OnUnpackingPlayerBag()
+    {
+        List<InventoryItem> player_items = player.gameObject.GetComponent<PlayerStatus>().getItemInBag();
+
+        int len_items = player_items.Count;
+        int n_item = 0;
+        for (int i = 0; i < len_items; i++)
+        {
+            foreach(string type in npc.gameObject.GetComponent<NPC_Shop>().product_type)
+            {
+                if (player_items[i].item.item_type == type)
+                {
+                    ItemBag = Instantiate(ItemBoxTemplate, BagInventoryItems.transform.GetChild(n_item).gameObject.transform);
+                    ItemBag.gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = player_items[i].item.icon;
+                    ItemBag.gameObject.transform.GetChild(1).gameObject.GetComponent<Text>().text = player_items[i].quantity.ToString();
+                    selectSellBtn = ItemBag.gameObject.GetComponent<Button>();
+                    selectSellBtn.AddEventListener(new int[] { i, n_item } ,OnClickChooseSell);
+                    n_item++;
+                }
+            }
+           
+        }
+    }
+
+    void checkQuantityItemPlayerSell(int playerQuantity, int sellQuantity,int indexItemInBag)
+    {
+        if(playerQuantity == sellQuantity)
+        {
+            BagInventoryItems.transform.GetChild(indexItemInBag).gameObject.transform.GetChild(0).gameObject.GetComponent<Button>().interactable = false;
+        }
+
+        BagInventoryItems.gameObject.transform.GetChild(indexItemInBag).gameObject.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.GetComponent<Text>().text = (sellQuantity - playerQuantity).ToString();
+    }
+    void OnClickChooseSell(int[] indexItem)
+    {
+        List<InventoryItem> player_items = player.gameObject.GetComponent<PlayerStatus>().getItemInBag();
+
+        int len = player_sell_items.Count;
+        if (len == 0)
+        {
+            InventoryItem firstItem = player_items[indexItem[0]].ChangeQuantity(1);
+            player_sell_items.Add(firstItem);
+
+            sell_price += firstItem.price; // fix percent ·°È‰¢∑’À≈—ß
+
+            checkQuantityItemPlayerSell(player_sell_items[0].quantity, player_items[indexItem[0]].quantity, indexItem[1]);
+            
+
+            SellItem = Instantiate(CartCardTemplate, SellShelf.transform);
+
+            SellItem.gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().color = stick_tags(player_items[indexItem[0]].item.rarity.ToString());
+            SellItem.gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = player_items[indexItem[0]].item.icon;
+            SellItem.gameObject.transform.GetChild(2).gameObject.GetComponent<Text>().text = player_items[indexItem[0]].item.name;
+            SellItem.gameObject.transform.GetChild(4).gameObject.GetComponent<Text>().text = player_items[indexItem[0]].price.ToString();
+            SellItem.gameObject.transform.GetChild(6).gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().text = "1";
+            removeSellBtn = SellItem.gameObject.GetComponent<Button>();
+            removeSellBtn.AddEventListener(indexItem, OnClickRemoveSellItem);
+
+            
+            // btn
+
+            return;
+        }
+        
+        for (int i = 0; i < len; i++)
+        {
+            if (player_sell_items[i].item.item_id == player_items[indexItem[0]].item.item_id)
+            {
+                int newquantity = player_sell_items[i].quantity + 1;
+                player_sell_items[i] = player_sell_items[i].ChangeQuantity(newquantity);
+
+                sell_price += player_sell_items[i].price;
+
+                checkQuantityItemPlayerSell(player_sell_items[i].quantity, player_items[indexItem[0]].quantity, indexItem[1]);
+                // update quantity in sellshelf UI
+                SellShelf.gameObject.transform.GetChild(i).gameObject.transform.GetChild(6).gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().text = newquantity.ToString();
+                return;
+            }
+        }
+
+
+        InventoryItem newItem = player_items[indexItem[0]].ChangeQuantity(1);
+        player_sell_items.Add(newItem);
+
+        sell_price += newItem.price;
+        checkQuantityItemPlayerSell(player_sell_items[len].quantity, player_items[indexItem[0]].quantity, indexItem[1]);
+        SellItem = Instantiate(CartCardTemplate, SellShelf.transform);
+
+        SellItem.gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().color = stick_tags(player_items[indexItem[0]].item.rarity.ToString());
+        SellItem.gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = player_items[indexItem[0]].item.icon;
+        SellItem.gameObject.transform.GetChild(2).gameObject.GetComponent<Text>().text = player_items[indexItem[0]].item.name;
+        SellItem.gameObject.transform.GetChild(4).gameObject.GetComponent<Text>().text = player_items[indexItem[0]].price.ToString();
+        SellItem.gameObject.transform.GetChild(6).gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().text = "1";
+        removeSellBtn = SellItem.gameObject.GetComponent<Button>();
+        removeSellBtn.AddEventListener(indexItem, OnClickRemoveSellItem);
+        // btn
+    }
+
+    void OnClickRemoveSellItem(int[] indexItem)
+    {
+        InventoryItem player_item = player.gameObject.GetComponent<PlayerStatus>().getItemInBag()[indexItem[0]];
+
+        int len = player_sell_items.Count;
+        for (int i = 0; i < len; i++)
+        {
+            if (player_item.item.item_id == player_sell_items[i].item.item_id)
+            {
+                sell_price -= (player_sell_items[i].price * player_sell_items[i].quantity);
+
+                player_sell_items.Remove(player_sell_items[i]);
+
+                BagInventoryItems.transform.GetChild(indexItem[1]).gameObject.transform.GetChild(0).gameObject.GetComponent<Button>().interactable = true;
+
+                BagInventoryItems.gameObject.transform.GetChild(indexItem[1]).gameObject.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.GetComponent<Text>().text = player_item.quantity.ToString();
+
+                Destroy(SellShelf.gameObject.transform.GetChild(i).gameObject);
+                return;
             }
         }
     }

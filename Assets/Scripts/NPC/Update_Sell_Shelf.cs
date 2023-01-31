@@ -1,0 +1,92 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Update_Sell_Shelf : MonoBehaviour
+{
+    [SerializeField]
+    private GameObject background;
+    [SerializeField]
+    private Text total_text;
+    [SerializeField]
+    private GameObject sellShelf;
+    Button confirm_sell;
+    int total_value;
+    // Start is called before the first frame update
+    void Start()
+    {
+        confirm_sell = gameObject.GetComponent<Button>();
+        confirm_sell.AddEventListener(1, OnClickConfirmSell);
+    }
+
+    private void FixedUpdate()
+    {
+        total_value = (int)((float)background.GetComponent<Shop_manager>().getSellPrice() * 0.7f);
+        total_text.text = total_value.ToString();
+    }
+
+    void OnClickConfirmSell(int indexItem)
+    {
+        Shop_manager SM = background.gameObject.GetComponent<Shop_manager>();
+        NPC_Shop NS = SM.npc.gameObject.GetComponent<NPC_Shop>();
+        List<InventoryItem> buy_item_list = SM.npc.gameObject.GetComponent<NPC_Shop>().getBuy_items_list();
+        List<InventoryItem> playerBag = SM.player.gameObject.GetComponent<PlayerStatus>().getItemInBag();
+
+        SM.changeSellPrice(0);
+
+        foreach (InventoryItem item in SM.getPlayerSellItems())
+        {
+            InventoryItem new_item = item.ChangeOwner("NPC");
+
+            // update stock player
+            int len_Item_InBag = playerBag.Count;
+            for (int i = 0; i < len_Item_InBag; i++)
+            {
+                if (playerBag[i].item.item_id == new_item.item.item_id)
+                {
+                    int remain = playerBag[i].quantity - new_item.quantity;
+                    if (remain == 0)
+                    {
+                        background.gameObject.GetComponent<Shop_manager>().player.gameObject.GetComponent<PlayerStatus>().deleteItemInBag(playerBag[i]);
+                    } 
+                    else
+                    {
+                        playerBag[i] = playerBag[i].ChangeQuantity(remain);
+                    }
+
+                    // Update
+                    int newCash = SM.player.gameObject.GetComponent<PlayerStatus>().getCash() + total_value;
+                    SM.player.gameObject.GetComponent<PlayerStatus>().changeCash(newCash);
+                    break;
+                }
+            }
+
+            // Update item NPC
+            int len_buy_item_list = buy_item_list.Count;
+            for (int i = 0; i < len_buy_item_list; i++)
+            {
+                if (buy_item_list[i].item.item_id == new_item.item.item_id)
+                {
+                    int remain = buy_item_list[i].quantity + new_item.quantity;
+                    buy_item_list[i] = buy_item_list[i].ChangeQuantity(remain);
+
+                    int newbalance = NS.GetFinancial_balance() - total_value;
+                    NS.setFinancial_detail("balance", newbalance);
+                    break;
+                }
+            }
+        }
+
+        // clear sell shelf
+        SM.clearPlayerSellItems();
+        int len = sellShelf.transform.childCount;
+        for (int i = 0; i < len; i++)
+        {
+            Destroy(sellShelf.transform.GetChild(i).gameObject);
+        }
+
+        
+
+    }
+}
