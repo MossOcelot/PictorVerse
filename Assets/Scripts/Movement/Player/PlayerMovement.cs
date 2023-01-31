@@ -5,6 +5,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    public Vector2 lastPos;
     // กำหนด LayerMask
     public LayerMask interactableLayer;
 
@@ -56,6 +58,11 @@ public class PlayerMovement : MonoBehaviour
         count_distance_for_walk();
         //Set การหยุดหรือไม่หยุดของ Animation
         animator.SetBool("isMoving", isMoving);
+
+        if(Input.GetAxisRaw("Horizontal")!=0 || Input.GetAxisRaw("Vertical") != 0)
+        {
+            lastPos = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        }
 
     }
 
