@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class Update_Sell_Shelf : MonoBehaviour
     private Text total_text;
     [SerializeField]
     private GameObject sellShelf;
+    [SerializeField]
+    private GameObject InventoryBag;
     Button confirm_sell;
     int total_value;
     // Start is called before the first frame update
@@ -55,12 +58,12 @@ public class Update_Sell_Shelf : MonoBehaviour
                         playerBag[i] = playerBag[i].ChangeQuantity(remain);
                     }
 
-                    // Update
-                    int newCash = SM.player.gameObject.GetComponent<PlayerStatus>().getCash() + total_value;
-                    SM.player.gameObject.GetComponent<PlayerStatus>().changeCash(newCash);
+
                     break;
                 }
             }
+
+
 
             // Update item NPC
             int len_buy_item_list = buy_item_list.Count;
@@ -71,12 +74,28 @@ public class Update_Sell_Shelf : MonoBehaviour
                     int remain = buy_item_list[i].quantity + new_item.quantity;
                     buy_item_list[i] = buy_item_list[i].ChangeQuantity(remain);
 
-                    int newbalance = NS.GetFinancial_balance() - total_value;
-                    NS.setFinancial_detail("balance", newbalance);
+                    
                     break;
                 }
             }
         }
+
+        // get date time
+        int[] dateTime = GetDateTime();
+
+        // Update cash Player
+        int newCash = SM.player.gameObject.GetComponent<PlayerStatus>().getCash() + total_value;
+        SM.player.gameObject.GetComponent<PlayerStatus>().changeCash(newCash);
+        // Update Accounts Player
+        AccountsDetail account_player = new AccountsDetail() { date= dateTime, accounts_name="sell items", account_type="sell", income= total_value, expense=0};
+        background.gameObject.GetComponent<Shop_manager>().player.gameObject.GetComponent<PlayerStatus>().addAccountsDetails(account_player);
+
+        // update cash NPC
+        int newbalance = NS.GetFinancial_balance() - total_value;
+        NS.setFinancial_detail("balance", newbalance);
+        // Update Accounts Player
+        AccountsDetail account_NPC = new AccountsDetail() { date = dateTime, accounts_name = "buy items", account_type = "buy", income = 0, expense = total_value };
+        background.gameObject.GetComponent<Shop_manager>().npc.gameObject.GetComponent<NPC_Shop>().addAccountsDetails(account_NPC);
 
         // clear sell shelf
         SM.clearPlayerSellItems();
@@ -86,7 +105,19 @@ public class Update_Sell_Shelf : MonoBehaviour
             Destroy(sellShelf.transform.GetChild(i).gameObject);
         }
 
-        
 
+        // update InventoryBag
+        int len_item = background.gameObject.GetComponent<Shop_manager>().n_item;
+        for (int i = 0;i < len_item; i++)
+        {
+            Destroy(InventoryBag.gameObject.transform.GetChild(i).gameObject.transform.GetChild(0).gameObject);
+        }
+        background.gameObject.GetComponent<Shop_manager>().OnUnpackingPlayerBag();
+    }
+
+    int[] GetDateTime()
+    {
+        Timesystem date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+        return date.getDateTime();
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,8 +19,10 @@ public class NPC_Shop : MonoBehaviour
     [SerializeField] 
     private Transform shop_manager;
     [SerializeField]
-    private GameObject myshop;
-    
+    private GameObject myshop; 
+    [SerializeField]
+    private List<AccountsDetail> accountsDetails;
+
     public int VAT;
 
     GameObject shop;
@@ -83,6 +86,16 @@ public class NPC_Shop : MonoBehaviour
     public int GetFinancial_debt()
     {
         return this.financial_shop_detail.debt;
+    }
+
+    public List<AccountsDetail> getAccountsDetails()
+    {
+        return this.accountsDetails;
+    }
+
+    public void addAccountsDetails(AccountsDetail account)
+    {
+        this.accountsDetails.Insert(0, account);
     }
 
     private void OnTriggerEnter2D(Collider2D target)
@@ -165,7 +178,19 @@ public class NPC_Shop : MonoBehaviour
             Destroy(back_shop.shoppingCartShelf.transform.GetChild(i).gameObject);
         }
 
-        financial_shop_detail.balance += (total - vat_value);
+        int price = total - vat_value;
+        financial_shop_detail.balance += price;
+
+        // get date time
+        Timesystem date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+        int[] dateTime = date.getDateTime();
+
+        // Update Accounts Player
+        AccountsDetail account_Player = new AccountsDetail() { date = dateTime, accounts_name = "buy items", account_type = "buy", income = 0, expense = total };
+        player.gameObject.GetComponent<PlayerStatus>().addAccountsDetails(account_Player);
+        // Update Accounts NPC
+        AccountsDetail account_NPC = new AccountsDetail() { date = dateTime, accounts_name = "sell items", account_type = "sell", income = price, expense =  0};
+        addAccountsDetails(account_NPC);
         // clearAccountShop
         back_shop.changeAccount("price",0);
         back_shop.changeAccount("vat_value", 0);

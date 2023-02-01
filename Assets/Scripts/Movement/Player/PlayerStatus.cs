@@ -25,6 +25,8 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField]
     private List<InventoryItem> myBag;
     [SerializeField]
+    private List<AccountsDetail> accountsDetails;
+    [SerializeField]
     private StaticValue myStatic;
     public void setEnergy(int useEnergy)
     {
@@ -84,6 +86,16 @@ public class PlayerStatus : MonoBehaviour
         {
             this.myStatic.static_spendVAT = value;
         }
+    }
+
+    public List<AccountsDetail> getAccountsDetails()
+    {
+        return this.accountsDetails;
+    }
+
+    public void addAccountsDetails(AccountsDetail account)
+    {
+        this.accountsDetails.Insert(0, account);
     }
 
     private void Update()

@@ -15,6 +15,8 @@ public class NPC_Status : MonoBehaviour
 
     [SerializeField]
     private Financial_Details financial_detail;
+    [SerializeField]
+    private List<AccountsDetail> accountsDetails;
     public List<Asset> assets;
     public void setFinancial_detail(string command,int value)
     {
@@ -35,5 +37,15 @@ public class NPC_Status : MonoBehaviour
     public int GetFinancial_debt()
     {
         return this.financial_detail.debt;
+    }
+
+    public List<AccountsDetail> getAccountsDetails()
+    {
+        return this.accountsDetails;
+    }
+
+    public void addAccountsDetails(AccountsDetail account)
+    {
+        this.accountsDetails.Insert(0, account);
     }
 }

@@ -49,7 +49,7 @@ public class Shop_manager : MonoBehaviour
     Button selectSellBtn;
     Button removeSellBtn;
     float VAT;
-
+    public int n_item;
     public int[] getAccounts()
     {
         return new int[] { price, vat_value, total };
@@ -248,7 +248,7 @@ public class Shop_manager : MonoBehaviour
         List<InventoryItem> player_items = player.gameObject.GetComponent<PlayerStatus>().getItemInBag();
 
         int len_items = player_items.Count;
-        int n_item = 0;
+        n_item = 0;
         for (int i = 0; i < len_items; i++)
         {
             foreach(string type in npc.gameObject.GetComponent<NPC_Shop>().product_type)
@@ -285,11 +285,9 @@ public class Shop_manager : MonoBehaviour
         {
             InventoryItem firstItem = player_items[indexItem[0]].ChangeQuantity(1);
             player_sell_items.Add(firstItem);
-
-            sell_price += firstItem.price; // fix percent ·°È‰¢∑’À≈—ß
+            sell_price += firstItem.price;
 
             checkQuantityItemPlayerSell(player_sell_items[0].quantity, player_items[indexItem[0]].quantity, indexItem[1]);
-            
 
             SellItem = Instantiate(CartCardTemplate, SellShelf.transform);
 
@@ -300,9 +298,6 @@ public class Shop_manager : MonoBehaviour
             SellItem.gameObject.transform.GetChild(6).gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().text = "1";
             removeSellBtn = SellItem.gameObject.GetComponent<Button>();
             removeSellBtn.AddEventListener(indexItem, OnClickRemoveSellItem);
-
-            
-            // btn
 
             return;
         }
