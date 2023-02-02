@@ -1,14 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class PlayerMovement : MonoBehaviour
 {
     // กำหนด LayerMask
     public LayerMask interactableLayer;
 
-    public float defaultMoveSpeed = 5f;
+    [SerializeField]
+    private float defaultMoveSpeed = 5f;
+    float realMoveSpeed;
+    [SerializeField]
     private float moveSpeed;
     private bool isMoving;
 
@@ -22,6 +25,10 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private int energy_for_walk;
+    [SerializeField]
+    private float strength;
+    [SerializeField]
+    private float weight_player;
     Vector2 playerposition;
 
     Vector2 movement;
@@ -32,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerposition = transform.position;
+        realMoveSpeed = defaultMoveSpeed;
     }
     private void Update()
     {
@@ -57,13 +65,16 @@ public class PlayerMovement : MonoBehaviour
     private void Movement()
     {
         int energy = status.getEnergy();
+
+        checkWeightPerStrength();
+
         if (energy == 0)
         {
             moveSpeed = 1f;
         }
         else
         {
-            moveSpeed = defaultMoveSpeed;
+            moveSpeed = realMoveSpeed;
         }
 
         movement.x = Input.GetAxisRaw("Horizontal");
@@ -117,5 +128,41 @@ public class PlayerMovement : MonoBehaviour
         status.setMyStatic(0, energy_static);
     }
 
-    
+    private float getWeightItem()
+    {
+        float weight = 0;
+        List<InventoryItem> myItems = status.getItemInBag();
+        foreach (InventoryItem item in myItems)
+        {
+            weight += (item.item.weight * item.quantity);
+        }
+
+        return weight;
+    }
+
+    private void checkWeightPerStrength()
+    {
+        weight_player = getWeightItem();
+        float weight_per_strength = (weight_player / (strength * 0.1f)) * 100; // ระบบ weight player
+        Debug.Log(weight_player+ " " + weight_per_strength);
+        if (weight_per_strength > 90f)
+        {
+            realMoveSpeed = defaultMoveSpeed * 0.1f;
+        } else if (weight_per_strength > 80f)
+        {
+            realMoveSpeed = defaultMoveSpeed * 0.25f;
+        } else if (weight_per_strength > 70f)
+        {
+            realMoveSpeed = defaultMoveSpeed * 0.35f;
+        } else if (weight_per_strength > 60f)
+        {
+            realMoveSpeed = defaultMoveSpeed * 0.45f;
+        } else if (weight_per_strength > 50f)
+        {
+            realMoveSpeed = defaultMoveSpeed * 0.55f;
+        } else
+        {
+            realMoveSpeed = defaultMoveSpeed;
+        }
+    }
 }
