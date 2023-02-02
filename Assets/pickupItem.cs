@@ -17,22 +17,29 @@ public class pickupItem : MonoBehaviour
     private void Update()
     {
         despawnTime -= Time.deltaTime;
-        if(despawnTime < 0)
+        if (despawnTime < 0)
         {
-            Destroy(gameObject);
+            if (gameObject != null)
+            {
+                Destroy(gameObject);
+            }
         }
 
         float distance = Vector3.Distance(transform.position, player.position);
 
-        if(distance > pickUpDistance)
+        if (distance > pickUpDistance)
         {
             return;
         }
         transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
 
-        if(distance < 0.1f)
+        if (distance < 0.1f)
         {
-            Destroy(gameObject);
+            if (gameObject != null)
+            {
+                Destroy(gameObject);
+                Debug.Log("Destroy");
+            }
         }
     }
 

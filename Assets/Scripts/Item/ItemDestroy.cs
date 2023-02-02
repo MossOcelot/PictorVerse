@@ -16,14 +16,20 @@ public class ItemDestroy : Tool
     void Start()
     {
         Hitpoints = MaxHitpoints;
-        HealthBar.SetHealth(Hitpoints, MaxHitpoints);
+        if (HealthBar != null)
+        {
+            HealthBar.SetHealth(Hitpoints, MaxHitpoints);
+        }
         timeBetweenHits = 10f;
     }
 
     public override void Hit()
     {
         Hitpoints -= 1;
-        HealthBar.SetHealth(Hitpoints, MaxHitpoints);
+        if (HealthBar != null)
+        {
+            HealthBar.SetHealth(Hitpoints, MaxHitpoints);
+        }
 
         if (Hitpoints <= 0)
         {
@@ -34,6 +40,10 @@ public class ItemDestroy : Tool
                 pos.x += spread * UnityEngine.Random.value - spread / 2;
                 pos.y += spread * UnityEngine.Random.value - spread / 2;
                 GameObject go = Instantiate(drop);
+                if (go == null)
+                {
+                    break;
+                }
                 go.transform.position = pos;
             }
             Destroy(gameObject);
@@ -52,6 +62,9 @@ public class ItemDestroy : Tool
         }
 
         Hitpoints = MaxHitpoints;
-        HealthBar.SetHealth(Hitpoints, MaxHitpoints);
+        if (HealthBar != null)
+        {
+            HealthBar.SetHealth(Hitpoints, MaxHitpoints);
+        }
     }
 }
