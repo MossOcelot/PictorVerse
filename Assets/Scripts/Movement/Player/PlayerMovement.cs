@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
@@ -17,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float moveSpeed;
     private bool isMoving;
-    [SerializeField]
     public float dashSpeed;
 
     [SerializeField]
@@ -52,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-       
         Movement();
         if (movement.x != 0 || movement.y != 0)
         {
@@ -79,13 +78,9 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.LeftShift))) 
         {
             isDashButtonDown = true;
-          
 
         }
-        else
-        {
 
-        }
     }
 
 
@@ -98,13 +93,8 @@ public class PlayerMovement : MonoBehaviour
             rb.MovePosition(transform.position + MoveDir * dashSpeed);
             isDashButtonDown = false;
 
-
         }
-        else
-        {
-            tr.emitting = false;
-
-        }
+        else{tr.emitting = false;}
     }
 
     private void Movement()
