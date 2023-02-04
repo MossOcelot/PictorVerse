@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private TrailRenderer tr;
     Vector2 playerposition;
 
+
     Vector2 movement;
 
     
@@ -47,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerposition = transform.position;
         realMoveSpeed = defaultMoveSpeed;
+      
     }
     private void Update()
     {
@@ -77,6 +79,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.LeftShift))) 
         {
             isDashButtonDown = true;
+          
+
+        }
+        else
+        {
+
         }
     }
 
@@ -90,10 +98,12 @@ public class PlayerMovement : MonoBehaviour
             rb.MovePosition(transform.position + MoveDir * dashSpeed);
             isDashButtonDown = false;
 
+
         }
         else
         {
             tr.emitting = false;
+
         }
     }
 
