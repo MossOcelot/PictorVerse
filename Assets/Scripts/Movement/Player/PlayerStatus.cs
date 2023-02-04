@@ -8,9 +8,9 @@ public class PlayerStatus : MonoBehaviour
     [System.Serializable]
     class StaticValue
     {
-        public int static_useEnergy;
-        public int static_spendVAT;
-        public int static_spendBuy;
+        public float static_useEnergy;
+        public float static_spendVAT;
+        public float static_spendBuy;
     };
 
     public int player_id => GetInstanceID();
@@ -21,7 +21,7 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField]
     private int energy;
     [SerializeField]
-    private int cash;
+    private float cash;
     [SerializeField]
     private List<InventoryItem> myBag;
     [SerializeField]
@@ -38,12 +38,12 @@ public class PlayerStatus : MonoBehaviour
         return this.energy;
     }
 
-    public void changeCash(int newCash)
+    public void changeCash(float newCash)
     {
         this.cash = newCash;
     }
 
-    public int getCash()
+    public float getCash()
     {
         return this.cash;
     }
@@ -64,9 +64,9 @@ public class PlayerStatus : MonoBehaviour
     {
         this.myBag.Remove(item);
     }
-    public Dictionary<string, int> getMyStatic()
+    public Dictionary<string, float> getMyStatic()
     {
-        return new Dictionary<string, int>
+        return new Dictionary<string, float>
         {
             {"static_useEnergy", this.myStatic.static_useEnergy },
             {"static_SpendBuy", this.myStatic.static_spendBuy },
@@ -74,7 +74,7 @@ public class PlayerStatus : MonoBehaviour
         };
     }
 
-    public void setMyStatic(int command, int value)
+    public void setMyStatic(int command, float value)
     {
         if (command == 0)
         {

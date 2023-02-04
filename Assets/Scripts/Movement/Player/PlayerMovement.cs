@@ -124,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
     private void useEnergy(int energy)
     {
         status.setEnergy(-energy);
-        int energy_static = status.getMyStatic()["static_useEnergy"] + energy;
+        float energy_static = status.getMyStatic()["static_useEnergy"] + energy;
         status.setMyStatic(0, energy_static);
     }
 

@@ -84,14 +84,14 @@ public class Update_Sell_Shelf : MonoBehaviour
         int[] dateTime = GetDateTime();
 
         // Update cash Player
-        int newCash = SM.player.gameObject.GetComponent<PlayerStatus>().getCash() + total_value;
+        float newCash = SM.player.gameObject.GetComponent<PlayerStatus>().getCash() + total_value;
         SM.player.gameObject.GetComponent<PlayerStatus>().changeCash(newCash);
         // Update Accounts Player
         AccountsDetail account_player = new AccountsDetail() { date= dateTime, accounts_name="sell items", account_type="sell", income= total_value, expense=0};
         background.gameObject.GetComponent<Shop_manager>().player.gameObject.GetComponent<PlayerStatus>().addAccountsDetails(account_player);
 
         // update cash NPC
-        int newbalance = NS.GetFinancial_balance() - total_value;
+        float newbalance = NS.GetFinancial_balance() - total_value;
         NS.setFinancial_detail("balance", newbalance);
         // Update Accounts Player
         AccountsDetail account_NPC = new AccountsDetail() { date = dateTime, accounts_name = "buy items", account_type = "buy", income = 0, expense = total_value };

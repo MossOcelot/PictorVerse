@@ -18,11 +18,11 @@ public class Shop_manager : MonoBehaviour
     public Color32[] item_tag;
 
     [SerializeField]
-    private int price;
+    private float price;
     [SerializeField]
-    private int vat_value;
+    private float vat_value;
     [SerializeField]
-    private int total;
+    private float total;
 
     [SerializeField]
     private int sell_price;
@@ -43,15 +43,17 @@ public class Shop_manager : MonoBehaviour
     GameObject ItemBag;
     GameObject SellItem;
 
+    public Text vat_per;
+
     Button selectBtn;
     Button removeBtn;
     Button selectSellBtn;
     Button removeSellBtn;
     float VAT;
     public int n_item;
-    public int[] getAccounts()
+    public float[] getAccounts()
     {
-        return new int[] { price, vat_value, total };
+        return new float[] { price, vat_value, total };
     }
 
     public void changeAccount(string command, int value)
@@ -124,6 +126,9 @@ public class Shop_manager : MonoBehaviour
     {
         List<InventoryItem> items = npc.gameObject.GetComponent<NPC_Shop>().getBuy_items_list();
         VAT = (float)npc.gameObject.GetComponent<NPC_Shop>().VAT / 100f;
+
+        vat_per.text = npc.gameObject.GetComponent<NPC_Shop>().VAT.ToString();
+
         int len = items.Count;
         for (int i = 0; i < len; i++)
         {
@@ -162,7 +167,7 @@ public class Shop_manager : MonoBehaviour
             player_select_items.Add(item_in_stock);
 
             price += item_in_stock.price;
-            vat_value = (int)((float)price * VAT);
+            vat_value = (float)price * VAT;
 
             total = (price + vat_value);
 
@@ -193,7 +198,7 @@ public class Shop_manager : MonoBehaviour
                     player_select_items[i] = item_in_stock;
 
                     price += item_in_stock.price;
-                    vat_value = (int)((float)price * VAT);
+                    vat_value = (float)price * VAT;
                     total = (price + vat_value);
 
                     shoppingCartShelf.gameObject.transform.GetChild(i).gameObject.transform.GetChild(6).gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().text = item_in_stock.quantity.ToString();
@@ -204,7 +209,7 @@ public class Shop_manager : MonoBehaviour
             player_select_items.Add(item_in_stock);
 
             price += item_in_stock.price;
-            vat_value = (int)((float)price * VAT);
+            vat_value = (float)price * VAT;
             total = (price + vat_value);
 
             shoppingCartCard = Instantiate(CartCardTemplate, shoppingCartShelf.transform);
@@ -229,7 +234,7 @@ public class Shop_manager : MonoBehaviour
             if(item_in_stock.item.item_id == player_select_items[i].item.item_id)
             {
                 price -= (player_select_items[i].price * player_select_items[i].quantity);
-                vat_value = (int)((float)price * VAT);
+                vat_value = (float)price * VAT;
                 total = (price + vat_value);
 
                 player_select_items.Remove(player_select_items[i]);

@@ -9,6 +9,6 @@ public class AccountsDetail
     public int[] date = new int[] { };
     public string accounts_name = "";
     public string account_type = "";
-    public int income = 0;
-    public int expense = 0;
+    public float income = 0;
+    public float expense = 0;
 }

@@ -29,12 +29,12 @@ public class NPC_Status : MonoBehaviour
         }
     }
 
-    public int GetFinancial_balance()
+    public float GetFinancial_balance()
     {
         return this.financial_detail.balance;
     }
 
-    public int GetFinancial_debt()
+    public float GetFinancial_debt()
     {
         return this.financial_detail.debt;
     }
