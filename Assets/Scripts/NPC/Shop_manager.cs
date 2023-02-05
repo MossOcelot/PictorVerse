@@ -5,6 +5,7 @@ using System.Security.AccessControl;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using inventory.Model;
 
 public class Shop_manager : MonoBehaviour
 {

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using inventory.Model;
 public class Update_Sell_Shelf : MonoBehaviour
 {
     [SerializeField]

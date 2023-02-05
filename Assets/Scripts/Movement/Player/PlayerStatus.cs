@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using inventory.Model;
 public class PlayerStatus : MonoBehaviour
 {
     [System.Serializable]

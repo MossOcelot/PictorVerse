@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using inventory.Model;
 
 public class PlayerMovement : MonoBehaviour
 {
