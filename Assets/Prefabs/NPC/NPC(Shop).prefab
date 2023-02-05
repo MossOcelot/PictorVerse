@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7882264635300423265}
   - component: {fileID: 7882264635300423264}
   - component: {fileID: 7882264635300423268}
+  - component: {fileID: 2889375128220278922}
   m_Layer: 0
   m_Name: NPC(Shop)
   m_TagString: Untagged
@@ -122,6 +123,7 @@ MonoBehaviour:
   financial_detail:
     balance: 10000
     debt: 1000
+  accountsDetails: []
   assets: []
 --- !u!114 &7882264635300423268
 MonoBehaviour:
@@ -151,6 +153,22 @@ MonoBehaviour:
     before_owner: 
     price: 777
   resource: []
+  product_type: []
   shop_manager: {fileID: 0}
   myshop: {fileID: 7387413289116649874, guid: 812848b5acabc2d4abc97ba2ea94f032, type: 3}
+  accountsDetails: []
   VAT: 10
+  goverment: {fileID: 0}
+--- !u!114 &2889375128220278922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7882264635300423279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7ec54dc3a296c543b1c90a0188ef73b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npc_shop: {fileID: 7882264635300423268}

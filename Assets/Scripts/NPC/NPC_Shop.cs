@@ -144,7 +144,7 @@ public class NPC_Shop : MonoBehaviour
             // pay to goverment
             float total_goverment_balance = goverment.GetComponent<GovermentStatus>().getGovermentFinancial_balance() + vat_value;
             goverment.GetComponent<GovermentStatus>().setFinancial_detail("balance", total_goverment_balance);
-            AccountsDetail account_goverment = new AccountsDetail() { date = dateTime, accounts_name = "buy items", account_type = "buy", income = 0, expense = total };
+            AccountsDetail account_goverment = new AccountsDetail() { date = dateTime, accounts_name = "vat", account_type = "vat", income = vat_value, expense = 0 };
             goverment.GetComponent<GovermentStatus>().addAccountsDetail(account_goverment);
         
         }
