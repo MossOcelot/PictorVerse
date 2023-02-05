@@ -2,9 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    public Vector2 lastPos;
     // กำหนด LayerMask
     public LayerMask interactableLayer;
 
@@ -14,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float moveSpeed;
     private bool isMoving;
+    public float dashSpeed;
 
     [SerializeField]
     private PlayerStatus status;
@@ -22,14 +27,17 @@ public class PlayerMovement : MonoBehaviour
 
     public float walk_distance = 0;
     private bool iswalk;
+    private bool isDashButtonDown;
 
-    [SerializeField]
-    private int energy_for_walk;
-    [SerializeField]
-    private float strength;
-    [SerializeField]
-    private float weight_player;
+    private Vector3 MoveDir;
+
+
+    [SerializeField] private int energy_for_walk;
+    [SerializeField] private float strength;
+    [SerializeField] private float weight_player;
+    [SerializeField] private TrailRenderer tr;
     Vector2 playerposition;
+
 
     Vector2 movement;
 
@@ -40,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerposition = transform.position;
         realMoveSpeed = defaultMoveSpeed;
+      
     }
     private void Update()
     {
@@ -59,8 +68,34 @@ public class PlayerMovement : MonoBehaviour
         count_distance_for_walk();
         //Set การหยุดหรือไม่หยุดของ Animation
         animator.SetBool("isMoving", isMoving);
+
+        
+        if (Input.GetAxisRaw("Horizontal")!=0 || Input.GetAxisRaw("Vertical") != 0)
+        {
+            lastPos = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.LeftShift))) 
+        {
+            isDashButtonDown = true;
+
+        }
+
     }
 
+
+    private void FixedUpdate()
+    {
+        if (isDashButtonDown)
+        {
+            tr.emitting = true;
+            dashSpeed = 1.5f;
+            rb.MovePosition(transform.position + MoveDir * dashSpeed);
+            isDashButtonDown = false;
+
+        }
+        else{tr.emitting = false;}
+    }
 
     private void Movement()
     {
@@ -89,6 +124,8 @@ public class PlayerMovement : MonoBehaviour
 
         }
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+
+        MoveDir = new Vector3(movement.x, movement.y).normalized;
 
         AnimationMovement();
 
@@ -144,7 +181,7 @@ public class PlayerMovement : MonoBehaviour
     {
         weight_player = getWeightItem();
         float weight_per_strength = (weight_player / (strength * 0.1f)) * 100; // ระบบ weight player
-        Debug.Log(weight_player+ " " + weight_per_strength);
+        
         if (weight_per_strength > 90f)
         {
             realMoveSpeed = defaultMoveSpeed * 0.1f;
@@ -165,4 +202,6 @@ public class PlayerMovement : MonoBehaviour
             realMoveSpeed = defaultMoveSpeed;
         }
     }
+
+   
 }

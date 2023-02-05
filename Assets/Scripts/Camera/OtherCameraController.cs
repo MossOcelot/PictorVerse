@@ -10,8 +10,8 @@ public class OtherCameraController : MonoBehaviour
 
 
     //กำหนดความยาวช่วงของ smooth camera
-    [Range(0,1)]
-    public float smoothTime ;
+    [Range(0, 1)]
+    public float smoothTime;
 
     public Vector3 positionOffset;
 
@@ -19,14 +19,14 @@ public class OtherCameraController : MonoBehaviour
     {
 
         //ทำงานใน Tag Player
-        target = GameObject.FindGameObjectWithTag("Player").transform; 
+        target = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     private void LateUpdate()
     {
 
         //จัดการมุมกล้อง
-        Vector3 targetposition = target.position+positionOffset;
+        Vector3 targetposition = target.position + positionOffset;
         transform.position = Vector3.SmoothDamp(transform.position, targetposition, ref velocity, smoothTime);
     }
 }
