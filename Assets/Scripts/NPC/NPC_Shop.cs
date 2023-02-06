@@ -22,6 +22,8 @@ public class NPC_Shop : MonoBehaviour
     private GameObject myshop; 
     [SerializeField]
     private List<AccountsDetail> accountsDetails;
+    [SerializeField]
+    public string section_cash;
 
     public int VAT;
 
@@ -103,6 +105,9 @@ public class NPC_Shop : MonoBehaviour
     {
         goverment = GameObject.FindGameObjectWithTag("Goverment").gameObject;
         VAT = goverment.GetComponent<GovermentPolicy>().getVat();
+
+        // get section cash
+        section_cash = NPC_status.live_place;
     }
 
     private void OnTriggerEnter2D(Collider2D target)
@@ -129,9 +134,9 @@ public class NPC_Shop : MonoBehaviour
         Shop_manager back_shop = shop.transform.GetChild(0).gameObject.GetComponent<Shop_manager>();
 
         float total = back_shop.getAccounts()[2];
-        float balance = status.getCash() - total;
-        status.changeCash(balance);
-        shop.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.transform.GetChild(16).gameObject.GetComponent<Text>().text = status.getCash().ToString();
+        float balance = status.player_accounts.getPocket()[section_cash] - total;
+        status.player_accounts.setPocket(section_cash,balance);
+        shop.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.transform.GetChild(16).gameObject.GetComponent<Text>().text = status.player_accounts.getPocket()[section_cash].ToString();
 
         float static_buy = status.getMyStatic()["static_SpendBuy"] + total;
         float vat_value = back_shop.getAccounts()[1];

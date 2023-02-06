@@ -14,6 +14,8 @@ public class Update_Sell_Shelf : MonoBehaviour
     private GameObject sellShelf;
     [SerializeField]
     private GameObject InventoryBag;
+    [SerializeField]
+    public string section_cash;
     Button confirm_sell;
     int total_value;
     // Start is called before the first frame update
@@ -21,6 +23,9 @@ public class Update_Sell_Shelf : MonoBehaviour
     {
         confirm_sell = gameObject.GetComponent<Button>();
         confirm_sell.AddEventListener(1, OnClickConfirmSell);
+
+        // get section cash
+        section_cash = background.gameObject.GetComponent<Shop_manager>().section_cash;
     }
 
     private void FixedUpdate()
@@ -84,8 +89,8 @@ public class Update_Sell_Shelf : MonoBehaviour
         int[] dateTime = GetDateTime();
 
         // Update cash Player
-        float newCash = SM.player.gameObject.GetComponent<PlayerStatus>().getCash() + total_value;
-        SM.player.gameObject.GetComponent<PlayerStatus>().changeCash(newCash);
+        float newCash = SM.player.gameObject.GetComponent<PlayerStatus>().player_accounts.getPocket()[section_cash] + total_value;
+        SM.player.gameObject.GetComponent<PlayerStatus>().player_accounts.setPocket(section_cash,newCash);
         // Update Accounts Player
         AccountsDetail account_player = new AccountsDetail() { date= dateTime, accounts_name="sell items", account_type="sell", income= total_value, expense=0};
         background.gameObject.GetComponent<Shop_manager>().player.gameObject.GetComponent<PlayerStatus>().addAccountsDetails(account_player);

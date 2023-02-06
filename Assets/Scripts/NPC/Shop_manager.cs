@@ -27,6 +27,9 @@ public class Shop_manager : MonoBehaviour
     [SerializeField]
     private int sell_price;
 
+    [SerializeField]
+    public string section_cash;
+
     public GameObject buyshelf;
     public GameObject shoppingCartShelf;
     public GameObject SellShelf;
@@ -119,11 +122,12 @@ public class Shop_manager : MonoBehaviour
         }
         return item_tag[0];
     }
-
-
     // Buy Shelf
     public void OrganizeItem()
     {
+        // set section_cash
+        section_cash = npc.gameObject.GetComponent<NPC_Status>().live_place;
+
         List<InventoryItem> items = npc.gameObject.GetComponent<NPC_Shop>().getBuy_items_list();
         VAT = (float)npc.gameObject.GetComponent<NPC_Shop>().VAT / 100f;
 
@@ -142,7 +146,9 @@ public class Shop_manager : MonoBehaviour
             selectBtn = buy_item_card.gameObject.GetComponent<Button>();
             selectBtn.AddEventListener(i, OnShopItemButtonClick);
         }
-        gameObject.transform.GetChild(1).gameObject.transform.GetChild(16).gameObject.GetComponent<Text>().text = player.GetComponent<PlayerStatus>().getCash().ToString();
+        gameObject.transform.GetChild(1).gameObject.transform.GetChild(16).gameObject.GetComponent<Text>().text = player.GetComponent<PlayerStatus>().player_accounts.getPocket()[section_cash].ToString();
+
+        
     }
 
     public void UpdateQuatityItem(int index, int value)

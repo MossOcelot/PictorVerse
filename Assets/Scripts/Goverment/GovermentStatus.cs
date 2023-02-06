@@ -13,7 +13,7 @@ public class GovermentStatus : MonoBehaviour
     [SerializeField]
     private Financial_Details govermentFinancial;
     [SerializeField]
-    private PocketDetails govermentPockets;
+    public PocketDetails govermentPockets;
 
     public void addAccountsDetail(AccountsDetail accountDetail)
     {

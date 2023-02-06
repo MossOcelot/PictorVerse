@@ -21,7 +21,7 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField]
     private int energy;
     [SerializeField]
-    private float cash;
+    public PocketDetails player_accounts;
     [SerializeField]
     private List<InventoryItem> myBag;
     [SerializeField]
@@ -38,15 +38,6 @@ public class PlayerStatus : MonoBehaviour
         return this.energy;
     }
 
-    public void changeCash(float newCash)
-    {
-        this.cash = newCash;
-    }
-
-    public float getCash()
-    {
-        return this.cash;
-    }
     public List<InventoryItem> getItemInBag()
     {
         return this.myBag;
