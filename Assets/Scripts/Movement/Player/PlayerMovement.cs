@@ -92,9 +92,8 @@ public class PlayerMovement : MonoBehaviour
             dashSpeed = 1.5f;
             rb.MovePosition(transform.position + MoveDir * dashSpeed);
             isDashButtonDown = false;
-
         }
-        else{tr.emitting = false;}
+        else {tr.emitting = false;}
     }
 
     private void Movement()
