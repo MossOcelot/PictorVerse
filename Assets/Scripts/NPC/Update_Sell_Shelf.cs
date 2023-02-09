@@ -17,7 +17,7 @@ public class Update_Sell_Shelf : MonoBehaviour
     [SerializeField]
     public string section_cash;
     Button confirm_sell;
-    int total_value;
+    float total_value;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,8 +30,8 @@ public class Update_Sell_Shelf : MonoBehaviour
 
     private void FixedUpdate()
     {
-        total_value = (int)((float)background.GetComponent<Shop_manager>().getSellPrice() * 0.7f);
-        total_text.text = total_value.ToString();
+        total_value = (float)background.GetComponent<Shop_manager>().getSellPrice() * 0.7f;
+        total_text.text = total_value.ToString("F");
     }
 
     void OnClickConfirmSell(int indexItem)

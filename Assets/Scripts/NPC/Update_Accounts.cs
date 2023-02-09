@@ -19,9 +19,9 @@ public class Update_Accounts : MonoBehaviour
     private void FixedUpdate()
     {
         float[] accounts = background.gameObject.GetComponent<Shop_manager>().getAccounts();
-        price_text.text = accounts[0].ToString();
-        vat_text.text = accounts[1].ToString(); 
-        total_text.text = accounts[2].ToString();
+        price_text.text = accounts[0].ToString("F");
+        vat_text.text = accounts[1].ToString("F"); 
+        total_text.text = accounts[2].ToString("F");
 
         if (accounts[2] > float.Parse(Balance.text))
         {
