@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UI;
+using inventory.Model;
 
 public class NPC_Shop : MonoBehaviour
 {
