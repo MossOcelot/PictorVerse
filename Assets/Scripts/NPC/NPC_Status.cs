@@ -18,6 +18,12 @@ public class NPC_Status : MonoBehaviour
     [SerializeField]
     private List<AccountsDetail> accountsDetails;
     public List<Asset> assets;
+
+    private void Awake()
+    {
+        // get npc live_place
+        live_place = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection.ToString();
+    }
     public void setFinancial_detail(string command,int value)
     {
         if (command == "balance")
@@ -29,12 +35,12 @@ public class NPC_Status : MonoBehaviour
         }
     }
 
-    public int GetFinancial_balance()
+    public float GetFinancial_balance()
     {
         return this.financial_detail.balance;
     }
 
-    public int GetFinancial_debt()
+    public float GetFinancial_debt()
     {
         return this.financial_detail.debt;
     }

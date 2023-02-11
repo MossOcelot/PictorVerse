@@ -43,7 +43,7 @@ public class ToolController : MonoBehaviour
             }
             else
             {
-                Debug.Log("OUT");
+                //Debug.Log("OUT");
             }
         }
     }

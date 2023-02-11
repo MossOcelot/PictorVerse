@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using inventory.Model;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float moveSpeed;
     private bool isMoving;
+    public bool isLooking = false;
     public float dashSpeed;
 
     [SerializeField]
@@ -52,34 +54,38 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        Movement();
-        if (movement.x != 0 || movement.y != 0)
+        if (!isLooking) // เช็คว่าผู้เล่นเปิดอะไรอยู่หรือเปล่า
         {
-            iswalk = true;
-            isMoving = true;
+            Movement();
+            if (movement.x != 0 || movement.y != 0)
+            {
+                iswalk = true;
+                isMoving = true;
 
+            }
+            else
+            {
+                iswalk = false;
+                isMoving = false;
+
+            }
+            count_distance_for_walk();
+            //Set การหยุดหรือไม่หยุดของ Animation
+            animator.SetBool("isMoving", isMoving);
+
+
+            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+            {
+                lastPos = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.LeftShift)))
+            {
+                isDashButtonDown = true;
+
+            }
         }
-        else
-        {
-            iswalk = false;
-            isMoving = false;
-
-        }
-        count_distance_for_walk();
-        //Set การหยุดหรือไม่หยุดของ Animation
-        animator.SetBool("isMoving", isMoving);
-
-        
-        if (Input.GetAxisRaw("Horizontal")!=0 || Input.GetAxisRaw("Vertical") != 0)
-        {
-            lastPos = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.LeftShift))) 
-        {
-            isDashButtonDown = true;
-
-        }
+       
 
     }
 
@@ -160,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
     private void useEnergy(int energy)
     {
         status.setEnergy(-energy);
-        int energy_static = status.getMyStatic()["static_useEnergy"] + energy;
+        float energy_static = status.getMyStatic()["static_useEnergy"] + energy;
         status.setMyStatic(0, energy_static);
     }
 

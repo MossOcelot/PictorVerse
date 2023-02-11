@@ -5,6 +5,7 @@ using System.Security.AccessControl;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using inventory.Model;
 
 public class Shop_manager : MonoBehaviour
 {
@@ -18,14 +19,17 @@ public class Shop_manager : MonoBehaviour
     public Color32[] item_tag;
 
     [SerializeField]
-    private int price;
+    private float price;
     [SerializeField]
-    private int vat_value;
+    private float vat_value;
     [SerializeField]
-    private int total;
+    private float total;
 
     [SerializeField]
     private int sell_price;
+
+    [SerializeField]
+    public string section_cash;
 
     public GameObject buyshelf;
     public GameObject shoppingCartShelf;
@@ -43,15 +47,17 @@ public class Shop_manager : MonoBehaviour
     GameObject ItemBag;
     GameObject SellItem;
 
+    public Text vat_per;
+
     Button selectBtn;
     Button removeBtn;
     Button selectSellBtn;
     Button removeSellBtn;
     float VAT;
     public int n_item;
-    public int[] getAccounts()
+    public float[] getAccounts()
     {
-        return new int[] { price, vat_value, total };
+        return new float[] { price, vat_value, total };
     }
 
     public void changeAccount(string command, int value)
@@ -117,13 +123,17 @@ public class Shop_manager : MonoBehaviour
         }
         return item_tag[0];
     }
-
-
     // Buy Shelf
     public void OrganizeItem()
     {
+        // set section_cash
+        section_cash = npc.gameObject.GetComponent<NPC_Status>().live_place;
+
         List<InventoryItem> items = npc.gameObject.GetComponent<NPC_Shop>().getBuy_items_list();
         VAT = (float)npc.gameObject.GetComponent<NPC_Shop>().VAT / 100f;
+
+        vat_per.text = npc.gameObject.GetComponent<NPC_Shop>().VAT.ToString();
+
         int len = items.Count;
         for (int i = 0; i < len; i++)
         {
@@ -132,12 +142,14 @@ public class Shop_manager : MonoBehaviour
             buy_item_card.gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().color = stick_tags(item.item.rarity.ToString());
             buy_item_card.gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = item.item.icon;
             buy_item_card.gameObject.transform.GetChild(2).gameObject.GetComponent<Text>().text = item.item.name;
-            buy_item_card.gameObject.transform.GetChild(4).gameObject.GetComponent<Text>().text = item.price.ToString();
+            buy_item_card.gameObject.transform.GetChild(4).gameObject.GetComponent<Text>().text = item.price.ToString("F");
             buy_item_card.gameObject.transform.GetChild(6).gameObject.GetComponent<Text>().text = item.quantity.ToString();
             selectBtn = buy_item_card.gameObject.GetComponent<Button>();
             selectBtn.AddEventListener(i, OnShopItemButtonClick);
         }
-        gameObject.transform.GetChild(1).gameObject.transform.GetChild(16).gameObject.GetComponent<Text>().text = player.GetComponent<PlayerStatus>().getCash().ToString();
+        gameObject.transform.GetChild(1).gameObject.transform.GetChild(16).gameObject.GetComponent<Text>().text = player.GetComponent<PlayerStatus>().player_accounts.getPocket()[section_cash].ToString("F");
+
+        
     }
 
     public void UpdateQuatityItem(int index, int value)
@@ -162,7 +174,7 @@ public class Shop_manager : MonoBehaviour
             player_select_items.Add(item_in_stock);
 
             price += item_in_stock.price;
-            vat_value = (int)((float)price * VAT);
+            vat_value = (float)price * VAT;
 
             total = (price + vat_value);
 
@@ -170,7 +182,7 @@ public class Shop_manager : MonoBehaviour
             shoppingCartCard.gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().color = stick_tags(item_in_stock.item.rarity.ToString());
             shoppingCartCard.gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = item_in_stock.item.icon;
             shoppingCartCard.gameObject.transform.GetChild(2).gameObject.GetComponent<Text>().text = item_in_stock.item.name;
-            shoppingCartCard.gameObject.transform.GetChild(4).gameObject.GetComponent<Text>().text = item_in_stock.price.ToString();
+            shoppingCartCard.gameObject.transform.GetChild(4).gameObject.GetComponent<Text>().text = item_in_stock.price.ToString("F");
             shoppingCartCard.gameObject.transform.GetChild(6).gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().text = item_in_stock.quantity.ToString();
             removeBtn = shoppingCartCard.gameObject.GetComponent<Button>();
             removeBtn.AddEventListener(itemIndex, OnRemoveItemInCart);
@@ -193,7 +205,7 @@ public class Shop_manager : MonoBehaviour
                     player_select_items[i] = item_in_stock;
 
                     price += item_in_stock.price;
-                    vat_value = (int)((float)price * VAT);
+                    vat_value = (float)price * VAT;
                     total = (price + vat_value);
 
                     shoppingCartShelf.gameObject.transform.GetChild(i).gameObject.transform.GetChild(6).gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().text = item_in_stock.quantity.ToString();
@@ -204,14 +216,14 @@ public class Shop_manager : MonoBehaviour
             player_select_items.Add(item_in_stock);
 
             price += item_in_stock.price;
-            vat_value = (int)((float)price * VAT);
+            vat_value = (float)price * VAT;
             total = (price + vat_value);
 
             shoppingCartCard = Instantiate(CartCardTemplate, shoppingCartShelf.transform);
             shoppingCartCard.gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().color = stick_tags(item_in_stock.item.rarity.ToString());
             shoppingCartCard.gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = item_in_stock.item.icon;
             shoppingCartCard.gameObject.transform.GetChild(2).gameObject.GetComponent<Text>().text = item_in_stock.item.name;
-            shoppingCartCard.gameObject.transform.GetChild(4).gameObject.GetComponent<Text>().text = item_in_stock.price.ToString();
+            shoppingCartCard.gameObject.transform.GetChild(4).gameObject.GetComponent<Text>().text = item_in_stock.price.ToString("F");
             shoppingCartCard.gameObject.transform.GetChild(6).gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().text = item_in_stock.quantity.ToString();
             removeBtn = shoppingCartCard.gameObject.GetComponent<Button>();
             removeBtn.AddEventListener(itemIndex, OnRemoveItemInCart);
@@ -229,7 +241,7 @@ public class Shop_manager : MonoBehaviour
             if(item_in_stock.item.item_id == player_select_items[i].item.item_id)
             {
                 price -= (player_select_items[i].price * player_select_items[i].quantity);
-                vat_value = (int)((float)price * VAT);
+                vat_value = (float)price * VAT;
                 total = (price + vat_value);
 
                 player_select_items.Remove(player_select_items[i]);
@@ -285,7 +297,7 @@ public class Shop_manager : MonoBehaviour
             InventoryItem firstItem = player_items[indexItem[0]].ChangeQuantity(1);
             player_sell_items.Add(firstItem);
             sell_price += firstItem.price;
-
+            float sell_item_price = player_items[indexItem[0]].price * 0.7f;
             checkQuantityItemPlayerSell(player_sell_items[0].quantity, player_items[indexItem[0]].quantity, indexItem[1]);
 
             SellItem = Instantiate(CartCardTemplate, SellShelf.transform);
@@ -293,7 +305,7 @@ public class Shop_manager : MonoBehaviour
             SellItem.gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().color = stick_tags(player_items[indexItem[0]].item.rarity.ToString());
             SellItem.gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = player_items[indexItem[0]].item.icon;
             SellItem.gameObject.transform.GetChild(2).gameObject.GetComponent<Text>().text = player_items[indexItem[0]].item.name;
-            SellItem.gameObject.transform.GetChild(4).gameObject.GetComponent<Text>().text = player_items[indexItem[0]].price.ToString();
+            SellItem.gameObject.transform.GetChild(4).gameObject.GetComponent<Text>().text = sell_item_price.ToString("F");
             SellItem.gameObject.transform.GetChild(6).gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().text = "1";
             removeSellBtn = SellItem.gameObject.GetComponent<Button>();
             removeSellBtn.AddEventListener(indexItem, OnClickRemoveSellItem);
@@ -320,6 +332,7 @@ public class Shop_manager : MonoBehaviour
 
         InventoryItem newItem = player_items[indexItem[0]].ChangeQuantity(1);
         player_sell_items.Add(newItem);
+        float sell_item_price2 = player_items[indexItem[0]].price * 0.7f;
 
         sell_price += newItem.price;
         checkQuantityItemPlayerSell(player_sell_items[len].quantity, player_items[indexItem[0]].quantity, indexItem[1]);
@@ -328,7 +341,7 @@ public class Shop_manager : MonoBehaviour
         SellItem.gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().color = stick_tags(player_items[indexItem[0]].item.rarity.ToString());
         SellItem.gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = player_items[indexItem[0]].item.icon;
         SellItem.gameObject.transform.GetChild(2).gameObject.GetComponent<Text>().text = player_items[indexItem[0]].item.name;
-        SellItem.gameObject.transform.GetChild(4).gameObject.GetComponent<Text>().text = player_items[indexItem[0]].price.ToString();
+        SellItem.gameObject.transform.GetChild(4).gameObject.GetComponent<Text>().text = sell_item_price2.ToString("F");
         SellItem.gameObject.transform.GetChild(6).gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().text = "1";
         removeSellBtn = SellItem.gameObject.GetComponent<Button>();
         removeSellBtn.AddEventListener(indexItem, OnClickRemoveSellItem);

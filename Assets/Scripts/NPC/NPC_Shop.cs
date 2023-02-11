@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UI;
+using inventory.Model;
 
 public class NPC_Shop : MonoBehaviour
 {
@@ -22,10 +23,13 @@ public class NPC_Shop : MonoBehaviour
     private GameObject myshop; 
     [SerializeField]
     private List<AccountsDetail> accountsDetails;
+    [SerializeField]
+    public string section_cash;
 
     public int VAT;
 
     GameObject shop;
+    public GameObject goverment;
 
     Button cofirmBtn;
     public void setBuy_items_list(int index,InventoryItem inventoryitem)
@@ -66,7 +70,7 @@ public class NPC_Shop : MonoBehaviour
         return this.resource;
     }
 
-    public void setFinancial_detail(string command, int value)
+    public void setFinancial_detail(string command, float value)
     {
         if (command == "balance")
         {
@@ -78,12 +82,12 @@ public class NPC_Shop : MonoBehaviour
         }
     }
 
-    public int GetFinancial_balance()
+    public float GetFinancial_balance()
     {
         return this.financial_shop_detail.balance;
     }
 
-    public int GetFinancial_debt()
+    public float GetFinancial_debt()
     {
         return this.financial_shop_detail.debt;
     }
@@ -96,6 +100,15 @@ public class NPC_Shop : MonoBehaviour
     public void addAccountsDetails(AccountsDetail account)
     {
         this.accountsDetails.Insert(0, account);
+    }
+
+    private void Start()
+    {
+        goverment = GameObject.FindGameObjectWithTag("Goverment").gameObject;
+        VAT = goverment.GetComponent<GovermentPolicy>().getVat();
+
+        // get section cash
+        section_cash = NPC_status.live_place;
     }
 
     private void OnTriggerEnter2D(Collider2D target)
@@ -114,19 +127,35 @@ public class NPC_Shop : MonoBehaviour
 
     void OnShopConfirmBuy(GameObject player)
     {
+        // get Time date
+        Timesystem date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+        int[] dateTime = date.getDateTime();
+
         PlayerStatus status = player.GetComponent<PlayerStatus>();
         Shop_manager back_shop = shop.transform.GetChild(0).gameObject.GetComponent<Shop_manager>();
 
-        int total = back_shop.getAccounts()[2];
-        int balance = status.getCash() - total;
-        status.changeCash(balance);
-        shop.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.transform.GetChild(16).gameObject.GetComponent<Text>().text = status.getCash().ToString();
+        float total = back_shop.getAccounts()[2];
+        float balance = status.player_accounts.getPocket()[section_cash] - total;
+        status.player_accounts.setPocket(section_cash,balance);
+        shop.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.transform.GetChild(16).gameObject.GetComponent<Text>().text = status.player_accounts.getPocket()[section_cash].ToString();
 
-        int static_buy = status.getMyStatic()["static_SpendBuy"] + total;
-        int vat_value = back_shop.getAccounts()[1];
-        int static_vat = status.getMyStatic()["static_SpendVat"] + vat_value;
+        float static_buy = status.getMyStatic()["static_SpendBuy"] + total;
+        float vat_value = back_shop.getAccounts()[1];
+        float static_vat = status.getMyStatic()["static_SpendVat"] + vat_value;
         status.setMyStatic(1, static_buy);
-        status.setMyStatic(2, static_vat);
+        if (vat_value != 0)
+        {
+            status.setMyStatic(2, static_vat);
+
+            // pay to goverment
+            float total_goverment_balance = goverment.GetComponent<GovermentStatus>().getGovermentFinancial_balance() + vat_value;
+            goverment.GetComponent<GovermentStatus>().setFinancial_detail("balance", total_goverment_balance);
+            AccountsDetail account_goverment = new AccountsDetail() { date = dateTime, accounts_name = "vat", account_type = "vat", income = vat_value, expense = 0 };
+            goverment.GetComponent<GovermentStatus>().addAccountsDetail(account_goverment);
+        
+        }
+        
+
 
         List<InventoryItem> playerItems = back_shop.getPlayerSelectItems();
         foreach(InventoryItem item in playerItems )
@@ -178,12 +207,8 @@ public class NPC_Shop : MonoBehaviour
             Destroy(back_shop.shoppingCartShelf.transform.GetChild(i).gameObject);
         }
 
-        int price = total - vat_value;
+        float price = total - vat_value;
         financial_shop_detail.balance += price;
-
-        // get date time
-        Timesystem date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
-        int[] dateTime = date.getDateTime();
 
         // Update Accounts Player
         AccountsDetail account_Player = new AccountsDetail() { date = dateTime, accounts_name = "buy items", account_type = "buy", income = 0, expense = total };

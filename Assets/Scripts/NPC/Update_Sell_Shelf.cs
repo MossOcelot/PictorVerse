@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using inventory.Model;
 public class Update_Sell_Shelf : MonoBehaviour
 {
     [SerializeField]
@@ -14,19 +14,24 @@ public class Update_Sell_Shelf : MonoBehaviour
     private GameObject sellShelf;
     [SerializeField]
     private GameObject InventoryBag;
+    [SerializeField]
+    public string section_cash;
     Button confirm_sell;
-    int total_value;
+    float total_value;
     // Start is called before the first frame update
     void Start()
     {
         confirm_sell = gameObject.GetComponent<Button>();
         confirm_sell.AddEventListener(1, OnClickConfirmSell);
+
+        // get section cash
+        section_cash = background.gameObject.GetComponent<Shop_manager>().section_cash;
     }
 
     private void FixedUpdate()
     {
-        total_value = (int)((float)background.GetComponent<Shop_manager>().getSellPrice() * 0.7f);
-        total_text.text = total_value.ToString();
+        total_value = (float)background.GetComponent<Shop_manager>().getSellPrice() * 0.7f;
+        total_text.text = total_value.ToString("F");
     }
 
     void OnClickConfirmSell(int indexItem)
@@ -84,14 +89,14 @@ public class Update_Sell_Shelf : MonoBehaviour
         int[] dateTime = GetDateTime();
 
         // Update cash Player
-        int newCash = SM.player.gameObject.GetComponent<PlayerStatus>().getCash() + total_value;
-        SM.player.gameObject.GetComponent<PlayerStatus>().changeCash(newCash);
+        float newCash = SM.player.gameObject.GetComponent<PlayerStatus>().player_accounts.getPocket()[section_cash] + total_value;
+        SM.player.gameObject.GetComponent<PlayerStatus>().player_accounts.setPocket(section_cash,newCash);
         // Update Accounts Player
         AccountsDetail account_player = new AccountsDetail() { date= dateTime, accounts_name="sell items", account_type="sell", income= total_value, expense=0};
         background.gameObject.GetComponent<Shop_manager>().player.gameObject.GetComponent<PlayerStatus>().addAccountsDetails(account_player);
 
         // update cash NPC
-        int newbalance = NS.GetFinancial_balance() - total_value;
+        float newbalance = NS.GetFinancial_balance() - total_value;
         NS.setFinancial_detail("balance", newbalance);
         // Update Accounts Player
         AccountsDetail account_NPC = new AccountsDetail() { date = dateTime, accounts_name = "buy items", account_type = "buy", income = 0, expense = total_value };

@@ -5,6 +5,6 @@ using UnityEngine;
 [System.Serializable]
 class Financial_Details
 {
-    public int balance = 0;
-    public int debt = 0;
+    public float balance = 0;
+    public float debt = 0;
 }
