@@ -1,3 +1,4 @@
+using inventory.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,15 +15,19 @@ public class Timesystem : MonoBehaviour
     [SerializeField] private int hours;
     [SerializeField] private int minutes;
     [SerializeField] private int seconds;
-    // Update is called once per frame
 
+    // Update is called once per frame
     public int[] getDateTime()
     {
         return new int[] { day, month, year, hours, minutes, seconds };
     }
+
+    private void Awake()
+    {
+        UpdateEverySecond();
+    }
     void Update()
     {
-
         // If the next update is reached
         if (Time.time >= nextUpdate)
         {

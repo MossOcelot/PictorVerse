@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7180987515779447496}
   - component: {fileID: 5327046677759896055}
   - component: {fileID: 743252879643754035}
+  - component: {fileID: 859451776339782171}
   - component: {fileID: 8669714150110090721}
   - component: {fileID: 8669714150110090735}
   - component: {fileID: 8669714150110090644}
@@ -42,7 +43,7 @@ Transform:
   - {fileID: 3224370797967436795}
   - {fileID: 7200183246709584249}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3640080570361346401
 SpriteRenderer:
@@ -181,6 +182,7 @@ MonoBehaviour:
     m_Bits: 128
   defaultMoveSpeed: 3.5
   moveSpeed: 0
+  isLooking: 0
   dashSpeed: 0
   status: {fileID: 743252879643754035}
   animator: {fileID: 2849445946001014848}
@@ -217,6 +219,21 @@ MonoBehaviour:
     static_useEnergy: 0
     static_spendVAT: 0
     static_spendBuy: 0
+--- !u!114 &859451776339782171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5367514012540739305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaca3631485c745ae476afcd656523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 743252879643754035}
+  type: player
+  npc: {fileID: 0}
 --- !u!114 &8669714150110090721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,7 +275,7 @@ MonoBehaviour:
   - {x: 0.9585426, y: -1.9040359, z: 0}
   m_ShapePathHash: -869264443
   m_Mesh: {fileID: 0}
-  m_InstanceId: -295006
+  m_InstanceId: 45024
 --- !u!114 &8669714150110090644
 MonoBehaviour:
   m_ObjectHideFlags: 0
