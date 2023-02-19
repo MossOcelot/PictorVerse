@@ -15,8 +15,8 @@ public class Paper_Manager : MonoBehaviour
     public Text Vat_Value;
     public Text totalText;
     public Text withdrawalText;
-    float price = -1;
-    float quantity = -1;
+    public float price = -1;
+    public float quantity = -1;
 
     [SerializeField]
     float VAT;
@@ -36,9 +36,12 @@ public class Paper_Manager : MonoBehaviour
         balance = stock.getBalance();
         balanceText.text = balance.ToString("F");
     }
+
     public void setValueItems()
     {
+
         VAT = (float)stock.VAT / 100;
+        
         if (float.TryParse(priceInput.gameObject.GetComponent<InputField>().text, out price) && float.TryParse(quantityInput.gameObject.GetComponent<InputField>().text, out quantity))
         {
             totalValueItems = price * quantity;
@@ -50,6 +53,9 @@ public class Paper_Manager : MonoBehaviour
             totalText.text = "$ " + total_value.ToString("F");
             withdrawalText.text = "$ " + withdrawal_value.ToString("F");
         }
+       
+        
+        
         
 
         

@@ -16,7 +16,9 @@ GameObject:
   - component: {fileID: 5327046677759896055}
   - component: {fileID: 743252879643754035}
   - component: {fileID: 859451776339782171}
-  - component: {fileID: 8669714150110090721}
+  - component: {fileID: 8403943477497968076}
+  - component: {fileID: 7496074857416667918}
+  - component: {fileID: 4384253740685453572}
   - component: {fileID: 8669714150110090735}
   - component: {fileID: 8669714150110090644}
   - component: {fileID: 2995189580793216473}
@@ -234,7 +236,9 @@ MonoBehaviour:
   player: {fileID: 743252879643754035}
   type: player
   npc: {fileID: 0}
---- !u!114 &8669714150110090721
+  broker: {fileID: 0}
+  myOrders: []
+--- !u!114 &8403943477497968076
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -243,11 +247,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 5367514012540739305}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71e28c1a4ba13b34183ef8a94e5cc0f0, type: 3}
+  m_Script: {fileID: 11500000, guid: b2038617d61dfe842b56ace570c3e9cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetDistance: 1
-  pickupZone: 1.5
+  inventoryUI: {fileID: 0}
+  inventoryData: {fileID: 0}
+  initialItems: []
+--- !u!114 &7496074857416667918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5367514012540739305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f949eae4172e20149bf18e355c5c6b4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryData: {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
+--- !u!114 &4384253740685453572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5367514012540739305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d469d05b27df414a9f80f5d4bbf447a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 0}
+  inventoryData: {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
+  parametersToModify:
+  - itemParameter: {fileID: 11400000, guid: 1b56489bc23e8ac46b7e2399d7bb3a8d, type: 2}
+    value: -10
+  itemCurrentState: []
 --- !u!114 &8669714150110090735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,7 +311,7 @@ MonoBehaviour:
   - {x: 0.9585426, y: -1.9040359, z: 0}
   m_ShapePathHash: -869264443
   m_Mesh: {fileID: 0}
-  m_InstanceId: 45024
+  m_InstanceId: 300634
 --- !u!114 &8669714150110090644
 MonoBehaviour:
   m_ObjectHideFlags: 0

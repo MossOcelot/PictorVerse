@@ -28,6 +28,15 @@ public class PlayerStatus : MonoBehaviour
     private List<AccountsDetail> accountsDetails;
     [SerializeField]
     private StaticValue myStatic;
+
+    public void setHP(int hp)
+    {
+        this.HP += hp;
+    }
+    public int getHP()
+    {
+        return this.HP;
+    }
     public void setEnergy(int useEnergy)
     {
         this.energy += useEnergy;

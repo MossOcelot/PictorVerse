@@ -9,5 +9,6 @@ public class Queue_manager : MonoBehaviour
     {
         BrokerOrder newBrokerOrder = new BrokerOrder(customer, broker_name, limitOrder, status, false);
         Storage.addListBrokerOrder(newBrokerOrder);
+        customer.myOrders.Add(newBrokerOrder);
     }
 }

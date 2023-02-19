@@ -6,5 +6,6 @@ using System.Collections.Generic;
 public class ItemStock
 {
     public Item item;
+    public int QuantityOrder = 0;
     public LimitOrderBook orderBook;
 }

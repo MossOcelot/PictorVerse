@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Orderbook_manager : MonoBehaviour
 {
+    public Text MarketPriceTxt;
     public Text[] valueItems;
     public Text[] quantityItems;
     public Page_Manager page;
@@ -65,6 +66,7 @@ public class Orderbook_manager : MonoBehaviour
     private void Update()
     {
         int len = valueItems.Length;
+        MarketPriceTxt.text = "Price: " + page.ItemInStock.orderBook.marketPrice.ToString("F");
         float[] values = generateValues();
         for (int i = 0; i < len; i++)
         {

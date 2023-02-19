@@ -1,7 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 namespace inventory.Model
 {
@@ -31,20 +31,19 @@ namespace inventory.Model
 
         public bool showInventory = true;
 
+        [field: SerializeField]
+        public List<ItemParameter> DefaultParametersList { get; set; }
+    }
 
-        // use item function
-        public void Use()
+    [System.Serializable]
+    public struct ItemParameter : IEquatable<ItemParameter>
+    {
+        public ItemParameterSO itemParameter;
+        public float value;
+
+        public bool Equals(ItemParameter other)
         {
-
-        }
-        //public void RemoveItemFromInventory()
-        //{
-        //   Inventory.instance.Remove(this);
-        //}
-
-        public void RemoveItemFromExtraInventory()
-        {
-            //ExtraInventory.instance.Remove(this);
+            return other.itemParameter == itemParameter;
         }
     }
 }
