@@ -8,8 +8,7 @@ using inventory.Model;
 
 public class NPC_Shop : MonoBehaviour
 {
-    [SerializeField]
-    private NPC_Status NPC_status;
+    public NPC_Status NPC_status;
     [SerializeField]
     private Financial_Details financial_shop_detail;
     [SerializeField]
