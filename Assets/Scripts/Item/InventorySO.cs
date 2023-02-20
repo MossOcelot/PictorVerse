@@ -36,7 +36,6 @@ namespace inventory.Model
                 {
                     while (quantity > 0 && IsInventoryFull() == false)
                     {
-                        Debug.Log("VQ");
                         quantity -= AddItemToFirstFreeSlot(item, 1, itemState);
                     }
                     InformAboutChange();
