@@ -20,6 +20,7 @@ public class AIFollow : MonoBehaviour
     public float radius;
     public float distance_spawner;
     private float distance;
+
     // Update is called once per frame
     private void Start()
     {

@@ -12,6 +12,10 @@ public class ItemDestroy : Tool
     public HealthBarBehavior HealthBar;
     private float timeBetweenHits;
     private float timer;
+    public string playerTag = "Player";
+    public Animator animator;
+    private bool isDestroyed = false;
+    private Rigidbody2D rb;
 
     void Start()
     {
@@ -21,6 +25,36 @@ public class ItemDestroy : Tool
             HealthBar.SetHealth(Hitpoints, MaxHitpoints);
         }
         timeBetweenHits = 10f;
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    void Update()
+    {
+        CheckCollision();
+        if (Hitpoints <= 0)
+        {
+            rb.bodyType = RigidbodyType2D.Static;
+            rb.velocity = Vector2.zero;
+            rb.constraints = RigidbodyConstraints2D.FreezePosition;
+            Debug.Log("Enter");
+        }
+    }
+
+    private void CheckCollision()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 1f);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.gameObject.CompareTag("Player"))
+            {
+                Debug.Log("Player collided with Item");
+                animator.SetTrigger("isAttack");
+            }
+            else
+            {
+                print("NO");
+            }
+        }
     }
 
     public override void Hit()
@@ -31,26 +65,40 @@ public class ItemDestroy : Tool
             HealthBar.SetHealth(Hitpoints, MaxHitpoints);
         }
 
-        if (Hitpoints <= 0)
+        if (Hitpoints <= 0 && !isDestroyed)
         {
-            while (dropCount > 0)
+            isDestroyed = true;
+            StartCoroutine(DestroyAfterDelay());
+        }
+        else
+        {
+            timer = 0f;
+            StartCoroutine(ResetHitpoints());
+            animator.SetTrigger("isHurt");
+        }
+    }
+
+    IEnumerator DestroyAfterDelay()
+    {
+        animator.SetTrigger("isDeath");
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        yield return new WaitForSeconds(5f);
+
+        while (dropCount > 0)
+        {
+            dropCount -= 1;
+            Vector3 pos = transform.position;
+            pos.x += spread * UnityEngine.Random.value - spread / 2;
+            pos.y += spread * UnityEngine.Random.value - spread / 2;
+            GameObject go = Instantiate(drop);
+            if (go == null)
             {
-                dropCount -= 1;
-                Vector3 pos = transform.position;
-                pos.x += spread * UnityEngine.Random.value - spread / 2;
-                pos.y += spread * UnityEngine.Random.value - spread / 2;
-                GameObject go = Instantiate(drop);
-                if (go == null)
-                {
-                    break;
-                }
-                go.transform.position = pos;
+                break;
             }
-            Destroy(gameObject);
+            go.transform.position = pos;
         }
 
-        timer = 0f;
-        StartCoroutine(ResetHitpoints());
+        Destroy(gameObject);
     }
 
     IEnumerator ResetHitpoints()
@@ -67,4 +115,6 @@ public class ItemDestroy : Tool
             HealthBar.SetHealth(Hitpoints, MaxHitpoints);
         }
     }
+
+   
 }
