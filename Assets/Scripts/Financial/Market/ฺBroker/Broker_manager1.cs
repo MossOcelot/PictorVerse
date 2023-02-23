@@ -24,9 +24,15 @@ public class Broker_manager1 : MonoBehaviour
                     foreach(ItemInStock item_categories in stockSystem.stock)
                     {
                         bool isStop = false;
+                        
                         foreach (ItemStock item in item_categories.itemStock)
                         {
                             int itemIdInOrder = int.Parse(order.Order.OrderId.Substring(2, 5));
+                            if (order.Order.status != 0)
+                            {
+                                item.orderBook.UpdateorderInBook(order.Order);
+                                continue;
+                            }
                             if (item.item.item_id == itemIdInOrder)
                             {
                                 order.Order.status = 1;

@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class Paper_Manager : MonoBehaviour
 {
+    public Page_Manager page_manager;
     public StockSystem stock;
-
     public GameObject priceInput;
     public GameObject quantityInput;
     public Text balanceText;
@@ -15,6 +15,7 @@ public class Paper_Manager : MonoBehaviour
     public Text Vat_Value;
     public Text totalText;
     public Text withdrawalText;
+    public Button BuyBtn;
     public float price = -1;
     public float quantity = -1;
 
@@ -35,6 +36,28 @@ public class Paper_Manager : MonoBehaviour
     {
         balance = stock.getBalance();
         balanceText.text = balance.ToString("F");
+
+        // button
+        if(balance < total_value)
+        {
+            BuyBtn.interactable = false;
+        } else
+        {
+            BuyBtn.interactable = true;
+        }
+    }
+
+    public void OnClickBuy()
+    {
+        Queue_manager broker = GameObject.FindGameObjectWithTag("Broker").gameObject.transform.GetChild(0).gameObject.GetComponent<Queue_manager>();
+        float newbalance = stock.getBalance() - total_value;
+        stock.setBalance(newbalance);
+
+        LimitOrder limitOrder = new LimitOrder("", stock.player, totalValueItems, (int)quantity, true);
+        Debug.Log(limitOrder);
+        // add order to queue_manager (broker)
+        
+        broker.addQueueOrder(stock.market_name, page_manager.ItemInStock.item.item_id ,stock.player, "System", limitOrder, 0);
     }
 
     public void setValueItems()
@@ -53,11 +76,5 @@ public class Paper_Manager : MonoBehaviour
             totalText.text = "$ " + total_value.ToString("F");
             withdrawalText.text = "$ " + withdrawal_value.ToString("F");
         }
-       
-        
-        
-        
-
-        
     }
 }

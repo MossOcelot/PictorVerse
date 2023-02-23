@@ -1,3 +1,4 @@
+using inventory.Model;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,10 +6,10 @@ using UnityEngine;
 public class OrderOperation : MonoBehaviour
 {
     public PlayerStatus player;
+    public InventorySO playerInventorySO;
     public string type;
     public NPC_Shop npc;
     public Queue_manager broker;
-    public List<BrokerOrder> myOrders;
 
     private void Start()
     {
@@ -19,19 +20,15 @@ public class OrderOperation : MonoBehaviour
         string OrderId = generateOrderId(market, itemId);
         if (type == "player")
         {
-            Debug.Log("A");
             OrderOperation myorder = gameObject.GetComponent<OrderOperation>();
-            Debug.Log("B");
             LimitOrder order = new LimitOrder(OrderId, myorder, price, quantity, isBuy);
-            Debug.Log("C");
-            broker.addQueueOrder(myorder, "system", order, 0);
-            Debug.Log("D");
+            broker.addQueueOrder(market, itemId, myorder, "system", order, 0);
         }
         else if (type == "npc")
         {
             OrderOperation myorder = gameObject.GetComponent<OrderOperation>();
             LimitOrder order = new LimitOrder(OrderId, myorder, price, quantity, isBuy);
-            broker.addQueueOrder(myorder, "system", order, 0);
+            broker.addQueueOrder(market, itemId, myorder, "system", order, 0);
         }
     }
 

@@ -6,40 +6,74 @@ using UnityEngine.UI;
 
 public class PlayerOrderShow : MonoBehaviour
 {
+    public class BrokerOrderAndIndex
+    {
+        public int index;
+        public BrokerOrder order;   
+
+        public BrokerOrderAndIndex(int index, BrokerOrder order)
+        {
+            this.index = index;
+            this.order = order;
+        }
+    }
     public StockSystem stock;
     [SerializeField]
     private OrderOperation player;
-    public List<BrokerOrder> playerOrder;
+    public List<BrokerOrderAndIndex> myOrders;
     public GameObject Table;
     public GameObject ItemOrderbar;
 
+    data_storage OrderStorage;
     GameObject Item;
+    Button OrderItemBtn;
+
+    private void Start()
+    {
+        OrderStorage = GameObject.FindGameObjectWithTag("Broker").gameObject.transform.GetChild(1).gameObject.GetComponent<data_storage>();
+    }
+
+    void getMyOrder()
+    {
+        List<BrokerOrder> storage = OrderStorage.getListBrokerOrder();
+        int n = 0;
+        foreach (BrokerOrder myOrder in storage) 
+        {
+
+            if (myOrder.Customer.type != "player") continue;
+            if(myOrder.Customer.player.player_id == player.player.player_id)
+            {
+                BrokerOrderAndIndex order = new BrokerOrderAndIndex(n, myOrder);
+                myOrders.Add(order);
+            }
+        }
+    }
     public void ShowPlayerOrder()
     {
-        Debug.Log("A");
-        Debug.Log(Table.transform.childCount);
+        // reset data
+        myOrders = new List<BrokerOrderAndIndex>();
+
         int len_myOrder = Table.transform.childCount;
         if (len_myOrder != 0)
         {
-            
             for(int i = 0; i < len_myOrder; i++)
             {
                 Destroy(Table.transform.GetChild(i).gameObject);
             }
         }
-
         player = stock.player;
-        playerOrder = player.myOrders;
-        int len = playerOrder.Count;
-        for(int i = 0; i < len; i++)
+        getMyOrder();
+        
+        int len = myOrders.Count;
+        for (int i = 0; i < len; i++)
         {
             Item itemSO = new Item();
-            foreach(ItemInStock itemInStock in stock.stock)
+            foreach (ItemInStock itemInStock in stock.stock)
             {
                 foreach(ItemStock item in itemInStock.itemStock)
                 {
                     bool isfind = false;
-                    if(int.Parse(playerOrder[i].Order.OrderId.Substring(2, 5)) == item.item.item_id)
+                    if (int.Parse(myOrders[i].order.Order.OrderId.Substring(2, 5)) == item.item.item_id)
                     {
                         itemSO = item.item;
                         isfind = true;
@@ -51,36 +85,14 @@ public class PlayerOrderShow : MonoBehaviour
                     }
                 }
             }
+
+            Debug.Log(itemSO.item_name);
+            float price_itemAVG = myOrders[i].order.Order.GainQuantity * myOrders[i].order.Order.Price;
+            float offer_price = (myOrders[i].order.Order.Quantity + myOrders[i].order.Order.GainQuantity) * myOrders[i].order.Order.Price;
+            int GainQuantity = myOrders[i].order.Order.GainQuantity;
+            int Quantity = myOrders[i].order.Order.Quantity;
             Item = Instantiate(ItemOrderbar, Table.transform);
-            Item.gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = itemSO.icon;
-            Item.gameObject.transform.GetChild(1).gameObject.GetComponent<Text>().text = itemSO.item_name;
-            if (playerOrder[i].Order.IsBuy)
-            {
-                Item.gameObject.transform.GetChild(7).gameObject.SetActive(true);
-                Item.gameObject.transform.GetChild(8).gameObject.SetActive(false);
-            } else
-            {
-                Item.gameObject.transform.GetChild(7).gameObject.SetActive(false);
-                Item.gameObject.transform.GetChild(8).gameObject.SetActive(true);
-            }
-            Item.gameObject.transform.GetChild(3).gameObject.GetComponent<Text>().text = ((playerOrder[i].Order.Quantity + playerOrder[i].Order.GainQuantity) * playerOrder[i].Order.Price).ToString();
-            Item.gameObject.transform.GetChild(5).gameObject.GetComponent<Text>().text = playerOrder[i].Order.GainQuantity.ToString() + "/" + (playerOrder[i].Order.Quantity + playerOrder[i].Order.GainQuantity).ToString();
-            if (playerOrder[i].Order.status == 1)
-            {
-                Item.gameObject.transform.GetChild(9).gameObject.SetActive(false);
-                Item.gameObject.transform.GetChild(10).gameObject.SetActive(false);
-                Item.gameObject.transform.GetChild(11).gameObject.SetActive(true);
-            } else if(playerOrder[i].Order.status == 2)
-            {
-                Item.gameObject.transform.GetChild(9).gameObject.SetActive(false);
-                Item.gameObject.transform.GetChild(10).gameObject.SetActive(true);
-                Item.gameObject.transform.GetChild(11).gameObject.SetActive(false);
-            } else
-            {
-                Item.gameObject.transform.GetChild(9).gameObject.SetActive(true);
-                Item.gameObject.transform.GetChild(10).gameObject.SetActive(false);
-                Item.gameObject.transform.GetChild(11).gameObject.SetActive(false);
-            }
+            Item.gameObject.GetComponent<UIOrderBar>().SetData(myOrders[i].index, itemSO, offer_price, price_itemAVG, GainQuantity, Quantity, myOrders[i].order.Order.IsBuy, myOrders[i].order.Order.status);
         }
     }
 }

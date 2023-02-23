@@ -25,6 +25,36 @@ public class LimitOrderBook
     {
         return sellOrders;
     }
+
+    public void UpdateorderInBook(LimitOrder order)
+    {
+        if (order.IsBuy)
+        {
+            int len = buyOrders.Count;
+            for(int i = 0; i < len; i++) 
+            {
+                if (buyOrders[i].OrderId == order.OrderId)
+                {
+                    buyOrders.RemoveAt(i);
+                    break;
+                }
+            }
+
+        }
+        else
+        {
+            int len = sellOrders.Count;
+            for (int i = 0; i < len; i++)
+            {
+                if (sellOrders[i].OrderId == order.OrderId)
+                {
+                    sellOrders.RemoveAt(i);
+                    break;
+                }
+            }
+        }
+    }
+
     public void AddOrder(LimitOrder order)
     {
         if (order.IsBuy)
@@ -52,10 +82,7 @@ public class LimitOrderBook
 
         for (int i = 0; i < orders.Count; i++)
         {
-            if (order.Customer == orders[i].Customer)
-            {
-                continue;
-            }
+            if (order.Customer == orders[i].Customer) continue;
             if ((isBuy && orders[i].Price > price) || (!isBuy && orders[i].Price < price))
             {
                 break; // Stop matching orders if price is no longer favorable

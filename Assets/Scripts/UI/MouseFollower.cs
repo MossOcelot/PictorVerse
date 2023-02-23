@@ -14,6 +14,7 @@ public class MouseFollower : MonoBehaviour
     {
         canvas = transform.root.GetComponent<Canvas>();
         item = GetComponentInChildren<UIInventoryItem>();
+        gameObject.SetActive(false);
     }
 
     public void SetData(Sprite sprite, int quantity)

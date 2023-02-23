@@ -33,13 +33,11 @@ public class StockSystem : MonoBehaviour
             foreach(ItemStock item in itemInStock.itemStock) 
             {
                 int len_OrderList = item.orderBook.getSellOrders().Count;
-                Debug.Log(item.item.item_id);
                 if (len_OrderList > 0) 
                 {
                     
                     foreach(LimitOrder order in item.orderBook.getSellOrders().ToList())
                     {
-
                         dynamic[] q = item.orderBook.MatchOrder(order);
                         
                         order.Quantity -= q[0];

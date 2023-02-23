@@ -39,4 +39,9 @@ public class Paper_manager2 : MonoBehaviour
             withdrawalText.text = "$ " + withdrawal_value.ToString("F");
         }
     }
+
+    public void OnClickSell()
+    {
+        
+    }
 }

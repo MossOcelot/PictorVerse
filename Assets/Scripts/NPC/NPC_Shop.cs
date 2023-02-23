@@ -10,6 +10,8 @@ public class NPC_Shop : MonoBehaviour
 {
     public NPC_Status NPC_status;
     [SerializeField]
+    private InventorySO playerBag;
+    [SerializeField]
     private Financial_Details financial_shop_detail;
     [SerializeField]
     private List<InventoryItem> buy_items_list;
@@ -175,28 +177,7 @@ public class NPC_Shop : MonoBehaviour
                 }
             }
             // item in bag player
-            if (status.getItemInBag().Count == 0)
-            {
-                status.addItemInBag(new_item);
-                continue;
-            }
-
-            int len_ItemBag = status.getItemInBag().Count;
-            int n = 0;
-            for (int i = 0; i < len_ItemBag; i++)
-            {
-                if (status.getItemInBag()[i].item.item_id == new_item.item.item_id)
-                {
-                    // not have over stack function
-                    int newQuantity = status.getItemInBag()[i].quantity + new_item.quantity;
-                    InventoryItem updateItem = status.getItemInBag()[i].ChangeQuantity(newQuantity);
-                    status.setItemInBag(i, updateItem);
-                    n += 1;
-                }
-            }
-            if (n == 0) {
-                status.addItemInBag(new_item);
-            }
+            playerBag.AddItem(new_item);
         }
         back_shop.clearPlayerSelectItem();
 
