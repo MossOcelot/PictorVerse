@@ -27,7 +27,7 @@ public class SkillAttack : MonoBehaviour
             }
             else
             {
-                print("NO");
+                animator.SetBool("isMoving", true);
             }
         }
     }

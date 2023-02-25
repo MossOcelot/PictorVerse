@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ItemDestroy : Tool
 {
+    [SerializeField] private AIFollow aiFollow;
     [SerializeField] GameObject drop;
     [SerializeField] int dropCount = 15;
     [SerializeField] float spread = 2f;
@@ -16,6 +17,10 @@ public class ItemDestroy : Tool
     public Animator animator;
     private bool isDestroyed = false;
     private Rigidbody2D rb;
+    public float knockbackForce;
+    public Vector3 moveDirection;
+
+
 
     void Start()
     {
@@ -33,10 +38,7 @@ public class ItemDestroy : Tool
         CheckCollision();
         if (Hitpoints <= 0)
         {
-            rb.bodyType = RigidbodyType2D.Static;
-            rb.velocity = Vector2.zero;
-            rb.constraints = RigidbodyConstraints2D.FreezePosition;
-            Debug.Log("Enter");
+            aiFollow.setIsDied(true);
         }
     }
 
@@ -47,28 +49,29 @@ public class ItemDestroy : Tool
         {
             if (collider.gameObject.CompareTag("Player"))
             {
-                Debug.Log("Player collided with Item");
                 animator.SetTrigger("isAttack");
             }
-            else
-            {
-                print("NO");
-            }
+            
         }
     }
+
 
     public override void Hit()
     {
         Hitpoints -= 1;
+        moveDirection = rb.transform.position ;
+        rb.AddForce(moveDirection.normalized * -10000f);
+
         if (HealthBar != null)
         {
             HealthBar.SetHealth(Hitpoints, MaxHitpoints);
         }
 
-        if (Hitpoints <= 0 && !isDestroyed)
+        if (Hitpoints <= -1 && !isDestroyed)
         {
             isDestroyed = true;
             StartCoroutine(DestroyAfterDelay());
+
         }
         else
         {
@@ -78,11 +81,12 @@ public class ItemDestroy : Tool
         }
     }
 
+
     IEnumerator DestroyAfterDelay()
     {
         animator.SetTrigger("isDeath");
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1f);
 
         while (dropCount > 0)
         {

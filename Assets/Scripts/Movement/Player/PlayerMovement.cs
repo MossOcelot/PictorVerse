@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isMoving;
     public bool isLooking = false;
     public float dashSpeed;
-
+ 
     [SerializeField]
     private PlayerStatus status;
     private Rigidbody2D rb;
@@ -50,7 +50,6 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerposition = transform.position;
         realMoveSpeed = defaultMoveSpeed;
-      
     }
     private void Update()
     {

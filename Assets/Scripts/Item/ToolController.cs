@@ -18,9 +18,15 @@ public class ToolController : MonoBehaviour
 
     private void Update()
     {
+
         if (Input.GetMouseButtonDown(0))
         {
-            UseTool();
+                print("canuse");
+                UseTool();
+        }
+        else
+        {
+            print("Not Use Tool weapon");
         }
        
     }
@@ -41,10 +47,7 @@ public class ToolController : MonoBehaviour
                     break;
                 }
             }
-            else
-            {
-                //Debug.Log("OUT");
-            }
+            
         }
     }
 
