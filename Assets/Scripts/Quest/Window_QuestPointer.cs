@@ -11,16 +11,23 @@ public class Window_QuestPointer : MonoBehaviour
     private RectTransform pointerRectTransform;
     [SerializeField] private Sprite arrowSprite;
     [SerializeField] private Sprite crossSprite;
-    private Camera uiCamera;
-    [SerializeField] private Vector2 targetPositionInInspector = new Vector2(200, 45);
+    [SerializeField] private Vector2 targetPositions;
 
 
     private void Awake()
     {
-        targetPosition = targetPositionInInspector;
+        GameObject pointerObject = GameObject.FindWithTag("Pointer");
+        if (pointerObject != null)
+        {
+            targetPosition = pointerObject.transform.position;
+        }
+        else
+        {
+            Debug.LogError("No GameObject with the tag 'Pointer' found!");
+        }
+
         pointerRectTransform = transform.Find("Pointer").GetComponent<RectTransform>();
         pointerImage = transform.Find("Pointer").GetComponent<Image>();
-
     }
 
     private void Update()
@@ -34,10 +41,9 @@ public class Window_QuestPointer : MonoBehaviour
         float angle = UtilsClass.GetAngleFromVectorFloat(dir);
         pointerRectTransform.localEulerAngles = new Vector3(0, 0, angle);
 
-
-        float borderSize = 100f; 
+        float borderSize = 100f;
         Vector3 targetPositionScreenPoint = Camera.main.WorldToScreenPoint(targetPosition);
-        bool isOffScreen = targetPositionScreenPoint.x <= borderSize || targetPositionScreenPoint.x >= Screen.width - borderSize || targetPositionScreenPoint.y <= borderSize || targetPositionScreenPoint.y >= Screen.height - borderSize ;
+        bool isOffScreen = targetPositionScreenPoint.x <= borderSize || targetPositionScreenPoint.x >= Screen.width - borderSize || targetPositionScreenPoint.y <= borderSize || targetPositionScreenPoint.y >= Screen.height - borderSize;
         if (isOffScreen)
         {
             RotatePointerTowardsTargerPosition();
@@ -48,21 +54,19 @@ public class Window_QuestPointer : MonoBehaviour
             if (cappedTargetScreenPosition.y <= 0) cappedTargetScreenPosition.y = borderSize;
             if (cappedTargetScreenPosition.y >= Screen.height - borderSize) cappedTargetScreenPosition.y = Screen.height;
 
-            Vector3 pointerWorldPosition = uiCamera.ScreenToWorldPoint(cappedTargetScreenPosition);
+            Vector3 pointerWorldPosition = Camera.main.ScreenToWorldPoint(cappedTargetScreenPosition);
             pointerRectTransform.position = pointerWorldPosition;
             pointerRectTransform.localPosition = new Vector3(pointerRectTransform.localPosition.x, pointerRectTransform.localPosition.y, 0f);
-
         }
         else
         {
             pointerImage.sprite = crossSprite;
 
-            Vector3 pointerWorldPosition = uiCamera.ScreenToWorldPoint(targetPositionScreenPoint);
+            Vector3 pointerWorldPosition = Camera.main.ScreenToWorldPoint(targetPositionScreenPoint);
 
             pointerRectTransform.position = pointerWorldPosition;
             pointerRectTransform.localPosition = new Vector3(pointerRectTransform.localPosition.x, pointerRectTransform.localPosition.y, 0f);
             pointerRectTransform.localEulerAngles = Vector3.zero;
-
         }
     }
 
@@ -77,3 +81,4 @@ public class Window_QuestPointer : MonoBehaviour
     }
 
 }
+
