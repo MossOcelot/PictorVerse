@@ -1,3 +1,4 @@
+using inventory.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,11 @@ using UnityEngine.UI;
 
 public class UIInventoryItem : MonoBehaviour
 {
+    public static UIInventoryItem Instance { get; private set; }
+    [SerializeField]
+    private int index;
+    [SerializeField]
+    private Item item;
     [SerializeField]
     private Image itemImage;
     [SerializeField]
@@ -16,13 +22,14 @@ public class UIInventoryItem : MonoBehaviour
     private Image borderImage;
 
     public event Action<UIInventoryItem> OnItemClicked,
-        OnItemDroppedOn, OnItemBeginDrag, OnItemEndDrag,
+        OnItemDroppedOn, OnItemBeginDrag, OnItemEndDrag, OnEnterMouseBtn,
         OnRightMouseBtnClick;
 
     private bool empty = true;
 
     public void Awake()
     {
+
         ResetData();
         Deselect();
     }
@@ -38,8 +45,11 @@ public class UIInventoryItem : MonoBehaviour
         borderImage.enabled = false;
     }
 
-    public void SetData(Sprite spritem ,int quantity)
+    public void SetData(int index,Item item, Sprite spritem ,int quantity)
     {
+        Instance = this;
+        this.index = index;
+        this.item = item;
         this.itemImage.gameObject.SetActive(true);
         this.itemImage.sprite = spritem;
         this.quantityTxt.text = quantity.ToString() + "";
@@ -83,4 +93,20 @@ public class UIInventoryItem : MonoBehaviour
         }
     }
 
+    public void OnPointerEnter()
+    {
+        OnEnterMouseBtn?.Invoke(this);
+        
+    }
+
+    public Item GetItem()
+    {
+        return item;
+    }
+
+    public int GetIndex()
+    {
+        Debug.Log(index);
+        return index;
+    }
 }

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerOrderShow : MonoBehaviour
 {
+    [System.Serializable]
     public class BrokerOrderAndIndex
     {
         public int index;
@@ -28,10 +29,12 @@ public class PlayerOrderShow : MonoBehaviour
     GameObject Item;
     Button OrderItemBtn;
 
+
     private void Start()
     {
         OrderStorage = GameObject.FindGameObjectWithTag("Broker").gameObject.transform.GetChild(1).gameObject.GetComponent<data_storage>();
     }
+
 
     void getMyOrder()
     {
@@ -40,12 +43,13 @@ public class PlayerOrderShow : MonoBehaviour
         foreach (BrokerOrder myOrder in storage) 
         {
 
-            if (myOrder.Customer.type != "player") continue;
-            if(myOrder.Customer.player.player_id == player.player.player_id)
+            if (myOrder.Order.Customer.type != "player") continue;
+            if(myOrder.Order.Customer.player.player_id == player.player.player_id)
             {
                 BrokerOrderAndIndex order = new BrokerOrderAndIndex(n, myOrder);
                 myOrders.Add(order);
             }
+            n++;
         }
     }
     public void ShowPlayerOrder()
@@ -61,12 +65,14 @@ public class PlayerOrderShow : MonoBehaviour
                 Destroy(Table.transform.GetChild(i).gameObject);
             }
         }
+
         player = stock.player;
         getMyOrder();
         
         int len = myOrders.Count;
         for (int i = 0; i < len; i++)
         {
+            Debug.Log("ii: " + i);
             Item itemSO = new Item();
             foreach (ItemInStock itemInStock in stock.stock)
             {
@@ -92,7 +98,9 @@ public class PlayerOrderShow : MonoBehaviour
             int GainQuantity = myOrders[i].order.Order.GainQuantity;
             int Quantity = myOrders[i].order.Order.Quantity;
             Item = Instantiate(ItemOrderbar, Table.transform);
-            Item.gameObject.GetComponent<UIOrderBar>().SetData(myOrders[i].index, itemSO, offer_price, price_itemAVG, GainQuantity, Quantity, myOrders[i].order.Order.IsBuy, myOrders[i].order.Order.status);
+            Debug.Log(myOrders[i].order.Order.OrderId + " " + i + " " + myOrders[i].index);
+            PlayerOrderShow show = gameObject.GetComponent<PlayerOrderShow>();
+            // Item.gameObject.GetComponent<UIOrderBar>().SetData(show, i, itemSO, offer_price, price_itemAVG, GainQuantity, Quantity, myOrders[i].order.Order.IsBuy, myOrders[i].order.Order.status);
         }
     }
 }

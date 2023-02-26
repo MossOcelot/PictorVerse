@@ -38,7 +38,7 @@ public class Paper_Manager : MonoBehaviour
         balanceText.text = balance.ToString("F");
 
         // button
-        if(balance < total_value)
+        if(balance < total_value || totalValueItems == 0.0f)
         {
             BuyBtn.interactable = false;
         } else
@@ -53,11 +53,13 @@ public class Paper_Manager : MonoBehaviour
         float newbalance = stock.getBalance() - total_value;
         stock.setBalance(newbalance);
 
-        LimitOrder limitOrder = new LimitOrder("", stock.player, totalValueItems, (int)quantity, true);
-        Debug.Log(limitOrder);
+        LimitOrder limitOrder = new LimitOrder("", stock.player, totalValueItems / quantity, (int)quantity, true);
         // add order to queue_manager (broker)
-        
-        broker.addQueueOrder(stock.market_name, page_manager.ItemInStock.item.item_id ,stock.player, "System", limitOrder, 0);
+        priceInput.gameObject.GetComponent<InputField>().text = "0";
+        quantityInput.gameObject.GetComponent<InputField>().text = "0";
+
+
+        broker.addQueueOrder(stock.market_name, page_manager.ItemInStock.item.item_id, "System", limitOrder, 0);
     }
 
     public void setValueItems()

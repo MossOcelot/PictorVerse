@@ -1,3 +1,4 @@
+using inventory.Model;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,9 +18,10 @@ public class MouseFollower : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void SetData(Sprite sprite, int quantity)
+    public void SetData(int itemIndex, Item newitem, Sprite sprite, int quantity)
     {
-        item.SetData(sprite, quantity);
+        Debug.Log("Index: " + itemIndex);
+        item.SetData(itemIndex, newitem, sprite, quantity);
     }
 
     private void Update()

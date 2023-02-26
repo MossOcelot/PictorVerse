@@ -31,7 +31,6 @@ namespace inventory.Model
         {
             if(item.IsStackable == false)
             {
-                
                 for (int i = 0; i < inventoryItems.Count; i++)
                 {
                     while (quantity > 0 && IsInventoryFull() == false)
@@ -102,6 +101,21 @@ namespace inventory.Model
             return quantity;
         }
 
+        public bool AddItemInIndex(int index, Item item, int quantity, List<ItemParameter> itemState = null)
+        {
+            if (inventoryItems[index].item == null)
+            {
+                InventoryItem newItem = new InventoryItem
+                {
+                    item = item,
+                    quantity = quantity,
+                    itemState = new List<ItemParameter>(itemState == null ? item.DefaultParametersList : itemState)
+                };
+                inventoryItems[index] = newItem;
+                return true;
+            }
+            return false;
+        }
         public void RemoveItem(int itemIndex, int amount)
         {
             if(inventoryItems.Count > itemIndex)

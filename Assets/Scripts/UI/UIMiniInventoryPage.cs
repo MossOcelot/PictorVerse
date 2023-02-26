@@ -48,11 +48,11 @@ public class UIMiniInventoryPage : MonoBehaviour
 
     }
 
-    public void UpdateData(int itemIndex, Sprite itemImage, int itemQuantity)
+    public void UpdateData(int itemIndex, Item item, Sprite itemImage, int itemQuantity)
     {
         if (listOfUIItems.Count > itemIndex)
         {
-            listOfUIItems[itemIndex].SetData(itemImage, itemQuantity);
+            listOfUIItems[itemIndex].SetData(itemIndex, item, itemImage, itemQuantity);
         }
     }
 
@@ -109,10 +109,10 @@ public class UIMiniInventoryPage : MonoBehaviour
         OnStartDragging?.Invoke(index);
     }
 
-    public void CreateDraggedItem(Sprite sprite, int quantity)
+    public void CreateDraggedItem(int itemIndex, Item item, Sprite sprite, int quantity)
     {
         mouseFollower.Toggle(true);
-        mouseFollower.SetData(sprite, quantity);
+        mouseFollower.SetData(itemIndex ,item, sprite, quantity);
     }
 
     private void HandleItemSelection(UIInventoryItem inventoryItemUI)

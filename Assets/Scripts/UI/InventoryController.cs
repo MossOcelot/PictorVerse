@@ -2,6 +2,7 @@ using inventory.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InventoryController : MonoBehaviour
@@ -100,7 +101,7 @@ public class InventoryController : MonoBehaviour
         inventoryUI.ResetAllItems();
         foreach (var item in inventoryState)
         {
-            inventoryUI.UpdateData(item.Key, item.Value.item.icon, item.Value.quantity);
+            inventoryUI.UpdateData(item.Key, item.Value.item, item.Value.item.icon, item.Value.quantity);
 
         }
     }
@@ -110,7 +111,7 @@ public class InventoryController : MonoBehaviour
         WeaponBoxUI.ResetAllItems();
         foreach (var item in inventoryState)
         {
-            WeaponBoxUI.UpdateData(item.Key, item.Value.item.icon, item.Value.quantity);
+            WeaponBoxUI.UpdateData(item.Key, item.Value.item, item.Value.item.icon, item.Value.quantity);
 
         }
     }
@@ -120,7 +121,7 @@ public class InventoryController : MonoBehaviour
         miniInventoryUI.ResetAllItems();
         foreach (var item in inventoryState)
         {
-            miniInventoryUI.UpdateData(item.Key, item.Value.item.icon, item.Value.quantity);
+            miniInventoryUI.UpdateData(item.Key, item.Value.item, item.Value.item.icon, item.Value.quantity);
         }
     }
 
@@ -130,6 +131,7 @@ public class InventoryController : MonoBehaviour
         this.inventoryUI.OnSwapItems += HandleSwapItems;
         this.inventoryUI.OnStartDragging += HandleDragging;
         this.inventoryUI.OnItemActionRequested += HandleItemActionRequest;
+        this.inventoryUI.OnDescriptionRequested += HandleItemDescriptionRequest;
     }
 
     private void PrepareWeaponBoxUI()
@@ -153,7 +155,7 @@ public class InventoryController : MonoBehaviour
         {
             return;
         }
-        miniInventoryUI.CreateDraggedItem(miniInventoryItem.item.icon, miniInventoryItem.quantity);
+        miniInventoryUI.CreateDraggedItem(itemIndex, miniInventoryItem.item, miniInventoryItem.item.icon, miniInventoryItem.quantity);
     }
 
     private void HandleMiniSwapItems(int itemIndex1, int itemIndex2)
@@ -231,6 +233,26 @@ public class InventoryController : MonoBehaviour
         {
             inventoryUI.AddAction("Drop", () => DropItem(itemIndex, inventoryItem.quantity));
         }
+    }
+
+    public void HandleItemDescriptionRequest(int itemIndex)
+    {
+        InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
+        if (inventoryItem.IsEmpty)
+        {
+            inventoryUI.hideItem(itemIndex);
+            return;
+        }
+
+        //ddata
+        string item_name = inventoryItem.item.item_name;
+        int item_quantity = inventoryItem.quantity;
+        float item_price = inventoryItem.price;
+        string item_description = inventoryItem.item.description;
+
+        inventoryUI.showItemDescriptionAction(itemIndex);
+        inventoryUI.AddDescription(item_name, item_quantity, item_price, item_description);
+
     }
 
     private void DropItem(int itemIndex, int quantity)
@@ -335,7 +357,7 @@ public class InventoryController : MonoBehaviour
         {
             return;
         }
-        inventoryUI.CreateDraggedItem(inventoryItem.item.icon, inventoryItem.quantity);
+        inventoryUI.CreateDraggedItem(itemIndex, inventoryItem.item, inventoryItem.item.icon, inventoryItem.quantity);
     }
 
 
@@ -355,18 +377,18 @@ public class InventoryController : MonoBehaviour
                 miniInventoryUI.show();
                 foreach (var item in inventoryData.GetCurrentInventoryState())
                 {
-                    inventoryUI.UpdateData(item.Key, item.Value.item.icon, item.Value.quantity);
+                    inventoryUI.UpdateData(item.Key, item.Value.item, item.Value.item.icon, item.Value.quantity);
                     
                 }
 
                 foreach(var item in WeaponBoxData.GetCurrentInventoryState())
                 {
-                    WeaponBoxUI.UpdateData(item.Key, item.Value.item.icon, item.Value.quantity);
+                    WeaponBoxUI.UpdateData(item.Key, item.Value.item, item.Value.item.icon, item.Value.quantity);
                 }
 
                 foreach (var item in miniInventoryData.GetCurrentInventoryState())
                 {
-                    miniInventoryUI.UpdateData(item.Key, item.Value.item.icon, item.Value.quantity);
+                    miniInventoryUI.UpdateData(item.Key, item.Value.item, item.Value.item.icon, item.Value.quantity);
                 }
             } else
             {

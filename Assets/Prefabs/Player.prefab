@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 8403943477497968076}
   - component: {fileID: 7496074857416667918}
   - component: {fileID: 4384253740685453572}
+  - component: {fileID: 6768016167895886403}
   - component: {fileID: 8669714150110090735}
   - component: {fileID: 8669714150110090644}
   - component: {fileID: 2995189580793216473}
@@ -156,7 +157,7 @@ Transform:
   - {fileID: 3224370797967436795}
   - {fileID: 7200183246709584249}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3640080570361346401
 SpriteRenderer:
@@ -395,7 +396,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d469d05b27df414a9f80f5d4bbf447a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 0}
+  weapon1: {fileID: 0}
+  weapon2: {fileID: 0}
   WeaponBox: {fileID: 11400000, guid: a8d645e9da11d494e8714e30c323d0dd, type: 2}
   inventoryData: {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
   miniInventoryData: {fileID: 11400000, guid: eb42cd07f06c8da4197148488baa153b, type: 2}
@@ -403,6 +405,20 @@ MonoBehaviour:
   - itemParameter: {fileID: 11400000, guid: 1b56489bc23e8ac46b7e2399d7bb3a8d, type: 2}
     value: -10
   itemCurrentState: []
+  parametersToModify2: []
+  itemCurrentState2: []
+--- !u!114 &6768016167895886403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5367514012540739305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1fd357e8321204684045f5baf1f6e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8669714150110090735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,7 +446,7 @@ MonoBehaviour:
   - {x: 0.9585426, y: -1.9040359, z: 0}
   m_ShapePathHash: -869264443
   m_Mesh: {fileID: 0}
-  m_InstanceId: -2850
+  m_InstanceId: 468136
 --- !u!114 &8669714150110090644
 MonoBehaviour:
   m_ObjectHideFlags: 0

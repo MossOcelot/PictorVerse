@@ -22,13 +22,13 @@ public class OrderOperation : MonoBehaviour
         {
             OrderOperation myorder = gameObject.GetComponent<OrderOperation>();
             LimitOrder order = new LimitOrder(OrderId, myorder, price, quantity, isBuy);
-            broker.addQueueOrder(market, itemId, myorder, "system", order, 0);
+            broker.addQueueOrder(market, itemId, "system", order, 0);
         }
         else if (type == "npc")
         {
             OrderOperation myorder = gameObject.GetComponent<OrderOperation>();
             LimitOrder order = new LimitOrder(OrderId, myorder, price, quantity, isBuy);
-            broker.addQueueOrder(market, itemId, myorder, "system", order, 0);
+            broker.addQueueOrder(market, itemId, "system", order, 0);
         }
     }
 

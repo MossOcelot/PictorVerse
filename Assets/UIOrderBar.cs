@@ -58,7 +58,6 @@ public class UIOrderBar : MonoBehaviour
         this.price.text = AVG_price.ToString("F");
         this.amount.text = Gainquantity.ToString() + "/" + (quantity + Gainquantity).ToString();
 
-        Debug.Log("typeee " + type_order);
         if (type_order)
         {
             this.OrderType[0].SetActive(true);
@@ -88,6 +87,7 @@ public class UIOrderBar : MonoBehaviour
 
         ItemOrderBtn = gameObject.GetComponent<Button>();
         ItemOrderBtn.AddEventListener(index_myOrderList, OnClickConfirm);
+
     }
 
     private void OnClickConfirm(int i)
@@ -99,6 +99,8 @@ public class UIOrderBar : MonoBehaviour
         {
             FunctionIsSell(i);
         }
+
+        GameObject.FindGameObjectWithTag("market_manager").gameObject.GetComponent<MyOrderShow>().SetIsMyOrder(false);
     }
 
     private void FunctionIsBuy(int i)
@@ -111,37 +113,36 @@ public class UIOrderBar : MonoBehaviour
             Quantity -= quantity;
 
             this.amount.text = GainQuantity.ToString() + "/" + (Quantity + GainQuantity).ToString();
+
+            float newPrice = PlayerOrder.player.player_accounts.getPocket()[sectionName] - AVG_Price;
+            PlayerOrder.player.player_accounts.setPocket(sectionName, newPrice);
+
+            storage.updateStatusBrokerOrder(i, 3, false);
         } 
         else
         {
-            // ของครบ เข้ากระเป๋าหมด
-            DeleteOrderBar(i);
+            float newPrice = PlayerOrder.player.player_accounts.getPocket()[sectionName] - AVG_Price;
+            PlayerOrder.player.player_accounts.setPocket(sectionName, newPrice);
+
+            storage.updateStatusBrokerOrder(i, 3, false);
         }
 
-        float newPrice = PlayerOrder.player.player_accounts.getPocket()[sectionName] - AVG_Price;
-        PlayerOrder.player.player_accounts.setPocket(sectionName, newPrice);
-
-        storage.updateStatusBrokerOrder(i, 3, false);
+        
     }
 
     private void FunctionIsSell(int i)
     {
         string sectionName = sceneStatus.sceneInsection.ToString();
         float newPrice = PlayerOrder.player.player_accounts.getPocket()[sectionName] + AVG_Price;
+
         PlayerOrder.player.player_accounts.setPocket(sectionName, newPrice);
 
-        if (Quantity > 0)
+        if (GainQuantity != Quantity)
         {
-            PlayerOrder.playerInventorySO.AddItem(NewItem, Quantity);
+            Debug.Log(GainQuantity);
+            PlayerOrder.playerInventorySO.AddItem(NewItem, Quantity - GainQuantity);
         }
 
         storage.updateStatusBrokerOrder(i, 3, false);
-        DeleteOrderBar(i);
-    }
-
-    public void DeleteOrderBar(int i)
-    {
-        storage.removeBrokerOrder(i);
-        Destroy(gameObject);
     }
 }

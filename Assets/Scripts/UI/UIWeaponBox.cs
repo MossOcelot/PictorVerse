@@ -49,11 +49,11 @@ public class UIWeaponBox : MonoBehaviour
         OnItemActionRequested?.Invoke(index);
     }
 
-    public void UpdateData(int itemIndex, Sprite itemImage, int itemQuantity)
+    public void UpdateData(int itemIndex,Item item, Sprite itemImage, int itemQuantity)
     {
         if (listOfUIItems.Count > itemIndex)
         {
-            listOfUIItems[itemIndex].SetData(itemImage, itemQuantity);
+            listOfUIItems[itemIndex].SetData(itemIndex, item, itemImage, itemQuantity);
         }
     }
 
