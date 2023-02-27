@@ -41,7 +41,7 @@ public class Window_QuestPointer : MonoBehaviour
         float angle = UtilsClass.GetAngleFromVectorFloat(dir);
         pointerRectTransform.localEulerAngles = new Vector3(0, 0, angle);
 
-        float borderSize = 100f;
+        float borderSize = 150f; // Adjusted border size to 150
         Vector3 targetPositionScreenPoint = Camera.main.WorldToScreenPoint(targetPosition);
         bool isOffScreen = targetPositionScreenPoint.x <= borderSize || targetPositionScreenPoint.x >= Screen.width - borderSize || targetPositionScreenPoint.y <= borderSize || targetPositionScreenPoint.y >= Screen.height - borderSize;
         if (isOffScreen)
@@ -49,10 +49,10 @@ public class Window_QuestPointer : MonoBehaviour
             RotatePointerTowardsTargerPosition();
             pointerImage.sprite = arrowSprite;
             Vector3 cappedTargetScreenPosition = targetPositionScreenPoint;
-            if (cappedTargetScreenPosition.x <= 0) cappedTargetScreenPosition.x = borderSize;
-            if (cappedTargetScreenPosition.x >= Screen.width - borderSize) cappedTargetScreenPosition.x = Screen.height;
-            if (cappedTargetScreenPosition.y <= 0) cappedTargetScreenPosition.y = borderSize;
-            if (cappedTargetScreenPosition.y >= Screen.height - borderSize) cappedTargetScreenPosition.y = Screen.height;
+            if (cappedTargetScreenPosition.x <= borderSize) cappedTargetScreenPosition.x = borderSize; // Adjusted capped target position x values
+            if (cappedTargetScreenPosition.x >= Screen.width - borderSize) cappedTargetScreenPosition.x = Screen.width - borderSize; // Adjusted capped target position x values
+            if (cappedTargetScreenPosition.y <= borderSize) cappedTargetScreenPosition.y = borderSize; // Adjusted capped target position y values
+            if (cappedTargetScreenPosition.y >= Screen.height - borderSize) cappedTargetScreenPosition.y = Screen.height - borderSize; // Adjusted capped target position y values
 
             Vector3 pointerWorldPosition = Camera.main.ScreenToWorldPoint(cappedTargetScreenPosition);
             pointerRectTransform.position = pointerWorldPosition;
