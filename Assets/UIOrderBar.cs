@@ -22,11 +22,12 @@ public class UIOrderBar : MonoBehaviour
     [SerializeField]
     private GameObject[] OrderStatus;
 
-    SceneStatus sceneStatus;
+    private StockSystem stockSystem;
     private OrderOperation PlayerOrder;
     private data_storage storage;
     public Item NewItem;
     public float AVG_Price;
+    public float Offer_price;
     public int GainQuantity;
     public int Quantity;
     public bool Type_order;
@@ -36,14 +37,15 @@ public class UIOrderBar : MonoBehaviour
 
     private void Start()
     {
-        sceneStatus = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>();
         PlayerOrder = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<OrderOperation>();
+        stockSystem = GameObject.FindGameObjectWithTag("market_manager").gameObject.GetComponent<StockSystem>();
         storage = GameObject.FindGameObjectWithTag("Broker").gameObject.transform.GetChild(1).gameObject.GetComponent<data_storage>();
     }
     public void SetData(int index_myOrderList, Item newItem, float offer_price,float AVG_price, int Gainquantity, int quantity, bool type_order, int item_status)
     {
         // Update Status
         NewItem = newItem;
+        Offer_price = offer_price;
         AVG_Price = AVG_price;
         GainQuantity = Gainquantity;
         Quantity = quantity;
@@ -105,7 +107,6 @@ public class UIOrderBar : MonoBehaviour
 
     private void FunctionIsBuy(int i)
     {
-        string sectionName = sceneStatus.sceneInsection.ToString();
         int quantity = PlayerOrder.playerInventorySO.AddItem(NewItem, GainQuantity);
         if(quantity > 0) 
         {
@@ -114,16 +115,17 @@ public class UIOrderBar : MonoBehaviour
 
             this.amount.text = GainQuantity.ToString() + "/" + (Quantity + GainQuantity).ToString();
 
-            float newPrice = PlayerOrder.player.player_accounts.getPocket()[sectionName] - AVG_Price;
-            PlayerOrder.player.player_accounts.setPocket(sectionName, newPrice);
+            float newPrice = stockSystem.getBalance() + (Offer_price - AVG_Price);
+            Debug.Log("Offer_price1: " + Offer_price + " AVG_Price: " + AVG_Price);
+            stockSystem.setBalance(newPrice);
 
             storage.updateStatusBrokerOrder(i, 3, false);
         } 
         else
         {
-            float newPrice = PlayerOrder.player.player_accounts.getPocket()[sectionName] - AVG_Price;
-            PlayerOrder.player.player_accounts.setPocket(sectionName, newPrice);
-
+            float newPrice = stockSystem.getBalance() + (Offer_price - AVG_Price);
+            stockSystem.setBalance(newPrice);
+            Debug.Log("Offer_price2: " + Offer_price + " AVG_Price: " + AVG_Price);
             storage.updateStatusBrokerOrder(i, 3, false);
         }
 
@@ -132,15 +134,15 @@ public class UIOrderBar : MonoBehaviour
 
     private void FunctionIsSell(int i)
     {
-        string sectionName = sceneStatus.sceneInsection.ToString();
-        float newPrice = PlayerOrder.player.player_accounts.getPocket()[sectionName] + AVG_Price;
 
-        PlayerOrder.player.player_accounts.setPocket(sectionName, newPrice);
-
-        if (GainQuantity != Quantity)
+        if (Quantity == 0)
         {
-            Debug.Log(GainQuantity);
-            PlayerOrder.playerInventorySO.AddItem(NewItem, Quantity - GainQuantity);
+            float newPrice = stockSystem.getBalance() + AVG_Price;
+            stockSystem.setBalance(newPrice);
+        } else {
+            float newPrice = stockSystem.getBalance() + AVG_Price;
+            stockSystem.setBalance(newPrice);
+            PlayerOrder.playerInventorySO.AddItem(NewItem, Quantity);
         }
 
         storage.updateStatusBrokerOrder(i, 3, false);

@@ -183,7 +183,7 @@ namespace inventory.Model
         public bool IsEmpty => item == null;
         public string owner;
         public string before_owner;
-        public int price;
+        public float price;
         public InventoryItem ChangeQuantity(int newQuantity)
         {
             return new InventoryItem
@@ -210,7 +210,7 @@ namespace inventory.Model
             };
         }
 
-        public InventoryItem ChangePrice(int newPrice)
+        public InventoryItem ChangePrice(float newPrice)
         {
             return new InventoryItem
             {

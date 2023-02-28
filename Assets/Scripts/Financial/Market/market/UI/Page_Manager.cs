@@ -16,5 +16,4 @@ public class Page_Manager : MonoBehaviour
         gameObject.transform.GetChild(1).gameObject.GetComponent<Text>().text = ItemInStock.item.item_name;
     }
 
-
 }

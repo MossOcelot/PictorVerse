@@ -638,6 +638,7 @@ GameObject:
   - component: {fileID: 407951358680823108}
   - component: {fileID: 3582822644723723625}
   - component: {fileID: 4085111835870203157}
+  - component: {fileID: 6241786338279693316}
   m_Layer: 5
   m_Name: player_select_item_card
   m_TagString: Untagged
@@ -754,6 +755,23 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6241786338279693316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7769783718906405313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b7a82d6405ba442b3445cfdbbf6ee5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item_tag: {fileID: 1739333054518348225}
+  item_icon: {fileID: 8755384597072484967}
+  item_name: {fileID: 327761748471866262}
+  price_value: {fileID: 5529743323846918973}
+  quantity: {fileID: 8576194495903574565}
 --- !u!1 &9215334566980939845
 GameObject:
   m_ObjectHideFlags: 0

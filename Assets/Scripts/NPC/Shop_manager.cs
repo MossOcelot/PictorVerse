@@ -26,14 +26,16 @@ public class Shop_manager : MonoBehaviour
     private float total;
 
     [SerializeField]
-    private int sell_price;
+    private float sell_price;
 
     [SerializeField]
     public string section_cash;
 
+    [SerializeField]
+    private List<InventoryItem> player_items;
+
     public GameObject buyshelf;
     public GameObject shoppingCartShelf;
-    public GameObject SellShelf;
     [SerializeField]
     GameObject BagInventoryItems;
     [SerializeField]
@@ -74,11 +76,11 @@ public class Shop_manager : MonoBehaviour
         }
     }
 
-    public int getSellPrice()
+    public float getSellPrice()
     {
         return this.sell_price;
     }
-    public void changeSellPrice(int value)
+    public void changeSellPrice(float value)
     {
         this.sell_price = value;
     }
@@ -95,6 +97,21 @@ public class Shop_manager : MonoBehaviour
     public List<InventoryItem> getPlayerSellItems()
     {
         return this.player_sell_items;
+    }
+
+    public void AddPlayerSellItems(InventoryItem newItem)
+    {
+        this.player_sell_items.Add(newItem);    
+    }
+
+    public void UpdatePlayerSellItems(int index, InventoryItem newItem)
+    {
+        this.player_sell_items[index] = newItem;
+    }
+
+    public void RemovePlayerSellItem(int index)
+    {
+        this.player_sell_items.RemoveAt(index);
     }
 
     public void clearPlayerSellItems()
@@ -133,6 +150,13 @@ public class Shop_manager : MonoBehaviour
         VAT = (float)npc.gameObject.GetComponent<NPC_Shop>().VAT / 100f;
 
         vat_per.text = npc.gameObject.GetComponent<NPC_Shop>().VAT.ToString();
+
+        // clear card
+        int len_card = buyshelf.transform.childCount;
+        for(int n = 0; n < len_card; n++)
+        {
+            Destroy(buyshelf.transform.GetChild(n).gameObject);
+        }
 
         int len = items.Count;
         for (int i = 0; i < len; i++)
@@ -248,124 +272,6 @@ public class Shop_manager : MonoBehaviour
                 Destroy(shoppingCartShelf.gameObject.transform.GetChild(i).gameObject);
 
                 buyshelf.gameObject.transform.GetChild(itemIndex).gameObject.GetComponent<Button>().interactable = true;
-                return;
-            }
-        }
-    }
-
-    // OnUnpackPlayerBag
-    public void OnUnpackingPlayerBag()
-    {
-        List<InventoryItem> player_items = player.gameObject.GetComponent<PlayerStatus>().getItemInBag();
-
-        int len_items = player_items.Count;
-        n_item = 0;
-        for (int i = 0; i < len_items; i++)
-        {
-            foreach(string type in npc.gameObject.GetComponent<NPC_Shop>().product_type)
-            {
-                if (player_items[i].item.item_type == type)
-                {
-                    ItemBag = Instantiate(ItemBoxTemplate, BagInventoryItems.transform.GetChild(n_item).gameObject.transform);
-                    ItemBag.gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = player_items[i].item.icon;
-                    ItemBag.gameObject.transform.GetChild(1).gameObject.GetComponent<Text>().text = player_items[i].quantity.ToString();
-                    selectSellBtn = ItemBag.gameObject.GetComponent<Button>();
-                    selectSellBtn.AddEventListener(new int[] { i, n_item } ,OnClickChooseSell);
-                    n_item++;
-                }
-            }
-           
-        }
-    }
-
-    void checkQuantityItemPlayerSell(int playerQuantity, int sellQuantity,int indexItemInBag)
-    {
-        if(playerQuantity == sellQuantity)
-        {
-            BagInventoryItems.transform.GetChild(indexItemInBag).gameObject.transform.GetChild(0).gameObject.GetComponent<Button>().interactable = false;
-        }
-
-        BagInventoryItems.gameObject.transform.GetChild(indexItemInBag).gameObject.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.GetComponent<Text>().text = (sellQuantity - playerQuantity).ToString();
-    }
-    void OnClickChooseSell(int[] indexItem)
-    {
-        List<InventoryItem> player_items = player.gameObject.GetComponent<PlayerStatus>().getItemInBag();
-
-        int len = player_sell_items.Count;
-        if (len == 0)
-        {
-            InventoryItem firstItem = player_items[indexItem[0]].ChangeQuantity(1);
-            player_sell_items.Add(firstItem);
-            sell_price += firstItem.price;
-            float sell_item_price = player_items[indexItem[0]].price * 0.7f;
-            checkQuantityItemPlayerSell(player_sell_items[0].quantity, player_items[indexItem[0]].quantity, indexItem[1]);
-
-            SellItem = Instantiate(CartCardTemplate, SellShelf.transform);
-
-            SellItem.gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().color = stick_tags(player_items[indexItem[0]].item.rarity.ToString());
-            SellItem.gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = player_items[indexItem[0]].item.icon;
-            SellItem.gameObject.transform.GetChild(2).gameObject.GetComponent<Text>().text = player_items[indexItem[0]].item.name;
-            SellItem.gameObject.transform.GetChild(4).gameObject.GetComponent<Text>().text = sell_item_price.ToString("F");
-            SellItem.gameObject.transform.GetChild(6).gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().text = "1";
-            removeSellBtn = SellItem.gameObject.GetComponent<Button>();
-            removeSellBtn.AddEventListener(indexItem, OnClickRemoveSellItem);
-
-            return;
-        }
-        
-        for (int i = 0; i < len; i++)
-        {
-            if (player_sell_items[i].item.item_id == player_items[indexItem[0]].item.item_id)
-            {
-                int newquantity = player_sell_items[i].quantity + 1;
-                player_sell_items[i] = player_sell_items[i].ChangeQuantity(newquantity);
-
-                sell_price += player_sell_items[i].price;
-
-                checkQuantityItemPlayerSell(player_sell_items[i].quantity, player_items[indexItem[0]].quantity, indexItem[1]);
-                // update quantity in sellshelf UI
-                SellShelf.gameObject.transform.GetChild(i).gameObject.transform.GetChild(6).gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().text = newquantity.ToString();
-                return;
-            }
-        }
-
-
-        InventoryItem newItem = player_items[indexItem[0]].ChangeQuantity(1);
-        player_sell_items.Add(newItem);
-        float sell_item_price2 = player_items[indexItem[0]].price * 0.7f;
-
-        sell_price += newItem.price;
-        checkQuantityItemPlayerSell(player_sell_items[len].quantity, player_items[indexItem[0]].quantity, indexItem[1]);
-        SellItem = Instantiate(CartCardTemplate, SellShelf.transform);
-
-        SellItem.gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().color = stick_tags(player_items[indexItem[0]].item.rarity.ToString());
-        SellItem.gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = player_items[indexItem[0]].item.icon;
-        SellItem.gameObject.transform.GetChild(2).gameObject.GetComponent<Text>().text = player_items[indexItem[0]].item.name;
-        SellItem.gameObject.transform.GetChild(4).gameObject.GetComponent<Text>().text = sell_item_price2.ToString("F");
-        SellItem.gameObject.transform.GetChild(6).gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().text = "1";
-        removeSellBtn = SellItem.gameObject.GetComponent<Button>();
-        removeSellBtn.AddEventListener(indexItem, OnClickRemoveSellItem);
-        // btn
-    }
-
-    void OnClickRemoveSellItem(int[] indexItem)
-    {
-        InventoryItem player_item = player.gameObject.GetComponent<PlayerStatus>().getItemInBag()[indexItem[0]];
-
-        int len = player_sell_items.Count;
-        for (int i = 0; i < len; i++)
-        {
-            if (player_item.item.item_id == player_sell_items[i].item.item_id)
-            {
-                sell_price -= (player_sell_items[i].price * player_sell_items[i].quantity);
-
-                player_sell_items.Remove(player_sell_items[i]);
-
-                BagInventoryItems.transform.GetChild(indexItem[1]).gameObject.transform.GetChild(0).gameObject.GetComponent<Button>().interactable = true;
-
-                BagInventoryItems.gameObject.transform.GetChild(indexItem[1]).gameObject.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.GetComponent<Text>().text = player_item.quantity.ToString();
-
-                Destroy(SellShelf.gameObject.transform.GetChild(i).gameObject);
                 return;
             }
         }

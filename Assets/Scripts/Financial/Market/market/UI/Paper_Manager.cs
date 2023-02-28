@@ -8,6 +8,8 @@ public class Paper_Manager : MonoBehaviour
 {
     public Page_Manager page_manager;
     public StockSystem stock;
+    public Orderbook_manager orderbook;
+
     public GameObject priceInput;
     public GameObject quantityInput;
     public Text balanceText;
@@ -38,7 +40,7 @@ public class Paper_Manager : MonoBehaviour
         balanceText.text = balance.ToString("F");
 
         // button
-        if(balance < total_value || totalValueItems == 0.0f)
+        if(balance < total_value || totalValueItems == 0.0f || price < orderbook.values_list[0] || price > orderbook.values_list[17])
         {
             BuyBtn.interactable = false;
         } else

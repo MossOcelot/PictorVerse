@@ -8,6 +8,7 @@ public class Paper_manager2 : MonoBehaviour
 {
     public StockSystem stock;
     public Page_Manager page_manager;
+    public Orderbook_manager orderbook;
 
     public GameObject priceInput;
     public GameObject quantityInput;
@@ -37,7 +38,8 @@ public class Paper_manager2 : MonoBehaviour
         quantityItem = getQuantityItem();
         QuantityItem.text = quantityItem.ToString();
 
-        if (quantity > quantityItem)
+        Debug.Log(price + " : " + orderbook.values_list[17]);
+        if (quantity > quantityItem || price < orderbook.values_list[0] || price > orderbook.values_list[17])
         {
             SellBtn.interactable = false;
         }

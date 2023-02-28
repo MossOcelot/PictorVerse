@@ -1305,6 +1305,7 @@ MonoBehaviour:
   - {fileID: 4074436927371106813}
   - {fileID: 7783098633438709170}
   page: {fileID: 5515778699098879943}
+  values_list: []
 --- !u!1 &1664126109747610346
 GameObject:
   m_ObjectHideFlags: 0
@@ -3661,16 +3662,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stock: {fileID: 8075676940446844059}
+  page_manager: {fileID: 0}
+  orderbook: {fileID: 0}
   priceInput: {fileID: 4444623217054293860}
   quantityInput: {fileID: 7685227323243393388}
   balanceText: {fileID: 6047040452025414335}
   valueItem: {fileID: 6816908157790795518}
   withdrawalText: {fileID: 7368138263280233716}
+  QuantityItem: {fileID: 0}
   price: -1
   quantity: -1
+  SellBtn: {fileID: 0}
   balance: 0
+  quantityItem: 0
   totalValueItems: 0
   withdrawal_value: 0
+  itemIndexs: 
 --- !u!1 &4304220540585460620
 GameObject:
   m_ObjectHideFlags: 0
@@ -3777,7 +3784,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 831cff0c5af6b5549b961fcdea35d319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  page_manager: {fileID: 0}
   stock: {fileID: 8075676940446844059}
+  orderbook: {fileID: 0}
   priceInput: {fileID: 8850886113040115317}
   quantityInput: {fileID: 8337697338313868036}
   balanceText: {fileID: 1359953909541778554}
@@ -3785,6 +3794,7 @@ MonoBehaviour:
   Vat_Value: {fileID: 5335703829331409366}
   totalText: {fileID: 4539378451584523555}
   withdrawalText: {fileID: 3268943957393209043}
+  BuyBtn: {fileID: 0}
   price: -1
   quantity: -1
   VAT: 0
@@ -4378,6 +4388,7 @@ MonoBehaviour:
     orderBook:
       marketPrice: 0
       quantityItem: 0
+      price_list: []
       buyOrders: []
       sellOrders: []
   stockSystem: {fileID: 8075676940446844059}
@@ -8381,10 +8392,10 @@ RectTransform:
   m_Father: {fileID: 8075676940179531405}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 102.5, y: -25}
-  m_SizeDelta: {x: 205, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8075676938461888093
 CanvasRenderer:
@@ -10256,7 +10267,7 @@ RectTransform:
   - {fileID: 8075676939015546012}
   - {fileID: 6329527264703172016}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11432,6 +11443,7 @@ MonoBehaviour:
       orderBook:
         marketPrice: 0
         quantityItem: 0
+        price_list: []
         buyOrders: []
         sellOrders: []
     - item: {fileID: 11400000, guid: ecaeb17fcff3fd84bbf8d5b363b8799f, type: 2}
@@ -11439,6 +11451,7 @@ MonoBehaviour:
       orderBook:
         marketPrice: 0
         quantityItem: 0
+        price_list: []
         buyOrders: []
         sellOrders: []
   - item_categories: Hard
@@ -11462,7 +11475,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stock: {fileID: 8075676940446844059}
   player: {fileID: 0}
-  playerOrder: []
+  myOrders: []
   Table: {fileID: 8075676939471228509}
   ItemOrderbar: {fileID: 7087966025314465559, guid: 94145aaf42b218f4a8a0452fd95b027c, type: 3}
 --- !u!1 &8145368698062207095
@@ -12592,6 +12605,10 @@ PrefabInstance:
       value: -0.6209259
       objectReference: {fileID: 0}
     - target: {fileID: 3188089539943386955, guid: 94145aaf42b218f4a8a0452fd95b027c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.6209259
+      objectReference: {fileID: 0}
+    - target: {fileID: 3366018294197103296, guid: 94145aaf42b218f4a8a0452fd95b027c, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.6209259
       objectReference: {fileID: 0}
