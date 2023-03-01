@@ -7,30 +7,31 @@ public class ChangeScene : MonoBehaviour
 {
     public string sceneName;
     FadeInOut fade;
-    [SerializeField] public float x;
-    [SerializeField] public float y;
     public GameObject player;
 
-    // Start is called before the first frame update
+    [SerializeField] private Vector2 desiredPosition;
+
     void Start()
     {
         fade = FindObjectOfType<FadeInOut>();
         player = GameObject.FindWithTag("Player");
     }
 
-    public IEnumerator _ChangeScene(GameObject player)
+    public IEnumerator _ChangeScene()
     {
         fade.FadeIn();
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(sceneName);
-         player.transform.position = new Vector2(x, y);
+        yield return new WaitForEndOfFrame(); 
+        player = GameObject.FindWithTag("Player");
+        player.transform.position = desiredPosition; 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            StartCoroutine(_ChangeScene(collision.gameObject));
+            StartCoroutine(_ChangeScene());
         }
     }
 }

@@ -29,9 +29,18 @@ public class Window_QuestPointer : MonoBehaviour
         pointerRectTransform = transform.Find("Pointer").GetComponent<RectTransform>();
         pointerImage = transform.Find("Pointer").GetComponent<Image>();
     }
-
     private void Update()
     {
+        GameObject pointerObject = GameObject.FindWithTag("Pointer");
+        if (pointerObject != null)
+        {
+            targetPosition = pointerObject.transform.position;
+        }
+        else
+        {
+            Debug.Log("No GameObject with the tag 'Pointer' found!");
+        }
+
         Vector3 toPosition = targetPosition;
         Vector3 fromPosition = Camera.main.transform.position;
 
@@ -69,6 +78,7 @@ public class Window_QuestPointer : MonoBehaviour
             pointerRectTransform.localEulerAngles = Vector3.zero;
         }
     }
+
 
     private void RotatePointerTowardsTargerPosition()
     {
