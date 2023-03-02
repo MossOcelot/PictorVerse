@@ -17,6 +17,12 @@ public class data_storage : MonoBehaviour
         brokerOrders.RemoveAt(index);
     }
 
+    public void updateStatusBrokerOrder(int index, int status, bool value)
+    {
+        brokerOrders[index].Order.status = status;
+        brokerOrders[index].IsActive = value;
+    }
+
     public void updateActivateBrokerOrder(int index, bool value)
     {
         brokerOrders[index].IsActive = value;

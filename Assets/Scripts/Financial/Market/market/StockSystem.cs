@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StockSystem : MonoBehaviour
 {
-    [System.Serializable]
-    public class ItemInStock
-    {
-        public string item_categories;
-        public List<ItemStock> itemStock;
-    }
+    
 
     public List<ItemInStock> stock;
+    public string market_name;
+    public int marketID => GetInstanceID();
     public int VAT;
     [SerializeField]
     private float balance;
+    public Text vat_text;
+    public OrderOperation player;
 
     public float getBalance() { return balance; }
     public void setBalance(float balance) { this.balance = balance;}
@@ -23,6 +23,8 @@ public class StockSystem : MonoBehaviour
     private void Start()
     {
         VAT = GameObject.FindGameObjectWithTag("Goverment").gameObject.GetComponent<GovermentPolicy>().getVat();
+        player = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<OrderOperation>();
+        vat_text.text = VAT.ToString() + " %";
     }
     private void Update()
     {
@@ -31,13 +33,11 @@ public class StockSystem : MonoBehaviour
             foreach(ItemStock item in itemInStock.itemStock) 
             {
                 int len_OrderList = item.orderBook.getSellOrders().Count;
-                Debug.Log(item.item.item_id);
                 if (len_OrderList > 0) 
                 {
                     
                     foreach(LimitOrder order in item.orderBook.getSellOrders().ToList())
                     {
-
                         dynamic[] q = item.orderBook.MatchOrder(order);
                         
                         order.Quantity -= q[0];

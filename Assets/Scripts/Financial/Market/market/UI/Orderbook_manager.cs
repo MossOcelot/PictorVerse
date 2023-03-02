@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 public class Orderbook_manager : MonoBehaviour
 {
+    public Text MarketPriceTxt;
     public Text[] valueItems;
     public Text[] quantityItems;
     public Page_Manager page;
-    float[] values;
+    public float[] values_list;
 
+    float[] values;
     float rangeValue(float mid_price)
     {
         if (mid_price > 1000f)
@@ -19,7 +21,7 @@ public class Orderbook_manager : MonoBehaviour
         } else if (mid_price > 100f)
         {
             return 10f;
-        } else if (mid_price > 10f)
+        } else if (mid_price > 50f)
         {
             return 5f;
         } else if (mid_price > 1f)
@@ -38,16 +40,25 @@ public class Orderbook_manager : MonoBehaviour
         float mid_price = page.ItemInStock.orderBook.marketPrice;
         float range = rangeValue(mid_price);
 
-        float[] values_list = new float[18];
+        values_list = new float[18];
         float n_i = mid_price;
         for(int i = 0; i < 18; i++)
         {
+
             if (i == 0)
             {
+                if (n_i < 0)
+                {
+                    n_i = 0.01f;
+                }
                 values_list[9] = n_i;
             } else if (i <= 9)
             {
                 n_i -= range;
+                if(n_i < 0)
+                {
+                    n_i = 0.01f;
+                }
                 values_list[9 - i] = n_i;
             } else if (i > 9)
             {
@@ -65,10 +76,11 @@ public class Orderbook_manager : MonoBehaviour
     private void Update()
     {
         int len = valueItems.Length;
+        MarketPriceTxt.text = "Price: " + page.ItemInStock.orderBook.marketPrice.ToString("F");
         float[] values = generateValues();
         for (int i = 0; i < len; i++)
         {
-            valueItems[i].text = values[i].ToString();
+            valueItems[i].text = values[i].ToString("F");
         }
 
         for (int i = 0; i < len; i++)

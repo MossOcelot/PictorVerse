@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 public class Paper_Manager : MonoBehaviour
 {
+    public Page_Manager page_manager;
     public StockSystem stock;
+    public Orderbook_manager orderbook;
 
     public GameObject priceInput;
     public GameObject quantityInput;
@@ -15,8 +17,9 @@ public class Paper_Manager : MonoBehaviour
     public Text Vat_Value;
     public Text totalText;
     public Text withdrawalText;
-    float price = -1;
-    float quantity = -1;
+    public Button BuyBtn;
+    public float price = -1;
+    public float quantity = -1;
 
     [SerializeField]
     float VAT;
@@ -35,10 +38,37 @@ public class Paper_Manager : MonoBehaviour
     {
         balance = stock.getBalance();
         balanceText.text = balance.ToString("F");
+
+        // button
+        if(balance < total_value || totalValueItems == 0.0f || price < orderbook.values_list[0] || price > orderbook.values_list[17])
+        {
+            BuyBtn.interactable = false;
+        } else
+        {
+            BuyBtn.interactable = true;
+        }
     }
+
+    public void OnClickBuy()
+    {
+        Queue_manager broker = GameObject.FindGameObjectWithTag("Broker").gameObject.transform.GetChild(0).gameObject.GetComponent<Queue_manager>();
+        float newbalance = stock.getBalance() - total_value;
+        stock.setBalance(newbalance);
+
+        LimitOrder limitOrder = new LimitOrder("", stock.player, totalValueItems / quantity, (int)quantity, true);
+        // add order to queue_manager (broker)
+        priceInput.gameObject.GetComponent<InputField>().text = "0";
+        quantityInput.gameObject.GetComponent<InputField>().text = "0";
+
+
+        broker.addQueueOrder(stock.market_name, page_manager.ItemInStock.item.item_id, "System", limitOrder, 0);
+    }
+
     public void setValueItems()
     {
+
         VAT = (float)stock.VAT / 100;
+        
         if (float.TryParse(priceInput.gameObject.GetComponent<InputField>().text, out price) && float.TryParse(quantityInput.gameObject.GetComponent<InputField>().text, out quantity))
         {
             totalValueItems = price * quantity;
@@ -50,8 +80,5 @@ public class Paper_Manager : MonoBehaviour
             totalText.text = "$ " + total_value.ToString("F");
             withdrawalText.text = "$ " + withdrawal_value.ToString("F");
         }
-        
-
-        
     }
 }

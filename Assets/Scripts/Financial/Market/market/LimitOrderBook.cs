@@ -7,10 +7,24 @@ public class LimitOrderBook
 {
     public float marketPrice;
     public int quantityItem;
+
+    [SerializeField]
+    private List<float> price_list;
     [SerializeField]
     private List<LimitOrder> buyOrders;
     [SerializeField]
     private List<LimitOrder> sellOrders;
+
+
+    public void AddPriceList(float price)
+    {
+        price_list.Insert(0, price);
+    }
+
+    public List<float> GetPriceList()
+    {
+        return price_list;
+    }
 
     public void removeSellOrder(LimitOrder order)
     {
@@ -25,6 +39,36 @@ public class LimitOrderBook
     {
         return sellOrders;
     }
+
+    public void UpdateorderInBook(LimitOrder order)
+    {
+        if (order.IsBuy)
+        {
+            int len = buyOrders.Count;
+            for(int i = 0; i < len; i++) 
+            {
+                if (buyOrders[i].OrderId == order.OrderId)
+                {
+                    buyOrders.RemoveAt(i);
+                    break;
+                }
+            }
+
+        }
+        else
+        {
+            int len = sellOrders.Count;
+            for (int i = 0; i < len; i++)
+            {
+                if (sellOrders[i].OrderId == order.OrderId)
+                {
+                    sellOrders.RemoveAt(i);
+                    break;
+                }
+            }
+        }
+    }
+
     public void AddOrder(LimitOrder order)
     {
         if (order.IsBuy)
@@ -52,6 +96,7 @@ public class LimitOrderBook
 
         for (int i = 0; i < orders.Count; i++)
         {
+            if (order.Customer == orders[i].Customer) continue;
             if ((isBuy && orders[i].Price > price) || (!isBuy && orders[i].Price < price))
             {
                 break; // Stop matching orders if price is no longer favorable
@@ -75,10 +120,11 @@ public class LimitOrderBook
 
             gainprice += ((float)matchedQuantity * orders[i].Price);
             marketPrice = orders[i].Price;
+            AddPriceList(marketPrice);
+
             if (orders[i].Quantity == 0)
             {
                 orders[i].status = 3;
-                //orders[i].GainPrice = orders[i].GainPrice / (float)orders[i].GainQuantity;
                 Debug.Log(orders[i].OrderId);
                 orders.RemoveAt(i);
                 i--;
