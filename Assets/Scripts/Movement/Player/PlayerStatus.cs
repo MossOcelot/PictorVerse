@@ -28,7 +28,8 @@ public class PlayerStatus : MonoBehaviour
     private List<AccountsDetail> accountsDetails;
     [SerializeField]
     private StaticValue myStatic;
-
+    [SerializeField]
+    private string account_id;
     public void setHP(int hp)
     {
         this.HP += hp;
@@ -98,6 +99,14 @@ public class PlayerStatus : MonoBehaviour
         this.accountsDetails.Insert(0, account);
     }
 
+    public void SetAccountID(string account_id)
+    {
+        this.account_id = account_id;
+    }
+    public string GetAccountID()
+    {
+        return this.account_id;
+    }
     private void Update()
     {
         if (this.energy <= 0) {
