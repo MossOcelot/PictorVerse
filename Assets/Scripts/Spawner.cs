@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Spawner : MonoBehaviour
 {
@@ -10,13 +8,16 @@ public class Spawner : MonoBehaviour
     public CircleCollider2D area_spawn;
     public LayerMask layerMask;
     public int number_of_monster;
-    
-    private int count_monster;
+    public float respawn_delay = 5f;
+    public int max_respawns = 10;
 
+    private int count_monster;
     private int loss_monster;
     private Vector3 position;
     private Vector2 center;
     private float radius;
+    private float last_respawn_time;
+    private int num_respawns;
 
     void Start()
     {
@@ -31,14 +32,18 @@ public class Spawner : MonoBehaviour
         {
             Vector2 randomPoint = Generate();
             Instantiate(monster, randomPoint, Quaternion.identity);
-            
         }
+        last_respawn_time = Time.time;
+        num_respawns = 0;
     }
 
     private void Update()
     {
-        remonster();
-
+        if (num_respawns < max_respawns && Time.time - last_respawn_time > respawn_delay)
+        {
+            last_respawn_time = Time.time;
+            remonster();
+        }
     }
 
     public Vector2 Generate()
@@ -49,7 +54,7 @@ public class Spawner : MonoBehaviour
         float y = center.y + distance * Mathf.Sin(angle);
         return new Vector2(x, y);
     }
-   
+
 
     public int countObject()
     {
@@ -57,16 +62,14 @@ public class Spawner : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(center, radius, layerMask);
         foreach (Collider2D collider in colliders)
         {
-            
-            if (collider.GetComponent<Monster_Status>().birthplace == gameObject.name) {
+            if (collider.GetComponent<Monster_Status>().birthplace == gameObject.name)
+            {
                 number_monsterInArea += 1;
             }
-            
         }
         return number_monsterInArea;
     }
-    // Start is called before the first frame update
-    
+
     private void remonster()
     {
         count_monster = countObject() / 2;
@@ -79,12 +82,7 @@ public class Spawner : MonoBehaviour
                 Vector2 randomPoint = Generate();
                 Instantiate(objectToSpawn, randomPoint, Quaternion.identity);
             }
+            num_respawns++;
         }
     }
-    // Update is called once per frame
-
-
-
-
-
 }

@@ -40,7 +40,7 @@ public class ConfirmDesposits : MonoBehaviour
         Player_pocket.GetPocketDetails().setPocket(section_name, newAmount);
 
         float newDeposit = bank_manager.GetPlayer_Account().amount_deposits + Deposit_amount;
-        AccountList account = new AccountList(present_date, "½Ò¡à§Ô¹", Deposit_amount, 0, newDeposit, "DEP/PC/CD");
+        AccountList account = new AccountList(present_date, "deposit", Deposit_amount, 0, newDeposit, "DEP/PC/CD");
         bank_manager.Setplayer_account(newDeposit, account);
 
         float newDept = bank_manager.bank_status.GetBank_Financial("debt") + Deposit_amount;

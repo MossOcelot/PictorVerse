@@ -5,8 +5,6 @@ using static UnityEngine.GraphicsBuffer;
 
 public class AIFollow : MonoBehaviour
 {
-
-    
     public Vector3 position_player;
     public Vector3 firstposition_AI;
    
@@ -20,18 +18,25 @@ public class AIFollow : MonoBehaviour
     public float radius;
     public float distance_spawner;
     private float distance;
+    private bool isDied = false;
+
+    public void setIsDied(bool status)
+    {
+        this.isDied = status;
+    }
+
     // Update is called once per frame
     private void Start()
     {
-       
-        
         firstposition_AI = gameObject.transform.position;
         radius = spawner_area.GetComponent<CircleCollider2D>().radius;
-       
     }
     void Update()
     {
-        followPlayer();
+        if (!isDied) 
+        {
+            followPlayer();
+        }
     }
 
     private void OnTriggerStay2D(Collider2D target)
