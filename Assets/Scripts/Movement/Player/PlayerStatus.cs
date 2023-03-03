@@ -23,6 +23,8 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField]
     public PocketDetails player_accounts;
     [SerializeField]
+    private Financial_Details financial_detail;
+    [SerializeField]
     private List<InventoryItem> myBag;
     [SerializeField]
     private List<AccountsDetail> accountsDetails;
@@ -107,6 +109,29 @@ public class PlayerStatus : MonoBehaviour
     {
         return this.account_id;
     }
+
+    public void setFinancial_detail(string command, int value)
+    {
+        if (command == "balance")
+        {
+            this.financial_detail.balance = value;
+        }
+        else if (command == "debt")
+        {
+            this.financial_detail.debt = value;
+        }
+    }
+
+    public float GetFinancial_balance()
+    {
+        return this.financial_detail.balance;
+    }
+
+    public float GetFinancial_debt()
+    {
+        return this.financial_detail.debt;
+    }
+
     private void Update()
     {
         if (this.energy <= 0) {

@@ -24,6 +24,9 @@ public class InventoryController : MonoBehaviour
     public List<InventoryItem> initialItems= new List<InventoryItem>();
     public List<InventoryItem> WeaponItems= new List<InventoryItem>();
     public List<InventoryItem> miniInitialItem= new List<InventoryItem>();
+
+    public GameObject MyInventoryObj;
+    public GameObject MyAccountObj;
     /*
     [SerializeField]
     private AudioClip dropClip;
@@ -392,9 +395,12 @@ public class InventoryController : MonoBehaviour
                 }
             } else
             {
+                MyInventoryObj.gameObject.SetActive(true);
+                MyAccountObj.gameObject.SetActive(false);
                 inventoryUI.hide();
                 WeaponBoxUI.hide();
                 miniInventoryUI.hide();
+
             }
         }
     }

@@ -37,6 +37,7 @@ public class TopUpSystem : MonoBehaviour
         myMoney.text = "$ " + playerHasMoney.ToString("F");
 
         balanceInMarket = stockSystem.getBalance();
+        Debug.Log(balanceInMarket);
         myMoneyInMarket.text = "$ " + balanceInMarket.ToString("F");
 
         if (playerHasMoney < TopUpCount )

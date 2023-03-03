@@ -100,7 +100,7 @@ public class PlayerOrderShow : MonoBehaviour
             Item = Instantiate(ItemOrderbar, Table.transform);
             Debug.Log(myOrders[i].order.Order.OrderId + " " + i + " " + myOrders[i].index);
             PlayerOrderShow show = gameObject.GetComponent<PlayerOrderShow>();
-            // Item.gameObject.GetComponent<UIOrderBar>().SetData(show, i, itemSO, offer_price, price_itemAVG, GainQuantity, Quantity, myOrders[i].order.Order.IsBuy, myOrders[i].order.Order.status);
+            Item.gameObject.GetComponent<UIOrderBar>().SetData(i, itemSO, offer_price, price_itemAVG, GainQuantity, Quantity, myOrders[i].order.Order.IsBuy, myOrders[i].order.Order.status);
         }
     }
 }

@@ -18,6 +18,10 @@ public class Window_Graph : MonoBehaviour
 
     private List<GameObject> gameObjectList;
     private FunctionTimer functionTimer;
+
+    public float yLength;
+    public float xLength;
+    public float yBias;
     private void Awake()
     {
         graphContainer = transform.Find("graphContainer").GetComponent<RectTransform>();
@@ -55,6 +59,7 @@ public class Window_Graph : MonoBehaviour
         GameObject gameObject = new GameObject("circle", typeof(Image));
         gameObject.transform.SetParent(graphContainer, false);
         gameObject.GetComponent<Image>().sprite = circleSprite;
+        gameObject.GetComponent<Image>().color = new Color32(99, 170, 173, 255);
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = anchoredPosition;
         rectTransform.sizeDelta = new Vector2(11, 11);
@@ -119,14 +124,14 @@ public class Window_Graph : MonoBehaviour
             RectTransform labelX = Instantiate(labelTemplateX);
             labelX.SetParent(graphContainer);
             labelX.gameObject.SetActive(true);
-            labelX.anchoredPosition = new Vector2(xPosition, -20f);
+            labelX.anchoredPosition = new Vector2(xPosition, yLength);
             labelX.GetComponent<Text>().text = getAxisLabelX(i);
             gameObjectList.Add(labelX.gameObject);
 
             RectTransform dashX = Instantiate(dashTemplateX);
             dashX.SetParent(graphContainer);
             dashX.gameObject.SetActive(true);
-            dashX.anchoredPosition = new Vector2(xPosition, -3f);
+            dashX.anchoredPosition = new Vector2(xPosition, -5f);
             gameObjectList.Add(dashX.gameObject);
         }
 
@@ -137,7 +142,7 @@ public class Window_Graph : MonoBehaviour
             labelY.SetParent(graphContainer);
             labelY.gameObject.SetActive(true);
             float normalizedValue = i * 1f / separatorCount;
-            labelY.anchoredPosition = new Vector2(-7f, normalizedValue * graphHight);
+            labelY.anchoredPosition = new Vector2(xLength, (normalizedValue * graphHight) + yBias);
             labelY.GetComponent<Text>().text = getAxisLabelY(yMinimum + (normalizedValue * (yMaximum - yMinimum)));
             gameObjectList.Add(labelY.gameObject);
 
@@ -152,6 +157,7 @@ public class Window_Graph : MonoBehaviour
     private GameObject CreateDotConnection(Vector2 dotPositionA, Vector2 dotPositionB)
     {
         GameObject gameObject = new GameObject("dotConnection", typeof(Image));
+        gameObject.gameObject.GetComponent<Image>().color = new Color32(99, 170, 173, 255);
         gameObject.transform.SetParent(graphContainer, false);
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         Vector2 dir = (dotPositionA - dotPositionB).normalized;
