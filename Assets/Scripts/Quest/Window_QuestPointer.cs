@@ -21,11 +21,7 @@ public class Window_QuestPointer : MonoBehaviour
         {
             targetPosition = pointerObject.transform.position;
         }
-        else
-        {
-            Debug.LogError("No GameObject with the tag 'Pointer' found!");
-        }
-
+        
         pointerRectTransform = transform.Find("Pointer").GetComponent<RectTransform>();
         pointerImage = transform.Find("Pointer").GetComponent<Image>();
     }
@@ -38,7 +34,7 @@ public class Window_QuestPointer : MonoBehaviour
         }
         else
         {
-            Debug.Log("No GameObject with the tag 'Pointer' found!");
+            Debug.Log("Dont have Pointer Tag");
         }
 
         Vector3 toPosition = targetPosition;
