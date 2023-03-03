@@ -38,7 +38,7 @@ public class ConfirmWithDraw : MonoBehaviour
         Player_pocket.GetPocketDetails().setPocket(section_name, newAmount);
 
         float newWithDraw = bank_manager.GetPlayer_Account().amount_deposits - WithDraw_amount;
-        AccountList account = new AccountList(present_date, "¶Í¹à§Ô¹", 0, WithDraw_amount, newWithDraw, "TRW/XW");
+        AccountList account = new AccountList(present_date, "withDraw", 0, WithDraw_amount, newWithDraw, "TRW/XW");
         bank_manager.Setplayer_account(newWithDraw, account);
 
         float newDept = bank_manager.bank_status.GetBank_Financial("debt") - WithDraw_amount;
