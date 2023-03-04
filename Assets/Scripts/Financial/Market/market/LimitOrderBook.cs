@@ -7,10 +7,24 @@ public class LimitOrderBook
 {
     public float marketPrice;
     public int quantityItem;
+
+    [SerializeField]
+    private List<float> price_list;
     [SerializeField]
     private List<LimitOrder> buyOrders;
     [SerializeField]
     private List<LimitOrder> sellOrders;
+
+
+    public void AddPriceList(float price)
+    {
+        price_list.Insert(0, price);
+    }
+
+    public List<float> GetPriceList()
+    {
+        return price_list;
+    }
 
     public void removeSellOrder(LimitOrder order)
     {
@@ -106,6 +120,8 @@ public class LimitOrderBook
 
             gainprice += ((float)matchedQuantity * orders[i].Price);
             marketPrice = orders[i].Price;
+            AddPriceList(marketPrice);
+
             if (orders[i].Quantity == 0)
             {
                 orders[i].status = 3;

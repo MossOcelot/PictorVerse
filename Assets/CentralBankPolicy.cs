@@ -9,4 +9,9 @@ public class CentralBankPolicy : MonoBehaviour
 
     [SerializeField]
     private float policyInterestRate;
+
+    public float GetPolicyInterestRate()
+    {
+        return this.policyInterestRate;
+    }
 }

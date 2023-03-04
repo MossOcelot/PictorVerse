@@ -23,12 +23,15 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField]
     public PocketDetails player_accounts;
     [SerializeField]
+    private Financial_Details financial_detail;
+    [SerializeField]
     private List<InventoryItem> myBag;
     [SerializeField]
     private List<AccountsDetail> accountsDetails;
     [SerializeField]
     private StaticValue myStatic;
-
+    [SerializeField]
+    private string account_id;
     public void setHP(int hp)
     {
         this.HP += hp;
@@ -96,6 +99,37 @@ public class PlayerStatus : MonoBehaviour
     public void addAccountsDetails(AccountsDetail account)
     {
         this.accountsDetails.Insert(0, account);
+    }
+
+    public void SetAccountID(string account_id)
+    {
+        this.account_id = account_id;
+    }
+    public string GetAccountID()
+    {
+        return this.account_id;
+    }
+
+    public void setFinancial_detail(string command, int value)
+    {
+        if (command == "balance")
+        {
+            this.financial_detail.balance = value;
+        }
+        else if (command == "debt")
+        {
+            this.financial_detail.debt = value;
+        }
+    }
+
+    public float GetFinancial_balance()
+    {
+        return this.financial_detail.balance;
+    }
+
+    public float GetFinancial_debt()
+    {
+        return this.financial_detail.debt;
     }
 
     private void Update()

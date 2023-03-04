@@ -31,11 +31,11 @@ Transform:
   m_GameObject: {fileID: 7882264635300423279}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.47, y: -5.16, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7882264635300423266
 SpriteRenderer:
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1f57ff81f770544497ea47a9019b953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npc_img: {fileID: 7882264635300423266}
+  npc_img: {fileID: -2001687655, guid: effee4bf076ee624fabf231e332bd722, type: 3}
   npc_name: 10
   birthday: 10101
   live_place: 10
@@ -138,23 +138,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2db8d4c97b93bca4d9fa90949e986e31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPC_status: {fileID: 0}
+  NPC_status: {fileID: 7882264635300423264}
+  playerBag: {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
   financial_shop_detail:
     balance: 0
     debt: 0
   buy_items_list:
   - quantity: 50
     item: {fileID: 11400000, guid: ecaeb17fcff3fd84bbf8d5b363b8799f, type: 2}
+    itemState: []
     owner: NPC
     before_owner: 
     price: 5000
   - quantity: 15
     item: {fileID: 11400000, guid: f76ae427715d63c4f8448aff752c2f2c, type: 2}
+    itemState: []
     owner: NPC
     before_owner: 
     price: 777
   resource: []
-  product_type: []
+  product_type:
+  - mineral
   shop_manager: {fileID: 0}
   myshop: {fileID: 7387413289116649874, guid: 812848b5acabc2d4abc97ba2ea94f032, type: 3}
   accountsDetails: []
@@ -173,12 +177,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7edaca3631485c745ae476afcd656523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: npc
-  queues: []
   player: {fileID: 0}
+  playerInventorySO: {fileID: 0}
+  type: npc
   npc: {fileID: 7882264635300423268}
-  myQueues: []
-  market_queue_manager: {fileID: 0}
+  broker: {fileID: 0}
 --- !u!114 &2889375128220278922
 MonoBehaviour:
   m_ObjectHideFlags: 0

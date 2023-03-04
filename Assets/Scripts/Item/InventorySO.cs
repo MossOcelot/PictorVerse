@@ -31,7 +31,6 @@ namespace inventory.Model
         {
             if(item.IsStackable == false)
             {
-                
                 for (int i = 0; i < inventoryItems.Count; i++)
                 {
                     while (quantity > 0 && IsInventoryFull() == false)
@@ -102,6 +101,21 @@ namespace inventory.Model
             return quantity;
         }
 
+        public bool AddItemInIndex(int index, Item item, int quantity, List<ItemParameter> itemState = null)
+        {
+            if (inventoryItems[index].item == null)
+            {
+                InventoryItem newItem = new InventoryItem
+                {
+                    item = item,
+                    quantity = quantity,
+                    itemState = new List<ItemParameter>(itemState == null ? item.DefaultParametersList : itemState)
+                };
+                inventoryItems[index] = newItem;
+                return true;
+            }
+            return false;
+        }
         public void RemoveItem(int itemIndex, int amount)
         {
             if(inventoryItems.Count > itemIndex)
@@ -169,7 +183,7 @@ namespace inventory.Model
         public bool IsEmpty => item == null;
         public string owner;
         public string before_owner;
-        public int price;
+        public float price;
         public InventoryItem ChangeQuantity(int newQuantity)
         {
             return new InventoryItem
@@ -196,7 +210,7 @@ namespace inventory.Model
             };
         }
 
-        public InventoryItem ChangePrice(int newPrice)
+        public InventoryItem ChangePrice(float newPrice)
         {
             return new InventoryItem
             {
