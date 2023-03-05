@@ -10,6 +10,9 @@ public class mapPage : MonoBehaviour
     [SerializeField]
     public GameObject galaxyMap;
 
+    [SerializeField]
+    public GameObject planet;
+
     public void close_window()
     {
         gameObject.SetActive(false);

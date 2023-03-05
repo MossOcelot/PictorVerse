@@ -5,24 +5,25 @@ using UnityEngine.UI;
 
 public class sectionOpener : MonoBehaviour
 {
+    public GameObject killSection;
     public GameObject Panel;
     public GameObject button;
     public GameObject button1;
     public GameObject button2;
     public GameObject button3;
     public GameObject button4;
-    public GameObject backButton;
+   // public GameObject backButton;
     //bool isPanelOn = false;
 
 
     public void OpenPanel()
     {
         //isPanelOn = false;
-           
+        killSection.SetActive(false);  
         Panel.SetActive(true);
-        Debug.Log("backbttn");
-        backButton.SetActive(true);
-        Debug.Log("backBttn2");
+        //Debug.Log("backbttn");
+        //backButton.SetActive(true);
+        //Debug.Log("backBttn2");
         button.SetActive(false);
         button1.SetActive(false);
         button2.SetActive(false);
@@ -41,7 +42,7 @@ public class sectionOpener : MonoBehaviour
 
     public void backing()
     {  
-        backButton.SetActive(false);
+        //backButton.SetActive(false);
         Animator animator = Panel.GetComponent<Animator>();
         if (animator != null)
         {
@@ -60,12 +61,6 @@ public class sectionOpener : MonoBehaviour
             Debug.Log($"Animation over");
             Panel.SetActive(false);
         }
-        
-
-        //        DestroyPanel();
-    }
-    private void DestroyPanel()
-    {
-        Panel?.SetActive(false);
+        killSection.SetActive(true);
     }
 }

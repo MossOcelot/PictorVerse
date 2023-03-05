@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class mapPageManage : MonoBehaviour
 {
@@ -14,16 +15,28 @@ public class mapPageManage : MonoBehaviour
         mapPage.close_window();
     }
     
+    public void open_planetPage()
+    {
+        mapPage.planet.gameObject.SetActive(true);
+    }
     public void open_galaxyMap()
     {
-        isGalaxyOn = true;
-        mapPage.galaxyMap.gameObject.SetActive(true);
+        if (isGalaxyOn != true)
+        {
+            mapPage.galaxyMap.gameObject.SetActive(!isCityON);
+            isGalaxyOn = !isGalaxyOn;
+        }
+        mapPage.planet.gameObject.SetActive(false);
     }
 
     public void back_to_cityMap()
     {
-        isGalaxyOn = false;
-        mapPage.galaxyMap.gameObject.SetActive(false);
+        if (isGalaxyOn != false)
+        {
+            mapPage.galaxyMap.gameObject.SetActive(isCityON);
+            isGalaxyOn = !isGalaxyOn;
+        }
+        //mapPage.planet.gameObject.SetActive(false);    
     }
     // Start is called before the first frame update
     void Start()
