@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bank_Status : MonoBehaviour
 {
+    [SerializeField]
+    private string bank_name;
     public PocketDetails Bank_Pocket;
     [SerializeField]
     private List<AccountsDetail> bank_accounts;
@@ -38,5 +40,10 @@ public class Bank_Status : MonoBehaviour
         {
             this.bank_financial.debt = amounts;
         }
+    }
+
+    public string GetBank_name()
+    {
+        return this.bank_name;
     }
 }

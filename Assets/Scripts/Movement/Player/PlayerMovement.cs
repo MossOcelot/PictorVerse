@@ -8,6 +8,14 @@ using inventory.Model;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField]
+    private InventorySO inventory_player;
+    [SerializeField]
+    private InventorySO inventoryMini_player;
+    [SerializeField]
+    private InventorySO Weapon_player;
+    [SerializeField]
+    private InventorySO Set_player;
 
     public Vector2 lastPos;
     // กำหนด LayerMask
@@ -172,8 +180,26 @@ public class PlayerMovement : MonoBehaviour
     private float getWeightItem()
     {
         float weight = 0;
-        List<InventoryItem> myItems = status.getItemInBag();
-        foreach (InventoryItem item in myItems)
+        Dictionary<int, InventoryItem> myItems = inventory_player.GetCurrentInventoryState();
+        foreach (InventoryItem item in myItems.Values)
+        {
+            weight += (item.item.weight * item.quantity);
+        }
+
+        Dictionary<int, InventoryItem> myMiniItem = inventoryMini_player.GetCurrentInventoryState();
+        foreach (InventoryItem item in myMiniItem.Values)
+        {
+            weight += (item.item.weight * item.quantity);
+        }
+
+        Dictionary<int, InventoryItem> myWeaponItem = Weapon_player.GetCurrentInventoryState();
+        foreach (InventoryItem item in myWeaponItem.Values)
+        {
+            weight += (item.item.weight * item.quantity);
+        }
+
+        Dictionary<int, InventoryItem> mySetItem = Set_player.GetCurrentInventoryState();
+        foreach (InventoryItem item in mySetItem.Values)
         {
             weight += (item.item.weight * item.quantity);
         }
@@ -184,7 +210,7 @@ public class PlayerMovement : MonoBehaviour
     private void checkWeightPerStrength()
     {
         weight_player = getWeightItem();
-        float weight_per_strength = (weight_player / (strength * 0.1f)) * 100; // ระบบ weight player
+        float weight_per_strength = (weight_player / strength) * 100; // ระบบ weight player
         
         if (weight_per_strength > 90f)
         {
@@ -207,5 +233,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-   
+    public float GetWeight_player()
+    {
+        return weight_player;
+    }
+
+    public float GetStrength()
+    {
+        return strength;
+    }
+
+
 }

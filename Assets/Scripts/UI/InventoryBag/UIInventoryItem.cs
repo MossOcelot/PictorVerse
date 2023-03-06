@@ -96,7 +96,6 @@ public class UIInventoryItem : MonoBehaviour
     public void OnPointerEnter()
     {
         OnEnterMouseBtn?.Invoke(this);
-        
     }
 
     public Item GetItem()

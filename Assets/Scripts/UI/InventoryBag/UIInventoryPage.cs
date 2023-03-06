@@ -49,7 +49,6 @@ public class UIInventoryPage : MonoBehaviour
             uiItem.OnItemDroppedOn += HandleSwap;
             uiItem.OnItemEndDrag += HandleEndDrag;
             uiItem.OnEnterMouseBtn += HandleShowItemDescription;
-            uiItem.OnRightMouseBtnClick += HandleShowItemActions;
         }
     }
 
@@ -70,16 +69,6 @@ public class UIInventoryPage : MonoBehaviour
         }
     }
 
-    private void HandleShowItemActions(UIInventoryItem inventoryItemUI)
-    {
-        int index = listOfUIItems.IndexOf(inventoryItemUI);
-        if (index == -1)
-        {
-            return;
-        }
-        OnItemActionRequested?.Invoke(index);
-    }
-
     private void HandleShowItemDescription(UIInventoryItem inventoryItemUI)
     {
         int index = listOfUIItems.IndexOf(inventoryItemUI);
@@ -89,6 +78,7 @@ public class UIInventoryPage : MonoBehaviour
         }
         OnDescriptionRequested?.Invoke(index);
     }
+
 
     private void HandleEndDrag(UIInventoryItem inventoryItemUI)
     {
@@ -194,10 +184,15 @@ public class UIInventoryPage : MonoBehaviour
 
     public void hide()
     {
+        resetItem();
+        gameObject.SetActive(false);
+    }
+
+    public void resetItem()
+    {
+        ResetDraggtedItem();
         actionPanel.Toggle(false);
         descriptionActionPanel.Toggle(false);
-        gameObject.SetActive(false);
-        ResetDraggtedItem();
     }
 
     

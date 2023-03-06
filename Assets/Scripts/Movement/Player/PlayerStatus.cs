@@ -25,13 +25,13 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField]
     private Financial_Details financial_detail;
     [SerializeField]
-    private List<InventoryItem> myBag;
-    [SerializeField]
     private List<AccountsDetail> accountsDetails;
     [SerializeField]
     private StaticValue myStatic;
     [SerializeField]
     private string account_id;
+
+    public bool IsDead = false;
     public void setHP(int hp)
     {
         this.HP += hp;
@@ -50,23 +50,6 @@ public class PlayerStatus : MonoBehaviour
         return this.energy;
     }
 
-    public List<InventoryItem> getItemInBag()
-    {
-        return this.myBag;
-    }
-    public void addItemInBag(InventoryItem newitem) 
-    { 
-        this.myBag.Add(newitem);
-    }
-
-    public void setItemInBag(int index, InventoryItem item)
-    {
-        this.myBag[index] = item;
-    }
-    public void deleteItemInBag(InventoryItem item)
-    {
-        this.myBag.Remove(item);
-    }
     public Dictionary<string, float> getMyStatic()
     {
         return new Dictionary<string, float>
@@ -130,6 +113,16 @@ public class PlayerStatus : MonoBehaviour
     public float GetFinancial_debt()
     {
         return this.financial_detail.debt;
+    }
+
+    public bool GetIsDead()
+    {
+        return this.IsDead;
+    }
+
+    public void SetIsdead(bool isdead)
+    {
+        this.IsDead = isdead;
     }
 
     private void Update()

@@ -133,7 +133,6 @@ public class InventoryController : MonoBehaviour
         inventoryUI.InitializeInventoryUI(inventoryData.Size);
         this.inventoryUI.OnSwapItems += HandleSwapItems;
         this.inventoryUI.OnStartDragging += HandleDragging;
-        this.inventoryUI.OnItemActionRequested += HandleItemActionRequest;
         this.inventoryUI.OnDescriptionRequested += HandleItemDescriptionRequest;
     }
 
@@ -210,37 +209,10 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    private void HandleItemActionRequest(int itemIndex)
-    {
-        InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
-        if (inventoryItem.IsEmpty)
-        {
-            return;
-        }
-
-        IItemAction itemAction = inventoryItem.item as IItemAction;
-        if(itemAction != null)
-        {
-            inventoryUI.showItemAction(itemIndex);
-            inventoryUI.AddAction(itemAction.ActionName,()=> PerformAction(itemIndex));
-        }
-
-        IUSEAction itemUseAction = inventoryItem.item as IUSEAction;
-        if (itemUseAction != null)
-        {
-            inventoryUI.AddAction("use", () => UseAction(itemIndex));
-        }
-
-        IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
-        if (destroyableItem != null)
-        {
-            inventoryUI.AddAction("Drop", () => DropItem(itemIndex, inventoryItem.quantity));
-        }
-    }
-
     public void HandleItemDescriptionRequest(int itemIndex)
     {
         InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
+        
         if (inventoryItem.IsEmpty)
         {
             inventoryUI.hideItem(itemIndex);
