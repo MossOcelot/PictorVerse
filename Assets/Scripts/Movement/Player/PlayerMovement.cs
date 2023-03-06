@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isDashButtonDown;
 
     private Vector3 MoveDir;
-
+    
 
     [SerializeField] private int energy_for_walk;
     [SerializeField] private float strength;
@@ -43,6 +43,9 @@ public class PlayerMovement : MonoBehaviour
 
     Vector2 movement;
 
+    public GameObject swordHitbox;
+    Collider2D swordCollider;
+
     
 
     private void Start()
@@ -50,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerposition = transform.position;
         realMoveSpeed = defaultMoveSpeed;
+        swordCollider = swordHitbox.GetComponent<Collider2D>();
     }
     private void Update()
     {
