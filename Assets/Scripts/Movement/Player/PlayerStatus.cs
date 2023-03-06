@@ -17,10 +17,6 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField]
     private string playername;
     [SerializeField]
-    private int HP;
-    [SerializeField]
-    private int energy;
-    [SerializeField]
     public PocketDetails player_accounts;
     [SerializeField]
     private Financial_Details financial_detail;
@@ -31,7 +27,35 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField]
     private string account_id;
 
+    [SerializeField] 
+    private int MaxHP;
+    [SerializeField]
+    private int MaxEnergy;
+    [SerializeField]
+    private int HP;
+    [SerializeField]
+    private int energy;
+
     public bool IsDead = false;
+
+    public void setMaxHP(int MaxHP)
+    {
+        this.MaxHP += MaxHP;
+    }
+    public int getMaxHP()
+    {
+        return this.MaxHP;
+    }
+    public void setMaxEnergy(int MaxEnergy)
+    {
+        this.MaxEnergy += MaxEnergy;
+    }
+
+    public int getMaxEnergy()
+    {
+        return this.MaxEnergy;
+    }
+
     public void setHP(int hp)
     {
         this.HP += hp;

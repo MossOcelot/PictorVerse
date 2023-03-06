@@ -34,13 +34,16 @@ public class UIBigMiniInventory : MonoBehaviour
     private void Awake()
     {
         hide();
+        mouseFollower.Toggle(false);
+    }
+
+    private void Start()
+    {
         InitializeBigMiniInventoryUI(miniInventory.Size);
         foreach (var item in miniInventory.GetCurrentInventoryState())
         {
             UpdateData(item.Key, item.Value.item, item.Value.item.icon, item.Value.quantity);
         }
-        mouseFollower.Toggle(false);
-
 
         OnSwapItems += HandleMiniSwapItems;
         OnStartDragging += HandleMiniDragging;
