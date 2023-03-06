@@ -92,7 +92,7 @@ Transform:
   - {fileID: 6258744430316829317}
   - {fileID: 1839986863156699143}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5251455758216767519
 SpriteRenderer:
@@ -257,8 +257,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playername: 
-  HP: 100
-  energy: 1000
   player_accounts:
     section1_cashs: 5000
     section2_cashs: 5000
@@ -275,6 +273,10 @@ MonoBehaviour:
     static_spendVAT: 0
     static_spendBuy: 0
   account_id: 
+  MaxHP: 1000
+  MaxEnergy: 1000
+  HP: 100
+  energy: 1000
   IsDead: 0
 --- !u!114 &8181246223811836773
 MonoBehaviour:
@@ -308,6 +310,7 @@ MonoBehaviour:
   inventoryUI: {fileID: 0}
   WeaponBoxUI: {fileID: 0}
   miniInventoryUI: {fileID: 0}
+  bigMiniInventoryUI: {fileID: 0}
   inventoryData: {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
   WeaponBoxData: {fileID: 11400000, guid: a8d645e9da11d494e8714e30c323d0dd, type: 2}
   miniInventoryData: {fileID: 11400000, guid: eb42cd07f06c8da4197148488baa153b, type: 2}
@@ -397,18 +400,18 @@ MonoBehaviour:
   player_endowment:
     insurance: {fileID: 0}
     subpackage: []
-    buyDay: 
-    expireDay: 
+    buyDay: 000000000000000000000000000000000000000000000000
+    expireDay: 000000000000000000000000000000000000000000000000
   player_hearth_insurance:
     insurance: {fileID: 0}
     subpackage: []
     buyDay: 
     expireDay: 
-  playerInventory: {fileID: 0}
-  playerMiniInventory: {fileID: 0}
-  playerSetInventory: {fileID: 0}
-  playerWeaponBoxInventory: {fileID: 0}
-  importace_list: 03000000020000000000000001000000
+  playerInventoryList:
+  - {fileID: 11400000, guid: a8d645e9da11d494e8714e30c323d0dd, type: 2}
+  - {fileID: 11400000, guid: e3cf19e2ed0b30d4a9aaaad483db2916, type: 2}
+  - {fileID: 11400000, guid: eb42cd07f06c8da4197148488baa153b, type: 2}
+  - {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
 --- !u!114 &159246511228421265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,7 +439,7 @@ MonoBehaviour:
   - {x: 0.9585426, y: -1.9040359, z: 0}
   m_ShapePathHash: -869264443
   m_Mesh: {fileID: 0}
-  m_InstanceId: 314336
+  m_InstanceId: -3954
 --- !u!114 &159246511228421354
 MonoBehaviour:
   m_ObjectHideFlags: 0
