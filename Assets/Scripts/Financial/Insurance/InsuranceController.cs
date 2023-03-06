@@ -47,6 +47,17 @@ public class InsuranceController : MonoBehaviour
             if(IsSuccess) 
             {
                 player_endowment = new InsuranceItems();
+            } else
+            {
+                // drop all item
+                foreach (InventorySO inventory in playerInventoryList)
+                {
+                    Dictionary<int, InventoryItem> items = inventory.GetCurrentInventoryState();
+                    foreach (int index in items.Keys)
+                    {
+                        inventory.RemoveItem(index, items[index].quantity);
+                    }
+                }
             }
             player_status.IsDead = false;
         }

@@ -20,7 +20,7 @@ public class UIShowDataUpdate : MonoBehaviour
     private PlayerStatus player_status;
     private AllItemInMarket alliteminMarket;
     [SerializeField]
-    private InventorySO playerInventory;
+    private InventorySO[] playerInventorys;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,18 +51,21 @@ public class UIShowDataUpdate : MonoBehaviour
 
     public float GetValueItem()
     {
-        Dictionary<int, InventoryItem> items = playerInventory.GetCurrentInventoryState();
         float totalValue = 0f;
-        foreach(InventoryItem item in items.Values)
+        foreach(InventorySO inventory in playerInventorys)
         {
-            Dictionary<int, float> allItems = alliteminMarket.GetitemsInMarket();
-            float item_price = 0f;
-            if (allItems.ContainsKey(item.item.item_id))
+            Dictionary<int, InventoryItem> items = inventory.GetCurrentInventoryState();
+            foreach (InventoryItem item in items.Values)
             {
-                item_price = allItems[item.item.item_id];
+                Dictionary<int, float> allItems = alliteminMarket.GetitemsInMarket();
+                float item_price = 0f;
+                if (allItems.ContainsKey(item.item.item_id))
+                {
+                    item_price = allItems[item.item.item_id];
+                }
+
+                totalValue += (item_price * item.quantity);
             }
-            
-            totalValue += (item_price * item.quantity);
         }
         return totalValue;
     }

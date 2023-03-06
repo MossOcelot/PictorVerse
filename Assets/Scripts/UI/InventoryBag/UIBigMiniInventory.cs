@@ -4,8 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIMiniInventoryPage : MonoBehaviour
+public class UIBigMiniInventory : MonoBehaviour
 {
+    [SerializeField]
+    private InventorySO miniInventory;
+
     [SerializeField]
     private UIInventoryItem itemPrefab;
     [SerializeField]
@@ -31,10 +34,20 @@ public class UIMiniInventoryPage : MonoBehaviour
     private void Awake()
     {
         hide();
+        InitializeBigMiniInventoryUI(miniInventory.Size);
+        foreach (var item in miniInventory.GetCurrentInventoryState())
+        {
+            UpdateData(item.Key, item.Value.item, item.Value.item.icon, item.Value.quantity);
+        }
         mouseFollower.Toggle(false);
+
+
+        OnSwapItems += HandleMiniSwapItems;
+        OnStartDragging += HandleMiniDragging;
+        OnDescriptionRequested += HandleMiniItemDescriptionRequest;
     }
 
-    public void InitializeMiniInventoryUI(int inventorysize)
+    public void InitializeBigMiniInventoryUI(int inventorysize)
     {
         for (int i = 0; i < inventorysize; i++)
         {
@@ -65,16 +78,6 @@ public class UIMiniInventoryPage : MonoBehaviour
             item.ResetData();
             item.Deselect();
         }
-    }
-
-    private void HandleShowItemActions(UIInventoryItem inventoryItemUI)
-    {
-        int index = listOfUIItems.IndexOf(inventoryItemUI);
-        if (index == -1)
-        {
-            return;
-        }
-        OnItemActionRequested?.Invoke(index);
     }
 
     private void HandleEndDrag(UIInventoryItem inventoryItemUI)
@@ -114,7 +117,7 @@ public class UIMiniInventoryPage : MonoBehaviour
     public void CreateDraggedItem(int itemIndex, Item item, Sprite sprite, int quantity)
     {
         mouseFollower.Toggle(true);
-        mouseFollower.SetData(itemIndex ,item, sprite, quantity);
+        mouseFollower.SetData(itemIndex, item, sprite, quantity);
     }
 
     private void HandleItemSelection(UIInventoryItem inventoryItemUI)
@@ -161,9 +164,7 @@ public class UIMiniInventoryPage : MonoBehaviour
 
     public void showItemDescriptionAction(int itemIndex)
     {
-        actionPanel.Toggle(false); 
-        DeselectAllItems();
-        listOfUIItems[itemIndex].Select();
+        actionPanel.Toggle(false);
         descriptionActionPanel.Toggle(true);
         descriptionActionPanel.transform.position = listOfUIItems[itemIndex].transform.position + new Vector3(105.7f, 187f, 0);
     }
@@ -171,7 +172,6 @@ public class UIMiniInventoryPage : MonoBehaviour
     public void hideItem(int itemIndex)
     {
         actionPanel.Toggle(false);
-        DeselectAllItems();
         descriptionActionPanel.Toggle(false);
     }
 
@@ -188,7 +188,6 @@ public class UIMiniInventoryPage : MonoBehaviour
     public void hide()
     {
         resetItem();
-        gameObject.SetActive(false);
     }
 
     public void resetItem()
@@ -196,5 +195,112 @@ public class UIMiniInventoryPage : MonoBehaviour
         ResetDraggtedItem();
         actionPanel.Toggle(false);
         descriptionActionPanel.Toggle(false);
+    }
+
+    private void HandleMiniDragging(int itemIndex)
+    {
+        InventoryItem miniInventoryItem = miniInventory.GetItemAt(itemIndex);
+        if (miniInventoryItem.IsEmpty)
+        {
+            return;
+        }
+        CreateDraggedItem(itemIndex, miniInventoryItem.item, miniInventoryItem.item.icon, miniInventoryItem.quantity);
+    }
+
+    private void HandleMiniSwapItems(int itemIndex1, int itemIndex2)
+    {
+        miniInventory.SwapItems(itemIndex1, itemIndex2);
+    }
+
+    private void HandleMiniItemDescriptionRequest(int itemIndex)
+    {
+        InventoryItem MiniItem = miniInventory.GetItemAt(itemIndex);
+        if (MiniItem.IsEmpty)
+        {
+            hideItem(itemIndex);
+            return;
+        }
+
+        //ddata
+        string item_name = MiniItem.item.item_name;
+        int item_quantity = MiniItem.quantity;
+        float item_price = MiniItem.price;
+        string item_description = MiniItem.item.description;
+
+        showItemDescriptionAction(itemIndex);
+        AddDescription(item_name, item_quantity, item_price, item_description);
+
+        IItemAction itemAction = MiniItem.item as IItemAction;
+        if (itemAction != null)
+        {
+            AddActionInDescription(0, itemAction.ActionName, () => PerformAction(itemIndex));
+        }
+
+        IUSEAction itemUSEAction = MiniItem.item as IUSEAction;
+        if (itemUSEAction != null)
+        {
+            AddActionInDescription(1, "Notuse", () => NotUseAction(itemIndex));
+        }
+
+        IDestroyableItem destroyableItem = MiniItem.item as IDestroyableItem;
+        if (destroyableItem != null)
+        {
+            AddActionInDescription(2, "Drop", () => DropItem(itemIndex, MiniItem.quantity));
+        }
+    }
+
+    private void DropItem(int itemIndex, int quantity)
+    {
+       miniInventory.RemoveItem(itemIndex, quantity);
+       ResetSelection();
+        //audioSource.PlayOneShot(dropClip);
+    }
+
+    public void PerformAction(int itemIndex)
+    {
+        InventoryItem inventoryItem = miniInventory.GetItemAt(itemIndex);
+        if (inventoryItem.IsEmpty)
+            return;
+
+        IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
+        if (destroyableItem != null)
+        {
+            miniInventory.RemoveItem(itemIndex, 1);
+        }
+
+        IItemAction itemAction = inventoryItem.item as IItemAction;
+        if (itemAction != null)
+        {
+            itemAction.PerformAction(gameObject, inventoryItem.itemState);
+            //audioSource.PlayOneShot(itemAction.actionSFX);
+            if (miniInventory.GetItemAt(itemIndex).IsEmpty)
+                ResetSelection();
+        }
+    }
+
+    public void NotUseAction(int itemIndex)
+    {
+        InventoryItem miniInventoryItem = miniInventory.GetItemAt(itemIndex);
+        if (miniInventoryItem.IsEmpty)
+            return;
+
+        IDestroyableItem destroyableItem = miniInventoryItem.item as IDestroyableItem;
+        if (destroyableItem != null)
+        {
+            miniInventory.RemoveItem(itemIndex, miniInventoryItem.quantity);
+        }
+
+        IUSEAction itemAction = miniInventoryItem.item as IUSEAction;
+        if (itemAction != null)
+        {
+            GameObject PlayerObject = GameObject.FindGameObjectWithTag("Player").gameObject;
+            itemAction.NotUseAction(PlayerObject, miniInventoryItem.quantity, miniInventoryItem.itemState);
+
+
+            //audioSource.PlayOneShot(itemAction.actionSFX
+            if (miniInventory.GetItemAt(itemIndex).IsEmpty)
+                ResetSelection();
+
+        }
     }
 }

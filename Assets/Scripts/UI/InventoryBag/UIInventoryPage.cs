@@ -159,16 +159,24 @@ public class UIInventoryPage : MonoBehaviour
         descriptionActionPanel.AddDescription(item_name, quantity, item_price, description);
     }
 
+    public void AddActionInDescription(int n,string actionName, Action action)
+    {
+        descriptionActionPanel.AddAction(n,actionName, action);
+    }
+
     public void showItemDescriptionAction(int itemIndex)
     {
         actionPanel.Toggle(false);
+        DeselectAllItems();
+        listOfUIItems[itemIndex].Select();
         descriptionActionPanel.Toggle(true);
-        descriptionActionPanel.transform.position = listOfUIItems[itemIndex].transform.position + new Vector3(94.7f, -137f, 0);
+        descriptionActionPanel.transform.position = listOfUIItems[itemIndex].transform.position + new Vector3(105.7f, -187f, 0);
     }
 
     public void hideItem(int itemIndex)
     {
         actionPanel.Toggle(false);
+        DeselectAllItems();
         descriptionActionPanel.Toggle(false);
     }
     

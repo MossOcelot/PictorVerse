@@ -6,7 +6,7 @@ using UnityEngine;
 namespace inventory.Model
 {
     [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
-    public class Item : ScriptableObject
+    public class Item : ScriptableObject, IUSEAction
     {
         public enum rarity_type { common, rare, very_rare, super_rare }
 
@@ -33,6 +33,30 @@ namespace inventory.Model
 
         [field: SerializeField]
         public List<ItemParameter> DefaultParametersList { get; set; }
+
+        public bool UseAction(GameObject character, int quantity, List<ItemParameter> itemState)
+        {
+            InventoryController ItemSystem = character.GetComponent<InventoryController>();
+            if (ItemSystem != null)
+            {
+                ItemSystem.UseItem(this, quantity, itemState == null ?
+                    DefaultParametersList : itemState);
+                return true;
+            }
+            return false;
+        }
+
+        public bool NotUseAction(GameObject character, int quantity, List<ItemParameter> itemState)
+        {
+            InventoryController ItemSystem = character.GetComponent<InventoryController>();
+            if (ItemSystem != null)
+            {
+                ItemSystem.NotUseItem(this, quantity, itemState == null ?
+                    DefaultParametersList : itemState);
+                return true;
+            }
+            return false;
+        }
     }
 
     [System.Serializable]

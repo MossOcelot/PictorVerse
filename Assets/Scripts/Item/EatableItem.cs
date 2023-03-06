@@ -26,30 +26,6 @@ namespace inventory.Model
         {
             throw new System.NotImplementedException();
         }
-
-        public bool UseAction(GameObject character, int quantity, List<ItemParameter> itemState)
-        {
-            InventoryController EatableSystem = character.GetComponent<InventoryController>();
-            if (EatableSystem != null)
-            {
-                EatableSystem.UseItem(this, quantity, itemState == null ?
-                    DefaultParametersList : itemState);
-                return true;
-            }
-            return false;
-        }
-
-        public bool NotUseAction(GameObject character, int quantity, List<ItemParameter> itemState)
-        {
-            InventoryController EatableSystem = character.GetComponent<InventoryController>();
-            if (EatableSystem != null)
-            {
-                EatableSystem.NotUseItem(this, quantity, itemState == null ?
-                    DefaultParametersList : itemState);
-                return true;
-            }
-            return false;
-        }
     }
 
     public interface IDestroyableItem

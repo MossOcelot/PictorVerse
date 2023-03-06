@@ -14,10 +14,5 @@ public class SortInventory : MonoBehaviour
         inventoryPlayer.SortItems();
 
         UIInventoryPlayer.ResetSelection();
-        /* foreach (var item in inventoryPlayer.GetCurrentInventoryState())
-        {
-            UIInventoryPlayer.UpdateData(item.Key, item.Value.item, item.Value.item.icon, item.Value.quantity);
-
-        } */
     }
 }
