@@ -25,6 +25,8 @@ public class UIMiniInventoryPage : MonoBehaviour
 
     [SerializeField]
     private ItemActionPanel actionPanel;
+    [SerializeField]
+    private ItemDescribtionAction descriptionActionPanel;
 
     private void Awake()
     {
@@ -43,7 +45,7 @@ public class UIMiniInventoryPage : MonoBehaviour
             uiItem.OnItemBeginDrag += HandleBeginDrag;
             uiItem.OnItemDroppedOn += HandleSwap;
             uiItem.OnItemEndDrag += HandleEndDrag;
-            uiItem.OnRightMouseBtnClick += HandleShowItemActions;     
+            uiItem.OnEnterMouseBtn += HandleItemSelection;
         }
 
     }
@@ -147,6 +149,32 @@ public class UIMiniInventoryPage : MonoBehaviour
         actionPanel.transform.position = listOfUIItems[itemIndex].transform.position;
     }
 
+    public void AddDescription(string item_name, int quantity, float item_price, string description)
+    {
+        descriptionActionPanel.AddDescription(item_name, quantity, item_price, description);
+    }
+
+    public void AddActionInDescription(int n, string actionName, Action action)
+    {
+        descriptionActionPanel.AddAction(n, actionName, action);
+    }
+
+    public void showItemDescriptionAction(int itemIndex)
+    {
+        actionPanel.Toggle(false); 
+        DeselectAllItems();
+        listOfUIItems[itemIndex].Select();
+        descriptionActionPanel.Toggle(true);
+        descriptionActionPanel.transform.position = listOfUIItems[itemIndex].transform.position + new Vector3(105.7f, 187f, 0);
+    }
+
+    public void hideItem(int itemIndex)
+    {
+        actionPanel.Toggle(false);
+        DeselectAllItems();
+        descriptionActionPanel.Toggle(false);
+    }
+
     private void DeselectAllItems()
     {
         foreach (UIInventoryItem item in listOfUIItems)
@@ -154,12 +182,19 @@ public class UIMiniInventoryPage : MonoBehaviour
             item.Deselect();
         }
         actionPanel.Toggle(false);
+        descriptionActionPanel.Toggle(false);
     }
 
     public void hide()
     {
-        actionPanel.Toggle(false);
+        resetItem();
         gameObject.SetActive(false);
+    }
+
+    public void resetItem()
+    {
         ResetDraggtedItem();
+        actionPanel.Toggle(false);
+        descriptionActionPanel.Toggle(false);
     }
 }

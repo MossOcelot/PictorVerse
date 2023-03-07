@@ -65,6 +65,7 @@ GameObject:
   - component: {fileID: 1325090265963061872}
   - component: {fileID: 5094482957343340666}
   - component: {fileID: 2848544454368312125}
+  - component: {fileID: 5369538357213068411}
   - component: {fileID: 159246511228421265}
   - component: {fileID: 159246511228421354}
   - component: {fileID: 6049970113520708775}
@@ -91,7 +92,7 @@ Transform:
   - {fileID: 6258744430316829317}
   - {fileID: 1839986863156699143}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5251455758216767519
 SpriteRenderer:
@@ -224,6 +225,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaae5fca62fb9424691cc563f2520393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory_player: {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
+  inventoryMini_player: {fileID: 11400000, guid: eb42cd07f06c8da4197148488baa153b, type: 2}
+  Weapon_player: {fileID: 11400000, guid: a8d645e9da11d494e8714e30c323d0dd, type: 2}
+  Set_player: {fileID: 11400000, guid: e3cf19e2ed0b30d4a9aaaad483db2916, type: 2}
   lastPos: {x: 0, y: 0}
   interactableLayer:
     serializedVersion: 2
@@ -252,8 +257,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playername: 
-  HP: 100
-  energy: 1000
   player_accounts:
     section1_cashs: 5000
     section2_cashs: 5000
@@ -261,12 +264,20 @@ MonoBehaviour:
     section4_cashs: 2200
     section5_cashs: 540
     gold: 500
-  myBag: []
+  financial_detail:
+    balance: 0
+    debt: 0
   accountsDetails: []
   myStatic:
     static_useEnergy: 0
     static_spendVAT: 0
     static_spendBuy: 0
+  account_id: 
+  MaxHP: 1000
+  MaxEnergy: 1000
+  HP: 100
+  energy: 1000
+  IsDead: 0
 --- !u!114 &8181246223811836773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,12 +310,15 @@ MonoBehaviour:
   inventoryUI: {fileID: 0}
   WeaponBoxUI: {fileID: 0}
   miniInventoryUI: {fileID: 0}
+  bigMiniInventoryUI: {fileID: 0}
   inventoryData: {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
   WeaponBoxData: {fileID: 11400000, guid: a8d645e9da11d494e8714e30c323d0dd, type: 2}
   miniInventoryData: {fileID: 11400000, guid: eb42cd07f06c8da4197148488baa153b, type: 2}
   initialItems: []
   WeaponItems: []
   miniInitialItem: []
+  MyInventoryObj: {fileID: 0}
+  MyAccountObj: {fileID: 0}
 --- !u!114 &1325090265963061872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,6 +384,34 @@ MonoBehaviour:
   itemCurrentState_leggings: []
   parametersToModify_boots: []
   itemCurrentState_boots: []
+--- !u!114 &5369538357213068411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3466082039460843415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a4ce101b55407944aa59684ce32c0cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player_status: {fileID: 8085177666765025101}
+  player_endowment:
+    insurance: {fileID: 0}
+    subpackage: []
+    buyDay: 000000000000000000000000000000000000000000000000
+    expireDay: 000000000000000000000000000000000000000000000000
+  player_hearth_insurance:
+    insurance: {fileID: 0}
+    subpackage: []
+    buyDay: 
+    expireDay: 
+  playerInventoryList:
+  - {fileID: 11400000, guid: a8d645e9da11d494e8714e30c323d0dd, type: 2}
+  - {fileID: 11400000, guid: e3cf19e2ed0b30d4a9aaaad483db2916, type: 2}
+  - {fileID: 11400000, guid: eb42cd07f06c8da4197148488baa153b, type: 2}
+  - {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
 --- !u!114 &159246511228421265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,7 +439,7 @@ MonoBehaviour:
   - {x: 0.9585426, y: -1.9040359, z: 0}
   m_ShapePathHash: -869264443
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1306
+  m_InstanceId: -3954
 --- !u!114 &159246511228421354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,24 +566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba24907c1b9e58846a60ea3f24759398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: 0}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!1 &6258744430316829339
 GameObject:
   m_ObjectHideFlags: 0

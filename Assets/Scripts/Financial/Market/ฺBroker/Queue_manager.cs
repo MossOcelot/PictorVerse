@@ -20,6 +20,7 @@ public class Queue_manager : MonoBehaviour
 
     private int QueueOrder(string market_name, int item_id)
     {
+        Debug.Log("market: " + market_name);
         StockSystem stock = GameObject.FindGameObjectWithTag(market_name).gameObject.transform.GetChild(0).gameObject.GetComponent<StockSystem>();
         foreach (ItemInStock itemInStock in stock.stock)
         {

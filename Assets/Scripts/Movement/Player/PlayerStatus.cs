@@ -17,19 +17,45 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField]
     private string playername;
     [SerializeField]
-    private int HP;
-    [SerializeField]
-    private int energy;
-    [SerializeField]
     public PocketDetails player_accounts;
     [SerializeField]
-    private List<InventoryItem> myBag;
+    private Financial_Details financial_detail;
     [SerializeField]
     private List<AccountsDetail> accountsDetails;
     [SerializeField]
     private StaticValue myStatic;
     [SerializeField]
     private string account_id;
+
+    [SerializeField] 
+    private int MaxHP;
+    [SerializeField]
+    private int MaxEnergy;
+    [SerializeField]
+    private int HP;
+    [SerializeField]
+    private int energy;
+
+    public bool IsDead = false;
+
+    public void setMaxHP(int MaxHP)
+    {
+        this.MaxHP += MaxHP;
+    }
+    public int getMaxHP()
+    {
+        return this.MaxHP;
+    }
+    public void setMaxEnergy(int MaxEnergy)
+    {
+        this.MaxEnergy += MaxEnergy;
+    }
+
+    public int getMaxEnergy()
+    {
+        return this.MaxEnergy;
+    }
+
     public void setHP(int hp)
     {
         this.HP += hp;
@@ -48,23 +74,6 @@ public class PlayerStatus : MonoBehaviour
         return this.energy;
     }
 
-    public List<InventoryItem> getItemInBag()
-    {
-        return this.myBag;
-    }
-    public void addItemInBag(InventoryItem newitem) 
-    { 
-        this.myBag.Add(newitem);
-    }
-
-    public void setItemInBag(int index, InventoryItem item)
-    {
-        this.myBag[index] = item;
-    }
-    public void deleteItemInBag(InventoryItem item)
-    {
-        this.myBag.Remove(item);
-    }
     public Dictionary<string, float> getMyStatic()
     {
         return new Dictionary<string, float>
@@ -107,6 +116,39 @@ public class PlayerStatus : MonoBehaviour
     {
         return this.account_id;
     }
+
+    public void setFinancial_detail(string command, int value)
+    {
+        if (command == "balance")
+        {
+            this.financial_detail.balance = value;
+        }
+        else if (command == "debt")
+        {
+            this.financial_detail.debt = value;
+        }
+    }
+
+    public float GetFinancial_balance()
+    {
+        return this.financial_detail.balance;
+    }
+
+    public float GetFinancial_debt()
+    {
+        return this.financial_detail.debt;
+    }
+
+    public bool GetIsDead()
+    {
+        return this.IsDead;
+    }
+
+    public void SetIsdead(bool isdead)
+    {
+        this.IsDead = isdead;
+    }
+
     private void Update()
     {
         if (this.energy <= 0) {

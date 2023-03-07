@@ -168,6 +168,24 @@ namespace inventory.Model
             InformAboutChange();
         }
 
+        internal void SortItems()
+        {
+            Dictionary<int, InventoryItem> sortValues = GetCurrentInventoryState();
+            List<InventoryItem> newSortItems = new List<InventoryItem>();
+            foreach(InventoryItem item in sortValues.Values)
+            {
+                newSortItems.Add(item);
+            }
+
+            int newSize = Size - newSortItems.Count;
+            for (int i = 0; i < newSize; i++)
+            {
+                newSortItems.Add(new InventoryItem());
+            }
+            inventoryItems = newSortItems;
+            InformAboutChange();
+        }
+
         private void InformAboutChange()
         {
             OnInventoryUpdated?.Invoke(GetCurrentInventoryState());
