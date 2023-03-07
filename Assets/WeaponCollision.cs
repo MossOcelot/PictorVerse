@@ -4,9 +4,4 @@ using UnityEngine;
 
 public class WeaponCollision : MonoBehaviour
 {
-  
-    private void OnTriggerEnter2D(Collision2D collision)
-    {
-        
-    }
 }
