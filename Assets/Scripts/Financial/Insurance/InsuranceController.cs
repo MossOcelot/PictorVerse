@@ -40,6 +40,7 @@ public class InsuranceController : MonoBehaviour
     private void Update()
     {
         CheckInsuranceExpireDay();
+
         if(player_status.IsDead == true)
         {
             Debug.Log("true Dead");

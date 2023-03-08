@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using inventory.Model;
+using Random = UnityEngine.Random;
+
 public class PlayerStatus : MonoBehaviour
 {
     [System.Serializable]
@@ -27,7 +29,7 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField]
     private string account_id;
 
-    [SerializeField] 
+    [SerializeField]
     private int MaxHP;
     [SerializeField]
     private int MaxEnergy;
@@ -37,6 +39,15 @@ public class PlayerStatus : MonoBehaviour
     private int energy;
 
     public bool IsDead = false;
+
+    //For Player Monster Fight
+    private Rigidbody2D rb2d;
+    private Vector2 knockbackDirection;
+    private bool isColliding = false;
+    public Animator animator;
+    public Rigidbody2D rb;
+    public PlayerMovement movementScript;
+  
 
     public void setMaxHP(int MaxHP)
     {
@@ -89,10 +100,12 @@ public class PlayerStatus : MonoBehaviour
         if (command == 0)
         {
             this.myStatic.static_useEnergy = value;
-        } else if (command == 1)
+        }
+        else if (command == 1)
         {
             this.myStatic.static_spendBuy = value;
-        } else if (command == 2)
+        }
+        else if (command == 2)
         {
             this.myStatic.static_spendVAT = value;
         }
@@ -148,16 +161,60 @@ public class PlayerStatus : MonoBehaviour
     {
         this.IsDead = isdead;
     }
+    private void Start()
+    {
+        Animator animator = GetComponent<Animator>();
+
+
+    }
 
     private void Update()
     {
-        if (this.energy <= 0) {
+        if (this.energy <= 0)
+        {
             Debug.Log("Empty Energy");
             this.energy = 0;
         }
         if (this.HP <= 0)
         {
             IsDead = true;
+
+        }
+        if (IsDead)
+        {
+            this.animator.SetTrigger("isDeath");
+            rb.velocity = new Vector2(0f, 0f);
+            movementScript.enabled = false;
+            rb.angularDrag = 0;
+            rb.mass = 5000f;
+
+        }
+
+    }
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("ItemCutD") || other.gameObject.CompareTag("Enemy"))
+        {
+            this.setHP(-2);
+            Vector2 knockbackDirection = (transform.position - other.gameObject.transform.position).normalized;
+            GetComponent<Rigidbody2D>().AddForce(knockbackDirection * 1200, ForceMode2D.Impulse);
+            StartCoroutine(FlashRed());
+
+        }
+    }
+    private IEnumerator FlashRed()
+    {
+        GetComponent<SpriteRenderer>().color = Color.red;
+
+        yield return new WaitForSeconds(0.1f);
+
+        GetComponent<SpriteRenderer>().color = Color.white;
+    }
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("ItemCutD") || other.gameObject.CompareTag("Enemy"))
+        {
+            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         }
     }
 }

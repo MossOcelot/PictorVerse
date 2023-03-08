@@ -22,6 +22,7 @@ public class SlimeAnimation : MonoBehaviour
             else
             {
                 animator.SetBool("IsMoving", false);
+
             }
         }
     }
