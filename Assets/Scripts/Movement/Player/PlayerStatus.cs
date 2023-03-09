@@ -180,11 +180,11 @@ public class PlayerStatus : MonoBehaviour
             IsDead = true;
 
         }
-        if (IsDead)
+        if (IsDead || this.HP <= 0)
         {
-            this.animator.SetTrigger("isDeath");
-            rb.velocity = new Vector2(0f, 0f);
+            animator.SetTrigger("isDeath");
             movementScript.enabled = false;
+            rb.velocity = new Vector2(0f, 0f);
             rb.angularDrag = 0;
             rb.mass = 5000f;
 
