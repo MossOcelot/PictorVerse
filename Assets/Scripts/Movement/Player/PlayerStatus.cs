@@ -183,7 +183,7 @@ public class PlayerStatus : MonoBehaviour
         }
         if (this.HP <= 0)
         {
-            Destroy(gameObject);
+            IsDead = true;
         }
     }
 

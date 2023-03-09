@@ -6,6 +6,6 @@ public class Slime : MonoBehaviour
 {
     void OnHit(float damage)
     {
-        Debug.Log("Slime Hit" + damage);
+        Debug.Log("Slime Hit for" + damage);
     }
 }

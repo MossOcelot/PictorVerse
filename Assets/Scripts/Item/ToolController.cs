@@ -9,6 +9,7 @@ public class ToolController : MonoBehaviour
 
     [SerializeField] float offsetDistance = 1f;
     [SerializeField] float pickupZone = 1.5f;
+    public Animator animator;
 
     private void Awake()
     {
@@ -18,38 +19,58 @@ public class ToolController : MonoBehaviour
 
     private void Update()
     {
-
         if (Input.GetMouseButtonDown(0))
         {
-                print("canuse");
-                UseTool();
+            UseTool();
         }
-        else
-        {
-            print("Not Use Tool weapon");
-        }
-       
     }
 
     private void UseTool()
     {
-        Vector2 pos = rb.position + playermov.lastPos * offsetDistance;
-        Collider2D[] coliders = Physics2D.OverlapCircleAll(pos, pickupZone);
+        bool mouseOverItemCutD = false;
+        Collider2D mouseOverCollider = GetMouseOverCollider();
 
-        foreach (Collider2D c in coliders)
+        while (mouseOverCollider != null && mouseOverCollider.tag == "ItemCutD")
         {
-            if (c.tag == "ItemCutD")
+            mouseOverItemCutD = true;
+            Tool hit;
+            if (Input.GetMouseButtonDown(0) && mouseOverCollider == GetMouseOverCollider())
             {
-                Tool hit = c.GetComponent<Tool>();
-                if (hit != null)
+
+                if (mouseOverCollider.TryGetComponent(out hit))
                 {
-                    hit.Hit();
+                    hit?.Hit();
                     break;
                 }
             }
-            
+            mouseOverCollider = GetMouseOverCollider();
+        }
+
+        if (mouseOverItemCutD)
+        {
+            animator.SetTrigger("SwordAttack");
+            UseTool();
+        }
+        else
+        {
+            animator.SetBool("isMoving", true);
+            Debug.Log("Not ItemCutD");
         }
     }
 
-   
+    private Collider2D GetMouseOverCollider()
+    {
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Collider2D[] colliders = Physics2D.OverlapPointAll(mousePosition);
+
+        foreach (Collider2D c in colliders)
+        {
+            if (c.tag == "ItemCutD")
+            {
+                return c;
+            }
+        }
+
+        return null;
+    }
 }

@@ -24,6 +24,7 @@ public class Bank_Manager : MonoBehaviour
         player_account.amount_deposits = amount_deposits;
         player_account.account_list.Insert(0, account);
     }
+
     private void Awake()
     {
         player_status = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerStatus>();

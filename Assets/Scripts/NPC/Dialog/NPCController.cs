@@ -14,6 +14,7 @@ public class NPCController : MonoBehaviour
     public float wordSpeed;
     public bool playerIsClose;
 
+    public GameObject PlaceOfWork;
 
     void Start()
     {
@@ -68,9 +69,12 @@ public class NPCController : MonoBehaviour
         }
         else
         {
+            PlaceOfWork.gameObject.GetComponent<BankCompany>().Open();
             RemoveText();
         }
     }
+
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -85,6 +89,7 @@ public class NPCController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerIsClose = false;
+            PlaceOfWork.gameObject.GetComponent<BankCompany>().Close();
             RemoveText();
         }
     }

@@ -43,7 +43,7 @@ public class Window_Graph : MonoBehaviour
                         valueList.Add(0f);
                     }
                 }
-                ShowGraph(valueList.GetRange(0, 15), (int _i) => "Day " + (_i + 1), (float _f) => "$" + Mathf.RoundToInt(_f));
+                ShowGraph(valueList.GetRange(0, 15), (int _i) => "D " + (_i + 1), (float _f) => "$" + Mathf.RoundToInt(_f));
 
             }, .5f);
         

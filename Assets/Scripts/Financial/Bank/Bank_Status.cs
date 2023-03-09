@@ -12,6 +12,20 @@ public class Bank_Status : MonoBehaviour
     [SerializeField]
     private Financial_Details bank_financial;
 
+    public PocketDetails GetBankPocket()
+    {
+        return this.Bank_Pocket;
+    }
+
+    public void SetBankPocket(PocketDetails pocket)
+    {
+        this.Bank_Pocket = pocket;
+    }
+
+    public void LoadBankAccounts(List<AccountsDetail> data)
+    {
+        this.bank_accounts = data;
+    }
     public List<AccountsDetail> GetBank_Accounts()
     {
         return this.bank_accounts;
@@ -31,6 +45,11 @@ public class Bank_Status : MonoBehaviour
         }
         return 0;
     }
+
+    public Financial_Details GetBankAllFinancial()
+    {
+        return this.bank_financial;
+    }
     public void SetBank_Financial(string command, float amounts)
     {
         if(command == "balance")
@@ -45,5 +64,10 @@ public class Bank_Status : MonoBehaviour
     public string GetBank_name()
     {
         return this.bank_name;
+    }
+
+    public void SetBank_name(string bankname)
+    {
+        this.bank_name = bankname;
     }
 }

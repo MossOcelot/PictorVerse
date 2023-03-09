@@ -20,8 +20,6 @@ public class ItemDestroy : Tool
     public float knockbackForce;
     public Vector3 moveDirection;
 
-
-
     void Start()
     {
         Hitpoints = MaxHitpoints;
@@ -47,39 +45,41 @@ public class ItemDestroy : Tool
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 1f);
         foreach (Collider2D collider in colliders)
         {
-            if (collider.gameObject.CompareTag("Player"))
+            if (collider.gameObject.CompareTag("Weapon"))
             {
                 animator.SetTrigger("isAttack");
+                Hit();
             }
-            
         }
     }
 
 
     public override void Hit()
     {
-        Hitpoints -= 1;
-        moveDirection = rb.transform.position ;
-        rb.AddForce(moveDirection.normalized * -10000f);
 
-        if (HealthBar != null)
-        {
-            HealthBar.SetHealth(Hitpoints, MaxHitpoints);
-        }
+            Hitpoints -= 1;
+            moveDirection += new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0f);
+            rb.AddForce(moveDirection.normalized * -3000f);
 
-        if (Hitpoints <= -1 && !isDestroyed)
-        {
-            isDestroyed = true;
-            StartCoroutine(DestroyAfterDelay());
+            if (HealthBar != null)
+            {
+                HealthBar.SetHealth(Hitpoints, MaxHitpoints);
+            }
 
+            if (Hitpoints <= -1 && !isDestroyed)
+            {
+                isDestroyed = true;
+                StartCoroutine(DestroyAfterDelay());
+
+            }
+            else
+            {
+                timer = 0f;
+                StartCoroutine(ResetHitpoints());
+                animator.SetTrigger("isHurt");
+            }
         }
-        else
-        {
-            timer = 0f;
-            StartCoroutine(ResetHitpoints());
-            animator.SetTrigger("isHurt");
-        }
-    }
+    
 
 
     IEnumerator DestroyAfterDelay()
@@ -101,12 +101,12 @@ public class ItemDestroy : Tool
             }
             go.transform.position = pos;
         }
-
         Destroy(gameObject);
     }
 
     IEnumerator ResetHitpoints()
     {
+        yield return new WaitForSeconds(1f); 
         while (timer < timeBetweenHits)
         {
             timer += Time.deltaTime;
@@ -119,6 +119,4 @@ public class ItemDestroy : Tool
             HealthBar.SetHealth(Hitpoints, MaxHitpoints);
         }
     }
-
-   
 }

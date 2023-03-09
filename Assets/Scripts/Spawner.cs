@@ -7,9 +7,9 @@ public class Spawner : MonoBehaviour
     public GameObject objectToSpawn;
     public CircleCollider2D area_spawn;
     public LayerMask layerMask;
-    public int number_of_monster;
-    public float respawn_delay = 5f;
-    public int max_respawns = 10;
+    public int number_of_monster = 1;
+    public float respawn_delay;
+    public int max_respawns;
 
     private int count_monster;
     private int loss_monster;

@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isDashButtonDown;
 
     private Vector3 MoveDir;
-
+    
 
     public int energy_for_walk;
     public float strength;
@@ -55,12 +55,17 @@ public class PlayerMovement : MonoBehaviour
     {
         Load();
     }
+    public GameObject swordHitbox;
+    Collider2D swordCollider;
+
+    
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         playerposition = transform.position;
         realMoveSpeed = defaultMoveSpeed;
+        swordCollider = swordHitbox.GetComponent<Collider2D>();
     }
     private void Update()
     {
@@ -120,6 +125,7 @@ public class PlayerMovement : MonoBehaviour
     {
         int energy = status.getEnergy();
 
+        Debug.Log("Energy: " + energy);
         checkWeightPerStrength();
 
         if (energy == 0)
