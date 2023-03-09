@@ -1,6 +1,7 @@
 using inventory.Model;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
@@ -27,10 +28,21 @@ public class InsuranceController : MonoBehaviour
         this.player_endowment = insurance;
     }
 
+    public InsuranceItems GetPlayer_hearth_insurance()
+    {
+        return this.player_hearth_insurance;
+    }
+
     public void SetPlayer_health_insurance(InsuranceItems insurance)
     {
         this.player_hearth_insurance = insurance;
     }
+
+    private void Awake()
+    {
+        Load();
+    }
+
     private void Start()
     {
         time_system = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
@@ -178,4 +190,26 @@ public class InsuranceController : MonoBehaviour
 
         return false;
     }
+
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
+    // ------------ save and load ------------
+    public void Save()
+    {
+        SavePlayerSystem.SavePlayerInsurance(this);
+    }
+
+    public void Load()
+    {
+        PlayerInsuranceData data = SavePlayerSystem.LoadPlayerInsurance();
+
+        if (data != null)
+        {
+            player_endowment = data.player_endowment;
+            player_hearth_insurance = data.player_hearth_insurance;
+        }
+    }
+
 }

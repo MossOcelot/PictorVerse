@@ -30,6 +30,16 @@ public class AgentWeapon : MonoBehaviour
         return weapon2;
     }
 
+    public List<ItemParameter> GetItemCurrentState()
+    {
+        return itemCurrentState;
+    }
+
+    public List<ItemParameter> GetItemCurrentState2()
+    {
+        return itemCurrentState2;
+    }
+
     public void SetWeapon(Item weaponItemSO, List<ItemParameter> itemState)
     {
         if (weapon1 != null)
@@ -117,6 +127,34 @@ public class AgentWeapon : MonoBehaviour
                     value = newValue
                 };
             }
+        }
+    }
+
+    private void Awake()
+    {
+        Load();
+    }
+
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
+    // ------------ save and load ------------
+    public void Save()
+    {
+        SavePlayerSystem.SavePlayerAgentWeapon(this);
+    }
+
+    public void Load()
+    {
+        PlayerAgentWeaponData data = SavePlayerSystem.LoadPlayerAgentWeapon();
+
+        if (data != null)
+        {
+            weapon1 = data.weapon1; 
+            weapon2 = data.weapon2;
+            itemCurrentState = data.itemCurrentState;
+            itemCurrentState2 = data.itemCurrentState2;
         }
     }
 }

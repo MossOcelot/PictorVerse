@@ -42,7 +42,7 @@ Transform:
   - {fileID: 5749176692239527250}
   - {fileID: 1956649662423594572}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1956649661961853443
 SpriteRenderer:
@@ -155,6 +155,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaae5fca62fb9424691cc563f2520393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory_player: {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
+  inventoryMini_player: {fileID: 11400000, guid: eb42cd07f06c8da4197148488baa153b, type: 2}
+  Weapon_player: {fileID: 11400000, guid: a8d645e9da11d494e8714e30c323d0dd, type: 2}
+  Set_player: {fileID: 11400000, guid: e3cf19e2ed0b30d4a9aaaad483db2916, type: 2}
   lastPos: {x: 0, y: 0}
   interactableLayer:
     serializedVersion: 2
@@ -166,6 +170,8 @@ MonoBehaviour:
   status: {fileID: 1956649661961853470}
   animator: {fileID: 1956649661961853441}
   walk_distance: 0
+  iswalk: 0
+  isDashButtonDown: 0
   energy_for_walk: 5
   strength: 0
   weight_player: 0
@@ -183,8 +189,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playername: 
-  HP: 100
-  energy: 1000
   player_accounts:
     section1_cashs: 0
     section2_cashs: 0
@@ -192,12 +196,20 @@ MonoBehaviour:
     section4_cashs: 0
     section5_cashs: 0
     gold: 0
-  myBag: []
+  financial_detail:
+    balance: 0
+    debt: 0
   accountsDetails: []
   myStatic:
     static_useEnergy: 0
     static_spendVAT: 0
     static_spendBuy: 0
+  account_id: 
+  MaxHP: 0
+  MaxEnergy: 0
+  HP: 100
+  energy: 1000
+  IsDead: 0
 --- !u!114 &1956649661961853465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,7 +251,7 @@ MonoBehaviour:
   - {x: 0.9585426, y: -1.9040359, z: 0}
   m_ShapePathHash: -869264443
   m_Mesh: {fileID: 0}
-  m_InstanceId: -114880
+  m_InstanceId: 61844
 --- !u!114 &1956649661961853467
 MonoBehaviour:
   m_ObjectHideFlags: 0

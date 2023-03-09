@@ -58,8 +58,8 @@ GameObject:
   - component: {fileID: 6768770824260391230}
   - component: {fileID: 1240663353079015173}
   - component: {fileID: 1856394366437600182}
-  - component: {fileID: 3713704377971472521}
   - component: {fileID: 8085177666765025101}
+  - component: {fileID: 3713704377971472521}
   - component: {fileID: 8181246223811836773}
   - component: {fileID: 1063989565774816434}
   - component: {fileID: 1325090265963061872}
@@ -213,37 +213,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.99828714, y: 1.744034}
   m_EdgeRadius: 0
---- !u!114 &3713704377971472521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3466082039460843415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaae5fca62fb9424691cc563f2520393, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory_player: {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
-  inventoryMini_player: {fileID: 11400000, guid: eb42cd07f06c8da4197148488baa153b, type: 2}
-  Weapon_player: {fileID: 11400000, guid: a8d645e9da11d494e8714e30c323d0dd, type: 2}
-  Set_player: {fileID: 11400000, guid: e3cf19e2ed0b30d4a9aaaad483db2916, type: 2}
-  lastPos: {x: 0, y: 0}
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  defaultMoveSpeed: 3.5
-  moveSpeed: 0
-  isLooking: 0
-  dashSpeed: 0
-  status: {fileID: 8085177666765025101}
-  animator: {fileID: 6768770824260391230}
-  walk_distance: 0
-  energy_for_walk: 5
-  strength: 1000
-  weight_player: 0
-  tr: {fileID: 6049970113520708775}
 --- !u!114 &8085177666765025101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,6 +247,39 @@ MonoBehaviour:
   HP: 100
   energy: 1000
   IsDead: 0
+--- !u!114 &3713704377971472521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3466082039460843415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaae5fca62fb9424691cc563f2520393, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory_player: {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
+  inventoryMini_player: {fileID: 11400000, guid: eb42cd07f06c8da4197148488baa153b, type: 2}
+  Weapon_player: {fileID: 11400000, guid: a8d645e9da11d494e8714e30c323d0dd, type: 2}
+  Set_player: {fileID: 11400000, guid: e3cf19e2ed0b30d4a9aaaad483db2916, type: 2}
+  lastPos: {x: 0, y: 0}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  defaultMoveSpeed: 3.5
+  moveSpeed: 0
+  isLooking: 0
+  dashSpeed: 0
+  status: {fileID: 8085177666765025101}
+  animator: {fileID: 6768770824260391230}
+  walk_distance: 0
+  iswalk: 0
+  isDashButtonDown: 0
+  energy_for_walk: 5
+  strength: 1000
+  weight_player: 0
+  tr: {fileID: 6049970113520708775}
 --- !u!114 &8181246223811836773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,7 +441,7 @@ MonoBehaviour:
   - {x: 0.9585426, y: -1.9040359, z: 0}
   m_ShapePathHash: -869264443
   m_Mesh: {fileID: 0}
-  m_InstanceId: -3954
+  m_InstanceId: -1300
 --- !u!114 &159246511228421354
 MonoBehaviour:
   m_ObjectHideFlags: 0

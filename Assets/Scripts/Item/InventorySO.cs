@@ -186,6 +186,11 @@ namespace inventory.Model
             InformAboutChange();
         }
 
+        public List<InventoryItem> getInventoryItems()
+        {
+            return inventoryItems;
+        }
+
         private void InformAboutChange()
         {
             OnInventoryUpdated?.Invoke(GetCurrentInventoryState());
