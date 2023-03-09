@@ -1,8 +1,13 @@
 using inventory.Model;
+using Mono.Cecil;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using static UnityEditor.Progress;
 using static UnityEngine.Rendering.DebugUI;
 
 public class mapPageManage : MonoBehaviour
@@ -13,27 +18,68 @@ public class mapPageManage : MonoBehaviour
     [SerializeField]
     private UIPlanetPage planetUI;
 
+    [SerializeField]
+    private planetBoxSO planetData;
 
-    // [SerializeField]
-    //private UIplanetInfoPage planetUI;
+    public List<planetItem> initialItems = new List<planetItem>();
 
     bool isCityON = false;
     bool isGalaxyOn = false;
 
-    public int planetSize = 1;
+    //public int planetSize = 2;
     public void close()
     {
         mapPage.close_window();
     }
-    
+
     public void open_planetPage()
     {
+
         mapPage.planet.gameObject.SetActive(true);
-        planetUI.InitializePlanetUI(planetSize);
+        
         Debug.Log("initial");
+        planetUI.Show();
+        Debug.Log("show");
+        PrepareUI();
+        foreach (var item in planetData.GetCurrentPlanetState())
+        {
+            Debug.Log("key"+item.Key);
+            planetUI.UpdateData(item.Key,
+                item.Value.item.planetImage);
+            Debug.Log("planetImage"+item.Value.item.planetImage);
+            Debug.Log("update2");
+        }
+
+        PreparePlanetData();
+
     }
 
-    public void open_cityMap()
+    private void PreparePlanetData()
+    {
+        planetData.Initialize();
+        Debug.Log("update44444");
+        planetData.OnplanetUpdated += UpdatePlanetUI;
+        foreach (planetItem item in initialItems)
+        {
+            if (item.IsEmpty)
+                continue;
+            planetData.AddItem(item);
+        }
+    }
+
+    private void UpdatePlanetUI(Dictionary<int, planetItem> planetState)
+    {
+        //planetUI.ResetAllItems();
+        
+        foreach (var item in planetState)
+        {
+            
+            planetUI.UpdateData(item.Key, item.Value.item.planetImage);
+            Debug.Log("update444");
+        }
+    }
+
+public void open_cityMap()
     {
         mapPage.cityMap.gameObject.SetActive(true);
     }
@@ -56,13 +102,38 @@ public class mapPageManage : MonoBehaviour
         }
         //mapPage.planet.gameObject.SetActive(false);    
     }
+    private void PrepareUI()
+    {
+        planetUI.InitializePlanetUI(planetData.Size);
+        //Debug.Log("des requeset");
+        HandleDescriptionRequest(0);
+        //Debug.Log("des requeset3");
 
- 
+    }
+
+    private void HandleDescriptionRequest(int itemIndex)
+    {
+        //Debug.Log("get index1");
+        planetItem planetItem = planetData.GetItemAt(itemIndex);
+        //Debug.Log("get index");
+        if (planetItem.IsEmpty)
+        {
+            planetUI.ResetSelection();
+            return;
+        }
+        planetSO item = planetItem.item;
+        Debug.Log("data");
+        planetUI.UpdateDescription(itemIndex, item.planetImage,
+            item.Name, item.location, item.rank, item.uniqueness,
+        item.Advantage, item.Disadvantage, item.resource);
+        Debug.Log(item.location);
+    }
 
 
     private void Start()
     {
         mapPage.cityMap.SetActive(isCityON);
+
     }
 
     // Update is called once per frame

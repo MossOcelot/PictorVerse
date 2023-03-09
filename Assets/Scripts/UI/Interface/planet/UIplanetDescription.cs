@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class UIplanetDescription : MonoBehaviour
 {
     [SerializeField]
-    private Image planetImage;
+    private Image planetSymbol;
     [SerializeField]
     private TMP_Text Name;
     [SerializeField]
@@ -32,7 +32,7 @@ public class UIplanetDescription : MonoBehaviour
 
     public void ResetDescription()
     {
-        this.planetImage.gameObject.SetActive(false);
+        this.planetSymbol.gameObject.SetActive(false);
         this.Name.text = "";
         this.location.text = "";
         this.rank.text = "";
@@ -46,8 +46,8 @@ public class UIplanetDescription : MonoBehaviour
         string planetLocation, string rank, string unique, 
         string advantage, string disadvantage, Sprite resource)
     {
-        this.planetImage.gameObject.SetActive(true);
-        this.planetImage.sprite = planetSprite;
+        this.planetSymbol.gameObject.SetActive(true);
+        this.planetSymbol.sprite = planetSprite;
         this.Name.text = planetName;
         this.location.text = planetLocation;
         this.rank.text = rank;
