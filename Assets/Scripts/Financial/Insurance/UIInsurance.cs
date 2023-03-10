@@ -47,7 +47,7 @@ public class UIInsurance : MonoBehaviour
     void OnClickEndowmentAction(InsuranceItems insurance)
     {
         string name = insurance.insurance.insurance_name;
-        string description = "�Ѻ��Сѹ�ͧ�� " + insurance.insurance.insurance_percent + " % ǧ�Թ " + insurance.insurance.insurance_limit.ToString("F") + " $";
+        string description = "คุ้มครองสินค้า" + insurance.insurance.insurance_percent + " % มูลค่าไม่เกิน " + insurance.insurance.insurance_limit.ToString("F") + " $";
         List<float> amounts = new List<float>();
         List<int> years = new List<int>();
 
@@ -64,7 +64,7 @@ public class UIInsurance : MonoBehaviour
     void OnClickHearthAction(InsuranceItems insurance)
     {
         string name = insurance.insurance.insurance_name;
-        string description = "������ͧ����ѡ�� " + insurance.insurance.insurance_percent + " % ǧ�Թ " + insurance.insurance.insurance_limit.ToString("F") + " $";
+        string description = "คุ้มครองราคา " + insurance.insurance.insurance_percent + " % มูลค่าไม่เกิน " + insurance.insurance.insurance_limit.ToString("F") + " $";
         List<float> amounts = new List<float>();
         List<int> years = new List<int>();
 

@@ -69,7 +69,6 @@ public class NPCController : MonoBehaviour
         }
         else
         {
-            PlaceOfWork.gameObject.GetComponent<BankCompany>().Open();
             RemoveText();
         }
     }
@@ -89,7 +88,6 @@ public class NPCController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerIsClose = false;
-            PlaceOfWork.gameObject.GetComponent<BankCompany>().Close();
             RemoveText();
         }
     }

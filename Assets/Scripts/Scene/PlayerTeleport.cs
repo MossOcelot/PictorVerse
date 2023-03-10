@@ -3,18 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerTeleport : MonoBehaviour
-
 {
-
+    
     private GameObject currentTeleporter;
-
+    private bool HaveTicket;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
             if(currentTeleporter != null)
             {
-                transform.position = currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
+                if (HaveTicket)
+                {
+                    string LeaveStation = gameObject.GetComponent<TicketController>().GetTicket().LeaveStation;
+                    if(LeaveStation != "")
+                    {
+                        transform.position = currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
+                    }
+                } else
+                {
+                    transform.position = currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
+                }
             }
         }
     }
@@ -24,6 +33,7 @@ public class PlayerTeleport : MonoBehaviour
         if (collision.CompareTag("Teleporter"))
         {
             currentTeleporter = collision.gameObject;
+            HaveTicket = collision.gameObject.GetComponent<Teleporter>().IsHaveTicket;
         }
     }
 

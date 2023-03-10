@@ -46,6 +46,11 @@ namespace inventory.Model
             return quantity;
         }
 
+        public void AddItem(InventoryItem item)
+        {
+            AddItem(item.item, item.quantity);
+        }
+
         private int AddItemToFirstFreeSlot(Item item, int quantity, List<ItemParameter> itemState = null)
         {
             InventoryItem newItem = new InventoryItem
@@ -134,11 +139,6 @@ namespace inventory.Model
                 }
                 InformAboutChange();
             }
-        }
-
-        public void AddItem(InventoryItem item)
-        {
-            AddItem(item.item, item.quantity);
         }
 
         public Dictionary<int, InventoryItem> GetCurrentInventoryState() 
