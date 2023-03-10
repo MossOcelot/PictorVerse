@@ -19,7 +19,9 @@ public class mapPageManage : MonoBehaviour
     private UIPlanetPage planetUI;
 
     [SerializeField]
-    private planetBoxSO planetData;
+    private planetSwitch planetSwitch;
+    //[SerializeField]
+    //private planetBoxSO planetData;
 
     public List<planetItem> initialItems = new List<planetItem>();
 
@@ -41,7 +43,7 @@ public class mapPageManage : MonoBehaviour
         planetUI.Show();
         Debug.Log("show");
         PrepareUI();
-        foreach (var item in planetData.GetCurrentPlanetState())
+        foreach (var item in planetSwitch.planetData.GetCurrentPlanetState())
         {
             Debug.Log("key"+item.Key);
             planetUI.UpdateData(item.Key,
@@ -56,14 +58,14 @@ public class mapPageManage : MonoBehaviour
 
     private void PreparePlanetData()
     {
-        planetData.Initialize();
-        Debug.Log("update44444");
-        planetData.OnplanetUpdated += UpdatePlanetUI;
+        planetSwitch.planetData.Initialize();
+        planetSwitch.planetData.OnplanetUpdated += UpdatePlanetUI;
         foreach (planetItem item in initialItems)
         {
+            Debug.Log("count" + initialItems.Count);
             if (item.IsEmpty)
                 continue;
-            planetData.AddItem(item);
+                planetSwitch.planetData.AddItem(item);
         }
     }
 
@@ -104,7 +106,7 @@ public void open_cityMap()
     }
     private void PrepareUI()
     {
-        planetUI.InitializePlanetUI(planetData.Size);
+        planetUI.InitializePlanetUI(planetSwitch.planetData.Size);
         //Debug.Log("des requeset");
         HandleDescriptionRequest(0);
         //Debug.Log("des requeset3");
@@ -114,7 +116,7 @@ public void open_cityMap()
     private void HandleDescriptionRequest(int itemIndex)
     {
         //Debug.Log("get index1");
-        planetItem planetItem = planetData.GetItemAt(itemIndex);
+        planetItem planetItem = planetSwitch.planetData.GetItemAt(itemIndex);
         //Debug.Log("get index");
         if (planetItem.IsEmpty)
         {
@@ -123,7 +125,7 @@ public void open_cityMap()
         }
         planetSO item = planetItem.item;
         Debug.Log("data");
-        planetUI.UpdateDescription(itemIndex, item.planetImage,
+        planetUI.UpdateDescription(itemIndex, item.planetSymbol,
             item.Name, item.location, item.rank, item.uniqueness,
         item.Advantage, item.Disadvantage, item.resource);
         Debug.Log(item.location);

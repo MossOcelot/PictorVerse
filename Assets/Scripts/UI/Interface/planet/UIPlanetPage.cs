@@ -2,6 +2,7 @@ using Mono.Cecil;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using System.Xml;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,14 +44,17 @@ public class UIPlanetPage : MonoBehaviour
 
     public void InitializePlanetUI(int inventorysize)
     {
-        for (int i = 0; i < inventorysize; i++)
+        if (listOfUIItems.Count == 0)
         {
-            UIplanetItem uiItem = Instantiate(planetPrefab, Vector3.zero, Quaternion.identity);
-            uiItem.transform.SetParent(contentPanel);
-            listOfUIItems.Add(uiItem);
-            HandleItemSelection(uiItem);
-            int index = listOfUIItems.IndexOf(uiItem);
-            OnDescriptionRequested?.Invoke(index);
+            for (int i = 0; i < inventorysize; i++)
+            {
+                UIplanetItem uiItem = Instantiate(planetPrefab, Vector3.zero, Quaternion.identity);
+                uiItem.transform.SetParent(contentPanel);
+                listOfUIItems.Add(uiItem);
+                HandleItemSelection(uiItem);
+                int index = listOfUIItems.IndexOf(uiItem);
+                OnDescriptionRequested?.Invoke(index);
+            }
         }
     }
 
