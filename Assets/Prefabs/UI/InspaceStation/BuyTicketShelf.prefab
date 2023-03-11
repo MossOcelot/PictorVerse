@@ -213,7 +213,6 @@ GameObject:
   - component: {fileID: 8873800920912954624}
   - component: {fileID: 8873800920912954630}
   - component: {fileID: 8873800920912954625}
-  - component: {fileID: 3339782711690153705}
   - component: {fileID: 6319226331833019020}
   m_Layer: 5
   m_Name: TicketPanel
@@ -292,24 +291,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3339782711690153705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8873800920912954627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a08d4d4a5f9954892891aedbc44a7940, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  arriveToLeaveDB:
-  - ArriveStation: CapitalSection1
-    LeaveStation: CapitalSection5
-    distance: 500000
-    price: 1500
-    stamina: 100
 --- !u!114 &6319226331833019020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1487,13 +1468,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08c4fd5ca2cb21a4bb763c1f2171bd32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inSpaceDB: {fileID: 3339782711690153705}
+  NPC: {fileID: 0}
+  inSpaceDB: {fileID: 0}
   section: 
   planet_section: 
   playerTicket: {fileID: 0}
   topMap: {fileID: 8873800921719727678}
   BuyBtn: {fileID: 8873800922367660312}
   LeaveStation: 
+  distance: 0
+  price: 0
+  stamina: 0
 --- !u!1 &8873800922195860494
 GameObject:
   m_ObjectHideFlags: 0

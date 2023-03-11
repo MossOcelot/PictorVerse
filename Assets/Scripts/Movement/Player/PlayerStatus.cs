@@ -172,7 +172,7 @@ public class PlayerStatus : MonoBehaviour
 
     public void Awake()
     {
-        Load();
+       Load();
     }
 
     private void Update()

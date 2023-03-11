@@ -11,6 +11,17 @@ public class DontDestroyManager : MonoBehaviour
         DontDestroyOnLoad(this);
         foreach(GameObject obj in objs)
         {
+            string tag = obj.tag;
+            int len_obj = GameObject.FindGameObjectsWithTag(tag).Length;
+            Debug.Log($"tag: {tag} len: {len_obj}");
+            foreach(GameObject obj2 in GameObject.FindGameObjectsWithTag(tag)) 
+            {
+                Debug.Log($"transform obj: {obj2.name} {obj2.transform.position}");
+            }
+            if (len_obj > 1 )
+            {
+                Destroy(obj);
+            }
             DontDestroyOnLoad(obj);
         }
     }

@@ -2656,7 +2656,7 @@ MonoBehaviour:
   - Nice to meet you
   wordSpeed: 0.01
   playerIsClose: 0
-  PlaceOfWork: {fileID: 0}
+  IsEndSituation: 0
 --- !u!70 &419302525
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -5757,7 +5757,7 @@ MonoBehaviour:
   - Nice to meet you
   wordSpeed: 0.01
   playerIsClose: 0
-  PlaceOfWork: {fileID: 0}
+  IsEndSituation: 0
 --- !u!70 &806414754
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -8379,6 +8379,183 @@ PolygonCollider2D:
       - {x: 0.5, y: -0.5}
       - {x: 0.5, y: 0.5}
   m_UseDelaunayMesh: 0
+--- !u!1001 &1259084556
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2690804108408144983, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_Size.x
+      value: 3.6424289
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408144983, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_Size.y
+      value: 3.493907
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408144983, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.3660336
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408144983, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.16650674
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145000, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_RootOrder
+      value: 102
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145000, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.1803424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145000, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9972918
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145000, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145000, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145000, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.12696585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145000, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.029970124
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145000, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.019609714
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145000, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.9902197
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145000, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.13484122
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145000, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -15.419
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145000, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -176.155
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145000, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -2.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145001, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145001, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1068775914, guid: 2d7d552571056ba4f8a77a6b686b9c8c, type: 3}
+    - target: {fileID: 2690804108408145001, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145001, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_Color.b
+      value: 0.9433962
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145001, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9433962
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145001, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9433962
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145001, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145001, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_SortingOrder
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145001, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 822741803
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690804108408145005, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+      propertyPath: m_Name
+      value: Door Tester (28)
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2690804108408145002, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+--- !u!1 &1259084557 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2690804108408145005, guid: 3eccc5660467c4b46a9db40fbcd16361, type: 3}
+  m_PrefabInstance: {fileID: 1259084556}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1259084558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259084557}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b829ed3baaae7145a45a42cc7429bcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasgroup: {fileID: 0}
+  fadein: 0
+  fadeout: 0
+  TimeToFade: 1
+--- !u!114 &1259084559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259084557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85f6d1949059a7c48a8bdbd869c07c19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: Section 1_new
+  player: {fileID: 0}
+  desiredPosition: {x: -15, y: -8.5}
+  CanNotOpen: 0
+--- !u!95 &1259084560
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259084557}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d0183bec684673340a0b4419d2da745d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1261725248
 GameObject:
   m_ObjectHideFlags: 0
@@ -17330,7 +17507,7 @@ MonoBehaviour:
   - Nice to meet you
   wordSpeed: 0.01
   playerIsClose: 0
-  PlaceOfWork: {fileID: 114133120}
+  IsEndSituation: 0
 --- !u!70 &1582079482
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -18745,7 +18922,7 @@ MonoBehaviour:
   - Nice to meet you
   wordSpeed: 0.01
   playerIsClose: 0
-  PlaceOfWork: {fileID: 0}
+  IsEndSituation: 0
 --- !u!70 &1753334531
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

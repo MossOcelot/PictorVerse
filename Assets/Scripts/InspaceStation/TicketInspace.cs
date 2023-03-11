@@ -6,7 +6,7 @@ using UnityEngine;
 public class TicketInspace 
 {
     public string ArriveStation;
-    public string LeaveStation;
+    public string LeaveStation = "";
     public string ownerTicket;
     public float ticketprice;
     public float distance;

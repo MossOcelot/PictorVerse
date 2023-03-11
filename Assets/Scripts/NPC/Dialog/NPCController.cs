@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
+using System;
 
 public class NPCController : MonoBehaviour
 {
     public GameObject dialoguePanel;
+    [NonSerialized]
+    public GameObject player;
     public TextMeshProUGUI dialogueText;
     public string[] dialogue;
     private int index = 0;
 
     public float wordSpeed;
     public bool playerIsClose;
-
-    public GameObject PlaceOfWork;
-
+    public bool IsEndSituation;
     void Start()
     {
         dialogueText.text = "";
@@ -24,17 +26,29 @@ public class NPCController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!dialoguePanel.active)
+        {
+            IsEndSituation = false;
+            RemoveText();
+        }
         if (Input.GetKeyDown(KeyCode.E) && playerIsClose)
         {
             if (!dialoguePanel.activeInHierarchy)
             {
                 dialoguePanel.SetActive(true);
+
+                if (index == dialogue.Length - 1)
+                {
+                    IsEndSituation = true;
+                }
+                player.gameObject.GetComponent<PlayerMovement>().isLooking = true;
                 StartCoroutine(Typing());
             }
             else if (dialogueText.text == dialogue[index])
             {
                 NextLine();
             }
+            
 
         }
         if (Input.GetKeyDown(KeyCode.Q) && dialoguePanel.activeInHierarchy)
@@ -47,6 +61,12 @@ public class NPCController : MonoBehaviour
     {
         dialogueText.text = "";
         index = 0;
+        int len = dialoguePanel.transform.GetChild(3).gameObject.transform.childCount;
+        for(int i = 0; i < len - 1; i++) 
+        {
+            dialoguePanel.transform.GetChild(3).gameObject.transform.GetChild(i + 1).gameObject.SetActive(false);
+        }
+        player.gameObject.GetComponent<PlayerMovement>().isLooking = false;
         dialoguePanel.SetActive(false);
     }
 
@@ -64,9 +84,13 @@ public class NPCController : MonoBehaviour
         if (index < dialogue.Length - 1)
         {
             index++;
+            if (index == dialogue.Length - 1)
+            {
+                IsEndSituation = true;
+            }
             dialogueText.text = "";
             StartCoroutine(Typing());
-        }
+        } 
         else
         {
             RemoveText();
@@ -80,6 +104,7 @@ public class NPCController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerIsClose = true;
+            player = other.gameObject;
         }
     }
 
@@ -87,8 +112,10 @@ public class NPCController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            IsEndSituation = false;
             playerIsClose = false;
             RemoveText();
+            player = new GameObject();
         }
     }
 }
