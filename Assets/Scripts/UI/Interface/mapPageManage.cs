@@ -36,20 +36,14 @@ public class mapPageManage : MonoBehaviour
 
     public void open_planetPage()
     {
-
         mapPage.planet.gameObject.SetActive(true);
         
-        Debug.Log("initial");
         planetUI.Show();
-        Debug.Log("show");
         PrepareUI();
         foreach (var item in planetSwitch.planetData.GetCurrentPlanetState())
         {
-            Debug.Log("key"+item.Key);
             planetUI.UpdateData(item.Key,
                 item.Value.item.planetImage);
-            Debug.Log("planetImage"+item.Value.item.planetImage);
-            Debug.Log("update2");
         }
 
         PreparePlanetData();
@@ -62,7 +56,6 @@ public class mapPageManage : MonoBehaviour
         planetSwitch.planetData.OnplanetUpdated += UpdatePlanetUI;
         foreach (planetItem item in initialItems)
         {
-            Debug.Log("count" + initialItems.Count);
             if (item.IsEmpty)
                 continue;
                 planetSwitch.planetData.AddItem(item);

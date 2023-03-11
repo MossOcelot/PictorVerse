@@ -97,10 +97,10 @@ public class UIPlanetPage : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    internal void UpdateDescription(int itemIndex, Sprite planetImage, string name, 
+    internal void UpdateDescription(int itemIndex, Sprite planetSymbol, string name, 
         string location, string rank, string uniqueness, string advantage, string disadvantage, Sprite resource)
     {
-        planetDescription.SetDescription(planetImage,name, location, rank, uniqueness, advantage, disadvantage, resource);
+        planetDescription.SetDescription(planetSymbol, name, location, rank, uniqueness, advantage, disadvantage, resource);
         //DeselectAllItems();
         listOfUIItems[itemIndex].Select();
     }

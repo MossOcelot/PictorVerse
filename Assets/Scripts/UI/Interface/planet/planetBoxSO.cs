@@ -20,6 +20,7 @@ public class planetBoxSO : ScriptableObject
         planetItems = new List<planetItem>();
         for (int i = 0; i < Size; i++)
         {
+            Debug.Log("jiijijijiji");
             planetItems.Add(planetItem.GetEmptyItem());
         }
     }

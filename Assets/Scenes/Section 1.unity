@@ -28443,6 +28443,24 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!1 &2058279097 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 866861925, guid: 376811a1f6442aa43be500c49db261fa, type: 3}
+  m_PrefabInstance: {fileID: 637710894397412476}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2058279103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058279097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e06aadc879bf04a82d2ade47167837, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  planetData: {fileID: 11400000, guid: f3c9823e6ce43054abeb8c5934f72607, type: 2}
 --- !u!1 &2063358198
 GameObject:
   m_ObjectHideFlags: 0
@@ -31115,7 +31133,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: MapSystem
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 637710896162196876, guid: 376811a1f6442aa43be500c49db261fa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 866861927, guid: 376811a1f6442aa43be500c49db261fa, type: 3}
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 376811a1f6442aa43be500c49db261fa, type: 3}
 --- !u!1001 &923397855187773926
