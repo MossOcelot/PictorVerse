@@ -62,15 +62,19 @@ public class UI_characterEquipment : MonoBehaviour
         bootsSlot.OnItemDropped += bootsSlot_OnItemDropped;
         weaponSlot1.OnItemDropped += weaponSlot1_OnItemDropped;
         weaponSlot2.OnItemDropped += WeaponSlot2_OnItemDropped;
+
+        Load();
     }
 
     Item capItem;
     List<ItemParameter> capDefaultParametersList;
-
+    public UI_CharacterEquipmentSlot.OnItemDroppedEventArgs cap_e;
     private void capSlot_OnItemDropped(object sender, UI_CharacterEquipmentSlot.OnItemDroppedEventArgs e)
     {
         if(e.item.item_type == "cap")
         {
+            cap_e = e;
+
             capItem = e.item;
             capDefaultParametersList = e.item.DefaultParametersList;
             characterSetEquipment.SetCap(e.item, e.item.DefaultParametersList);
@@ -93,11 +97,13 @@ public class UI_characterEquipment : MonoBehaviour
 
     Item bagItem;
     List<ItemParameter> bagDefaultParametersList;
-
+    public UI_CharacterEquipmentSlot.OnItemDroppedEventArgs bag_e;
     private void bagSlot_OnItemDropped(object sender, UI_CharacterEquipmentSlot.OnItemDroppedEventArgs e)
     {
         if (e.item.item_type == "bag")
         {
+            bag_e = e;
+
             bagItem = e.item;
             bagDefaultParametersList = e.item.DefaultParametersList;
             characterSetEquipment.SetBag(e.item, e.item.DefaultParametersList);
@@ -121,11 +127,14 @@ public class UI_characterEquipment : MonoBehaviour
 
     Item leggingsItem;
     List<ItemParameter> leggingsDefaultParametersList;
+    public UI_CharacterEquipmentSlot.OnItemDroppedEventArgs leggings_e;
 
     private void leggingsSlot_OnItemDropped(object sender, UI_CharacterEquipmentSlot.OnItemDroppedEventArgs e)
     {
         if (e.item.item_type == "leggings")
         {
+            leggings_e = e;
+
             leggingsItem = e.item;
             leggingsDefaultParametersList = e.item.DefaultParametersList;
             characterSetEquipment.SetLeggings(e.item, e.item.DefaultParametersList);
@@ -143,17 +152,20 @@ public class UI_characterEquipment : MonoBehaviour
 
     private void HandleShowLeggingsAction(UIInventoryItem inventoryItemUI)
     {
+
         characterSetEquipment.RemoveLeggings(leggingsItem, leggingsDefaultParametersList);
         leggingsSlot.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     Item chestplateItem;
     List<ItemParameter> chestplateDefaultParametersList;
-
+    public UI_CharacterEquipmentSlot.OnItemDroppedEventArgs chestplate_e;
     private void chestplateSlot_OnItemDropped(object sender, UI_CharacterEquipmentSlot.OnItemDroppedEventArgs e)
     {
         if (e.item.item_type == "chestplate")
         {
+            chestplate_e = e;
+
             chestplateItem = e.item;
             chestplateDefaultParametersList = e.item.DefaultParametersList;
             characterSetEquipment.SetChestplate(e.item, e.item.DefaultParametersList);
@@ -177,11 +189,14 @@ public class UI_characterEquipment : MonoBehaviour
 
     Item bootsSlotItem;
     List<ItemParameter> bootsSlotDefaultParametersList;
+    public UI_CharacterEquipmentSlot.OnItemDroppedEventArgs boots_e;
 
     private void bootsSlot_OnItemDropped(object sender, UI_CharacterEquipmentSlot.OnItemDroppedEventArgs e)
     {
         if (e.item.item_type == "boots")
         {
+            boots_e = e;
+
             bootsSlotItem = e.item;
             bootsSlotDefaultParametersList = e.item.DefaultParametersList;
             characterSetEquipment.SetBoots(e.item, e.item.DefaultParametersList);
@@ -205,12 +220,15 @@ public class UI_characterEquipment : MonoBehaviour
 
     Item weaponItem;
     List<ItemParameter> weaponDefaultParamtersList;
+    public UI_CharacterEquipmentSlot.OnItemDroppedEventArgs weapon_e;
 
     private void weaponSlot1_OnItemDropped(object sender, UI_CharacterEquipmentSlot.OnItemDroppedEventArgs e)
     {
         // Item dropped in Cap Slot
         if(e.item.item_type == "weapon")
         {
+            weapon_e = e;
+
             weaponItem = e.item;
             weaponDefaultParamtersList = e.item.DefaultParametersList;
             characterWeaponEquipment.SetWeapon(e.item, e.item.DefaultParametersList);
@@ -225,6 +243,13 @@ public class UI_characterEquipment : MonoBehaviour
         }
     }
 
+    public void LoadWeaponSlot1(UI_CharacterEquipmentSlot.OnItemDroppedEventArgs e)
+    {
+        weaponSlot1.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        weaponSlot1_box.SetData(e.indexSlot, e.item, e.item.icon, 1);
+        weaponSlot1_box.OnRightMouseBtnClick += HandleShowItemActions;
+    }
+
     private void HandleShowItemActions(UIInventoryItem inventoryItemUI)
     {
         characterWeaponEquipment.RemoveWeapon(weaponItem, weaponDefaultParamtersList);
@@ -233,10 +258,13 @@ public class UI_characterEquipment : MonoBehaviour
 
     Item weaponItem2;
     List<ItemParameter> weapon2DefaultParamtersList;
+    public UI_CharacterEquipmentSlot.OnItemDroppedEventArgs shield_e;
     private void WeaponSlot2_OnItemDropped(object sender, UI_CharacterEquipmentSlot.OnItemDroppedEventArgs e)
     {
         if (e.item.item_type == "shield")
         {
+            shield_e = e;
+
             weaponItem2 = e.item;
             weapon2DefaultParamtersList = e.item.DefaultParametersList;
 
@@ -259,4 +287,97 @@ public class UI_characterEquipment : MonoBehaviour
         weaponSlot2.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
     }
 
+    private void Start()
+    {
+        LoadWeaponSlot1(weapon_e);
+    }
+
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
+
+    // // ------------ save and load ------------
+    public void Save()
+    {
+        SavePlayerSystem.SavePlayerEquipment(this);
+    }
+
+    public void Load()
+    {
+        PlayerEquipmentData data = SavePlayerSystem.LoadPlayerEquipment();
+
+        if (data != null)
+        {
+            UI_CharacterEquipmentSlot.OnItemDroppedEventArgs weapon = new UI_CharacterEquipmentSlot.OnItemDroppedEventArgs
+            {
+                indexSlot = data.weapon_index,
+                item = data.weapon_item
+            };
+
+            weapon_e = weapon;
+            weaponItem = data.weapon_item;
+            weaponDefaultParamtersList = data.weapon_item.DefaultParametersList;
+
+            UI_CharacterEquipmentSlot.OnItemDroppedEventArgs weapon2 = new UI_CharacterEquipmentSlot.OnItemDroppedEventArgs
+            {
+                indexSlot = data.shield_index,
+                item = data.shield_item
+            };
+
+            shield_e = weapon2;
+            weaponItem2 = data.shield_item;
+            weapon2DefaultParamtersList = data.shield_item.DefaultParametersList;
+
+            UI_CharacterEquipmentSlot.OnItemDroppedEventArgs cap = new UI_CharacterEquipmentSlot.OnItemDroppedEventArgs
+            {
+                indexSlot = data.cap_index,
+                item = data.cap_item
+            };
+
+            cap_e = cap;
+            capItem = data.cap_item;
+            capDefaultParametersList = data.cap_item.DefaultParametersList;
+
+            UI_CharacterEquipmentSlot.OnItemDroppedEventArgs bag = new UI_CharacterEquipmentSlot.OnItemDroppedEventArgs
+            {
+                indexSlot = data.bag_index,
+                item = data.bag_item
+            };
+
+            bag_e = bag;
+            bagItem = data.bag_item;
+            bagDefaultParametersList = data.bag_item.DefaultParametersList;
+
+            UI_CharacterEquipmentSlot.OnItemDroppedEventArgs leggings = new UI_CharacterEquipmentSlot.OnItemDroppedEventArgs
+            {
+                indexSlot = data.leggings_index,
+                item = data.leggings_item
+            };
+
+            leggings_e = leggings;
+            leggingsItem = data.leggings_item;
+            leggingsDefaultParametersList = data.leggings_item.DefaultParametersList;
+
+            UI_CharacterEquipmentSlot.OnItemDroppedEventArgs chestplate = new UI_CharacterEquipmentSlot.OnItemDroppedEventArgs
+            {
+                indexSlot = data.chestplate_index,
+                item = data.chestplate_item
+            };
+
+            chestplate_e = chestplate;
+            chestplateItem = data.chestplate_item;
+            chestplateDefaultParametersList = data.chestplate_item.DefaultParametersList;
+
+            UI_CharacterEquipmentSlot.OnItemDroppedEventArgs boots = new UI_CharacterEquipmentSlot.OnItemDroppedEventArgs
+            {
+                indexSlot = data.boots_index,
+                item = data.boots_item
+            };
+
+            boots_e = boots;
+            bootsSlotItem = data.boots_item;
+            bootsSlotDefaultParametersList = data.boots_item.DefaultParametersList;
+        }
+    }
 }

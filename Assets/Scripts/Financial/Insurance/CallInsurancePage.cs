@@ -22,4 +22,25 @@ public class CallInsurancePage : MonoBehaviour
         insurance_manager.SetHealth_insurances(health_insurances);
     }
 
+    public List<InsuranceItems> GetEndowments()
+    {
+        return endowments;
+    }
+
+    public void LoadEndowments(List<InsuranceItems> dataendowments)
+    {
+        this.endowments = dataendowments;
+    }
+
+    public List<InsuranceItems> GetHealth_insurances()
+    {
+        return health_insurances;
+    }
+
+    public void LoadHealth_insurances(List<InsuranceItems> datahealth_insurances)
+    {
+        this.health_insurances = datahealth_insurances;
+    }
+
+
 }

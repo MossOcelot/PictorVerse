@@ -36,21 +36,25 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
 
     public float walk_distance = 0;
-    private bool iswalk;
-    private bool isDashButtonDown;
+    public bool iswalk;
+    public bool isDashButtonDown;
 
     private Vector3 MoveDir;
 
 
-    [SerializeField] private int energy_for_walk;
-    [SerializeField] private float strength;
-    [SerializeField] private float weight_player;
+    public int energy_for_walk;
+    public float strength;
+    public float weight_player;
     [SerializeField] private TrailRenderer tr;
     Vector2 playerposition;
 
 
     Vector2 movement;
 
+    private void Awake()
+    {
+        Load();
+    }
     public GameObject swordHitbox;
     Collider2D swordCollider;
 
@@ -86,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
 
 
             if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
-            {
+            { 
                 lastPos = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
             }
 
@@ -100,7 +104,6 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-
     private void FixedUpdate()
     {
         if (isDashButtonDown)
@@ -113,10 +116,16 @@ public class PlayerMovement : MonoBehaviour
         else { tr.emitting = false; }
     }
 
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
+
     private void Movement()
     {
         int energy = status.getEnergy();
 
+        Debug.Log("Energy: " + energy);
         checkWeightPerStrength();
 
         if (energy == 0)
@@ -253,5 +262,31 @@ public class PlayerMovement : MonoBehaviour
         return strength;
     }
 
+    public float getDefaultMoveSpeed()
+    {
+        return defaultMoveSpeed;
+    }
 
+    // ------------ save and load ------------
+    public void Save()
+    {
+        SavePlayerSystem.SavePlayerMovement(this);
+    }
+
+    public void Load()
+    {
+        PlayerMovementData data = SavePlayerSystem.LoadPlayerMovement();
+
+        if (data != null) { 
+            defaultMoveSpeed = data.defaultMoveSpeed;
+            walk_distance = data.walk_distance;
+            iswalk = data.iswalk;
+            isDashButtonDown = data.isDashButtonDown;
+            energy_for_walk = data.energy_for_walk;
+            strength = data.strength;
+            weight_player = data.weight_player;
+        }
+
+    }
+    
 }

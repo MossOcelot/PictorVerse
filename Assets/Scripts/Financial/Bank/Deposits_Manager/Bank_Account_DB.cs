@@ -64,6 +64,11 @@ public class Bank_Account_DB : MonoBehaviour
         return this.accountsDB;
     }
 
+    public void LoadAllAccount(List<Accounts> data)
+    {
+        this.accountsDB = data;
+    }
+
     public bool UpdateAccount(int command = 0, string account_id = null, int customer_id = 0,
         string account_type = null,float amount_deposits = 0f,string currency_type = null, string place_of_deposit = null, AccountList accountCard = null)
     {

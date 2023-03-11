@@ -96,8 +96,14 @@ GameObject:
   - component: {fileID: 1956649661961853443}
   - component: {fileID: 1956649661961853469}
   - component: {fileID: 1956649661961853468}
-  - component: {fileID: 1956649661961853471}
   - component: {fileID: 1956649661961853470}
+  - component: {fileID: 1956649661961853471}
+  - component: {fileID: -6878593574712198853}
+  - component: {fileID: 5057600408470458865}
+  - component: {fileID: 372831218654241934}
+  - component: {fileID: -6548516153152810734}
+  - component: {fileID: -9050283520360670951}
+  - component: {fileID: 3192474562410210545}
   - component: {fileID: 1956649661961853465}
   - component: {fileID: 1956649661961853464}
   - component: {fileID: 1956649661961853467}
@@ -127,7 +133,7 @@ Transform:
   - {fileID: 1956649662423594572}
   - {fileID: 2044975231}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1956649661961853443
 SpriteRenderer:
@@ -228,38 +234,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.99828714, y: 1.744034}
   m_EdgeRadius: 0
---- !u!114 &1956649661961853471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1956649661961853460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaae5fca62fb9424691cc563f2520393, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory_player: {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
-  inventoryMini_player: {fileID: 11400000, guid: eb42cd07f06c8da4197148488baa153b, type: 2}
-  Weapon_player: {fileID: 11400000, guid: a8d645e9da11d494e8714e30c323d0dd, type: 2}
-  Set_player: {fileID: 11400000, guid: e3cf19e2ed0b30d4a9aaaad483db2916, type: 2}
-  lastPos: {x: 0, y: 0}
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  defaultMoveSpeed: 4
-  moveSpeed: 0
-  isLooking: 0
-  dashSpeed: 22
-  status: {fileID: 1956649661961853470}
-  animator: {fileID: 1956649661961853441}
-  walk_distance: 0
-  energy_for_walk: 5
-  strength: 1000
-  weight_player: 0
-  tr: {fileID: 1956649661961853466}
-  swordHitbox: {fileID: 0}
 --- !u!114 &1956649661961853470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,8 +268,174 @@ MonoBehaviour:
   HP: 100
   energy: 1000
   IsDead: 0
+--- !u!114 &1956649661961853471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956649661961853460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaae5fca62fb9424691cc563f2520393, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory_player: {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
+  inventoryMini_player: {fileID: 11400000, guid: eb42cd07f06c8da4197148488baa153b, type: 2}
+  Weapon_player: {fileID: 11400000, guid: a8d645e9da11d494e8714e30c323d0dd, type: 2}
+  Set_player: {fileID: 11400000, guid: e3cf19e2ed0b30d4a9aaaad483db2916, type: 2}
+  lastPos: {x: 0, y: 0}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  defaultMoveSpeed: 1000
+  moveSpeed: 1000
+  isLooking: 0
+  dashSpeed: 22
+  status: {fileID: 1956649661961853470}
   animator: {fileID: 1956649661961853441}
-  rb: {fileID: 1956649661961853469}
+  walk_distance: 0
+  iswalk: 0
+  isDashButtonDown: 0
+  energy_for_walk: 5
+  strength: 0
+  weight_player: 0
+  tr: {fileID: 1956649661961853466}
+  swordHitbox: {fileID: 0}
+--- !u!114 &-6878593574712198853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956649661961853460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaca3631485c745ae476afcd656523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1956649661961853470}
+  playerInventorySO: {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
+  type: player
+  npc: {fileID: 0}
+  broker: {fileID: 0}
+--- !u!114 &5057600408470458865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956649661961853460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2038617d61dfe842b56ace570c3e9cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryUI: {fileID: 0}
+  WeaponBoxUI: {fileID: 0}
+  miniInventoryUI: {fileID: 0}
+  bigMiniInventoryUI: {fileID: 0}
+  inventoryData: {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
+  WeaponBoxData: {fileID: 11400000, guid: a8d645e9da11d494e8714e30c323d0dd, type: 2}
+  miniInventoryData: {fileID: 11400000, guid: eb42cd07f06c8da4197148488baa153b, type: 2}
+  initialItems: []
+  WeaponItems: []
+  miniInitialItem: []
+  MyInventoryObj: {fileID: 0}
+  MyAccountObj: {fileID: 0}
+--- !u!114 &372831218654241934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956649661961853460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f949eae4172e20149bf18e355c5c6b4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryData: {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
+--- !u!114 &-6548516153152810734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956649661961853460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d469d05b27df414a9f80f5d4bbf447a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon1: {fileID: 0}
+  weapon2: {fileID: 0}
+  WeaponBox: {fileID: 11400000, guid: a8d645e9da11d494e8714e30c323d0dd, type: 2}
+  inventoryData: {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
+  miniInventoryData: {fileID: 11400000, guid: eb42cd07f06c8da4197148488baa153b, type: 2}
+  parametersToModify:
+  - itemParameter: {fileID: 11400000, guid: 1b56489bc23e8ac46b7e2399d7bb3a8d, type: 2}
+    value: -10
+  itemCurrentState: []
+  parametersToModify2: []
+  itemCurrentState2: []
+--- !u!114 &-9050283520360670951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956649661961853460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1fd357e8321204684045f5baf1f6e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cap: {fileID: 0}
+  bag: {fileID: 0}
+  chestplate: {fileID: 0}
+  leggings: {fileID: 0}
+  boots: {fileID: 0}
+  SetBox: {fileID: 11400000, guid: e3cf19e2ed0b30d4a9aaaad483db2916, type: 2}
+  inventoryData: {fileID: 11400000, guid: a8d645e9da11d494e8714e30c323d0dd, type: 2}
+  parametersToModify_cap: []
+  itemCurrentState_cap: []
+  parametersToModify_bag: []
+  itemCurrentState_bag: []
+  parametersToModify_chestplate: []
+  itemCurrentState_chestplate: []
+  parametersToModify_leggings: []
+  itemCurrentState_leggings: []
+  parametersToModify_boots: []
+  itemCurrentState_boots: []
+--- !u!114 &3192474562410210545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956649661961853460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a4ce101b55407944aa59684ce32c0cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player_status: {fileID: 1956649661961853470}
+  player_endowment:
+    insurance: {fileID: 0}
+    subpackage: []
+    buyDay: 
+    expireDay: 
+  player_hearth_insurance:
+    insurance: {fileID: 0}
+    subpackage: []
+    buyDay: 
+    expireDay: 
+  playerInventoryList:
+  - {fileID: 11400000, guid: a8d645e9da11d494e8714e30c323d0dd, type: 2}
+  - {fileID: 11400000, guid: e3cf19e2ed0b30d4a9aaaad483db2916, type: 2}
+  - {fileID: 11400000, guid: eb42cd07f06c8da4197148488baa153b, type: 2}
+  - {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
 --- !u!114 &1956649661961853465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,7 +478,7 @@ MonoBehaviour:
   - {x: 0.9585426, y: -1.9040359, z: 0}
   m_ShapePathHash: -869264443
   m_Mesh: {fileID: 0}
-  m_InstanceId: -5988
+  m_InstanceId: 288370
 --- !u!114 &1956649661961853467
 MonoBehaviour:
   m_ObjectHideFlags: 0

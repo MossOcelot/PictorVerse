@@ -31,7 +31,7 @@ public class AgentSet : MonoBehaviour
     private List<ItemParameter> parametersToModify_leggings, itemCurrentState_leggings;
     [SerializeField]
     private List<ItemParameter> parametersToModify_boots, itemCurrentState_boots;
-    
+
     public Item GetCap()
     {
         return cap;
@@ -54,9 +54,28 @@ public class AgentSet : MonoBehaviour
 
     public Item GetBoots()
     {
-        return boots;   
+        return boots;
     }
-
+    public List<ItemParameter> GetItemCurrentState_cap()
+    {
+        return itemCurrentState_cap;
+    }
+    public List<ItemParameter> GetItemCurrentState_bag()
+    {
+        return itemCurrentState_bag;
+    }
+    public List<ItemParameter> GetItemCurrentState_chestplate()
+    {
+        return itemCurrentState_chestplate;
+    }
+    public List<ItemParameter> GetItemCurrentState_leggings()
+    {
+        return itemCurrentState_leggings;
+    }
+    public List<ItemParameter> GetItemCurrentState_boots()
+    {
+        return itemCurrentState_boots;
+    }
     public void SetCap(Item weaponItemSO, List<ItemParameter> itemState)
     {
         if (cap != null)
@@ -171,4 +190,39 @@ public class AgentSet : MonoBehaviour
         this.itemCurrentState_boots = null;
     }
 
+    private void Awake()
+    {
+        Load();
+    }
+
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
+
+    // ------------ save and load ------------
+    public void Save()
+    {
+        SavePlayerSystem.SavePlayerAgentSet(this);
+    }
+
+    public void Load()
+    {
+        PlayerAgentSetData data = SavePlayerSystem.LoadPlayerAgentSet();
+
+        if (data != null)
+        {
+            cap = data.cap;
+            bag = data.bag;
+            chestplate = data.chestplate;
+            leggings = data.leggings;
+            boots = data.boots;
+
+            itemCurrentState_cap = data.itemCurrentState_cap;
+            itemCurrentState_bag = data.itemCurrentState_bag;
+            itemCurrentState_chestplate = data.itemCurrentState_chestplate;
+            itemCurrentState_leggings = data.itemCurrentState_leggings;
+            itemCurrentState_boots = data.itemCurrentState_boots;
+        }
+    }
 }

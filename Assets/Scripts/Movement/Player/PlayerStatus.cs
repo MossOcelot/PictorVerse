@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using inventory.Model;
 using Random = UnityEngine.Random;
+using UnityEngine.Rendering;
+using Unity.VisualScripting;
 
 public class PlayerStatus : MonoBehaviour
 {
     [System.Serializable]
-    class StaticValue
+    public class StaticValue
     {
         public float static_useEnergy;
         public float static_spendVAT;
@@ -18,10 +20,8 @@ public class PlayerStatus : MonoBehaviour
     public int player_id => GetInstanceID();
     [SerializeField]
     private string playername;
-    [SerializeField]
     public PocketDetails player_accounts;
-    [SerializeField]
-    private Financial_Details financial_detail;
+    public Financial_Details financial_detail;
     [SerializeField]
     private List<AccountsDetail> accountsDetails;
     [SerializeField]
@@ -40,7 +40,7 @@ public class PlayerStatus : MonoBehaviour
 
     public bool IsDead = false;
 
-    //For Player Monster Fight
+
     private Rigidbody2D rb2d;
     private Vector2 knockbackDirection;
     private bool isColliding = false;
@@ -48,6 +48,15 @@ public class PlayerStatus : MonoBehaviour
     public Rigidbody2D rb;
     public PlayerMovement movementScript;
   
+    public void setPlayerName(string newName)
+    {
+        this.playername = newName;
+    }
+
+    public string getPlayerName()
+    {
+        return this.playername;
+    }
 
     public void setMaxHP(int MaxHP)
     {
@@ -83,6 +92,11 @@ public class PlayerStatus : MonoBehaviour
     public int getEnergy()
     {
         return this.energy;
+    }
+
+    public StaticValue getMyStaticFromData()
+    {
+        return this.myStatic;   
     }
 
     public Dictionary<string, float> getMyStatic()
@@ -141,6 +155,11 @@ public class PlayerStatus : MonoBehaviour
             this.financial_detail.debt = value;
         }
     }
+    
+    public Financial_Details getFinancial_Details()
+    {
+        return this.financial_detail;
+    }
 
     public float GetFinancial_balance()
     {
@@ -165,8 +184,12 @@ public class PlayerStatus : MonoBehaviour
     {
         Animator animator = GetComponent<Animator>();
 
-
     }
+
+    //public void Awake()
+    //{
+      //  Load();
+    //}
 
     private void Update()
     {
@@ -215,6 +238,40 @@ public class PlayerStatus : MonoBehaviour
         if (other.gameObject.CompareTag("ItemCutD") || other.gameObject.CompareTag("Enemy"))
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        }
+    }
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
+    public void Save()
+    {
+        SavePlayerSystem.SavePlayerStatus(this);
+    }
+
+    public void Load()
+    {
+        PlayerStatusData data = SavePlayerSystem.LoadPlayerStatus();
+
+        if (data != null)
+        {
+            player_accounts = data.player_accounts;
+            financial_detail = data.financial_detail;
+            accountsDetails = data.accountsDetails;
+
+            myStatic = data.myStatic;
+
+            MaxHP = data.MaxHP;
+            HP = data.HP;
+            MaxEnergy = data.MaxEnergy;
+            energy = data.Energy;
+            IsDead = data.IsDead;
+
+            Vector3 position;
+            position.x = data.position_player[0];
+            position.y = data.position_player[1];
+            position.z = data.position_player[2];
+            transform.position = position;
         }
     }
 }

@@ -77,4 +77,12 @@ public class UIInsurance : MonoBehaviour
         InsurancePaper.gameObject.SetActive(true);
         InsurancePaper.gameObject.GetComponent<UIInsurancePaper>().SetData(insurance,name, description, amounts, years);
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        }
+    }
 }
