@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,7 @@ using UnityEngine.UI;
 
 public class UIInsurance : MonoBehaviour
 {
-    [SerializeField] 
-    private Insurance_manager insurance_manager;
+    public Insurance_manager insurance_manager;
     [SerializeField]
     private GameObject insuranceCardTemplate;
 
@@ -78,6 +78,22 @@ public class UIInsurance : MonoBehaviour
         InsurancePaper.gameObject.GetComponent<UIInsurancePaper>().SetData(insurance,name, description, amounts, years);
     }
 
+    public void Close()
+    {
+        insurance_manager.Banker.gameObject.GetComponent<NPCController>().playerIsClose = true;
+        int len_endowment_table = endowment_table.childCount;
+        int len_Hearth_table = Hearth_table.childCount;
+        for (int i = 0; i < len_endowment_table; i++)
+        {
+            Destroy(endowment_table.GetChild(i).gameObject);
+        }
+
+        for (int i = 0; i < len_Hearth_table; i++)
+        {
+            Destroy(Hearth_table.GetChild(i).gameObject);
+        }
+        gameObject.transform.GetChild(0).gameObject.SetActive(false);
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))

@@ -17,7 +17,10 @@ public class TicketCheckMachine : MonoBehaviour
         Debug.Log("IsEnd: " + IsEndSituation);  
         if (!IsEndSituation)
         {
-            ButtonList = GameObject.FindGameObjectWithTag("DialogBox").gameObject.transform.GetChild(3).gameObject.transform;
+            if(GameObject.FindGameObjectWithTag("DialogBox").gameObject != null)
+            {
+                ButtonList = GameObject.FindGameObjectWithTag("DialogBox").gameObject.transform.GetChild(3).gameObject.transform;
+            }
             return;
         }
         if (IsEndSituation && npcController.playerIsClose)

@@ -4,22 +4,12 @@ using UnityEngine;
 
 public class Insurance_manager : MonoBehaviour
 {
+    public GameObject Banker;
     public string insurance_seller;
     [SerializeField]
     private List<InsuranceItems> endowments;
     [SerializeField]
     private List<InsuranceItems> health_insurances;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void SetEndowments(List<InsuranceItems> newEndowments)
     {
@@ -44,5 +34,11 @@ public class Insurance_manager : MonoBehaviour
     public void SetInsuranceData(string insuranceName)
     {
         this.insurance_seller = insuranceName;
+    }
+
+    public void Close()
+    {
+        Banker.gameObject.GetComponent<NPCController>().playerIsClose = true;
+        gameObject.transform.GetChild(0).gameObject.SetActive(false);
     }
 }

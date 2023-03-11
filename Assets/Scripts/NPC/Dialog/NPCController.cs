@@ -9,7 +9,6 @@ using System;
 public class NPCController : MonoBehaviour
 {
     public GameObject dialoguePanel;
-    [NonSerialized]
     public GameObject player;
     public TextMeshProUGUI dialogueText;
     public string[] dialogue;
@@ -20,6 +19,7 @@ public class NPCController : MonoBehaviour
     public bool IsEndSituation;
     void Start()
     {
+
         dialogueText.text = "";
     }
 
@@ -41,7 +41,10 @@ public class NPCController : MonoBehaviour
                 {
                     IsEndSituation = true;
                 }
-                player.gameObject.GetComponent<PlayerMovement>().isLooking = true;
+                if(player != null)
+                {
+                    player.gameObject.GetComponent<PlayerMovement>().isLooking = true;
+                }
                 StartCoroutine(Typing());
             }
             else if (dialogueText.text == dialogue[index])
@@ -65,8 +68,11 @@ public class NPCController : MonoBehaviour
         for(int i = 0; i < len - 1; i++) 
         {
             dialoguePanel.transform.GetChild(3).gameObject.transform.GetChild(i + 1).gameObject.SetActive(false);
+        } 
+        if(player != null)
+        {
+            player.gameObject.GetComponent<PlayerMovement>().isLooking = false;
         }
-        player.gameObject.GetComponent<PlayerMovement>().isLooking = false;
         dialoguePanel.SetActive(false);
     }
 
@@ -115,7 +121,7 @@ public class NPCController : MonoBehaviour
             IsEndSituation = false;
             playerIsClose = false;
             RemoveText();
-            player = new GameObject();
+            player = null;
         }
     }
 }
