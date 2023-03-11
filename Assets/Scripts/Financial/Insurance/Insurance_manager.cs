@@ -36,9 +36,4 @@ public class Insurance_manager : MonoBehaviour
         this.insurance_seller = insuranceName;
     }
 
-    public void Close()
-    {
-        Banker.gameObject.GetComponent<NPCController>().playerIsClose = true;
-        gameObject.transform.GetChild(0).gameObject.SetActive(false);
-    }
 }
