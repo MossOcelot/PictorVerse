@@ -25,30 +25,6 @@ namespace inventory.Model
             return false;
         }
 
-        public bool UseAction(GameObject character, int quantity = 1, List<ItemParameter> itemState = null)
-        {
-            AgentWeapon weaponSystem = character.GetComponent<AgentWeapon>();
-            if (weaponSystem != null)
-            {
-                weaponSystem.UseWeapon(this, itemState == null ?
-                    DefaultParametersList : itemState);
-                return true;
-            }
-            return false;
-        }
-
-        public bool NotUseAction(GameObject character, int quantity = 1, List<ItemParameter> itemState = null)
-        {
-            AgentWeapon weaponSystem = character.GetComponent<AgentWeapon>();
-            if (weaponSystem != null)
-            {
-                weaponSystem.NotUseWeapon(this, itemState == null ?
-                    DefaultParametersList : itemState);
-                return true;
-            }
-            return false;
-        }
-
         public bool NoperformAction(GameObject character, List<ItemParameter> itemState = null)
         {
             AgentWeapon weaponSystem = character.GetComponent<AgentWeapon>();

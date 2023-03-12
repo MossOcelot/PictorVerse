@@ -22,14 +22,13 @@ public class UIInventoryItem : MonoBehaviour
     private Image borderImage;
 
     public event Action<UIInventoryItem> OnItemClicked,
-        OnItemDroppedOn, OnItemBeginDrag, OnItemEndDrag, OnEnterMouseBtn,
+        OnItemDroppedOn, OnItemBeginDrag, OnItemEndDrag, OnEnterMouseBtn, OnExitMouseBtn,
         OnRightMouseBtnClick;
 
     private bool empty = true;
 
     public void Awake()
     {
-
         ResetData();
         Deselect();
     }
@@ -79,6 +78,7 @@ public class UIInventoryItem : MonoBehaviour
     {
         OnItemEndDrag?.Invoke(this);
     }
+    
 
     public void OnPointerClick(BaseEventData basedata)
     {
@@ -96,7 +96,11 @@ public class UIInventoryItem : MonoBehaviour
     public void OnPointerEnter()
     {
         OnEnterMouseBtn?.Invoke(this);
-        
+    }
+    
+    public void OnPointerExit()
+    {
+        OnExitMouseBtn?.Invoke(this);
     }
 
     public Item GetItem()

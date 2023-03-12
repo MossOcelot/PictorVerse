@@ -12,7 +12,7 @@ public class planetBoxSO : ScriptableObject
     private List<planetItem> planetItems;
 
     [field: SerializeField]
-    public int Size { get; private set; } = 1;
+    public int Size { get; private set; } = 2;
 
     public event Action<Dictionary<int, planetItem>> OnplanetUpdated;
     public void Initialize()
@@ -20,7 +20,6 @@ public class planetBoxSO : ScriptableObject
         planetItems = new List<planetItem>();
         for (int i = 0; i < Size; i++)
         {
-            Debug.Log("jiijijijiji");
             planetItems.Add(planetItem.GetEmptyItem());
         }
     }
@@ -32,6 +31,7 @@ public class planetBoxSO : ScriptableObject
 
     public void AddItem(planetSO item, string owner, string type)
     {
+       // Debug.Log("cout" + planetItems.Count);
         for (int i = 0; i < planetItems.Count; i++)
         {
             if (planetItems[i].IsEmpty)
@@ -54,15 +54,15 @@ public class planetBoxSO : ScriptableObject
 
         for (int i = 0; i < planetItems.Count; i++)
         {
-            Debug.Log("isEmpty" + planetItems[i].IsEmpty);
+            //Debug.Log("isEmpty" + planetItems[i].IsEmpty);
             if (planetItems[i].IsEmpty)
             continue;
 
             returnValue[i] = planetItems[i];
-            Debug.Log(i);
-            Debug.Log(returnValue);
+
+            
         }
-        Debug.Log("count"+ planetItems.Count);
+       // Debug.Log("return" + returnValue);
         return returnValue;
        
     }
@@ -70,7 +70,7 @@ public class planetBoxSO : ScriptableObject
     public planetItem GetItemAt(int itemIndex)
     {
         OnplanetUpdated?.Invoke(GetCurrentPlanetState());
-        Debug.Log("kuay");
+        //Debug.Log("kuay");
         return planetItems[itemIndex];
     }
 }

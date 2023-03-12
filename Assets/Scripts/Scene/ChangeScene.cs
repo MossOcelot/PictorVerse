@@ -10,7 +10,7 @@ public class ChangeScene : MonoBehaviour
     public GameObject player;
 
     [SerializeField] private Vector2 desiredPosition;
-
+    public bool CanNotOpen = false;
     void Start()
     {
         fade = FindObjectOfType<FadeInOut>();
@@ -29,7 +29,7 @@ public class ChangeScene : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && !CanNotOpen)
         {
             StartCoroutine(_ChangeScene());
         }

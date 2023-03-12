@@ -1059,6 +1059,7 @@ GameObject:
   - component: {fileID: 6712615537025407791}
   - component: {fileID: 6712615537025407776}
   - component: {fileID: 579588775198954289}
+  - component: {fileID: 1546187377295706866}
   m_Layer: 5
   m_Name: DescriptionBox
   m_TagString: Untagged
@@ -1166,6 +1167,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planetPrefab: {fileID: 8364452390381844639, guid: a1c49cf340ded7f4fbe33ab6fe904cf4, type: 3}
   contentPanel: {fileID: 4160369307676084198}
+  planetDescription: {fileID: 0}
+--- !u!114 &1546187377295706866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6712615537025407778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d204b2fac0ed4f04f96dc64def83539d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  planetSymbol: {fileID: 6712615538148070218}
+  Name: {fileID: 6712615538290298036}
+  location: {fileID: 6712615537839560896}
+  rank: {fileID: 6712615537099038484}
+  uniqueness: {fileID: 8362982753528552286}
+  Advantage: {fileID: 3670595384684792392}
+  Disadvantage: {fileID: 8813975625306178703}
+  resource: {fileID: 6712615537595415509}
 --- !u!1 &6712615537082485874
 GameObject:
   m_ObjectHideFlags: 0
@@ -2412,7 +2434,7 @@ GameObject:
   - component: {fileID: 6712615538148070217}
   - component: {fileID: 6712615538148070218}
   m_Layer: 5
-  m_Name: Image
+  m_Name: symbol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2489,7 +2511,6 @@ GameObject:
   - component: {fileID: 6712615538161332397}
   - component: {fileID: 6712615538161332398}
   - component: {fileID: 6712615538161332395}
-  - component: {fileID: 5865945429233981503}
   m_Layer: 5
   m_Name: InfoPanel
   m_TagString: Untagged
@@ -2603,26 +2624,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &5865945429233981503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6712615538161332384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d204b2fac0ed4f04f96dc64def83539d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  planetImage: {fileID: 6712615538148070218}
-  Name: {fileID: 6712615538290298036}
-  location: {fileID: 6712615537839560896}
-  rank: {fileID: 6712615537099038484}
-  uniqueness: {fileID: 8362982753528552286}
-  Advantage: {fileID: 3670595384684792392}
-  Disadvantage: {fileID: 8813975625306178703}
-  resource: {fileID: 6712615537595415509}
 --- !u!1 &6712615538290298038
 GameObject:
   m_ObjectHideFlags: 0

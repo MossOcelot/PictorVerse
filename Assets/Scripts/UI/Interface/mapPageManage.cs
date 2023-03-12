@@ -19,9 +19,10 @@ public class mapPageManage : MonoBehaviour
     private UIPlanetPage planetUI;
 
     [SerializeField]
-    private planetSwitch planetSwitch;
-    //[SerializeField]
-    //private planetBoxSO planetData;
+    private sortingSection sortingSection;
+
+    [SerializeField]
+    private UIplanetDescription planetDescription;
 
     public List<planetItem> initialItems = new List<planetItem>();
 
@@ -39,38 +40,37 @@ public class mapPageManage : MonoBehaviour
         mapPage.planet.gameObject.SetActive(true);
         
         planetUI.Show();
+        sortingSection.sortSection();
         PrepareUI();
-        foreach (var item in planetSwitch.planetData.GetCurrentPlanetState())
+        foreach (var item in sortingSection.planetData.GetCurrentPlanetState())
         {
             planetUI.UpdateData(item.Key,
                 item.Value.item.planetImage);
         }
-
         PreparePlanetData();
 
     }
 
     private void PreparePlanetData()
     {
-        planetSwitch.planetData.Initialize();
-        planetSwitch.planetData.OnplanetUpdated += UpdatePlanetUI;
+       // sortingSection.planetData.Initialize();
+        sortingSection.planetData.OnplanetUpdated += UpdatePlanetUI;
         foreach (planetItem item in initialItems)
         {
             if (item.IsEmpty)
                 continue;
-                planetSwitch.planetData.AddItem(item);
+                sortingSection.planetData.AddItem(item);
+                
         }
     }
 
     private void UpdatePlanetUI(Dictionary<int, planetItem> planetState)
     {
         //planetUI.ResetAllItems();
-        
         foreach (var item in planetState)
-        {
-            
+        {    
             planetUI.UpdateData(item.Key, item.Value.item.planetImage);
-            Debug.Log("update444");
+            //Debug.Log("update444");
         }
     }
 
@@ -86,6 +86,7 @@ public void open_cityMap()
             isGalaxyOn = !isGalaxyOn;
         }
         mapPage.planet.gameObject.SetActive(false);
+        planetDescription.gameObject.SetActive(false);
     }
 
     public void back_to_cityMap()
@@ -95,39 +96,37 @@ public void open_cityMap()
             mapPage.galaxyMap.gameObject.SetActive(isCityON);
             isGalaxyOn = !isGalaxyOn;
         }
-        //mapPage.planet.gameObject.SetActive(false);    
+        //planetUI.DeletePlanetUI();   
     }
     private void PrepareUI()
     {
-        planetUI.InitializePlanetUI(planetSwitch.planetData.Size);
-        //Debug.Log("des requeset");
-        HandleDescriptionRequest(0);
-        //Debug.Log("des requeset3");
+        planetUI.InitializePlanetUI(sortingSection.planetData.Size);
+        this.planetUI.OnDescriptionRequested += HandleDescriptionRequest;
 
     }
 
     private void HandleDescriptionRequest(int itemIndex)
     {
+        planetDescription.gameObject.SetActive(true);
         //Debug.Log("get index1");
-        planetItem planetItem = planetSwitch.planetData.GetItemAt(itemIndex);
+        planetItem planetItem = sortingSection.planetData.GetItemAt(itemIndex);
         //Debug.Log("get index");
         if (planetItem.IsEmpty)
         {
+            Debug.Log("get index");
             planetUI.ResetSelection();
             return;
         }
         planetSO item = planetItem.item;
-        Debug.Log("data");
-        planetUI.UpdateDescription(itemIndex, item.planetSymbol,
+        planetUI.UpdateDescription(itemIndex,item.planetImage, item.planetSymbol,
             item.Name, item.location, item.rank, item.uniqueness,
         item.Advantage, item.Disadvantage, item.resource);
-        Debug.Log(item.location);
     }
 
 
     private void Start()
     {
-        mapPage.cityMap.SetActive(isCityON);
+        mapPage.cityMap.SetActive(true);
 
     }
 

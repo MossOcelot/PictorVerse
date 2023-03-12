@@ -35,4 +35,24 @@ public class Bank_Account_manager : MonoBehaviour
             IsActive= false;
         }
     }
+
+    public void LoadInterestDate(int[] data)
+    {
+        this.InterestDate = data;
+    }
+
+    public int[] GetInterestDate()
+    {
+        return this.InterestDate;
+    }
+
+    public void LoadIsActive(bool data)
+    {
+        this.IsActive = data;
+    }
+
+    public bool GetIsActive()
+    {
+        return this.IsActive;
+    }
 }

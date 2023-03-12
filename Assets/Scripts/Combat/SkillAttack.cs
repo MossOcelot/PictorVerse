@@ -12,7 +12,6 @@ public class SkillAttack : MonoBehaviour
         {
             CheckCollision();
         }
-       
     }
 
     private void CheckCollision()
@@ -22,7 +21,6 @@ public class SkillAttack : MonoBehaviour
         {
             if (collider.gameObject.CompareTag("ItemCutD"))
             {
-                Debug.Log("Player collided with Item");
                 animator.SetTrigger("SwordAttack");
             }
             else

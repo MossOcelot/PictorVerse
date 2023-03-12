@@ -14,6 +14,7 @@ public class NPCController : MonoBehaviour
     public float wordSpeed;
     public bool playerIsClose;
 
+    public GameObject PlaceOfWork;
 
     void Start()
     {
@@ -71,6 +72,8 @@ public class NPCController : MonoBehaviour
             RemoveText();
         }
     }
+
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {

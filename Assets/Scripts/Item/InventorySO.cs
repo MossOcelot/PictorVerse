@@ -46,6 +46,11 @@ namespace inventory.Model
             return quantity;
         }
 
+        public void AddItem(InventoryItem item)
+        {
+            AddItem(item.item, item.quantity);
+        }
+
         private int AddItemToFirstFreeSlot(Item item, int quantity, List<ItemParameter> itemState = null)
         {
             InventoryItem newItem = new InventoryItem
@@ -136,11 +141,6 @@ namespace inventory.Model
             }
         }
 
-        public void AddItem(InventoryItem item)
-        {
-            AddItem(item.item, item.quantity);
-        }
-
         public Dictionary<int, InventoryItem> GetCurrentInventoryState() 
         {
             Dictionary<int, InventoryItem> returnValue = new Dictionary<int, InventoryItem>();
@@ -166,6 +166,29 @@ namespace inventory.Model
             inventoryItems[itemIndex_1] = inventoryItems[itemIndex_2];
             inventoryItems[itemIndex_2] = item1;
             InformAboutChange();
+        }
+
+        internal void SortItems()
+        {
+            Dictionary<int, InventoryItem> sortValues = GetCurrentInventoryState();
+            List<InventoryItem> newSortItems = new List<InventoryItem>();
+            foreach(InventoryItem item in sortValues.Values)
+            {
+                newSortItems.Add(item);
+            }
+
+            int newSize = Size - newSortItems.Count;
+            for (int i = 0; i < newSize; i++)
+            {
+                newSortItems.Add(new InventoryItem());
+            }
+            inventoryItems = newSortItems;
+            InformAboutChange();
+        }
+
+        public List<InventoryItem> getInventoryItems()
+        {
+            return inventoryItems;
         }
 
         private void InformAboutChange()

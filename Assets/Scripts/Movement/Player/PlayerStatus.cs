@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using inventory.Model;
+using UnityEngine.Rendering;
+using Unity.VisualScripting;
+
 public class PlayerStatus : MonoBehaviour
 {
     [System.Serializable]
-    class StaticValue
+    public class StaticValue
     {
         public float static_useEnergy;
         public float static_spendVAT;
@@ -16,22 +19,54 @@ public class PlayerStatus : MonoBehaviour
     public int player_id => GetInstanceID();
     [SerializeField]
     private string playername;
-    [SerializeField]
-    private int HP;
-    [SerializeField]
-    private int energy;
-    [SerializeField]
     public PocketDetails player_accounts;
-    [SerializeField]
-    private Financial_Details financial_detail;
-    [SerializeField]
-    private List<InventoryItem> myBag;
+    public Financial_Details financial_detail;
     [SerializeField]
     private List<AccountsDetail> accountsDetails;
     [SerializeField]
     private StaticValue myStatic;
     [SerializeField]
     private string account_id;
+
+    [SerializeField] 
+    private int MaxHP;
+    [SerializeField]
+    private int MaxEnergy;
+    [SerializeField]
+    private int HP;
+    [SerializeField]
+    private int energy;
+
+    public bool IsDead = false;
+
+    public void setPlayerName(string newName)
+    {
+        this.playername = newName;
+    }
+
+    public string getPlayerName()
+    {
+        return this.playername;
+    }
+
+    public void setMaxHP(int MaxHP)
+    {
+        this.MaxHP += MaxHP;
+    }
+    public int getMaxHP()
+    {
+        return this.MaxHP;
+    }
+    public void setMaxEnergy(int MaxEnergy)
+    {
+        this.MaxEnergy += MaxEnergy;
+    }
+
+    public int getMaxEnergy()
+    {
+        return this.MaxEnergy;
+    }
+
     public void setHP(int hp)
     {
         this.HP += hp;
@@ -50,23 +85,11 @@ public class PlayerStatus : MonoBehaviour
         return this.energy;
     }
 
-    public List<InventoryItem> getItemInBag()
+    public StaticValue getMyStaticFromData()
     {
-        return this.myBag;
-    }
-    public void addItemInBag(InventoryItem newitem) 
-    { 
-        this.myBag.Add(newitem);
+        return this.myStatic;   
     }
 
-    public void setItemInBag(int index, InventoryItem item)
-    {
-        this.myBag[index] = item;
-    }
-    public void deleteItemInBag(InventoryItem item)
-    {
-        this.myBag.Remove(item);
-    }
     public Dictionary<string, float> getMyStatic()
     {
         return new Dictionary<string, float>
@@ -121,6 +144,11 @@ public class PlayerStatus : MonoBehaviour
             this.financial_detail.debt = value;
         }
     }
+    
+    public Financial_Details getFinancial_Details()
+    {
+        return this.financial_detail;
+    }
 
     public float GetFinancial_balance()
     {
@@ -132,6 +160,21 @@ public class PlayerStatus : MonoBehaviour
         return this.financial_detail.debt;
     }
 
+    public bool GetIsDead()
+    {
+        return this.IsDead;
+    }
+
+    public void SetIsdead(bool isdead)
+    {
+        this.IsDead = isdead;
+    }
+
+    public void Awake()
+    {
+        Load();
+    }
+
     private void Update()
     {
         if (this.energy <= 0) {
@@ -140,7 +183,43 @@ public class PlayerStatus : MonoBehaviour
         }
         if (this.HP <= 0)
         {
-            Destroy(gameObject);
+            IsDead = true;
         }
     }
+
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
+    public void Save()
+    {
+        SavePlayerSystem.SavePlayerStatus(this);
+    }
+
+    public void Load()
+    {
+        PlayerStatusData data = SavePlayerSystem.LoadPlayerStatus();
+
+        if (data != null)
+        {
+            player_accounts = data.player_accounts;
+            financial_detail = data.financial_detail;
+            accountsDetails = data.accountsDetails;
+
+            myStatic = data.myStatic;
+
+            MaxHP = data.MaxHP;
+            HP = data.HP;
+            MaxEnergy = data.MaxEnergy;
+            energy = data.Energy;
+            IsDead = data.IsDead;
+
+            Vector3 position;
+            position.x = data.position_player[0];
+            position.y = data.position_player[1];
+            position.z = data.position_player[2];
+            transform.position = position;
+        } 
+    }
+    
 }

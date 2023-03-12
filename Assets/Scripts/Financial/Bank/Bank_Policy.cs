@@ -13,6 +13,15 @@ public class Bank_Policy : MonoBehaviour
     [SerializeField]
     private Text InteresetRate_text;
 
+    public float GetBeforePolicyInterestRate()
+    {
+        return this.BeforePolicyInterestRate;
+    }
+
+    public void SetBeforePolicyInterestRate(float data)
+    {
+        this.BeforePolicyInterestRate = data;
+    }
     public float GetInterestRate()
     {
         return this.InterestRate;
@@ -32,7 +41,7 @@ public class Bank_Policy : MonoBehaviour
         {
             BeforePolicyInterestRate = policyInterestRate;
             InterestRate = policyInterestRate * Random.Range(0.9f, 1.1f);
-            InteresetRate_text.text = "´Interest " + InterestRate.ToString("0.00") + " % per year"; 
+            InteresetRate_text.text = "Interest " + InterestRate.ToString("0.00") + " % per year"; 
         }
     }
 

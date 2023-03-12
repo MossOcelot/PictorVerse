@@ -1,16 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIplanetItem : MonoBehaviour
+public class UIplanetItem : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField]
     private Image planetImage;
 
     [SerializeField]
     private Image borderImage;
+
+    public event Action<UIplanetItem> OnItemClicked;
 
     private bool empty = true;
 
@@ -43,15 +47,11 @@ public class UIplanetItem : MonoBehaviour
     {
         borderImage.enabled = true;
     }
-    // Start is called before the first frame update
-    void Start()
+    public void OnPointerClick(PointerEventData pointerData)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (pointerData.button == PointerEventData.InputButton.Left)
+        {
+            OnItemClicked?.Invoke(this);
+        }
     }
 }

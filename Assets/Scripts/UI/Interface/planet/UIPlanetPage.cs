@@ -26,12 +26,8 @@ public class UIPlanetPage : MonoBehaviour
     public void UpdateData(int itemIndex,
         Sprite itemImage)
     {
-        Debug.Log("list"+ listOfUIItems.Count);
-        Debug.Log("itemIndex"+itemIndex);
-        Debug.Log("updatedata out");
         if (listOfUIItems.Count > itemIndex)
         {
-            Debug.Log("updatedata in");
             listOfUIItems[itemIndex].SetData(itemImage);
         }
     }
@@ -44,42 +40,44 @@ public class UIPlanetPage : MonoBehaviour
 
     public void InitializePlanetUI(int inventorysize)
     {
-        if (listOfUIItems.Count == 0)
+        for (int i = 0; i < inventorysize; i++)
         {
-            for (int i = 0; i < inventorysize; i++)
-            {
-                UIplanetItem uiItem = Instantiate(planetPrefab, Vector3.zero, Quaternion.identity);
-                uiItem.transform.SetParent(contentPanel);
-                listOfUIItems.Add(uiItem);
-                HandleItemSelection(uiItem);
-                int index = listOfUIItems.IndexOf(uiItem);
-                OnDescriptionRequested?.Invoke(index);
-            }
+            UIplanetItem uiItem = Instantiate(planetPrefab, Vector3.zero, Quaternion.identity);
+            uiItem.transform.SetParent(contentPanel);
+            listOfUIItems.Add(uiItem);
+            uiItem.OnItemClicked += HandleItemSelection;
+            int index = listOfUIItems.IndexOf(uiItem);
+                
         }
     }
 
+    public void DeletePlanetUI()
+    {
+        int range = contentPanel.childCount;
+        for (int i = 0; i < range; i++)
+        {
+            Destroy(contentPanel.GetChild(i).gameObject);
+        }
+    }
     private void HandleItemSelection(UIplanetItem planetItemUI)
     {
         int index = listOfUIItems.IndexOf(planetItemUI);
         if (index == -1)
             return;
-        Debug.Log("dkowwdo");
-        //OnDescriptionRequested?.Invoke(index);
+        //Debug.Log("dkowwdo");
+        OnDescriptionRequested?.Invoke(index);
         Debug.Log(index);
     }
 
     public void Show()
     {
         gameObject.SetActive(true);
+        ResetSelection();
     }
 
     public void ResetSelection()
     {
         planetDescription.ResetDescription();
-        //listOfUIItems[0].SetData(planetSprite);
-        //planetDescription.SetDescription(planetSymbol, planetName,
-        //planetLocation, rank, unique, advantage, disadvantage, resource);
-        //listOfUIItems[0].Select();
         DeselectAllItems();
     }
 
@@ -97,11 +95,11 @@ public class UIPlanetPage : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    internal void UpdateDescription(int itemIndex, Sprite planetSymbol, string name, 
+    internal void UpdateDescription(int itemIndex, Sprite planetImage, Sprite planetSymbol, string name, 
         string location, string rank, string uniqueness, string advantage, string disadvantage, Sprite resource)
     {
-        planetDescription.SetDescription(planetSymbol, name, location, rank, uniqueness, advantage, disadvantage, resource);
-        //DeselectAllItems();
+        planetDescription.SetDescription(planetImage,planetSymbol, name, location, rank, uniqueness, advantage, disadvantage, resource);
+        DeselectAllItems();
         listOfUIItems[itemIndex].Select();
     }
 
