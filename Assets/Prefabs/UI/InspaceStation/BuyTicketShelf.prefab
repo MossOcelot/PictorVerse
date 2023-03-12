@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: 8873800920912954624}
   - component: {fileID: 8873800920912954630}
   - component: {fileID: 8873800920912954625}
+  - component: {fileID: 6319226331833019020}
   m_Layer: 5
   m_Name: TicketPanel
   m_TagString: Untagged
@@ -290,6 +291,24 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6319226331833019020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8873800920912954627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab2d4d17e03a48deb87bb354edd2513, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buyTicketShelfManager: {fileID: 8873800922162464474}
+  ArriveStationText: {fileID: 8873800921825682263}
+  LeaveStationText: {fileID: 8873800922059034855}
+  TicketPriceText: {fileID: 8873800922526840866}
+  StaminaText: {fileID: 8873800921402874137}
+  distanceText: {fileID: 8873800922656911056}
 --- !u!1 &8873800921336917991
 GameObject:
   m_ObjectHideFlags: 0
@@ -1348,7 +1367,7 @@ GameObject:
   - component: {fileID: 8873800922162464474}
   m_Layer: 5
   m_Name: BuyTicketShelf
-  m_TagString: Untagged
+  m_TagString: BuyTicketShelf
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1368,7 +1387,7 @@ RectTransform:
   - {fileID: 8873800921355512924}
   - {fileID: 8873800920912954624}
   m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1449,9 +1468,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08c4fd5ca2cb21a4bb763c1f2171bd32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NPC: {fileID: 0}
+  inSpaceDB: {fileID: 0}
   section: 
   planet_section: 
+  playerTicket: {fileID: 0}
   topMap: {fileID: 8873800921719727678}
+  BuyBtn: {fileID: 8873800922367660312}
+  LeaveStation: 
+  distance: 0
+  price: 0
+  stamina: 0
 --- !u!1 &8873800922195860494
 GameObject:
   m_ObjectHideFlags: 0
@@ -1733,7 +1760,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8873800922367660313}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8873800922162464474}
+        m_TargetAssemblyTypeName: BuyTicketShelfManager, Assembly-CSharp
+        m_MethodName: BuyTicket
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8873800922526840892
 GameObject:
   m_ObjectHideFlags: 0

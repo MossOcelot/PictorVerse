@@ -35,9 +35,9 @@ public class UIInsurancePaper : MonoBehaviour
         years = year;
         this.Insurance_name.text = name;
         this.Insurance_description.text = description;
-        this.Insurance_type1.text = amount[0].ToString("F") + " $" + " §ÿÈ¡§√Õß " + year[0].ToString() + " ª’ (type1)";
-        this.Insurance_type2.text = amount[1].ToString("F") + " $" + " §ÿÈ¡§√Õß " + year[1].ToString() + " ª’ (type2)";
-        this.Insurance_type3.text = amount[2].ToString("F") + " $" + " §ÿÈ¡§√Õß " + year[2].ToString() + " ª’ (type3)";
+        this.Insurance_type1.text = amount[0].ToString("F") + " $" + " ‡∏£‡∏≤‡∏Ñ‡∏≤‡∏õ‡∏£‡∏∞‡∏Å‡∏±‡∏ô " + year[0].ToString() + " ‡∏õ‡∏µ (type1)";
+        this.Insurance_type2.text = amount[1].ToString("F") + " $" + " ‡∏£‡∏≤‡∏Ñ‡∏≤‡∏õ‡∏£‡∏∞‡∏Å‡∏±‡∏ô " + year[1].ToString() + " ‡∏õ‡∏µ (type2)";
+        this.Insurance_type3.text = amount[2].ToString("F") + " $" + " ‡∏£‡∏≤‡∏Ñ‡∏≤‡∏õ‡∏£‡∏∞‡∏Å‡∏±‡∏ô " + year[2].ToString() + " ‡∏õ‡∏µ (type3)";
         this.BuyBtn.AddEventListener(insurance, OnBuyInsuranceAction);
     }
 

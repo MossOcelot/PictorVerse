@@ -184,8 +184,8 @@ public class InventoryController : MonoBehaviour
 
         IItemAction itemAction = MiniItem.item as IItemAction;
         if (itemAction != null)
-        {
-            miniInventoryUI.AddActionInDescription(0,itemAction.ActionName, () => PerformAction(itemIndex));
+        { 
+            miniInventoryUI.AddActionInDescription(0,itemAction.ActionName, () => PerformMiniAction(itemIndex));
         }
 
         IUSEAction itemUSEAction = MiniItem.item as IUSEAction;
@@ -246,18 +246,39 @@ public class InventoryController : MonoBehaviour
         //audioSource.PlayOneShot(dropClip);
     }
 
+    public void PerformMiniAction(int itemIndex)
+    {
+        PlayerStatus playerStatus = gameObject.GetComponent<PlayerStatus>();
+        if (playerStatus.getHP() >= playerStatus.getMaxHP() && playerStatus.getEnergy() >= playerStatus.getMaxEnergy()) return;
+        InventoryItem inventoryItem = miniInventoryData.GetItemAt(itemIndex);
+        if (inventoryItem.IsEmpty)
+            return;
+        IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
+        if (destroyableItem != null)
+        {
+            miniInventoryData.RemoveItem(itemIndex, 1);
+        }
+        IItemAction itemAction = inventoryItem.item as IItemAction;
+        if (itemAction != null)
+        {
+            itemAction.PerformAction(gameObject, inventoryItem.itemState);
+            //audioSource.PlayOneShot(itemAction.actionSFX);
+            if (miniInventoryData.GetItemAt(itemIndex).IsEmpty)
+                miniInventoryUI.ResetSelection();
+        }
+    }
     public void PerformAction(int itemIndex)
     {
+        PlayerStatus playerStatus = gameObject.GetComponent<PlayerStatus>();
+        if (playerStatus.getHP() >= playerStatus.getMaxHP() && playerStatus.getEnergy() >= playerStatus.getMaxEnergy()) return;
         InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
         if (inventoryItem.IsEmpty)
             return;
-
         IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
         if (destroyableItem != null)
         {
             inventoryData.RemoveItem(itemIndex, 1);
         }
-
         IItemAction itemAction = inventoryItem.item as IItemAction;
         if (itemAction != null)
         {
@@ -349,9 +370,9 @@ public class InventoryController : MonoBehaviour
     }
 
 
-    private void HandleSwapItems(int itenIndex_1, int itenIndex_2)
+    private void HandleSwapItems(int itemIndex_1, int itemIndex_2)
     {
-        inventoryData.SwapItems(itenIndex_1, itenIndex_2);
+        inventoryData.SwapItems(itemIndex_1, itemIndex_2);
     }
 
     public void Awake()

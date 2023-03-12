@@ -10,7 +10,7 @@ public class ChangeScene : MonoBehaviour
     public GameObject player;
 
     [SerializeField] private Vector2 desiredPosition;
-
+    public bool CanNotOpen = false;
     void Start()
     {
         fade = FindObjectOfType<FadeInOut>();
@@ -19,9 +19,13 @@ public class ChangeScene : MonoBehaviour
 
     public IEnumerator _ChangeScene()
     {
+        Debug.Log("QQQ");
         fade.FadeIn();
+        Debug.Log("AAA");
         yield return new WaitForSeconds(1);
+        Debug.Log("BBB");
         SceneManager.LoadScene(sceneName);
+        Debug.Log("CCC");
         yield return new WaitForEndOfFrame(); 
         player = GameObject.FindWithTag("Player");
         player.transform.position = desiredPosition; 
@@ -29,7 +33,8 @@ public class ChangeScene : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        
+        if (collision.gameObject.tag == "Player" && !CanNotOpen)
         {
             StartCoroutine(_ChangeScene());
         }

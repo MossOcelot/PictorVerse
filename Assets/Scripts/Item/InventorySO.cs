@@ -46,6 +46,11 @@ namespace inventory.Model
             return quantity;
         }
 
+        public void AddItem(InventoryItem item)
+        {
+            AddItem(item.item, item.quantity);
+        }
+
         private int AddItemToFirstFreeSlot(Item item, int quantity, List<ItemParameter> itemState = null)
         {
             InventoryItem newItem = new InventoryItem
@@ -136,11 +141,6 @@ namespace inventory.Model
             }
         }
 
-        public void AddItem(InventoryItem item)
-        {
-            AddItem(item.item, item.quantity);
-        }
-
         public Dictionary<int, InventoryItem> GetCurrentInventoryState() 
         {
             Dictionary<int, InventoryItem> returnValue = new Dictionary<int, InventoryItem>();
@@ -162,8 +162,38 @@ namespace inventory.Model
 
         internal void SwapItems(int itemIndex_1, int itemIndex_2)
         {
+            if (itemIndex_1 == itemIndex_2) return;
             InventoryItem item1 = inventoryItems[itemIndex_1];
-            inventoryItems[itemIndex_1] = inventoryItems[itemIndex_2];
+            InventoryItem item2 = inventoryItems[itemIndex_2];
+            
+            if(item1.quantity != 0 && item2.quantity != 0)
+            {
+                if (item1.item.item_id == item2.item.item_id )
+                {
+                    if (item1.quantity != item1.item.max_stack || item2.quantity != item2.item.max_stack)
+                    {
+                        int newQuantity = item2.quantity + item1.quantity;
+                        if (newQuantity > item2.item.max_stack)
+                        {
+                            item2 = item2.ChangeQuantity(item2.item.max_stack);
+                            int moneyleft = newQuantity - item2.item.max_stack;
+                            item1 = item1.ChangeQuantity(moneyleft);
+                            inventoryItems[itemIndex_1] = item1;
+                            inventoryItems[itemIndex_2] = item2;
+                        }
+                        else
+                        {
+                            item2 = item2.ChangeQuantity(newQuantity);
+                            item1 = new InventoryItem();
+                            inventoryItems[itemIndex_1] = item1;
+                            inventoryItems[itemIndex_2] = item2;
+                        }
+                        InformAboutChange();
+                        return;
+                    }
+                }
+            }
+            inventoryItems[itemIndex_1] = item2;
             inventoryItems[itemIndex_2] = item1;
             InformAboutChange();
         }

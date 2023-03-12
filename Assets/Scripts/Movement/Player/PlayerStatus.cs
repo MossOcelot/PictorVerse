@@ -180,11 +180,10 @@ public class PlayerStatus : MonoBehaviour
     {
         this.IsDead = isdead;
     }
-    private void Start()
-    {
-        Animator animator = GetComponent<Animator>();
-
-    }
+    //private void Start()
+    //{
+      // Load();
+    //}
 
     //public void Awake()
     //{
