@@ -10,7 +10,6 @@ public class LevelLoader : MonoBehaviour
 
     private void Start()
     {
-
         mainCamera = Camera.main;
 
         for (int i = 0; i < transform.childCount; i++)
