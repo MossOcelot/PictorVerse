@@ -12,9 +12,7 @@ public class planetSwitch : MonoBehaviour
     bool switchOn = false;
     public void turnOn()
     {
-        Debug.Log("Switch:" + isSwitchOn);
         isSwitchOn = true;
-        //Debug.Log("is swicth on"+ isSwitchOn);
     }
 
     public bool passBool()

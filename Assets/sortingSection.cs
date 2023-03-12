@@ -41,7 +41,7 @@ public class sortingSection : MonoBehaviour
         resetSwicth();
         switch1_ON = section1.passBool();
         switch2_ON = section2.passBool();
-       // Debug.Log("section1" + section1.passBool());
+        // Debug.Log("section1" + section1.passBool());
         //switch3_ON = section3.passBool();   
         //switch4_ON = section4.passBool();
         //switch5_ON = section5.passBool();

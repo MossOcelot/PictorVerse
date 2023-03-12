@@ -40,6 +40,16 @@ public class UIPlanetPage : MonoBehaviour
 
     public void InitializePlanetUI(int inventorysize)
     {
+
+        int len = contentPanel.childCount;
+        if (len != 0)
+        {
+            for (int i = 0; i < len; i++)
+            {
+                listOfUIItems.RemoveAt(0);
+                Destroy(contentPanel.transform.GetChild(i).gameObject);
+            }
+        }
         for (int i = 0; i < inventorysize; i++)
         {
             UIplanetItem uiItem = Instantiate(planetPrefab, Vector3.zero, Quaternion.identity);
@@ -51,14 +61,6 @@ public class UIPlanetPage : MonoBehaviour
         }
     }
 
-    public void DeletePlanetUI()
-    {
-        int range = contentPanel.childCount;
-        for (int i = 0; i < range; i++)
-        {
-            Destroy(contentPanel.GetChild(i).gameObject);
-        }
-    }
     private void HandleItemSelection(UIplanetItem planetItemUI)
     {
         int index = listOfUIItems.IndexOf(planetItemUI);
