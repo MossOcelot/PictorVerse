@@ -261,6 +261,9 @@ public class UIBigMiniInventory : MonoBehaviour
 
     public void PerformAction(int itemIndex)
     {
+        PlayerStatus playerStatus = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerStatus>();
+        if (playerStatus.getHP() >= playerStatus.getMaxHP() && playerStatus.getEnergy() >= playerStatus.getMaxEnergy()) return;
+
         InventoryItem inventoryItem = miniInventory.GetItemAt(itemIndex);
         if (inventoryItem.IsEmpty)
             return;

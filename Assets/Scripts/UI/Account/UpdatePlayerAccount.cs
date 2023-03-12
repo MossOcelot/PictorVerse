@@ -16,7 +16,7 @@ public class UpdatePlayerAccount : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*List<AccountsDetail> player_account = player_status.getAccountsDetails();
+        List<AccountsDetail> player_account = player_status.getAccountsDetails();
 
         int len = player_account.Count;
         if(last_count != len)
@@ -40,6 +40,6 @@ public class UpdatePlayerAccount : MonoBehaviour
                 account_card = Instantiate(Account_Bar_template, account_list);
                 account_card.gameObject.GetComponent<UIAccount_Bar>().SetData(date, account_name, income, expense, account_type);
             }
-        }*/
+        }
     }
 }
