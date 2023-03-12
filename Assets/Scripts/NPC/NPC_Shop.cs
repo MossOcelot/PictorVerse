@@ -28,6 +28,7 @@ public class NPC_Shop : MonoBehaviour
     public string section_cash;
 
     public int VAT;
+    Collider2D player;
 
     GameObject shop;
     public GameObject goverment;
@@ -116,14 +117,19 @@ public class NPC_Shop : MonoBehaviour
     {
         if (target.gameObject.CompareTag("Player"))
         {
-            shop = Instantiate(myshop, shop_manager);
-            shop.transform.GetChild(0).gameObject.GetComponent<Shop_manager>().player = target.gameObject;
-            shop.transform.GetChild(0).gameObject.GetComponent<Shop_manager>().npc = gameObject;
-            shop.transform.GetChild(0).gameObject.GetComponent<Shop_manager>().OrganizeItem();
-            shop.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = NPC_status.npc_img;
-            cofirmBtn = shop.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.transform.GetChild(18).gameObject.GetComponent<Button>();
-            cofirmBtn.AddEventListener(target.gameObject, OnShopConfirmBuy);
+            player = target;
         }
+    }
+
+    public void OpenShelf()
+    {
+        shop = Instantiate(myshop, shop_manager);
+        shop.transform.GetChild(0).gameObject.GetComponent<Shop_manager>().player = player.gameObject;
+        shop.transform.GetChild(0).gameObject.GetComponent<Shop_manager>().npc = gameObject;
+        shop.transform.GetChild(0).gameObject.GetComponent<Shop_manager>().OrganizeItem();
+        shop.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = NPC_status.npc_img;
+        cofirmBtn = shop.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.transform.GetChild(18).gameObject.GetComponent<Button>();
+        cofirmBtn.AddEventListener(player.gameObject, OnShopConfirmBuy);
     }
 
     void OnShopConfirmBuy(GameObject player)
@@ -134,12 +140,10 @@ public class NPC_Shop : MonoBehaviour
 
         PlayerStatus status = player.GetComponent<PlayerStatus>();
         Shop_manager back_shop = shop.transform.GetChild(0).gameObject.GetComponent<Shop_manager>();
-
         float total = back_shop.getAccounts()[2];
         float balance = status.player_accounts.getPocket()[section_cash] - total;
         status.player_accounts.setPocket(section_cash,balance);
         shop.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.transform.GetChild(16).gameObject.GetComponent<Text>().text = status.player_accounts.getPocket()[section_cash].ToString();
-
         float static_buy = status.getMyStatic()["static_SpendBuy"] + total;
         float vat_value = back_shop.getAccounts()[1];
         float static_vat = status.getMyStatic()["static_SpendVat"] + vat_value;
@@ -155,8 +159,6 @@ public class NPC_Shop : MonoBehaviour
             goverment.GetComponent<GovermentStatus>().addAccountsDetail(account_goverment);
         
         }
-        
-
 
         List<InventoryItem> playerItems = back_shop.getPlayerSelectItems();
         foreach(InventoryItem item in playerItems )
@@ -180,16 +182,13 @@ public class NPC_Shop : MonoBehaviour
             playerBag.AddItem(new_item);
         }
         back_shop.clearPlayerSelectItem();
-
         int len = back_shop.shoppingCartShelf.transform.childCount;
         for ( int i = 0;i < len;i++)
         {
             Destroy(back_shop.shoppingCartShelf.transform.GetChild(i).gameObject);
         }
-
         float price = total - vat_value;
         financial_shop_detail.balance += price;
-
         // Update Accounts Player
         AccountsDetail account_Player = new AccountsDetail() { date = dateTime, accounts_name = "buy items", account_type = "buy", income = 0, expense = total };
         player.gameObject.GetComponent<PlayerStatus>().addAccountsDetails(account_Player);
@@ -205,8 +204,9 @@ public class NPC_Shop : MonoBehaviour
     private void OnTriggerExit2D(Collider2D target)
     {
         if (target.gameObject.CompareTag("Player"))
-        {
+        { 
+            Debug.Log("Exit");
             Destroy(GameObject.FindGameObjectWithTag("ShopManager").gameObject.transform.GetChild(0).gameObject);
-        }
+        } 
     }
 }
