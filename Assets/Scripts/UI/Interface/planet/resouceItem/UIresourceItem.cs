@@ -9,10 +9,6 @@ public class UIresourceItem : MonoBehaviour
 {
     public static UIresourceItem Instance { get; private set; }
     [SerializeField]
-    private int index;
-    [SerializeField]
-    private Item item;
-    [SerializeField]
     private Image itemImage;
     [SerializeField]
     private Image borderImage;
@@ -36,13 +32,11 @@ public class UIresourceItem : MonoBehaviour
         borderImage.enabled = false;
     }
 
-    public void SetData(int index, Item item, Sprite spritem)
+    public void SetData(Sprite sprite)
     {
         Instance = this;
-        this.index = index;
-        this.item = item;
         this.itemImage.gameObject.SetActive(true);
-        this.itemImage.sprite = spritem;
+        this.itemImage.sprite = sprite;
         this.empty = false;
     }
 
@@ -51,14 +45,4 @@ public class UIresourceItem : MonoBehaviour
         borderImage.enabled = true;
     }
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -1,3 +1,4 @@
+using inventory.Model;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,10 @@ public class sortingSection : MonoBehaviour
 
     public planetBoxSO planetData = null;
 
+    public InventorySO resourceData = null;
+
+    public int index = 0;
+
     bool switch1_ON = false;
     bool switch2_ON = false;
     bool switch3_ON = false;
@@ -41,7 +46,7 @@ public class sortingSection : MonoBehaviour
         resetSwicth();
         switch1_ON = section1.passBool();
         switch2_ON = section2.passBool();
-       // Debug.Log("section1" + section1.passBool());
+        // Debug.Log("section1" + section1.passBool());
         //switch3_ON = section3.passBool();   
         //switch4_ON = section4.passBool();
         //switch5_ON = section5.passBool();
@@ -49,6 +54,7 @@ public class sortingSection : MonoBehaviour
         if (switch1_ON==true)
         {
             planetData = section1.planetData;
+
         }
         else if (switch2_ON==true) 
         {
@@ -58,5 +64,21 @@ public class sortingSection : MonoBehaviour
         //else if (switch4_ON) { planetData = section4.planetData;}
         //else { planetData = section5.planetData; }
 
+        Debug.Log("resourceData" + resourceData);
+
+    }
+
+    public void selectingResource()
+    {
+        if (switch1_ON == true)
+        {
+            section1.selectSection(index);
+            resourceData = section1.resourceData;
+        }
+        else if (switch2_ON == true)
+        {
+            section2.selectSection(index);
+            resourceData = section2.resourceData;
+        }
     }
 }

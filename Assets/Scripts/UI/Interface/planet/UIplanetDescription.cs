@@ -43,12 +43,11 @@ public class UIplanetDescription : MonoBehaviour
         this.uniqueness.text = "";
         this.Advantage.text = "";
         this.Disadvantage.text = "";
-        this.resouceData = null;
     }
 
     public void SetDescription(Sprite planetImage, Sprite planetSymbol, string planetName,
         string planetLocation, string rank, string unique, 
-        string advantage, string disadvantage, InventorySO resource)
+        string advantage, string disadvantage)
     {
         this.planetImage.gameObject.SetActive(true);
         this.planetImage.sprite = planetImage;
@@ -60,6 +59,5 @@ public class UIplanetDescription : MonoBehaviour
         this.uniqueness.text = unique;
         this.Advantage.text = advantage;
         this.Disadvantage.text = disadvantage;
-        this.resouceData = resource;
     }
 }

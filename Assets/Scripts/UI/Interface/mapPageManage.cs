@@ -19,12 +19,16 @@ public class mapPageManage : MonoBehaviour
     private UIPlanetPage planetUI;
 
     [SerializeField]
+    private UIresourcePage resourceUI;
+
+    [SerializeField]
     private sortingSection sortingSection;
 
     [SerializeField]
     private UIplanetDescription planetDescription;
 
     public List<planetItem> initialItems = new List<planetItem>();
+    public List<InventoryItem> resource_initialItems = new List<InventoryItem>();
 
     bool isCityON = false;
     bool isGalaxyOn = false;
@@ -60,6 +64,29 @@ public class mapPageManage : MonoBehaviour
                 continue;
                 sortingSection.planetData.AddItem(item);
                 
+        }
+    }
+
+    private void PrepareResourceData()
+    {
+        sortingSection.resourceData.OnInventoryUpdated += UpdateResourceUI;
+        foreach (var item in resource_initialItems)
+        {
+            if (item.IsEmpty)
+            {
+                continue;
+            }
+            sortingSection.resourceData.AddItem(item);
+        }
+    }
+
+    private void UpdateResourceUI(Dictionary<int, InventoryItem> resourceState)
+    {
+        resourceUI.ResetAllItems();
+        foreach (var item in resourceState)
+        {
+            resourceUI.UpdateData(item.Key, item.Value.item, item.Value.item.icon);
+
         }
     }
 
@@ -103,8 +130,17 @@ public void open_cityMap()
 
     }
 
+    private void PrepareResourceUI()
+    {
+        Debug.Log("resource" + sortingSection.resourceData.Size);
+        resourceUI.InitializeResourceUI(sortingSection.resourceData.Size);
+
+    }
+
     private void HandleDescriptionRequest(int itemIndex)
     {
+        Debug.Log("item index" + itemIndex);
+        Debug.Log("re1" + sortingSection.resourceData);
         planetDescription.gameObject.SetActive(true);
         planetItem planetItem = sortingSection.planetData.GetItemAt(itemIndex);
         if (planetItem.IsEmpty)
@@ -114,12 +150,31 @@ public void open_cityMap()
             return;
         }
         planetSO item = planetItem.item;
-        item.tesyingMethod(); // initail
         planetUI.UpdateDescription(itemIndex,item.planetImage, item.planetSymbol,
             item.Name, item.location, item.rank, item.uniqueness,
-        item.Advantage, item.Disadvantage, item.resource);
+        item.Advantage, item.Disadvantage);
 
-        Debug.Log("resouce" + item.resource);
+        Debug.Log("re index1" + sortingSection.index);
+        sortingSection.index = itemIndex;
+        Debug.Log("re index2" + sortingSection.index);
+        sortingSection.selectingResource();
+        Debug.Log("re2" + sortingSection.resourceData);
+        resourceUI.gameObject.SetActive(true);
+        PrepareResourceUI();
+        foreach (var r_item in sortingSection.resourceData.GetCurrentInventoryState())
+        {
+            resourceUI.UpdateData(r_item.Key, r_item.Value.item, r_item.Value.item.icon);
+        }
+        InventoryItem resourceItem = sortingSection.resourceData.GetItemAt(itemIndex);
+        // inventoryUI
+        if (resourceItem.IsEmpty)
+        {
+            resourceUI.ResetSelection();
+            return;
+        }
+        PrepareResourceData();
+        //inventory.Model.Item resource_item = resourceItem.item;
+        //resourceUI.UpdateResorce(itemIndex, resource_item.icon);
     }
 
 

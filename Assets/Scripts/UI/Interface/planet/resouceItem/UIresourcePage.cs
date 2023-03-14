@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using inventory.Model;
+using System;
+
 public class UIresourcePage : MonoBehaviour
 {
     [SerializeField]
@@ -16,7 +18,7 @@ public class UIresourcePage : MonoBehaviour
     {
         Hide();
     }
-    public void InitializeInventoryUI(int inventorysize)
+    public void InitializeResourceUI(int inventorysize)
     {
         for (int i = 0; i < inventorysize; i++)
         {
@@ -31,7 +33,7 @@ public class UIresourcePage : MonoBehaviour
     {
         if (listOfUIItems.Count > itemIndex)
         {
-            listOfUIItems[itemIndex].SetData(itemIndex, item, itemImage);
+            listOfUIItems[itemIndex].SetData( itemImage);
         }
     }
 
@@ -76,5 +78,10 @@ public class UIresourcePage : MonoBehaviour
             item.ResetData();
             item.Deselect();
         }
+    }
+
+    internal void UpdateResorce(int itemIndex, Sprite icon)
+    {
+        throw new NotImplementedException();
     }
 }
