@@ -1,3 +1,4 @@
+using inventory.Model;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -24,7 +25,7 @@ public class UIplanetDescription : MonoBehaviour
     [SerializeField]
     private TMP_Text Disadvantage;
     [SerializeField]
-    private Image resource;
+    private InventorySO resouceData;
 
 
     public void Awake()
@@ -42,12 +43,12 @@ public class UIplanetDescription : MonoBehaviour
         this.uniqueness.text = "";
         this.Advantage.text = "";
         this.Disadvantage.text = "";
-        this.resource.gameObject.SetActive(false);
+        this.resouceData = null;
     }
 
     public void SetDescription(Sprite planetImage, Sprite planetSymbol, string planetName,
         string planetLocation, string rank, string unique, 
-        string advantage, string disadvantage, Sprite resource)
+        string advantage, string disadvantage, InventorySO resource)
     {
         this.planetImage.gameObject.SetActive(true);
         this.planetImage.sprite = planetImage;
@@ -59,7 +60,6 @@ public class UIplanetDescription : MonoBehaviour
         this.uniqueness.text = unique;
         this.Advantage.text = advantage;
         this.Disadvantage.text = disadvantage;
-        this.resource.gameObject.SetActive(true);
-        this.resource.sprite = resource;
+        this.resouceData = resource;
     }
 }

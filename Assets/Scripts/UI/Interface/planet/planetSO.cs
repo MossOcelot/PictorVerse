@@ -1,3 +1,4 @@
+using inventory.Model;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +29,11 @@ public class planetSO : ScriptableObject
     [field: TextArea]
     public string Disadvantage { get; set; }
     [field: SerializeField]
-    public Sprite resource { get; set; }
+    public InventorySO resource { get; set; }
+
+    public void tesyingMethod() 
+    { 
+        
+    }
 
 }
