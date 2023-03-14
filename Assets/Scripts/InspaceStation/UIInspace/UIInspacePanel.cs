@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class UIInspacePanel : MonoBehaviour
 {
     [SerializeField]
     private BuyTicketShelfManager buyTicketShelfManager;
 
-    public Text ArriveStationText;
-    public Text LeaveStationText;
-    public Text TicketPriceText;
-    public Text StaminaText;
-    public Text distanceText;
+    public TextMeshProUGUI ArriveStationText;
+    public TextMeshProUGUI LeaveStationText;
+    public TextMeshProUGUI TicketPriceText;
+    public TextMeshProUGUI StaminaText;
+    public TextMeshProUGUI distanceText;
 
     // Update is called once per frame
     void Update()

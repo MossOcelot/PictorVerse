@@ -5,6 +5,7 @@ using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UI;
 using inventory.Model;
+using TMPro;
 
 public class NPC_Shop : MonoBehaviour
 {
@@ -129,6 +130,8 @@ public class NPC_Shop : MonoBehaviour
         shop.transform.GetChild(0).gameObject.GetComponent<Shop_manager>().OrganizeItem();
         shop.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = NPC_status.npc_img;
         cofirmBtn = shop.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.transform.GetChild(18).gameObject.GetComponent<Button>();
+        Debug.Log("SAA");
+        shop.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.transform.GetChild(16).gameObject.GetComponent<TextMeshProUGUI>().text = player.GetComponent<PlayerStatus>().player_accounts.getPocket()[section_cash].ToString("F");
         cofirmBtn.AddEventListener(player.gameObject, OnShopConfirmBuy);
     }
 
@@ -143,7 +146,7 @@ public class NPC_Shop : MonoBehaviour
         float total = back_shop.getAccounts()[2];
         float balance = status.player_accounts.getPocket()[section_cash] - total;
         status.player_accounts.setPocket(section_cash,balance);
-        shop.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.transform.GetChild(16).gameObject.GetComponent<Text>().text = status.player_accounts.getPocket()[section_cash].ToString();
+        shop.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.transform.GetChild(16).gameObject.GetComponent<TextMeshProUGUI>().text = status.player_accounts.getPocket()[section_cash].ToString("F");
         float static_buy = status.getMyStatic()["static_SpendBuy"] + total;
         float vat_value = back_shop.getAccounts()[1];
         float static_vat = status.getMyStatic()["static_SpendVat"] + vat_value;

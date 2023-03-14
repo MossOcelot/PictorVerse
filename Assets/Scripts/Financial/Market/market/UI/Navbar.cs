@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 public class Navbar : MonoBehaviour
@@ -9,7 +8,6 @@ public class Navbar : MonoBehaviour
     public GameObject buttonTemplate;
     public GameObject navbar;
     public GameObject table;
-    public GameObject itemPage;
 
     public GameObject itemTemplate;
 

@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class UIFillBag : MonoBehaviour
 {
     [SerializeField]
     private Image fillbag;
     [SerializeField]
-    private Text size_status;
+    private TextMeshProUGUI size_status;
     private PlayerMovement player_movement;
     // Start is called before the first frame update
     void Start()

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class Bank_Policy : MonoBehaviour
 {
     private CentralBankPolicy centralBankPolicy;
@@ -11,7 +12,7 @@ public class Bank_Policy : MonoBehaviour
     private float InterestRate;
 
     [SerializeField]
-    private Text InteresetRate_text;
+    private TextMeshProUGUI InteresetRate_text;
 
     public float GetBeforePolicyInterestRate()
     {
@@ -44,5 +45,5 @@ public class Bank_Policy : MonoBehaviour
             InteresetRate_text.text = "Interest " + InterestRate.ToString("0.00") + " % per year"; 
         }
     }
-
+    // Resources/Sprite_Assets/
 }

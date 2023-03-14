@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class Orderbook_manager : MonoBehaviour
 {
-    public Text MarketPriceTxt;
-    public Text[] valueItems;
-    public Text[] quantityItems;
+    public TextMeshProUGUI MarketPriceTxt;
+    public TextMeshProUGUI[] valueItems;
+    public TextMeshProUGUI[] quantityItems;
     public Page_Manager page;
     public float[] values_list;
 

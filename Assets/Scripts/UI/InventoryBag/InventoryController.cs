@@ -2,6 +2,7 @@ using inventory.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,8 +16,11 @@ public class InventoryController : MonoBehaviour
     private UIMiniInventoryPage miniInventoryUI;
     [SerializeField]
     private UIBigMiniInventory bigMiniInventoryUI;
-    /*[SerializeField]
-    private UIBigMiniInventory bigMiniInventoryUI;*/
+    [SerializeField]
+    private Update_player_pocket Player_pocket;
+    [SerializeField]
+    private ExchangeManager Foreign_Exchange;
+
 
     [SerializeField]
     private InventorySO inventoryData;
@@ -24,6 +28,7 @@ public class InventoryController : MonoBehaviour
     private InventorySO WeaponBoxData;
     [SerializeField]
     private InventorySO miniInventoryData;
+    
 
     public List<InventoryItem> initialItems= new List<InventoryItem>();
     public List<InventoryItem> WeaponItems= new List<InventoryItem>();
@@ -381,7 +386,30 @@ public class InventoryController : MonoBehaviour
     }
 
     private void Update()
-    {
+    { 
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (Player_pocket.isActiveAndEnabled == false)
+            {
+                Player_pocket.show();
+            }
+            else
+            {
+                Player_pocket.hide();
+            }
+        }
+        
+        if(Input.GetKeyDown(KeyCode.F)) 
+        { 
+            if(Foreign_Exchange.isActiveAndEnabled == false)
+            {
+                Foreign_Exchange.show();
+            } else
+            {
+                Foreign_Exchange.hide();
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.I))
         {
             if(inventoryUI.isActiveAndEnabled == false) 

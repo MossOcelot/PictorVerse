@@ -2,21 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class MyPocketUI : MonoBehaviour
 {
     [SerializeField]
     private Bank_Manager player;
 
     [SerializeField]
-    private Text money_section1;
+    private TextMeshProUGUI money_section1;
     [SerializeField]
-    private Text money_section2;
+    private TextMeshProUGUI money_section2;
     [SerializeField]
-    private Text money_section3;
+    private TextMeshProUGUI money_section3;
     [SerializeField] 
-    private Text money_section4;
+    private TextMeshProUGUI money_section4;
     [SerializeField] 
-    private Text money_section5;
+    private TextMeshProUGUI money_section5;
 
     [SerializeField]
     private PocketDetails player_pocket;
