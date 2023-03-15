@@ -14,6 +14,13 @@ public class PlayerStatus : MonoBehaviour
         public float static_useEnergy;
         public float static_spendVAT;
         public float static_spendBuy;
+        public float static_spendSell;
+        public float static_distanceWalk;
+        public float static_stability; //
+        public float static_happy; //
+        public float static_credibility; //
+        public float static_healthy; //
+        public float static_risk; //
     };
 
     public int player_id => GetInstanceID();
@@ -38,6 +45,7 @@ public class PlayerStatus : MonoBehaviour
     private int energy;
 
     public bool IsDead = false;
+    private SceneStatus.section section_name;
 
     public void setPlayerName(string newName)
     {
@@ -90,14 +98,9 @@ public class PlayerStatus : MonoBehaviour
         return this.myStatic;   
     }
 
-    public Dictionary<string, float> getMyStatic()
+    public StaticValue getMyStatic()
     {
-        return new Dictionary<string, float>
-        {
-            {"static_useEnergy", this.myStatic.static_useEnergy },
-            {"static_SpendBuy", this.myStatic.static_spendBuy },
-            {"static_SpendVat", this.myStatic.static_spendVAT }
-        };
+        return myStatic;
     }
 
     public void setMyStatic(int command, float value)
@@ -111,6 +114,33 @@ public class PlayerStatus : MonoBehaviour
         } else if (command == 2)
         {
             this.myStatic.static_spendVAT = value;
+        } else if (command == 3)
+        {
+            this.myStatic.static_spendSell = value;
+        }
+        else if (command == 4)
+        {
+            this.myStatic.static_distanceWalk = value;
+        }
+        else if (command == 5)
+        {
+            this.myStatic.static_stability = value;
+        }
+        else if (command == 6)
+        {
+            this.myStatic.static_happy = value;
+        }
+        else if (command == 7)
+        {
+            this.myStatic.static_credibility = value;
+        }
+        else if (command == 8)
+        {
+            this.myStatic.static_healthy = value;
+        }
+        else if (command == 9)
+        {
+            this.myStatic.static_risk = value;
         }
     }
 
@@ -133,7 +163,7 @@ public class PlayerStatus : MonoBehaviour
         return this.account_id;
     }
 
-    public void setFinancial_detail(string command, int value)
+    public void setFinancial_detail(string command, float value)
     {
         if (command == "balance")
         {
@@ -173,6 +203,7 @@ public class PlayerStatus : MonoBehaviour
     public void Awake()
     {
        Load();
+        section_name = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection;
     }
 
     private void Update()
@@ -184,6 +215,70 @@ public class PlayerStatus : MonoBehaviour
         if (this.HP <= 0)
         {
             IsDead = true;
+        }
+        UpdateStability();
+    }
+
+    private float oldStabilityForFinancial;
+    float totalAssets;
+    float oldtotalAssets;
+    float totalAccountDetail;
+    private void UpdateStability()
+    {
+        GetTotalAssets();
+        GetTotalAccountDetail();
+
+        float cash = ((financial_detail.balance - financial_detail.debt) * 0.7f) + (totalAccountDetail * 0.3f);
+        float exhangeCashToGold = new ExchangeRate().getExchangeRate((int)section_name, 5) * cash;
+        float stability = exhangeCashToGold * 10;
+        if (oldStabilityForFinancial != stability)
+        {
+            float difference = stability - oldStabilityForFinancial;
+            float newStability = getMyStatic().static_stability + difference;
+            
+            setMyStatic(5, newStability);
+
+            oldStabilityForFinancial = stability;
+
+        }
+
+        //reset
+        totalAssets = 0;
+        totalAccountDetail = 0;
+    }
+
+    private void GetTotalAssets()
+    {
+        Dictionary<string, float> player_account = player_accounts.getPocket();
+
+        int n = 0;
+        foreach (string key in player_account.Keys)
+        {
+            if (key == section_name.ToString())
+            {
+                totalAssets += player_account[key];
+            }
+            else
+            {
+                totalAssets += player_account[key] * new ExchangeRate().getExchangeRate(n, (int)section_name);
+            }
+            n++;
+        }
+        if(oldtotalAssets != totalAssets)
+        {
+            float differenct = totalAssets - oldtotalAssets;
+            financial_detail.balance += differenct;
+            oldtotalAssets = totalAssets;
+        }
+    }
+
+    private void GetTotalAccountDetail()
+    {
+        List<AccountsDetail> player_account_details = getAccountsDetails();
+
+        foreach (AccountsDetail account in player_account_details)
+        {
+            totalAccountDetail += (account.income - account.expense);
         }
     }
 

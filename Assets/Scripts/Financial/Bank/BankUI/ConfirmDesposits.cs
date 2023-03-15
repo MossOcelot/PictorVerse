@@ -17,14 +17,16 @@ public class ConfirmDesposits : MonoBehaviour
     private Button depositBtn;
 
     private float Deposit_amount;
-    private string section_name;
+    private PlayerStatus playerStatus;
+    private SceneStatus.section section_name;
     private void Start()
     {
-        section_name = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection.ToString();
+        playerStatus = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerStatus>();   
+        section_name = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection;
     }
     private void Update()
     {
-        if(Deposit_amount > Player_pocket.GetPocketDetails().getPocket()[section_name] || Deposit_amount == 0)
+        if(Deposit_amount > Player_pocket.GetPocketDetails().getPocket()[section_name.ToString()] || Deposit_amount == 0)
         {
             depositBtn.interactable = false;
         } else
@@ -36,8 +38,8 @@ public class ConfirmDesposits : MonoBehaviour
     public void ConfirmDoposit()
     {
         int[] present_date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>().getDateTime();
-        float newAmount = Player_pocket.GetPocketDetails().getPocket()[section_name] - Deposit_amount;
-        Player_pocket.GetPocketDetails().setPocket(section_name, newAmount);
+        float newAmount = Player_pocket.GetPocketDetails().getPocket()[section_name.ToString()] - Deposit_amount;
+        Player_pocket.GetPocketDetails().setPocket(section_name.ToString(), newAmount);
 
         float newDeposit = bank_manager.GetPlayer_Account().amount_deposits + Deposit_amount;
         AccountList account = new AccountList(present_date, "deposit", Deposit_amount, 0, newDeposit, "DEP/PC/CD");
@@ -52,6 +54,10 @@ public class ConfirmDesposits : MonoBehaviour
         // bank account list
         AccountsDetail newBankAccountDetail = new AccountsDetail() { date = present_date, accounts_name = "accepting deposits money", account_type = "accepting deposits", income = 0, expense = Deposit_amount };
         bank_manager.bank_status.AddBank_Account(newBankAccountDetail);
+
+        float exchangeCashToGold = new ExchangeRate().getExchangeRate((int)section_name, 0) * Deposit_amount;
+        float newbalance = playerStatus.financial_detail.balance + exchangeCashToGold;
+        playerStatus.setFinancial_detail("balance", newbalance);
 
         // reset data
         Deposit_amount = 0f;
