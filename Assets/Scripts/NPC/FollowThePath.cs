@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class FollowThePath : MonoBehaviour
 {
-
     [SerializeField]
     private Transform[] waypoints;
-
     [SerializeField]
     private float moveSpeed = 2f;
+    [SerializeField]
+    private float[] moveX;
+    [SerializeField]
+    private float[] moveY;
     private int waypointIndex = 0;
     public Animator animator;
-
-    private Vector3 directionVector;
 
     private void Start()
     {
@@ -22,28 +22,24 @@ public class FollowThePath : MonoBehaviour
     private void Update()
     {
         Move();
-        animator.SetFloat("MoveX", -8f);
-        animator.SetFloat("MoveY", 8f);
-
-
     }
-  
 
     private void Move()
     {
-        if (waypointIndex <= waypoints.Length - 1)
+        transform.position = Vector2.MoveTowards(transform.position,
+            waypoints[waypointIndex].transform.position,
+            moveSpeed * Time.deltaTime);
+
+        if (transform.position == waypoints[waypointIndex].transform.position)
         {
+            animator.SetFloat("MoveX", moveX[waypointIndex]);
+            animator.SetFloat("MoveY", moveY[waypointIndex]);
 
-            transform.position = Vector2.MoveTowards(transform.position,
-               waypoints[waypointIndex].transform.position,
-               moveSpeed * Time.deltaTime);
-
-            if (transform.position == waypoints[waypointIndex].transform.position)
+            waypointIndex++;
+            if (waypointIndex == waypoints.Length)
             {
-                waypointIndex += 1;
-
+                waypointIndex = 0;
             }
-
         }
     }
 }
