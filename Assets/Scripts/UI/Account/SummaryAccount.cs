@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class SummaryAccount : MonoBehaviour
 {
     public PlayerStatus player_status;
@@ -25,15 +25,15 @@ public class SummaryAccount : MonoBehaviour
     private PieChart pie_chart;
 
     [SerializeField]
-    private Text asset_text;
+    private TextMeshProUGUI asset_text;
     [SerializeField]
-    private Text debt_text;
+    private TextMeshProUGUI debt_text;
     [SerializeField]
-    private Text income_text;
+    private TextMeshProUGUI income_text;
     [SerializeField]
-    private Text expense_text;
+    private TextMeshProUGUI expense_text;
     [SerializeField]
-    private Text total_text;
+    private TextMeshProUGUI total_text;
     // Start is called before the first frame update
     void Start()
     {
@@ -79,7 +79,7 @@ public class SummaryAccount : MonoBehaviour
                 totalAssets += player_account[key];
             } else
             {
-                totalAssets += player_account[key] * new ExchangeRate().getExchangeRate(section, n);
+                totalAssets += player_account[key] * new ExchangeRate().getExchangeRate(n, section);
             }
             n++;
         }

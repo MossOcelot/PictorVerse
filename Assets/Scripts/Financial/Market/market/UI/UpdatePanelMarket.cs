@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class UpdatePanelMarket : MonoBehaviour
 {
     [SerializeField]
     private StockSystem stocks;
-    public Text balanceText;
-    public Text slotText;
+    public TextMeshProUGUI balanceText;
+    public TextMeshProUGUI slotText;
     private void FixedUpdate()
     {
         balanceText.text = "$ " + stocks.getBalance();

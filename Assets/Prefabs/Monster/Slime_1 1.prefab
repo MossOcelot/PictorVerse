@@ -179,13 +179,14 @@ GameObject:
   - component: {fileID: 1267876904186170162}
   - component: {fileID: 1267876904186170158}
   - component: {fileID: 1267876904186170159}
-  - component: {fileID: 1267876904186170156}
   - component: {fileID: 1267876904186170154}
   - component: {fileID: -5324215581250966830}
   - component: {fileID: 1414228380}
   - component: {fileID: 1414228379}
   - component: {fileID: 2423661403161998696}
   - component: {fileID: -5768761218848434974}
+  - component: {fileID: 7763780136528454717}
+  - component: {fileID: 2254834400824466678}
   m_Layer: 6
   m_Name: Slime_1 1
   m_TagString: ItemCutD
@@ -249,7 +250,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 822741803
-  m_SortingLayer: 2
+  m_SortingLayer: 0
   m_SortingOrder: 500
   m_Sprite: {fileID: 322732963, guid: b4064152626afd1459b35c9298884a8f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -327,24 +328,6 @@ MonoBehaviour:
   spawner_area: {fileID: 6002927469698903204, guid: 5eba7cae13cf4644e9e5634b58f4f9ee, type: 3}
   radius: 0
   distance_spawner: 0
---- !u!114 &1267876904186170156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1267876904186170165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55110cd0604034e4bbfeb9a204512424, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name_monster: Slime
-  birthplace: Slime Spawner (1)
-  HP: 100
-  energy: 2
-  atk: 2
-  speed: 10
 --- !u!58 &1267876904186170154
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -436,6 +419,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680fa781aded7384592ea81b874b02ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7763780136528454717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267876904186170165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55110cd0604034e4bbfeb9a204512424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name_monster: 
+  birthplace: Slime Spawner (1)
+  HP: 0
+  energy: 0
+  atk: 2
+  speed: 0
+--- !u!114 &2254834400824466678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267876904186170165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4eb2e49ee22a5640b657fdee06ccbdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterstatus: {fileID: 7763780136528454717}
 --- !u!1 &1267876904290458916
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,10 @@ public class PlayerTeleport : MonoBehaviour
     
     private GameObject currentTeleporter;
     private bool HaveTicket;
+    public bool isOnTeleporter;
+
+    private float teleportTime = 2f;
+    private float teleportTimer = 0f;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
@@ -26,6 +30,33 @@ public class PlayerTeleport : MonoBehaviour
                 }
             }
         }
+
+        if (isOnTeleporter)
+        {
+            teleportTimer += Time.deltaTime;
+
+            if (teleportTimer >= teleportTime)
+            {
+
+                if (currentTeleporter != null)
+                {
+                    if (HaveTicket)
+                    {
+                        string LeaveStation = gameObject.GetComponent<TicketController>().GetTicket().LeaveStation;
+                        if (LeaveStation != "")
+                        {
+                            transform.position = currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
+                        }
+                    }
+                    else
+                    {
+                        transform.position = currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
+                    }
+                }
+                isOnTeleporter = false;
+                teleportTimer = 0f;
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -34,6 +65,7 @@ public class PlayerTeleport : MonoBehaviour
         {
             currentTeleporter = collision.gameObject;
             HaveTicket = collision.gameObject.GetComponent<Teleporter>().IsHaveTicket;
+            isOnTeleporter = true;
         }
     }
 
@@ -44,6 +76,8 @@ public class PlayerTeleport : MonoBehaviour
             if(collision.gameObject == currentTeleporter)
             {
                 currentTeleporter = null;
+                isOnTeleporter = false;
+                teleportTimer = 0f;
             }
         }   
     }

@@ -37,18 +37,20 @@ public class mapPageManage : MonoBehaviour
 
     public void open_planetPage()
     {
+        Debug.Log("Q");
         mapPage.planet.gameObject.SetActive(true);
-        
         planetUI.Show();
         sortingSection.sortSection();
+        Debug.Log("k");
         PrepareUI();
         foreach (var item in sortingSection.planetData.GetCurrentPlanetState())
         {
+            Debug.Log("Key: " + item.Key);
             planetUI.UpdateData(item.Key,
                 item.Value.item.planetImage);
+
         }
         PreparePlanetData();
-
     }
 
     private void PreparePlanetData()
@@ -80,14 +82,17 @@ public class mapPageManage : MonoBehaviour
     }
     public void open_galaxyMap()
     {
-        Debug.Log("IsGalaxyOn: " + isGalaxyOn);
+        Debug.Log("D");
         if (isGalaxyOn != true)
         {
             mapPage.galaxyMap.gameObject.SetActive(!isCityON);
             isGalaxyOn = !isGalaxyOn;
         }
+        Debug.Log("A");
         mapPage.planet.gameObject.SetActive(false);
+        Debug.Log("V");
         planetDescription.gameObject.SetActive(false);
+        Debug.Log("B");
     }
 
     public void back_to_cityMap()
@@ -143,7 +148,6 @@ public class mapPageManage : MonoBehaviour
             }
             else
             {
-                Debug.Log("kuay");
                 mapPage.cityMap.gameObject.SetActive(false);
             }
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class StockSystem : MonoBehaviour
 {
     
@@ -14,7 +14,7 @@ public class StockSystem : MonoBehaviour
     public int VAT;
     [SerializeField]
     private float balance;
-    public Text vat_text;
+    public TextMeshProUGUI vat_text;
     public OrderOperation player;
 
     public float getBalance() { return balance; }

@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using inventory.Model;
-
+using TMPro;
 public class Shop_manager : MonoBehaviour
 {
     public GameObject npc;
@@ -49,7 +49,7 @@ public class Shop_manager : MonoBehaviour
     GameObject ItemBag;
     GameObject SellItem;
 
-    public Text vat_per;
+    public TextMeshProUGUI vat_per;
 
     Button selectBtn;
     Button removeBtn;
@@ -171,7 +171,7 @@ public class Shop_manager : MonoBehaviour
             selectBtn = buy_item_card.gameObject.GetComponent<Button>();
             selectBtn.AddEventListener(i, OnShopItemButtonClick);
         }
-        gameObject.transform.GetChild(1).gameObject.transform.GetChild(16).gameObject.GetComponent<Text>().text = player.GetComponent<PlayerStatus>().player_accounts.getPocket()[section_cash].ToString("F");
+        gameObject.transform.GetChild(1).gameObject.transform.GetChild(16).gameObject.GetComponent<TextMeshProUGUI>().text = player.GetComponent<PlayerStatus>().player_accounts.getPocket()[section_cash].ToString("F");
 
         
     }
@@ -207,7 +207,6 @@ public class Shop_manager : MonoBehaviour
             shoppingCartCard.gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = item_in_stock.item.icon;
             shoppingCartCard.gameObject.transform.GetChild(2).gameObject.GetComponent<Text>().text = item_in_stock.item.name;
             shoppingCartCard.gameObject.transform.GetChild(4).gameObject.GetComponent<Text>().text = item_in_stock.price.ToString("F");
-            shoppingCartCard.gameObject.transform.GetChild(6).gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().text = item_in_stock.quantity.ToString();
             removeBtn = shoppingCartCard.gameObject.GetComponent<Button>();
             removeBtn.AddEventListener(itemIndex, OnRemoveItemInCart);
         } else

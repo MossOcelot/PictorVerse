@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: fb438338442bad24cbf1eee17f5f645f, type: 3}
   item_name: cactus
-  item_type: weapon
+  item_type: mineral
   IsStackable: 1
   max_stack: 99
   rarity: 0
@@ -24,4 +24,6 @@ MonoBehaviour:
   <DefaultParametersList>k__BackingField: []
   modifierDatas:
   - statModifier: {fileID: 11400000, guid: 66bbd28be2fa36045bde4637e7d111f7, type: 2}
+    value: 10
+  - statModifier: {fileID: 11400000, guid: 1ef3b285359b5443abc14857ea050046, type: 2}
     value: 5

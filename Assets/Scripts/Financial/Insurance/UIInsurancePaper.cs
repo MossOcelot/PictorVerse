@@ -1,20 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIInsurancePaper : MonoBehaviour
 {
     [SerializeField]
-    private Text Insurance_name;
+    private TextMeshProUGUI Insurance_name;
     [SerializeField]
-    private Text Insurance_description;
+    private TextMeshProUGUI Insurance_description;
     [SerializeField]
-    private Text Insurance_type1;
+    private TextMeshProUGUI Insurance_type1;
     [SerializeField]
-    private Text Insurance_type2;
+    private TextMeshProUGUI Insurance_type2;
     [SerializeField]
-    private Text Insurance_type3;
+    private TextMeshProUGUI Insurance_type3;
 
     [SerializeField]
     private Dropdown dropType;
@@ -35,9 +36,9 @@ public class UIInsurancePaper : MonoBehaviour
         years = year;
         this.Insurance_name.text = name;
         this.Insurance_description.text = description;
-        this.Insurance_type1.text = amount[0].ToString("F") + " $" + " ราคาประกัน " + year[0].ToString() + " ปี (type1)";
-        this.Insurance_type2.text = amount[1].ToString("F") + " $" + " ราคาประกัน " + year[1].ToString() + " ปี (type2)";
-        this.Insurance_type3.text = amount[2].ToString("F") + " $" + " ราคาประกัน " + year[2].ToString() + " ปี (type3)";
+        this.Insurance_type1.text = amount[0].ToString("F") + " <sprite index=0>" + " ราคาประกัน " + year[0].ToString() + " ปี (type1)";
+        this.Insurance_type2.text = amount[1].ToString("F") + " <sprite index=0>" + " ราคาประกัน " + year[1].ToString() + " ปี (type2)";
+        this.Insurance_type3.text = amount[2].ToString("F") + " <sprite index=0>" + " ราคาประกัน " + year[2].ToString() + " ปี (type3)";
         this.BuyBtn.AddEventListener(insurance, OnBuyInsuranceAction);
     }
 

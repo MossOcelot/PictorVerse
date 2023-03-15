@@ -3,17 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class UIShowDataUpdate : MonoBehaviour
 {
     [SerializeField]
-    private Text gold_text;
+    private TextMeshProUGUI gold_text;
     [SerializeField]
-    private Text money_text;
+    private TextMeshProUGUI money_text;
     [SerializeField]
-    private Text value_item_text;
+    private TextMeshProUGUI value_item_text;
     [SerializeField]
-    private Text product_insurance_text;
+    private TextMeshProUGUI product_insurance_text;
 
     private InsuranceController player_insurance;
     private SceneStatus myScene;

@@ -15,6 +15,13 @@ public class PlayerStatus : MonoBehaviour
         public float static_useEnergy;
         public float static_spendVAT;
         public float static_spendBuy;
+        public float static_spendSell;
+        public float static_distanceWalk;
+        public float static_stability; //
+        public float static_happy; //
+        public float static_credibility; //
+        public float static_healthy; //
+        public float static_risk; //
     };
 
     public int player_id => GetInstanceID();
@@ -39,6 +46,7 @@ public class PlayerStatus : MonoBehaviour
     private int energy;
 
     public bool IsDead = false;
+    private SceneStatus.section section_name;
 
 
     private Rigidbody2D rb2d;
@@ -47,7 +55,9 @@ public class PlayerStatus : MonoBehaviour
     public Animator animator;
     public Rigidbody2D rb;
     public PlayerMovement movementScript;
-  
+    public ToolController attackScript;
+
+
     public void setPlayerName(string newName)
     {
         this.playername = newName;
@@ -99,14 +109,9 @@ public class PlayerStatus : MonoBehaviour
         return this.myStatic;   
     }
 
-    public Dictionary<string, float> getMyStatic()
+    public StaticValue getMyStatic()
     {
-        return new Dictionary<string, float>
-        {
-            {"static_useEnergy", this.myStatic.static_useEnergy },
-            {"static_SpendBuy", this.myStatic.static_spendBuy },
-            {"static_SpendVat", this.myStatic.static_spendVAT }
-        };
+        return myStatic;
     }
 
     public void setMyStatic(int command, float value)
@@ -122,6 +127,33 @@ public class PlayerStatus : MonoBehaviour
         else if (command == 2)
         {
             this.myStatic.static_spendVAT = value;
+        } else if (command == 3)
+        {
+            this.myStatic.static_spendSell = value;
+        }
+        else if (command == 4)
+        {
+            this.myStatic.static_distanceWalk = value;
+        }
+        else if (command == 5)
+        {
+            this.myStatic.static_stability = value;
+        }
+        else if (command == 6)
+        {
+            this.myStatic.static_happy = value;
+        }
+        else if (command == 7)
+        {
+            this.myStatic.static_credibility = value;
+        }
+        else if (command == 8)
+        {
+            this.myStatic.static_healthy = value;
+        }
+        else if (command == 9)
+        {
+            this.myStatic.static_risk = value;
         }
     }
 
@@ -144,7 +176,7 @@ public class PlayerStatus : MonoBehaviour
         return this.account_id;
     }
 
-    public void setFinancial_detail(string command, int value)
+    public void setFinancial_detail(string command, float value)
     {
         if (command == "balance")
         {
@@ -185,16 +217,15 @@ public class PlayerStatus : MonoBehaviour
       // Load();
     //}
 
-    //public void Awake()
-    //{
-      //  Load();
-    //}
+    public void Awake()
+    {
+        //Load();
+        section_name = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection;
+    }
 
     private void Update()
     {
-        if (this.energy <= 0)
-        {
-            Debug.Log("Empty Energy");
+        if (this.energy <= 0) {
             this.energy = 0;
         }
         if (this.HP <= 0)
@@ -206,39 +237,81 @@ public class PlayerStatus : MonoBehaviour
         {
             animator.SetTrigger("isDeath");
             movementScript.enabled = false;
+            attackScript.enabled = false;
             rb.velocity = new Vector2(0f, 0f);
             rb.angularDrag = 0;
             rb.mass = 5000f;
-
         }
 
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("ItemCutD") || other.gameObject.CompareTag("Enemy"))
+        UpdateStability();
+    }
+
+    private float oldStabilityForFinancial;
+    float totalAssets;
+    float oldtotalAssets;
+    float totalAccountDetail;
+    private void UpdateStability()
+    {
+        GetTotalAssets();
+        GetTotalAccountDetail();
+
+        float cash = ((financial_detail.balance - financial_detail.debt) * 0.7f) + (totalAccountDetail * 0.3f);
+        float exhangeCashToGold = new ExchangeRate().getExchangeRate((int)section_name, 5) * cash;
+        float stability = exhangeCashToGold * 10;
+        if (oldStabilityForFinancial != stability)
         {
-            this.setHP(-2);
-            Vector2 knockbackDirection = (transform.position - other.gameObject.transform.position).normalized;
-            GetComponent<Rigidbody2D>().AddForce(knockbackDirection * 1200, ForceMode2D.Impulse);
-            StartCoroutine(FlashRed());
+            float difference = stability - oldStabilityForFinancial;
+            float newStability = getMyStatic().static_stability + difference;
+            
+            setMyStatic(5, newStability);
+
+            oldStabilityForFinancial = stability;
 
         }
-    }
-    private IEnumerator FlashRed()
-    {
-        GetComponent<SpriteRenderer>().color = Color.red;
 
-        yield return new WaitForSeconds(0.1f);
-
-        GetComponent<SpriteRenderer>().color = Color.white;
+        //reset
+        totalAssets = 0;
+        totalAccountDetail = 0;
     }
-    private void OnCollisionExit2D(Collision2D other)
+
+    private void GetTotalAssets()
     {
-        if (other.gameObject.CompareTag("ItemCutD") || other.gameObject.CompareTag("Enemy"))
+        Dictionary<string, float> player_account = player_accounts.getPocket();
+
+        int n = 0;
+        foreach (string key in player_account.Keys)
         {
-            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            if (key == section_name.ToString())
+            {
+                totalAssets += player_account[key];
+            }
+            else
+            {
+                totalAssets += player_account[key] * new ExchangeRate().getExchangeRate(n, (int)section_name);
+            }
+            n++;
+        }
+        if(oldtotalAssets != totalAssets)
+        {
+            float differenct = totalAssets - oldtotalAssets;
+            financial_detail.balance += differenct;
+            oldtotalAssets = totalAssets;
         }
     }
+
+    private void GetTotalAccountDetail()
+    {
+        List<AccountsDetail> player_account_details = getAccountsDetails();
+
+        foreach (AccountsDetail account in player_account_details)
+        {
+            totalAccountDetail += (account.income - account.expense);
+        }
+    }
+    
     private void OnApplicationQuit()
     {
         Save();
@@ -272,5 +345,43 @@ public class PlayerStatus : MonoBehaviour
             position.z = data.position_player[2];
             transform.position = position;
         }
+    }
+
+    public float PayTaxes()
+    {
+        float invidualTax = GameObject.FindGameObjectWithTag("Goverment").gameObject.GetComponent<GovermentPolicy>().getIndividualTax();
+
+        float incomeAllYear = GetIncomeAllYear();
+
+        return incomeAllYear * (invidualTax / 100);
+        
+    }
+
+    private float GetIncomeAllYear()
+    {
+        int year = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>().getDateTime()[2];
+        int[] date = new int[] { 1, 3, year - 1 };
+
+        float allIncome = 0;
+        foreach(AccountsDetail account in accountsDetails)
+        {
+            int[] date_account = account.date;
+            if (date_account[2] <= date[2])
+            {
+                if (date_account[1] == date[1])
+                {
+                    if(date_account[0] <= date[0])
+                    {
+                        break;
+                    }
+                }
+                else if (date_account[1] < date[1])
+                {
+                    break;
+                }
+            }
+            allIncome += account.income;
+        }
+        return allIncome;
     }
 }

@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class UIAccount_Bar : MonoBehaviour
 {
     [SerializeField]
-    private Text date;
+    private TextMeshProUGUI date;
     [SerializeField]
-    private Text time;
+    private TextMeshProUGUI time;
     [SerializeField]
-    private Text detail;
+    private TextMeshProUGUI detail;
     [SerializeField]
-    private Text income;
+    private TextMeshProUGUI income;
     [SerializeField]
-    private Text expense;
+    private TextMeshProUGUI expense;
     [SerializeField]
-    private Text status;
+    private TextMeshProUGUI status;
 
     public void SetData(int[] Date, string name_detail, float income, float expense, string status)
     {

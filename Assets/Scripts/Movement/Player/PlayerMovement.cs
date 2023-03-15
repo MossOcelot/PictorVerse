@@ -104,14 +104,40 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    public float dashCountdownTimer = 5f;
+    [SerializeField]
+    private bool canDashSpeed = true;
+    float dashCountdownTime = 0f;
+    public int maxCountDashSpeed;
+    public int countDashSpeed;
     private void FixedUpdate()
     {
-        if (isDashButtonDown)
+        if (!canDashSpeed)
+        {
+            if(dashCountdownTime <= dashCountdownTimer)
+            {
+                dashCountdownTime += Time.deltaTime;
+                return;
+            } else
+            {
+                dashCountdownTime = 0f;
+                countDashSpeed = 0;
+                canDashSpeed = true;
+            }
+        }
+
+        if (isDashButtonDown && canDashSpeed)
         {
             tr.emitting = true;
             dashSpeed = 1.5f;
             rb.MovePosition(transform.position + MoveDir * dashSpeed);
+            useEnergy(energy_for_walk * 2);
             isDashButtonDown = false;
+            countDashSpeed += 1;
+            if(countDashSpeed > maxCountDashSpeed)
+            {
+                canDashSpeed = false;
+            }
         }
         else { tr.emitting = false; }
     }
@@ -175,19 +201,26 @@ public class PlayerMovement : MonoBehaviour
         if (iswalk)
         {
             var distance = Vector2.Distance(transform.position, playerposition);
-            if (distance >= 10)
-            {
+
+           if (distance >= 10)
+           {
                 walk_distance += 10;
                 playerposition = transform.position;
+
+                float newDistanceStatic = status.getMyStatic().static_distanceWalk + distance;
+                status.setMyStatic(4, newDistanceStatic);
+                status.setMyStatic(6, newDistanceStatic / 10000);
+                status.setMyStatic(8, newDistanceStatic / 1000);
+
                 useEnergy(energy_for_walk);
-            }
+           }
         }
     }
 
     private void useEnergy(int energy)
     {
         status.setEnergy(-energy);
-        float energy_static = status.getMyStatic()["static_useEnergy"] + energy;
+        float energy_static = status.getMyStatic().static_useEnergy + energy;
         status.setMyStatic(0, energy_static);
     }
 

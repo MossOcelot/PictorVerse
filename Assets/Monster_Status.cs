@@ -6,10 +6,19 @@ public class Monster_Status : MonoBehaviour
 {
     public string name_monster;
     public string birthplace;
-    public float HP;
+    public int HP;
     public float energy;
-    [SerializeField]
-    private int atk;
+    public int atk;
     [SerializeField]
     private int speed;
+
+    public int GetHP()
+    {
+        return HP;
+    }
+    public int GetAttack()
+    {
+        return atk;
+    }
+
 }
