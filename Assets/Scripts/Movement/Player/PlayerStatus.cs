@@ -209,7 +209,6 @@ public class PlayerStatus : MonoBehaviour
     private void Update()
     {
         if (this.energy <= 0) {
-            Debug.Log("Empty Energy");
             this.energy = 0;
         }
         if (this.HP <= 0)
@@ -316,5 +315,42 @@ public class PlayerStatus : MonoBehaviour
             transform.position = position;
         } 
     }
-    
+
+    public float PayTaxes()
+    {
+        float invidualTax = GameObject.FindGameObjectWithTag("Goverment").gameObject.GetComponent<GovermentPolicy>().getIndividualTax();
+
+        float incomeAllYear = GetIncomeAllYear();
+
+        return incomeAllYear * (invidualTax / 100);
+        
+    }
+
+    private float GetIncomeAllYear()
+    {
+        int year = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>().getDateTime()[2];
+        int[] date = new int[] { 1, 3, year - 1 };
+
+        float allIncome = 0;
+        foreach(AccountsDetail account in accountsDetails)
+        {
+            int[] date_account = account.date;
+            if (date_account[2] <= date[2])
+            {
+                if (date_account[1] == date[1])
+                {
+                    if(date_account[0] <= date[0])
+                    {
+                        break;
+                    }
+                }
+                else if (date_account[1] < date[1])
+                {
+                    break;
+                }
+            }
+            allIncome += account.income;
+        }
+        return allIncome;
+    }
 }
