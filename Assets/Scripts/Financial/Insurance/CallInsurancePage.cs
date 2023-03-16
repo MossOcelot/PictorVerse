@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CallInsurancePage : MonoBehaviour
 {
+    public Bank_Status bank_manager;
     [SerializeField]
     private List<InsuranceItems> endowments;
     [SerializeField]
@@ -22,6 +23,11 @@ public class CallInsurancePage : MonoBehaviour
         insurance_manager.SetHealth_insurances(health_insurances);
     }
 
+    public void SetInsuranceForBank()
+    {
+        insurance_manager.Banker = bank_manager.sendDataBanker();
+        SetInsurance();
+    }
     public List<InsuranceItems> GetEndowments()
     {
         return endowments;

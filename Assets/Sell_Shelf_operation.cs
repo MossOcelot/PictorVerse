@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class Sell_Shelf_operation : MonoBehaviour
 {
     [SerializeField]
@@ -20,7 +20,7 @@ public class Sell_Shelf_operation : MonoBehaviour
     [SerializeField]
     private Transform bag_location;
     [SerializeField]
-    private Text total;
+    private TextMeshProUGUI total;
 
     [SerializeField] private InventorySO inventoryMyBag;
 

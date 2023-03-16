@@ -2,18 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class Update_Accounts : MonoBehaviour
 {
     [SerializeField]
     private GameObject background;
     [SerializeField]
-    private Text price_text;
+    private TextMeshProUGUI price_text;
     [SerializeField]
-    private Text vat_text;
+    private TextMeshProUGUI vat_text;
     [SerializeField]
-    private Text total_text;
+    private TextMeshProUGUI total_text;
     [SerializeField]
-    private Text Balance;
+    private TextMeshProUGUI Balance;
 
     Button ConfirmBuy;
     private void FixedUpdate()

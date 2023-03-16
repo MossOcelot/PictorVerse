@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class Page_Manager : MonoBehaviour
 {
     public ItemStock ItemInStock;
@@ -13,7 +13,7 @@ public class Page_Manager : MonoBehaviour
     public Button SellButton;
     public void setDataInPage()
     {
-        gameObject.transform.GetChild(1).gameObject.GetComponent<Text>().text = ItemInStock.item.item_name;
+        gameObject.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = ItemInStock.item.item_name;
     }
 
 }

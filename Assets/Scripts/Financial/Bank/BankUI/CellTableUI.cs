@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class CellTableUI : MonoBehaviour
 {
-    public Text Date_text;
-    public Text list_name;
-    public Text desposit_text;
-    public Text withdraw_text;
-    public Text number_text;
+    public TextMeshProUGUI Date_text;
+    public TextMeshProUGUI list_name;
+    public TextMeshProUGUI desposit_text;
+    public TextMeshProUGUI withdraw_text;
+    public TextMeshProUGUI number_text;
 
     public void SetData(int[] date, string name, float desposit, float withdraw, string number)
     {

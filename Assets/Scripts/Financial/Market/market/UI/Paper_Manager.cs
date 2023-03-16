@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class Paper_Manager : MonoBehaviour
 {
     public Page_Manager page_manager;
@@ -12,11 +12,11 @@ public class Paper_Manager : MonoBehaviour
 
     public GameObject priceInput;
     public GameObject quantityInput;
-    public Text balanceText;
-    public Text valueItem;
-    public Text Vat_Value;
-    public Text totalText;
-    public Text withdrawalText;
+    public TextMeshProUGUI balanceText;
+    public TextMeshProUGUI valueItem;
+    public TextMeshProUGUI Vat_Value;
+    public TextMeshProUGUI totalText;
+    public TextMeshProUGUI withdrawalText;
     public Button BuyBtn;
     public float price = -1;
     public float quantity = -1;
@@ -75,10 +75,10 @@ public class Paper_Manager : MonoBehaviour
             vat_price = totalValueItems * VAT;
             total_value = totalValueItems + vat_price;
             withdrawal_value = balance - total_value;
-            valueItem.text = "$ " + totalValueItems.ToString("F");
-            Vat_Value.text = "$ " + vat_price.ToString("F");
-            totalText.text = "$ " + total_value.ToString("F");
-            withdrawalText.text = "$ " + withdrawal_value.ToString("F");
+            valueItem.text = "<sprite index=0>  " + totalValueItems.ToString("F");
+            Vat_Value.text = "<sprite index=0>  " + vat_price.ToString("F");
+            totalText.text = "<sprite index=0>  " + total_value.ToString("F");
+            withdrawalText.text = "<sprite index=0>  " + withdrawal_value.ToString("F");
         }
     }
 }

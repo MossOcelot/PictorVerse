@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class Paper_manager2 : MonoBehaviour
 {
     public StockSystem stock;
@@ -12,10 +12,10 @@ public class Paper_manager2 : MonoBehaviour
 
     public GameObject priceInput;
     public GameObject quantityInput;
-    public Text balanceText;
-    public Text valueItem;
-    public Text withdrawalText;
-    public Text QuantityItem;
+    public TextMeshProUGUI balanceText;
+    public TextMeshProUGUI valueItem;
+    public TextMeshProUGUI withdrawalText;
+    public TextMeshProUGUI QuantityItem;
     public float price = -1;
     public float quantity = -1;
     public Button SellBtn;

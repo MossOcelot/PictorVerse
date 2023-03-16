@@ -26,6 +26,7 @@ public class UIplanetItem : MonoBehaviour, IPointerClickHandler
 
     public void SetData(Sprite sprite)
     {
+        
         this.planetImage.gameObject.SetActive(true);
         this.planetImage.sprite = sprite;
         this.empty = false;

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bank_Status : MonoBehaviour
 {
+    public GameObject Banker;
     [SerializeField]
     private string bank_name;
     public PocketDetails Bank_Pocket;
@@ -69,5 +70,16 @@ public class Bank_Status : MonoBehaviour
     public void SetBank_name(string bankname)
     {
         this.bank_name = bankname;
+    }
+
+    public GameObject sendDataBanker()
+    {
+        return Banker;
+    }
+
+    public void Close()
+    {
+        Banker.gameObject.GetComponent<NPCController>().playerIsClose = true;
+        gameObject.SetActive(false);
     }
 }

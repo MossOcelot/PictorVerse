@@ -41,18 +41,20 @@ public class mapPageManage : MonoBehaviour
 
     public void open_planetPage()
     {
+        Debug.Log("Q");
         mapPage.planet.gameObject.SetActive(true);
-        
         planetUI.Show();
         sortingSection.sortSection();
+        Debug.Log("k");
         PrepareUI();
         foreach (var item in sortingSection.planetData.GetCurrentPlanetState())
         {
+            Debug.Log("Key: " + item.Key);
             planetUI.UpdateData(item.Key,
                 item.Value.item.planetImage);
+
         }
         PreparePlanetData();
-
     }
 
     private void PreparePlanetData()
@@ -62,8 +64,8 @@ public class mapPageManage : MonoBehaviour
         {
             if (item.IsEmpty)
                 continue;
-                sortingSection.planetData.AddItem(item);
-                
+            sortingSection.planetData.AddItem(item);
+
         }
     }
 
@@ -93,32 +95,35 @@ public class mapPageManage : MonoBehaviour
     private void UpdatePlanetUI(Dictionary<int, planetItem> planetState)
     {
         foreach (var item in planetState)
-        {    
+        {
             planetUI.UpdateData(item.Key, item.Value.item.planetImage);
         }
     }
 
-public void open_cityMap()
+    public void open_cityMap()
     {
         mapPage.gameObject.SetActive(true);
     }
     public void open_galaxyMap()
     {
+        Debug.Log("D");
         if (isGalaxyOn != true)
         {
-            mapPage.galaxyMap.gameObject.SetActive(!isCityON);
+            mapPage.galaxyMap.gameObject.SetActive(!isGalaxyOn);
             isGalaxyOn = !isGalaxyOn;
         }
+        Debug.Log("A");
         mapPage.planet.gameObject.SetActive(false);
+        Debug.Log("V");
         planetDescription.gameObject.SetActive(false);
-        //planetUI.DeletePlanetUI();
+        Debug.Log("B");
     }
 
     public void back_to_cityMap()
     {
         if (isGalaxyOn != false)
         {
-            mapPage.galaxyMap.gameObject.SetActive(isCityON);
+            mapPage.galaxyMap.gameObject.SetActive(!isGalaxyOn);
             isGalaxyOn = !isGalaxyOn;
         }
         //planetUI.DeletePlanetUI();   
@@ -150,7 +155,7 @@ public void open_cityMap()
             return;
         }
         planetSO item = planetItem.item;
-        planetUI.UpdateDescription(itemIndex,item.planetImage, item.planetSymbol,
+        planetUI.UpdateDescription(itemIndex, item.planetImage, item.planetSymbol,
             item.Name, item.location, item.rank, item.uniqueness,
         item.Advantage, item.Disadvantage);
 
@@ -188,18 +193,20 @@ public void open_cityMap()
     public void Update()
     {
 
-        if(Input.GetKeyUp(KeyCode.Q))
+        if (Input.GetKeyUp(KeyCode.M))
         {
-            if (isCityON!=true)
+            if (isCityON != true)
             {
-                mapPage.gameObject.SetActive(true);
+                mapPage.open_window();
+
+                isCityON = !isCityON;
             }
             else
             {
-                Debug.Log("kuay");
-                mapPage.gameObject.SetActive(false);
+                mapPage.close_window();
+                isCityON = !isCityON;
             }
         }
-        
+
     }
 }

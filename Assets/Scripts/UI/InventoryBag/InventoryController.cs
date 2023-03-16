@@ -2,6 +2,7 @@ using inventory.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,8 +16,11 @@ public class InventoryController : MonoBehaviour
     private UIMiniInventoryPage miniInventoryUI;
     [SerializeField]
     private UIBigMiniInventory bigMiniInventoryUI;
-    /*[SerializeField]
-    private UIBigMiniInventory bigMiniInventoryUI;*/
+    [SerializeField]
+    private Update_player_pocket Player_pocket;
+    [SerializeField]
+    private ExchangeManager Foreign_Exchange;
+
 
     [SerializeField]
     private InventorySO inventoryData;
@@ -24,6 +28,7 @@ public class InventoryController : MonoBehaviour
     private InventorySO WeaponBoxData;
     [SerializeField]
     private InventorySO miniInventoryData;
+    
 
     public List<InventoryItem> initialItems= new List<InventoryItem>();
     public List<InventoryItem> WeaponItems= new List<InventoryItem>();
@@ -184,8 +189,8 @@ public class InventoryController : MonoBehaviour
 
         IItemAction itemAction = MiniItem.item as IItemAction;
         if (itemAction != null)
-        {
-            miniInventoryUI.AddActionInDescription(0,itemAction.ActionName, () => PerformAction(itemIndex));
+        { 
+            miniInventoryUI.AddActionInDescription(0,itemAction.ActionName, () => PerformMiniAction(itemIndex));
         }
 
         IUSEAction itemUSEAction = MiniItem.item as IUSEAction;
@@ -246,18 +251,39 @@ public class InventoryController : MonoBehaviour
         //audioSource.PlayOneShot(dropClip);
     }
 
+    public void PerformMiniAction(int itemIndex)
+    {
+        PlayerStatus playerStatus = gameObject.GetComponent<PlayerStatus>();
+        if (playerStatus.getHP() >= playerStatus.getMaxHP() && playerStatus.getEnergy() >= playerStatus.getMaxEnergy()) return;
+        InventoryItem inventoryItem = miniInventoryData.GetItemAt(itemIndex);
+        if (inventoryItem.IsEmpty)
+            return;
+        IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
+        if (destroyableItem != null)
+        {
+            miniInventoryData.RemoveItem(itemIndex, 1);
+        }
+        IItemAction itemAction = inventoryItem.item as IItemAction;
+        if (itemAction != null)
+        {
+            itemAction.PerformAction(gameObject, inventoryItem.itemState);
+            //audioSource.PlayOneShot(itemAction.actionSFX);
+            if (miniInventoryData.GetItemAt(itemIndex).IsEmpty)
+                miniInventoryUI.ResetSelection();
+        }
+    }
     public void PerformAction(int itemIndex)
     {
+        PlayerStatus playerStatus = gameObject.GetComponent<PlayerStatus>();
+        if (playerStatus.getHP() >= playerStatus.getMaxHP() && playerStatus.getEnergy() >= playerStatus.getMaxEnergy()) return;
         InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
         if (inventoryItem.IsEmpty)
             return;
-
         IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
         if (destroyableItem != null)
         {
             inventoryData.RemoveItem(itemIndex, 1);
         }
-
         IItemAction itemAction = inventoryItem.item as IItemAction;
         if (itemAction != null)
         {
@@ -349,9 +375,9 @@ public class InventoryController : MonoBehaviour
     }
 
 
-    private void HandleSwapItems(int itenIndex_1, int itenIndex_2)
+    private void HandleSwapItems(int itemIndex_1, int itemIndex_2)
     {
-        inventoryData.SwapItems(itenIndex_1, itenIndex_2);
+        inventoryData.SwapItems(itemIndex_1, itemIndex_2);
     }
 
     public void Awake()
@@ -360,7 +386,30 @@ public class InventoryController : MonoBehaviour
     }
 
     private void Update()
-    {
+    { 
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (Player_pocket.isActiveAndEnabled == false)
+            {
+                Player_pocket.show();
+            }
+            else
+            {
+                Player_pocket.hide();
+            }
+        }
+        
+        if(Input.GetKeyDown(KeyCode.F)) 
+        { 
+            if(Foreign_Exchange.isActiveAndEnabled == false)
+            {
+                Foreign_Exchange.show();
+            } else
+            {
+                Foreign_Exchange.hide();
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.I))
         {
             if(inventoryUI.isActiveAndEnabled == false) 

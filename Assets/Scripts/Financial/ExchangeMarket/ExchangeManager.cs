@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Windows;
-
+using TMPro;
 public class ExchangeManager : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -17,13 +17,13 @@ public class ExchangeManager : MonoBehaviour
     public TMPro.TMP_Dropdown fromCurrencys;
     public TMPro.TMP_Dropdown toCurrencys;
 
-    public Text[] title_fromCurrency;
-    public Text[] fromCurrency_text;
-    public Text[] toCurrency_text;
-    public Text[] title_toCurrency;
+    public TextMeshProUGUI[] title_fromCurrency;
+    public TextMeshProUGUI[] fromCurrency_text;
+    public TextMeshProUGUI[] toCurrency_text;
+    public TextMeshProUGUI[] title_toCurrency;
 
     public float default_cash;
-    public Text exchangeCash;
+    public TextMeshProUGUI exchangeCash;
     public Text textinputField;
 
     string text_cash;
@@ -38,9 +38,8 @@ public class ExchangeManager : MonoBehaviour
     {
         text_cash = checkTypeCurrency(fromCurrencys.value);
         float rate = exchangeRate.getExchangeRate(fromCurrencys.value, toCurrencys.value);
-
         string text = textinputField.text;
-        bool result = int.TryParse(text, out int number);
+        bool result = float.TryParse(text, out float number);
         if (result)
         {
             if (textinputField.text == "")
@@ -52,7 +51,7 @@ public class ExchangeManager : MonoBehaviour
         }
 
         int len = 0;
-        foreach (Text from in fromCurrency_text)
+        foreach (TextMeshProUGUI from in fromCurrency_text)
         {
             title_fromCurrency[len].text = text_cash;
             from.text = default_cash.ToString();
@@ -102,8 +101,15 @@ public class ExchangeManager : MonoBehaviour
         }
     }
 
-    public void setPlayerMovement(bool status)
+    public void show()
     {
-        player_movement.isLooking = status;   
+        gameObject.SetActive(true);
+        player_movement.isLooking = true;
+    }
+
+    public void hide()
+    {
+        gameObject.SetActive(false);
+        player_movement.isLooking = false;
     }
 }

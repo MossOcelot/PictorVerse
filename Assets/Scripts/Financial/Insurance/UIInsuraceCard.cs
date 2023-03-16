@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 public class UIInsuraceCard : MonoBehaviour
@@ -7,7 +8,7 @@ public class UIInsuraceCard : MonoBehaviour
     [SerializeField]
     private InsuranceItems insurance;
 
-    public Text Title_text;
+    public TextMeshProUGUI Title_text;
 
     public void SetInsurance(InsuranceItems newInsurance)
     {
