@@ -39,5 +39,4 @@ public class GovermentStatus : MonoBehaviour
             this.govermentFinancial.debt = value;
         }
     }
-
 }
