@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class AllItemInMarket : MonoBehaviour
 {
-    [SerializeField]
     private Dictionary<int, float> itemsInMarkets;
-    [SerializeField]
     private Timesystem time_system;
 
     [SerializeField]

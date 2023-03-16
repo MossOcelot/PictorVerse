@@ -1,9 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class GovermentPolicy : MonoBehaviour
 {
+    [System.Serializable]
+    public class IndividualRangeTax
+    {
+        public float minIncome;
+        public float maxIncome;
+        public float Tax;
+    }
     [SerializeField]
     private GovermentStatus govermentStatus;
 
@@ -12,7 +20,7 @@ public class GovermentPolicy : MonoBehaviour
     [SerializeField]
     private int business_tax;
     [SerializeField]
-    private float individual_tax;
+    private List<IndividualRangeTax> individual_tax;
     [SerializeField]
     private int travel_tax;
     [SerializeField]
@@ -25,7 +33,7 @@ public class GovermentPolicy : MonoBehaviour
         return vat_tax;
     }
 
-    public float getIndividualTax()
+    public List<IndividualRangeTax> getIndividualTax()
     {
         return individual_tax;
     }
