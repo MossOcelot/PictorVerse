@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isMoving;
     public bool isLooking = false;
     public float dashSpeed;
- 
+
     [SerializeField]
     private PlayerStatus status;
     private Rigidbody2D rb;
@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isDashButtonDown;
 
     private Vector3 MoveDir;
-    
+
 
     public int energy_for_walk;
     public float strength;
@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject swordHitbox;
     Collider2D swordCollider;
 
-    
+
 
     private void Start()
     {
@@ -100,20 +100,46 @@ public class PlayerMovement : MonoBehaviour
 
             }
         }
-       
+
 
     }
 
+    public float dashCountdownTimer = 5f;
+    [SerializeField]
+    private bool canDashSpeed = true;
+    float dashCountdownTime = 0f;
+    public int maxCountDashSpeed;
+    public int countDashSpeed;
     private void FixedUpdate()
     {
-        if (isDashButtonDown)
+        if (!canDashSpeed)
+        {
+            if(dashCountdownTime <= dashCountdownTimer)
+            {
+                dashCountdownTime += Time.deltaTime;
+                return;
+            } else
+            {
+                dashCountdownTime = 0f;
+                countDashSpeed = 0;
+                canDashSpeed = true;
+            }
+        }
+
+        if (isDashButtonDown && canDashSpeed)
         {
             tr.emitting = true;
             dashSpeed = 1.5f;
             rb.MovePosition(transform.position + MoveDir * dashSpeed);
+            useEnergy(energy_for_walk * 2);
             isDashButtonDown = false;
+            countDashSpeed += 1;
+            if(countDashSpeed > maxCountDashSpeed)
+            {
+                canDashSpeed = false;
+            }
         }
-        else {tr.emitting = false;}
+        else { tr.emitting = false; }
     }
 
     private void OnApplicationQuit()
@@ -170,23 +196,31 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void count_distance_for_walk() {
-        if(iswalk)
+    private void count_distance_for_walk()
+    {
+        if (iswalk)
         {
-           var distance = Vector2.Distance(transform.position, playerposition);
+            var distance = Vector2.Distance(transform.position, playerposition);
+
            if (distance >= 10)
-            {
+           {
                 walk_distance += 10;
                 playerposition = transform.position;
+
+                float newDistanceStatic = status.getMyStatic().static_distanceWalk + distance;
+                status.setMyStatic(4, newDistanceStatic);
+                status.setMyStatic(6, newDistanceStatic / 10000);
+                status.setMyStatic(8, newDistanceStatic / 1000);
+
                 useEnergy(energy_for_walk);
-            }
+           }
         }
     }
 
     private void useEnergy(int energy)
     {
         status.setEnergy(-energy);
-        float energy_static = status.getMyStatic()["static_useEnergy"] + energy;
+        float energy_static = status.getMyStatic().static_useEnergy + energy;
         status.setMyStatic(0, energy_static);
     }
 
@@ -224,23 +258,28 @@ public class PlayerMovement : MonoBehaviour
     {
         weight_player = getWeightItem();
         float weight_per_strength = (weight_player / strength) * 100; // ระบบ weight player
-        
+
         if (weight_per_strength > 90f)
         {
             realMoveSpeed = defaultMoveSpeed * 0.1f;
-        } else if (weight_per_strength > 80f)
+        }
+        else if (weight_per_strength > 80f)
         {
             realMoveSpeed = defaultMoveSpeed * 0.25f;
-        } else if (weight_per_strength > 70f)
+        }
+        else if (weight_per_strength > 70f)
         {
             realMoveSpeed = defaultMoveSpeed * 0.35f;
-        } else if (weight_per_strength > 60f)
+        }
+        else if (weight_per_strength > 60f)
         {
             realMoveSpeed = defaultMoveSpeed * 0.45f;
-        } else if (weight_per_strength > 50f)
+        }
+        else if (weight_per_strength > 50f)
         {
             realMoveSpeed = defaultMoveSpeed * 0.55f;
-        } else
+        }
+        else
         {
             realMoveSpeed = defaultMoveSpeed;
         }

@@ -19,6 +19,8 @@ public class ItemDestroy : Tool
     private Rigidbody2D rb;
     public float knockbackForce;
     public Vector3 moveDirection;
+    public GameObject floatingPoints;
+
 
     void Start()
     {
@@ -56,8 +58,8 @@ public class ItemDestroy : Tool
 
     public override void Hit()
     {
-
             Hitpoints -= 1;
+
             moveDirection += new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0f);
             rb.AddForce(moveDirection.normalized * -3000f);
 
@@ -66,7 +68,7 @@ public class ItemDestroy : Tool
                 HealthBar.SetHealth(Hitpoints, MaxHitpoints);
             }
 
-            if (Hitpoints <= -1 && !isDestroyed)
+            if (Hitpoints <= 0 && !isDestroyed)
             {
                 isDestroyed = true;
                 StartCoroutine(DestroyAfterDelay());
@@ -77,8 +79,11 @@ public class ItemDestroy : Tool
                 timer = 0f;
                 StartCoroutine(ResetHitpoints());
                 animator.SetTrigger("isHurt");
-            }
+                GameObject points = Instantiate(floatingPoints, transform.position, Quaternion.identity) as GameObject;
+                points.transform.GetChild(0).GetComponent<TextMesh>().text = "-1";
+
         }
+    }
     
 
 

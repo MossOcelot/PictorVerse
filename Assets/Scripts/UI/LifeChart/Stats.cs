@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Stats
@@ -8,7 +9,7 @@ public class Stats
     public event EventHandler OnStatsChanged;
 
     public static int STAT_MIN = 0;
-    public static int STAT_MAX = 20;
+    public static int STAT_MAX = 100;
 
     private SingleStat credibilityStat;
     private SingleStat stabilityStat;
@@ -32,6 +33,9 @@ public class Stats
         this.healthStat = new SingleStat(healthStat);
         this.happinessStat = new SingleStat(happinessStat);
         this.riskStat = new SingleStat(riskStat);
+
+        List<int> listValue = new List<int>() { credibilityStat, stabilityStat, healthStat, happinessStat, riskStat};
+        STAT_MAX = listValue.Max();
     }
 
     private SingleStat GetSingleStat(Type statType)

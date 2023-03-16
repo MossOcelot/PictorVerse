@@ -14,10 +14,12 @@ public class ConfirmWithDraw : MonoBehaviour
     private Button WithDrawBtn;
 
     private float WithDraw_amount;
-    private string section_name;
+    private SceneStatus.section section_name;
+    private PlayerStatus playerStatus;
     private void Start()
     {
-        section_name = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection.ToString();
+        playerStatus = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerStatus>();
+        section_name = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection;
     }
     private void Update()
     {
@@ -34,8 +36,8 @@ public class ConfirmWithDraw : MonoBehaviour
     public void ConfirmWithDrawal()
     {
         int[] present_date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>().getDateTime();
-        float newAmount = Player_pocket.GetPocketDetails().getPocket()[section_name] + WithDraw_amount;
-        Player_pocket.GetPocketDetails().setPocket(section_name, newAmount);
+        float newAmount = Player_pocket.GetPocketDetails().getPocket()[section_name.ToString()] + WithDraw_amount;
+        Player_pocket.GetPocketDetails().setPocket(section_name.ToString(), newAmount);
 
         float newWithDraw = bank_manager.GetPlayer_Account().amount_deposits - WithDraw_amount;
         AccountList account = new AccountList(present_date, "withDraw", 0, WithDraw_amount, newWithDraw, "TRW/XW");
@@ -50,6 +52,10 @@ public class ConfirmWithDraw : MonoBehaviour
         // bank account list
         AccountsDetail newBankAccountDetail = new AccountsDetail() { date = present_date, accounts_name = "accepting withDraw money", account_type = "accepting withDraw", income = WithDraw_amount, expense = 0 };
         bank_manager.bank_status.AddBank_Account(newBankAccountDetail);
+
+        float exchangeCashToGold = new ExchangeRate().getExchangeRate((int)section_name, 0) * WithDraw_amount;
+        float newbalance = playerStatus.financial_detail.balance - exchangeCashToGold;
+        playerStatus.setFinancial_detail("balance", newbalance);
 
         // reset data 
         WithDraw_amount = 0f;

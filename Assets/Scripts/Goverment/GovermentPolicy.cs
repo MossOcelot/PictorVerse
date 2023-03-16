@@ -12,7 +12,7 @@ public class GovermentPolicy : MonoBehaviour
     [SerializeField]
     private int business_tax;
     [SerializeField]
-    private int individual_tax;
+    private float individual_tax;
     [SerializeField]
     private int travel_tax;
     [SerializeField]
@@ -23,6 +23,11 @@ public class GovermentPolicy : MonoBehaviour
     public int getVat()
     {
         return vat_tax;
+    }
+
+    public float getIndividualTax()
+    {
+        return individual_tax;
     }
     // Start is called before the first frame update
     void Awake()

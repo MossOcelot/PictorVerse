@@ -79,7 +79,7 @@ public class SummaryAccount : MonoBehaviour
                 totalAssets += player_account[key];
             } else
             {
-                totalAssets += player_account[key] * new ExchangeRate().getExchangeRate(section, n);
+                totalAssets += player_account[key] * new ExchangeRate().getExchangeRate(n, section);
             }
             n++;
         }

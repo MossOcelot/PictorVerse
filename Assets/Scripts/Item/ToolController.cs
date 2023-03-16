@@ -30,7 +30,7 @@ public class ToolController : MonoBehaviour
         bool mouseOverItemCutD = false;
         Collider2D mouseOverCollider = GetMouseOverCollider();
 
-        while (mouseOverCollider != null && mouseOverCollider.tag == "ItemCutD")
+        while (mouseOverCollider != null && (mouseOverCollider.tag == "ItemCutD" || mouseOverCollider.tag == "DT"))
         {
             mouseOverItemCutD = true;
             Tool hit;
@@ -65,7 +65,7 @@ public class ToolController : MonoBehaviour
 
         foreach (Collider2D c in colliders)
         {
-            if (c.tag == "ItemCutD")
+            if (c.tag == "ItemCutD" || c.tag == "DT")
             {
                 return c;
             }

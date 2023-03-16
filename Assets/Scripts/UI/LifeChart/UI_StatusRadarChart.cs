@@ -5,7 +5,6 @@ using UnityEngine;
 public class UI_StatusRadarChart : MonoBehaviour
 {
     [SerializeField] private Material radarMaterial;
-    [SerializeField] private Texture2D radarTexture2D;
     private Stats stats;
     private CanvasRenderer radarMeshCanvasRenderer;
 

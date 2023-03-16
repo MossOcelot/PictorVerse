@@ -147,9 +147,9 @@ public class NPC_Shop : MonoBehaviour
         float balance = status.player_accounts.getPocket()[section_cash] - total;
         status.player_accounts.setPocket(section_cash,balance);
         shop.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.transform.GetChild(16).gameObject.GetComponent<TextMeshProUGUI>().text = status.player_accounts.getPocket()[section_cash].ToString("F");
-        float static_buy = status.getMyStatic()["static_SpendBuy"] + total;
+        float static_buy = status.getMyStatic().static_spendBuy + total;
         float vat_value = back_shop.getAccounts()[1];
-        float static_vat = status.getMyStatic()["static_SpendVat"] + vat_value;
+        float static_vat = status.getMyStatic().static_spendVAT + vat_value;
         status.setMyStatic(1, static_buy);
         if (vat_value != 0)
         {
