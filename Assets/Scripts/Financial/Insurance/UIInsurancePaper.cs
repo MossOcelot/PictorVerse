@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class UIInsurancePaper : MonoBehaviour
 {
     [SerializeField]
-    private Text Insurance_name;
+    private TextMeshProUGUI Insurance_name;
     [SerializeField]
     private TextMeshProUGUI Insurance_description;
     [SerializeField]
