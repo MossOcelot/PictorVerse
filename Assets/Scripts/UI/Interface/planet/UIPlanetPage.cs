@@ -1,3 +1,4 @@
+using inventory.Model;
 using Mono.Cecil;
 using System;
 using System.Collections;
@@ -66,7 +67,6 @@ public class UIPlanetPage : MonoBehaviour
         int index = listOfUIItems.IndexOf(planetItemUI);
         if (index == -1)
             return;
-        //Debug.Log("dkowwdo");
         OnDescriptionRequested?.Invoke(index);
         Debug.Log(index);
     }
@@ -98,9 +98,9 @@ public class UIPlanetPage : MonoBehaviour
     }
 
     internal void UpdateDescription(int itemIndex, Sprite planetImage, Sprite planetSymbol, string name, 
-        string location, string rank, string uniqueness, string advantage, string disadvantage, Sprite resource)
+        string location, string rank, string uniqueness, string advantage, string disadvantage)
     {
-        planetDescription.SetDescription(planetImage,planetSymbol, name, location, rank, uniqueness, advantage, disadvantage, resource);
+        planetDescription.SetDescription(planetImage,planetSymbol, name, location, rank, uniqueness, advantage, disadvantage);
         DeselectAllItems();
         listOfUIItems[itemIndex].Select();
     }

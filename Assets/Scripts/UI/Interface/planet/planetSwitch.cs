@@ -1,3 +1,4 @@
+using inventory.Model;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.PerformanceData;
@@ -8,8 +9,17 @@ public class planetSwitch : MonoBehaviour
 {
     [SerializeField]
     public planetBoxSO planetData;
+
+    public InventorySO resourceData = null;
+
+    [SerializeField]
+    public InventorySO resourceData1;
+
+    [SerializeField]
+    public InventorySO resourceData2;
+
+
     bool isSwitchOn = false;
-    bool switchOn = false;
     public void turnOn()
     {
         isSwitchOn = true;
@@ -18,7 +28,20 @@ public class planetSwitch : MonoBehaviour
     public bool passBool()
     {
         bool switchOn = isSwitchOn;
-        isSwitchOn =false;
+        
         return switchOn; 
+    }
+
+    public void selectSection(int index)
+    {
+        if(index == 0 )
+        {
+            resourceData = resourceData1;
+        }
+        else if (index == 1 ) 
+        {
+            resourceData = resourceData2;
+        }
+        isSwitchOn = false;
     }
 }

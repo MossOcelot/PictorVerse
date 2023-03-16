@@ -40,12 +40,13 @@ public class planetBoxSO : ScriptableObject
                 {
                     item = item,
                     owner = owner,
-                    type = type
+                    type = type,
                 };
                 return;
             }
         }
     }
+
 
     public Dictionary<int, planetItem> GetCurrentPlanetState()
     {
@@ -54,7 +55,6 @@ public class planetBoxSO : ScriptableObject
 
         for (int i = 0; i < planetItems.Count; i++)
         {
-            //Debug.Log("isEmpty" + planetItems[i].IsEmpty);
             if (planetItems[i].IsEmpty)
             continue;
 
@@ -62,7 +62,6 @@ public class planetBoxSO : ScriptableObject
 
             
         }
-       // Debug.Log("return" + returnValue);
         return returnValue;
        
     }
@@ -70,7 +69,6 @@ public class planetBoxSO : ScriptableObject
     public planetItem GetItemAt(int itemIndex)
     {
         OnplanetUpdated?.Invoke(GetCurrentPlanetState());
-        //Debug.Log("kuay");
         return planetItems[itemIndex];
     }
 }
@@ -84,13 +82,23 @@ public struct planetItem
     public string type;
     public bool IsEmpty => item == null;
 
+    public planetItem ChangeResourceData(InventorySO newResourceData)
+    {
+        return new planetItem
+        {
+            item = this.item,
+            owner = this.owner,
+            type = this.type,
+
+        };
+    }
     public planetItem ChangeOwner(string newOwner)
     {
         return new planetItem
         {
             item = this.item,
             owner = newOwner,
-            type = this.type
+            type = this.type,
 
         };
     }
@@ -101,7 +109,7 @@ public struct planetItem
         {
             item = this.item,
             owner = this.owner,
-            type = newType
+            type = newType,
         };
     }
 

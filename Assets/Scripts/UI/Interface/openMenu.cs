@@ -5,39 +5,23 @@ using UnityEngine.UI;
 
 public class openMenu : MonoBehaviour
 {
-    Button mainButton;
-    bool isExpanded = false;
-    public GameObject openItems;
-    public GameObject closeItems = null;
-    void Start()
-    {
-        openItems.SetActive(false);
-        mainButton = transform.GetComponent<Button>();
-        Debug.Log("run");
-        mainButton.onClick.AddListener(ToggleMenu);
-        Debug.Log("run2");
-        // mainButton.transform.SetAsLastSibling();
+    [SerializeField]
+    private GameObject panelToClose;
 
-    }
+    bool isOpen = false;
 
-    void ToggleMenu()
+    public void openPanel()
     {
-        isExpanded = !isExpanded;
-    
-        if (isExpanded)
+        if (isOpen!=true)
         {
-            openItems.SetActive(false);
-            closeItems.SetActive(true);
+            panelToClose.SetActive(!isOpen);
+            isOpen = !isOpen;
         }
         else
         {
-            openItems.SetActive(true);
-            closeItems.SetActive(false);
+            panelToClose.SetActive(!isOpen);
+            isOpen = !isOpen;
         }
-    }
-    void OnDestroy()
-    {
-        mainButton.onClick.RemoveListener(ToggleMenu);
-
+        
     }
 }

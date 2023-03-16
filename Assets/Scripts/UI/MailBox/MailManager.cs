@@ -1,30 +1,47 @@
 using inventory.Model;
-using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-
+using TMPro;
 public class MailManager : MonoBehaviour
 {
     public List<Mail> myMails;
     public GameObject MailCardTemplate;
     public Transform mailList;
+    public TextMeshProUGUI mailCount;
     int oldMailCount;
 
     GameObject mailCard;
+    bool IsOpen = false;
     public void AddMails(Mail newMail)
     {
         myMails.Insert(0, newMail);
     }
 
-    public void FixedUpdate()
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            if (IsOpen)
+            {
+                IsOpen = !IsOpen;
+                gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            } else
+            {
+                IsOpen = !IsOpen;
+                gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            }
+            
+        }
+    }
+    private void FixedUpdate()
     {
         int count = myMails.Count;
         if(oldMailCount != count)
         {
             oldMailCount = count;
+            mailCount.text = count.ToString() + "/100";
             int len = mailList.childCount;
             for(int i = 0; i < len; i++)
             {
