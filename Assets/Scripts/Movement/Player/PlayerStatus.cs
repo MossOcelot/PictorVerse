@@ -377,13 +377,13 @@ public class PlayerStatus : MonoBehaviour
         
     }
 
-    private float GetIncomeAllYear()
+    public float GetIncomeAllYear()
     {
         int year = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>().getDateTime()[2];
         int[] date = new int[] { 1, 3, year - 1 };
 
         float allIncome = 0;
-        foreach(AccountsDetail account in accountsDetails)
+        foreach(AccountsDetail account in accountsDetails) 
         {
             int[] date_account = account.date;
             if (date_account[2] <= date[2])
