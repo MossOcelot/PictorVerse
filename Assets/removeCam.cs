@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class removeCam : MonoBehaviour
 {
-    public int timeToremove;
+    public float timeToremove;
     private void Start()
     {
         StartCoroutine(ExampleCoroutine());
