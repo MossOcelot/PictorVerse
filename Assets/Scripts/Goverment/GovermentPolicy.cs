@@ -68,8 +68,8 @@ public class GovermentPolicy : MonoBehaviour
                     if (IsSent) return;
                     MailManager mail_manager = GameObject.FindGameObjectWithTag("MailBox").gameObject.GetComponent<MailManager>();
                     PlayerStatus player = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerStatus>();
-                    Mail newMail = new Mail("Tax", $"ãºá¨é§àÊÕÂÀÒÉÕ ÇÑ¹·Õè {date[0]}/{date[1]}/{date[2]}",
-                        $"{player.getPlayerName()} µéÍ§àÊÕÂÀÒÉÕà»ç¹¨Ó¹Ç¹ {player.PayTaxes()}", ()=> TaxReport(player));
+                    Mail newMail = new Mail("Tax", $"à¹ƒà¸šà¹à¸ˆà¹‰à¸‡à¸ à¸²à¸©à¸µ à¸§à¸±à¸™à¸—à¸µà¹ˆ {date[0]}/{date[1]}/{date[2]}",
+                        $"{player.getPlayerName()} à¸¡à¸µà¸£à¸²à¸¢à¹„à¸”à¹‰à¸›à¸µà¸—à¸µà¹ˆà¸œà¹ˆà¸²à¸™à¸¡à¸²à¸­à¸¢à¸¹à¹ˆà¸—à¸µà¹ˆ {player.GetIncomeAllYear()} à¸•à¹‰à¸­à¸‡à¹€à¸ªà¸µà¸¢à¸ à¸²à¸©à¸µà¸ˆà¸³à¸™à¸§à¸™ {player.PayTaxes()}", ()=> TaxReport(player));
                     mail_manager.AddMails(newMail);
                     IsSent = true;
                 } else
@@ -91,20 +91,20 @@ public class GovermentPolicy : MonoBehaviour
         if (newCash < 0)
         {
             Debug.Log("No Enough money");
-            uiMailPaper.SetAlert("à§Ô¹äÁèà¾ÕÂ§¾Í");
+            uiMailPaper.SetAlert("à¹€à¸‡à¸´à¸™à¹„à¸¡à¹ˆà¹€à¸žà¸µà¸¢à¸‡à¸žà¸­");
         } else
         {
             Debug.Log("Finish Tax");
             AccountsDetail player_account = new AccountsDetail() { 
                 date = date, 
-                accounts_name = $"¨èÒÂÀÒÉÕ¢Í§ {section}", 
+                accounts_name = $"à¸ˆà¹ˆà¸²à¸¢à¸ à¸²à¸©à¸µ {section}", 
                 account_type= "expenses", income = 0, 
                 expense = tax 
             }; 
             AccountsDetail Goverment_account = new AccountsDetail()
             {
                 date = date,
-                accounts_name = $"{playerStatus.getPlayerName()} ä´éàÊÕÂÀÒÉÕ",
+                accounts_name = $"{playerStatus.getPlayerName()} à¸ˆà¹ˆà¸²à¸¢à¸ à¸²à¸©à¸µ",
                 account_type = "income",
                 income = tax,
                 expense = 0
@@ -116,7 +116,7 @@ public class GovermentPolicy : MonoBehaviour
             govermentStatus.addAccountsDetail(Goverment_account);
             govermentStatus.govermentPockets.setPocket(section, newCashGoverment);
 
-            uiMailPaper.SetAlert("¨èÒÂàÃÕÂºÃéÍÂ");
+            uiMailPaper.SetAlert("à¸ˆà¹ˆà¸²à¸¢à¸ à¸²à¸©à¸µà¹€à¸£à¸µà¸¢à¸šà¸£à¹‰à¸­à¸¢à¹à¸¥à¹‰à¸§");
             uiMailPaper.SetCorrectBtn(false);
         }
 
