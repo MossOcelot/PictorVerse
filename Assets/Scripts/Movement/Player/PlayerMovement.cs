@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     private float defaultMoveSpeed = 5f;
     float realMoveSpeed;
     [SerializeField]
-    private float moveSpeed;
+    public float moveSpeed;
     private bool isMoving;
     public bool isLooking = false;
     public float dashSpeed;
@@ -69,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
+        
         if (!isLooking) // เช็คว่าผู้เล่นเปิดอะไรอยู่หรือเปล่า
         {
             Movement();
