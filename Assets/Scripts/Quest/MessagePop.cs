@@ -14,7 +14,7 @@ public class MessagePop : MonoBehaviour
     {
         positions.Sort((p1, p2) => -p1.magnitude.CompareTo(p2.magnitude));
         DisableAllMessages();
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -50,6 +50,7 @@ public class MessagePop : MonoBehaviour
             {
                 messages[currentMessageIndex].SetActive(false);
                 currentMessageIndex++;
+
             }
             else
             {

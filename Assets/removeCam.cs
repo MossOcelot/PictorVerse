@@ -5,14 +5,15 @@ using UnityEngine;
 public class removeCam : MonoBehaviour
 {
     public float timeToremove;
+
     private void Start()
     {
-        StartCoroutine(ExampleCoroutine());
+        Invoke("RemoveObject", timeToremove);
     }
 
-    IEnumerator ExampleCoroutine()
+    private void RemoveObject()
     {
-        yield return new WaitForSeconds(timeToremove);
         Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
