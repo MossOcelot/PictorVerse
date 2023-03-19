@@ -35,7 +35,7 @@ Transform:
   - {fileID: 4033613742151041476}
   - {fileID: 4033613742445014807}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5181627974090939628
 MonoBehaviour:
@@ -49,7 +49,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03958deffe801b4bb76954f23d9a967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time_system: {fileID: 0}
   beforeDay: 0
 --- !u!1001 &5181627972594979619
 PrefabInstance:
@@ -684,6 +683,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4854027636918603663, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6937338044391041741, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
