@@ -349,21 +349,41 @@ public class PlayerStatus : MonoBehaviour
 
     public float PayTaxes()
     {
-        float invidualTax = GameObject.FindGameObjectWithTag("Goverment").gameObject.GetComponent<GovermentPolicy>().getIndividualTax();
-
+        List<GovermentPolicy.IndividualRangeTax> invidualRangeTax = GameObject.FindGameObjectWithTag("Goverment").gameObject.GetComponent<GovermentPolicy>().getIndividualTax();
         float incomeAllYear = GetIncomeAllYear();
+        float tax = 0;
+        foreach(GovermentPolicy.IndividualRangeTax IndividualTax in invidualRangeTax)
+        { 
+            float maxIncome = IndividualTax.maxIncome;
+            float minIncome = IndividualTax.minIncome;
+            float perTax = IndividualTax.Tax / 100f;
 
-        return incomeAllYear * (invidualTax / 100);
+            if (maxIncome == 0)
+            {
+                tax += ((incomeAllYear - minIncome + 1) * perTax);
+                break;
+            } 
+
+            if (incomeAllYear <= maxIncome)
+            {
+                tax += ((incomeAllYear - minIncome) * perTax);
+                break;
+            }
+
+            tax += ((maxIncome - minIncome + 1) * perTax);
+        }
+
+        return tax;
         
     }
 
-    private float GetIncomeAllYear()
+    public float GetIncomeAllYear()
     {
         int year = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>().getDateTime()[2];
         int[] date = new int[] { 1, 3, year - 1 };
 
         float allIncome = 0;
-        foreach(AccountsDetail account in accountsDetails)
+        foreach(AccountsDetail account in accountsDetails) 
         {
             int[] date_account = account.date;
             if (date_account[2] <= date[2])

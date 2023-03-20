@@ -19,12 +19,16 @@ public class mapPageManage : MonoBehaviour
     private UIPlanetPage planetUI;
 
     [SerializeField]
+    private UIresourcePage resourceUI;
+
+    [SerializeField]
     private sortingSection sortingSection;
 
     [SerializeField]
     private UIplanetDescription planetDescription;
 
     public List<planetItem> initialItems = new List<planetItem>();
+    public List<InventoryItem> resource_initialItems = new List<InventoryItem>();
 
     bool isCityON = false;
     bool isGalaxyOn = false;
@@ -55,37 +59,57 @@ public class mapPageManage : MonoBehaviour
 
     private void PreparePlanetData()
     {
-       // sortingSection.planetData.Initialize();
         sortingSection.planetData.OnplanetUpdated += UpdatePlanetUI;
         foreach (planetItem item in initialItems)
         {
             if (item.IsEmpty)
                 continue;
-                sortingSection.planetData.AddItem(item);
-                
+            sortingSection.planetData.AddItem(item);
+
+        }
+    }
+
+    private void PrepareResourceData()
+    {
+        sortingSection.resourceData.OnInventoryUpdated += UpdateResourceUI;
+        foreach (var item in resource_initialItems)
+        {
+            if (item.IsEmpty)
+            {
+                continue;
+            }
+            sortingSection.resourceData.AddItem(item);
+        }
+    }
+
+    private void UpdateResourceUI(Dictionary<int, InventoryItem> resourceState)
+    {
+        resourceUI.ResetAllItems();
+        foreach (var item in resourceState)
+        {
+            resourceUI.UpdateData(item.Key, item.Value.item, item.Value.item.icon);
+
         }
     }
 
     private void UpdatePlanetUI(Dictionary<int, planetItem> planetState)
     {
-        //planetUI.ResetAllItems();
         foreach (var item in planetState)
-        {    
+        {
             planetUI.UpdateData(item.Key, item.Value.item.planetImage);
-            //Debug.Log("update444");
         }
     }
 
     public void open_cityMap()
     {
-        mapPage.cityMap.gameObject.SetActive(true);
+        mapPage.gameObject.SetActive(true);
     }
     public void open_galaxyMap()
     {
         Debug.Log("D");
         if (isGalaxyOn != true)
         {
-            mapPage.galaxyMap.gameObject.SetActive(!isCityON);
+            mapPage.galaxyMap.gameObject.SetActive(!isGalaxyOn);
             isGalaxyOn = !isGalaxyOn;
         }
         Debug.Log("A");
@@ -99,7 +123,7 @@ public class mapPageManage : MonoBehaviour
     {
         if (isGalaxyOn != false)
         {
-            mapPage.galaxyMap.gameObject.SetActive(isCityON);
+            mapPage.galaxyMap.gameObject.SetActive(!isGalaxyOn);
             isGalaxyOn = !isGalaxyOn;
         }
         //planetUI.DeletePlanetUI();   
@@ -111,12 +135,19 @@ public class mapPageManage : MonoBehaviour
 
     }
 
+    private void PrepareResourceUI()
+    {
+        Debug.Log("resource" + sortingSection.resourceData.Size);
+        resourceUI.InitializeResourceUI(sortingSection.resourceData.Size);
+
+    }
+
     private void HandleDescriptionRequest(int itemIndex)
     {
+        Debug.Log("item index" + itemIndex);
+        Debug.Log("re1" + sortingSection.resourceData);
         planetDescription.gameObject.SetActive(true);
-        //Debug.Log("get index1");
         planetItem planetItem = sortingSection.planetData.GetItemAt(itemIndex);
-        //Debug.Log("get index");
         if (planetItem.IsEmpty)
         {
             Debug.Log("get index");
@@ -124,9 +155,31 @@ public class mapPageManage : MonoBehaviour
             return;
         }
         planetSO item = planetItem.item;
-        planetUI.UpdateDescription(itemIndex,item.planetImage, item.planetSymbol,
+        planetUI.UpdateDescription(itemIndex, item.planetImage, item.planetSymbol,
             item.Name, item.location, item.rank, item.uniqueness,
-        item.Advantage, item.Disadvantage, item.resource);
+        item.Advantage, item.Disadvantage);
+
+        Debug.Log("re index1" + sortingSection.index);
+        sortingSection.index = itemIndex;
+        Debug.Log("re index2" + sortingSection.index);
+        sortingSection.selectingResource();
+        Debug.Log("re2" + sortingSection.resourceData);
+        resourceUI.gameObject.SetActive(true);
+        PrepareResourceUI();
+        foreach (var r_item in sortingSection.resourceData.GetCurrentInventoryState())
+        {
+            resourceUI.UpdateData(r_item.Key, r_item.Value.item, r_item.Value.item.icon);
+        }
+        InventoryItem resourceItem = sortingSection.resourceData.GetItemAt(itemIndex);
+        // inventoryUI
+        if (resourceItem.IsEmpty)
+        {
+            resourceUI.ResetSelection();
+            return;
+        }
+        PrepareResourceData();
+        //inventory.Model.Item resource_item = resourceItem.item;
+        //resourceUI.UpdateResorce(itemIndex, resource_item.icon);
     }
 
 
@@ -140,17 +193,20 @@ public class mapPageManage : MonoBehaviour
     public void Update()
     {
 
-        if(Input.GetKeyUp(KeyCode.Q))
+        if (Input.GetKeyUp(KeyCode.M))
         {
-            if (isCityON!=true)
+            if (isCityON != true)
             {
-                mapPage.cityMap.gameObject.SetActive(true);
+                mapPage.open_window();
+
+                isCityON = !isCityON;
             }
             else
             {
-                mapPage.cityMap.gameObject.SetActive(false);
+                mapPage.close_window();
+                isCityON = !isCityON;
             }
         }
-        
+
     }
 }

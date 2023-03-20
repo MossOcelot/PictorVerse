@@ -35,6 +35,7 @@ public class NPCController : MonoBehaviour
         {
             if (!dialoguePanel.activeInHierarchy)
             {
+                Debug.Log("dialouge onnnnnnnnnn");
                 dialoguePanel.SetActive(true);
 
                 if (index == dialogue.Length - 1)
