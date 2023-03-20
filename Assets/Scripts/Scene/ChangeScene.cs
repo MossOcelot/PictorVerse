@@ -7,11 +7,11 @@ public class ChangeScene : MonoBehaviour
 {
     public string sceneName;
     FadeInOut fade;    
-    public Transform Progessbar;
+    //public Transform Progessbar;
 
-    public GameObject bar;
+    //public GameObject bar;
     public GameObject player;
-    public int TimeOfChange;
+    //public int TimeOfChange;
     [SerializeField] private Vector2 desiredPosition;
     public bool CanNotOpen = false;
 
@@ -19,7 +19,7 @@ public class ChangeScene : MonoBehaviour
     {
         fade = FindObjectOfType<FadeInOut>();
         player = GameObject.FindWithTag("Player");
-        Progessbar.gameObject.SetActive(false);
+        //Progessbar.gameObject.SetActive(false);
 
     }
 
@@ -28,7 +28,7 @@ public class ChangeScene : MonoBehaviour
         Debug.Log("QQQ");
         fade.FadeIn();
         Debug.Log("AAA");
-        yield return new WaitForSeconds(TimeOfChange);
+        yield return new WaitForSeconds(1f);
         Debug.Log("BBB");
         SceneManager.LoadScene(sceneName);
         Debug.Log("CCC");
@@ -42,15 +42,15 @@ public class ChangeScene : MonoBehaviour
         
         if (collision.gameObject.tag == "Player" && !CanNotOpen)
         {
-            Progessbar.gameObject.SetActive(true);
-            AnimateBar();
+            //Progessbar.gameObject.SetActive(true);
+            //AnimateBar();
             StartCoroutine(_ChangeScene());
 
         }
     }
-    public void AnimateBar()
-    {
-        LeanTween.scaleX(bar, 1, TimeOfChange);
+    //public void AnimateBar()
+    //{
+        //LeanTween.scaleX(bar, 1, TimeOfChange);
 
-    }
+    //}
 }
