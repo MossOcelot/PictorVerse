@@ -13,7 +13,7 @@ public class sceneChange : MonoBehaviour
         PlayerMovement playerMovement = GameObject.FindObjectOfType<PlayerMovement>();
         SceneManager.LoadScene("TutorialInspaceStation1");
         playerMovement.isLooking = false;
-
+        player.SetActive(false);
         player.transform.position = desiredPosition;
 
     }
