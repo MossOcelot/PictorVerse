@@ -161,6 +161,7 @@ public class UIInventoryPage : MonoBehaviour
 
     public void AddActionInDescription(int n,string actionName, Action action)
     {
+        Debug.Log($"N: {n} actionName: {actionName}");
         descriptionActionPanel.AddAction(n,actionName, action);
     }
 

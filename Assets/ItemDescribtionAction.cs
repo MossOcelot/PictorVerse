@@ -30,11 +30,13 @@ namespace inventory.Model
 
         public void AddAction(int n,string action_name, Action onClickAction)
         {
-            if(n == 0)
+            Debug.Log($"NNNN: {n}");
+            if (n == 0)
             {
+                Debug.Log("N0");
                 template = Instantiate(ButtonBar, transform);
-
             }
+            Debug.Log("O2");
             Transform trans = template.gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.transform;
             Debug.Log(trans.name);
             GameObject button = Instantiate(buttonPrefab, trans);

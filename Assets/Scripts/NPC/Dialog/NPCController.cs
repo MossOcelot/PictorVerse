@@ -17,6 +17,7 @@ public class NPCController : MonoBehaviour
     public float wordSpeed;
     public bool playerIsClose;
     public bool IsEndSituation = false;
+
     void Start()
     {
 
@@ -109,8 +110,11 @@ public class NPCController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("AAAdd");
             playerIsClose = true;
             player = other.gameObject;
+            dialoguePanel = GameObject.FindGameObjectWithTag("Dialog").gameObject.transform.GetChild(0).gameObject;
+            dialogueText = dialoguePanel.gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
         }
     }
 
