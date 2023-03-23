@@ -7,8 +7,10 @@ using System.Xml;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
-using static UnityEngine.Rendering.DebugUI;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 
 public class mapPageManage : MonoBehaviour
 {

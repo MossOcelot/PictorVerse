@@ -79,7 +79,10 @@ public class Bank_Status : MonoBehaviour
 
     public void Close()
     {
-        Banker.gameObject.GetComponent<NPCController>().playerIsClose = true;
-        gameObject.SetActive(false);
+        gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        if (Banker != null )
+        {
+            Banker.gameObject.GetComponent<NPCController>().playerIsClose = true;
+        }
     }
 }

@@ -41,7 +41,7 @@ public class Banker : MonoBehaviour
     }
     public void OpenBank()
     {
-        BankShelf.SetActive(true);
+        BankShelf.gameObject.transform.GetChild(0).gameObject.SetActive(true);
         BankShelf.gameObject.GetComponent<Bank_Status>().Banker = gameObject;
         npcController.playerIsClose = false;
         npcController.dialoguePanel.SetActive(false);
@@ -58,5 +58,15 @@ public class Banker : MonoBehaviour
         uIInsurance.UpdateUIInsurance();
         npcController.playerIsClose = false;
         npcController.dialoguePanel.SetActive(false);
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            BankShelf.gameObject.GetComponent<Bank_Status>().Close();
+            InsuranceShelf.gameObject.SetActive(false);
+            InsuranceShelf.gameObject.GetComponent<UIInsurance>().Close();
+        }
     }
 }

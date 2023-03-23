@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class UIInsuraceCard : MonoBehaviour
 {
+    [SerializeField] 
+    private Image logo;
     [SerializeField]
     private InsuranceItems insurance;
 
@@ -14,8 +16,9 @@ public class UIInsuraceCard : MonoBehaviour
     {
         this.insurance = newInsurance;
     }
-    public void SetData(string name)
+    public void SetData(Sprite logo, string name)
     {
+        this.logo.sprite = logo;
         Title_text.text = name;
     }
 }

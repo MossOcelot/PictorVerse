@@ -28,6 +28,7 @@ public class ExchangeManager : MonoBehaviour
 
     string text_cash;
 
+    public bool status = false;
     private void Start()
     {
         player_movement = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerMovement>();
@@ -103,13 +104,15 @@ public class ExchangeManager : MonoBehaviour
 
     public void show()
     {
-        gameObject.SetActive(true);
+        status = true;
+        gameObject.transform.GetChild(0).gameObject.SetActive(true);
         player_movement.isLooking = true;
     }
 
     public void hide()
     {
-        gameObject.SetActive(false);
+        status = false;
+        gameObject.transform.GetChild(0).gameObject.SetActive(false);
         player_movement.isLooking = false;
     }
 }

@@ -14,23 +14,18 @@ public class MessagePop : MonoBehaviour
     {
         positions.Sort((p1, p2) => -p1.magnitude.CompareTo(p2.magnitude));
         DisableAllMessages();
-        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
         {
-            StartCoroutine(FreezePlayerPosition());
             messages[currentMessageIndex].SetActive(true);
-
         }
         else
         {
             messages[currentMessageIndex].SetActive(false);
         }
-
-
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -56,14 +51,6 @@ public class MessagePop : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-    }
-
-    IEnumerator FreezePlayerPosition()
-    {
-        player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-        yield return new WaitForSecondsRealtime(3f);
-        player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-        player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     private void DisableAllMessages()

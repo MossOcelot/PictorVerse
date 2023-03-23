@@ -9,6 +9,7 @@ public class InsuranceSO : ScriptableObject
 {
     public enum insurance_type { endowment, health_insurance }
 
+    public Sprite logo;
     public string insurance_name;
     public insurance_type insurance;
     public float insurance_limit;

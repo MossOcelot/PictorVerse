@@ -14,6 +14,7 @@ public class UIupdateDate : MonoBehaviour
     private void FixedUpdate()
     {
         int[] time = timeSystem.getDateTime();
-        DateText.text = $"{time[2]}-{time[1]}-{time[0]} {time[3]}:{time[4]}:{time[5]}";
+        DateText.text = time[2].ToString() + "-" + time[1].ToString("00") + "-" + time[0].ToString("00") + " "
+            + time[3].ToString("00") + ":" + time[4].ToString("00") + ":" + time[5].ToString("00");
     }
 }

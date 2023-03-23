@@ -7,7 +7,6 @@ using System.Net;
 using System.Xml;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.FilePathAttribute;
 
 public class UIPlanetPage : MonoBehaviour
 {

@@ -389,23 +389,29 @@ public class InventoryController : MonoBehaviour
     { 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            if (Player_pocket.isActiveAndEnabled == false)
+            Debug.Log("P");
+            if (Player_pocket.status == false)
             {
+                Debug.Log("P1");
                 Player_pocket.show();
             }
             else
             {
+                Debug.Log("P2");
                 Player_pocket.hide();
             }
         }
         
         if(Input.GetKeyDown(KeyCode.F)) 
-        { 
-            if(Foreign_Exchange.isActiveAndEnabled == false)
+        {
+            Debug.Log("F");
+            if (Foreign_Exchange.status == false)
             {
+                Debug.Log("F1");
                 Foreign_Exchange.show();
             } else
             {
+                Debug.Log("F2");
                 Foreign_Exchange.hide();
             }
         }
