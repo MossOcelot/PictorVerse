@@ -13,6 +13,7 @@ public class Talkzoom : MonoBehaviour
 
     void Start()
     {
+        cameraToZoom = GameObject.FindGameObjectWithTag("MainCamera").gameObject.GetComponent<Camera>();
         targetSize = cameraToZoom.orthographicSize;
     }
 

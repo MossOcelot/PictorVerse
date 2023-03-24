@@ -12,6 +12,7 @@ public class NPCTicketSeller : MonoBehaviour
 
     public void Update()
     {
+        if (!npcController.playerIsClose) return;
         bool IsEndSituation = npcController.IsEndSituation;
 
         if (!IsEndSituation)
