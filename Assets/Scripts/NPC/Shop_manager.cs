@@ -145,19 +145,15 @@ public class Shop_manager : MonoBehaviour
     {
         // set section_cash
         section_cash = npc.gameObject.GetComponent<NPC_Status>().live_place;
-
         List<InventoryItem> items = npc.gameObject.GetComponent<NPC_Shop>().getBuy_items_list();
         VAT = (float)npc.gameObject.GetComponent<NPC_Shop>().VAT / 100f;
-
         vat_per.text = npc.gameObject.GetComponent<NPC_Shop>().VAT.ToString();
-
         // clear card
         int len_card = buyshelf.transform.childCount;
         for(int n = 0; n < len_card; n++)
         {
             Destroy(buyshelf.transform.GetChild(n).gameObject);
         }
-
         int len = items.Count;
         for (int i = 0; i < len; i++)
         {
@@ -173,7 +169,6 @@ public class Shop_manager : MonoBehaviour
         }
         gameObject.transform.GetChild(1).gameObject.transform.GetChild(16).gameObject.GetComponent<TextMeshProUGUI>().text = player.GetComponent<PlayerStatus>().player_accounts.getPocket()[section_cash].ToString("F");
 
-        
     }
 
     public void UpdateQuatityItem(int index, int value)

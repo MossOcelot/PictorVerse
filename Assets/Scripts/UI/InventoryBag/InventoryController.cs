@@ -187,22 +187,25 @@ public class InventoryController : MonoBehaviour
         miniInventoryUI.showItemDescriptionAction(itemIndex);
         miniInventoryUI.AddDescription(item_name, item_quantity, item_price, item_description);
 
+        int n = 0;
         IItemAction itemAction = MiniItem.item as IItemAction;
         if (itemAction != null)
         { 
-            miniInventoryUI.AddActionInDescription(0,itemAction.ActionName, () => PerformMiniAction(itemIndex));
+            miniInventoryUI.AddActionInDescription(n, itemAction.ActionName, () => PerformMiniAction(itemIndex));
+            n++;
         }
 
         IUSEAction itemUSEAction = MiniItem.item as IUSEAction;
         if (itemUSEAction != null)
         {
-            miniInventoryUI.AddActionInDescription(1,"Notuse", () => NotUseAction(itemIndex));
+            miniInventoryUI.AddActionInDescription(n, "Notuse", () => NotUseAction(itemIndex));
+            n++;
         }
 
         IDestroyableItem destroyableItem = MiniItem.item as IDestroyableItem;
         if (destroyableItem != null)
         {
-            miniInventoryUI.AddActionInDescription(2,"Drop", () => DropItem(itemIndex, MiniItem.quantity));
+            miniInventoryUI.AddActionInDescription(n, "Drop", () => DropItem(itemIndex, MiniItem.quantity));
         }
     }
 
@@ -226,21 +229,23 @@ public class InventoryController : MonoBehaviour
         inventoryUI.AddDescription(item_name, item_quantity, item_price, item_description);
 
         IItemAction itemAction = inventoryItem.item as IItemAction;
+        int n = 0;
         if (itemAction != null)
         {
-            inventoryUI.AddActionInDescription(0,itemAction.ActionName, () => PerformAction(itemIndex));
+            inventoryUI.AddActionInDescription(n, itemAction.ActionName, () => PerformAction(itemIndex));
+            n++;
         }
 
         IUSEAction itemUseAction = inventoryItem.item as IUSEAction;
         if (itemUseAction != null)
         {
-            inventoryUI.AddActionInDescription(1,"use", () => UseAction(itemIndex));
+            inventoryUI.AddActionInDescription(n, "use", () => UseAction(itemIndex));
+            n++;
         }
-
         IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
         if (destroyableItem != null)
         {
-            inventoryUI.AddActionInDescription(2,"Drop", () => DropItem(itemIndex, inventoryItem.quantity));
+            inventoryUI.AddActionInDescription(n, "Drop", () => DropItem(itemIndex, inventoryItem.quantity));
         }
     }
 
@@ -389,23 +394,29 @@ public class InventoryController : MonoBehaviour
     { 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            if (Player_pocket.isActiveAndEnabled == false)
+            Debug.Log("P");
+            if (Player_pocket.status == false)
             {
+                Debug.Log("P1");
                 Player_pocket.show();
             }
             else
             {
+                Debug.Log("P2");
                 Player_pocket.hide();
             }
         }
         
         if(Input.GetKeyDown(KeyCode.F)) 
-        { 
-            if(Foreign_Exchange.isActiveAndEnabled == false)
+        {
+            Debug.Log("F");
+            if (Foreign_Exchange.status == false)
             {
+                Debug.Log("F1");
                 Foreign_Exchange.show();
             } else
             {
+                Debug.Log("F2");
                 Foreign_Exchange.hide();
             }
         }

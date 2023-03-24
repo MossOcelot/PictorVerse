@@ -24,8 +24,6 @@ public class NextObjectPosition : MonoBehaviour
                 anotherpointer.gameObject.SetActive(false);
                 PointObject.gameObject.SetActive(false);
                 Object.gameObject.SetActive(false);
-                //Destroy(gameObject);
-
                
             }
             

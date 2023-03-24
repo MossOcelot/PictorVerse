@@ -27,7 +27,7 @@ public class UIInsurance : MonoBehaviour
         foreach(InsuranceItems insurance in endowments)
         {
             endowmentCard = Instantiate(insuranceCardTemplate, endowment_table);
-            endowmentCard.gameObject.GetComponent<UIInsuraceCard>().SetData(insurance.insurance.insurance_name);
+            endowmentCard.gameObject.GetComponent<UIInsuraceCard>().SetData(insurance.insurance.logo,insurance.insurance.insurance_name);
             endowmentCard.gameObject.GetComponent<UIInsuraceCard>().SetInsurance(insurance);
             endowmentBtn = endowmentCard.gameObject.GetComponent<Button>();
             endowmentBtn.AddEventListener(insurance, OnClickEndowmentAction);
@@ -37,7 +37,7 @@ public class UIInsurance : MonoBehaviour
         foreach(InsuranceItems insurance in healthInsurances)
         {
             HearthCard = Instantiate(insuranceCardTemplate, Hearth_table);
-            HearthCard.gameObject.GetComponent<UIInsuraceCard>().SetData(insurance.insurance.insurance_name);
+            HearthCard.gameObject.GetComponent<UIInsuraceCard>().SetData(insurance.insurance.logo, insurance.insurance.insurance_name);
             HearthCard.gameObject.GetComponent<UIInsuraceCard>().SetInsurance(insurance);
             HearthBtn = HearthCard.gameObject.GetComponent<Button>();
             HearthBtn.AddEventListener(insurance, OnClickHearthAction);

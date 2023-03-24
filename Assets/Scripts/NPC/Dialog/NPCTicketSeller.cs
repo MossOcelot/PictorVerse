@@ -45,4 +45,12 @@ public class NPCTicketSeller : MonoBehaviour
         npcController.playerIsClose = false;
         npcController.dialoguePanel.SetActive(false);
     }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            TicketShelf.gameObject.SetActive(false);
+        }
+    }
 }

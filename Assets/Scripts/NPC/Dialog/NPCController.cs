@@ -15,7 +15,8 @@ public class NPCController : MonoBehaviour
 
     public float wordSpeed;
     public bool playerIsClose;
-    public bool IsEndSituation;
+    public bool IsEndSituation = false;
+
     void Start()
     {
 
@@ -34,7 +35,6 @@ public class NPCController : MonoBehaviour
         {
             if (!dialoguePanel.activeInHierarchy)
             {
-                Debug.Log("dialouge onnnnnnnnnn");
                 dialoguePanel.SetActive(true);
 
                 if (index == dialogue.Length - 1)
@@ -109,8 +109,11 @@ public class NPCController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("AAAdd");
             playerIsClose = true;
             player = other.gameObject;
+            dialoguePanel = GameObject.FindGameObjectWithTag("Dialog").gameObject.transform.GetChild(0).gameObject;
+            dialogueText = dialoguePanel.gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
         }
     }
 
@@ -118,6 +121,7 @@ public class NPCController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+
             IsEndSituation = false;
             playerIsClose = false;
             RemoveText();

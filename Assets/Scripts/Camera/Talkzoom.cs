@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Talkzoom : MonoBehaviour
 {
-    public Camera cameraToZoom; // assign camera to zoom in the Unity Editor
+    public Camera cameraToZoom;
     public float zoomFactor = 1.2f;
     public float smoothTime = 0.5f;
 
@@ -13,6 +13,7 @@ public class Talkzoom : MonoBehaviour
 
     void Start()
     {
+        cameraToZoom = GameObject.FindGameObjectWithTag("MainCamera").gameObject.GetComponent<Camera>();
         targetSize = cameraToZoom.orthographicSize;
     }
 

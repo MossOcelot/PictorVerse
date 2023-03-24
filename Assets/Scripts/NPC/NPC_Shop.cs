@@ -125,12 +125,17 @@ public class NPC_Shop : MonoBehaviour
     public void OpenShelf()
     {
         shop = Instantiate(myshop, shop_manager);
+        Debug.Log("asdas");
         shop.transform.GetChild(0).gameObject.GetComponent<Shop_manager>().player = player.gameObject;
+        Debug.Log("asd");
         shop.transform.GetChild(0).gameObject.GetComponent<Shop_manager>().npc = gameObject;
+        Debug.Log("Sa1");
         shop.transform.GetChild(0).gameObject.GetComponent<Shop_manager>().OrganizeItem();
+        Debug.Log("SAA1");
         shop.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = NPC_status.npc_img;
+        Debug.Log("SAA2");
         cofirmBtn = shop.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.transform.GetChild(18).gameObject.GetComponent<Button>();
-        Debug.Log("SAA");
+        Debug.Log("SAA3");
         shop.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject.transform.GetChild(16).gameObject.GetComponent<TextMeshProUGUI>().text = player.GetComponent<PlayerStatus>().player_accounts.getPocket()[section_cash].ToString("F");
         cofirmBtn.AddEventListener(player.gameObject, OnShopConfirmBuy);
     }

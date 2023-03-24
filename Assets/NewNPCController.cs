@@ -42,8 +42,6 @@ public class NewNPCController : MonoBehaviour
 
     public void ChangeScenes()
     {
-        // Add your scene change logic here
-        // For example, to change to a scene named "MyScene":
         SceneManager.LoadScene("Bank");
     }
 }

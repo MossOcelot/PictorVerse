@@ -6,7 +6,7 @@ using UnityEngine;
 namespace inventory.Model
 {
     [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
-    public class Item : ScriptableObject, IUSEAction
+    public class Item : ScriptableObject, IDestroyableItem, IUSEAction
     {
         public enum rarity_type { common, rare, very_rare, super_rare }
 
@@ -57,6 +57,7 @@ namespace inventory.Model
             }
             return false;
         }
+
     }
 
     [System.Serializable]
