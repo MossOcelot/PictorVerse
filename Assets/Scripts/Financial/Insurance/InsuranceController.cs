@@ -131,7 +131,7 @@ public class InsuranceController : MonoBehaviour
                 foreach (int index in items.Keys)
                 {
                     quantityItems += items[index].quantity;
-                    priceItems += (items[index].quantity * allItemInMarket.GetitemsInMarket()[items[index].item.item_id]);
+                    priceItems += (items[index].quantity * allItemInMarket.GetitemsInMarket()[items[index].item].price);
 
                     if (quantityItems > quantityLimit || priceItems > priceLimit)
                     {
@@ -145,7 +145,7 @@ public class InsuranceController : MonoBehaviour
                             {
                                 Debug.Log("items");
                                 float diffPrice = priceItems - priceLimit;
-                                int quantity = Mathf.FloorToInt(diffPrice / allItemInMarket.GetitemsInMarket()[items[index].item.item_id]);
+                                int quantity = Mathf.FloorToInt(diffPrice / allItemInMarket.GetitemsInMarket()[items[index].item].quantity);
                                 inventory.RemoveItem(index, quantity);
                             }
                             n++;

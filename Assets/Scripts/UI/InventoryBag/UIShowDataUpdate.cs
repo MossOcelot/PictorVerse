@@ -57,11 +57,11 @@ public class UIShowDataUpdate : MonoBehaviour
             Dictionary<int, InventoryItem> items = inventory.GetCurrentInventoryState();
             foreach (InventoryItem item in items.Values)
             {
-                Dictionary<int, float> allItems = alliteminMarket.GetitemsInMarket();
+                Dictionary<Item, AllItemInMarket.ItemData> allItems = alliteminMarket.GetitemsInMarket();
                 float item_price = 0f;
-                if (allItems.ContainsKey(item.item.item_id))
+                if (allItems.ContainsKey(item.item))
                 {
-                    item_price = allItems[item.item.item_id];
+                    item_price = allItems[item.item].price;
                 }
 
                 totalValue += (item_price * item.quantity);
