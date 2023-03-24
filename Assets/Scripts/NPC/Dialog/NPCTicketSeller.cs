@@ -12,11 +12,12 @@ public class NPCTicketSeller : MonoBehaviour
 
     public void Update()
     {
+        if (!npcController.playerIsClose) return;
         bool IsEndSituation = npcController.IsEndSituation;
 
         if (!IsEndSituation)
         {
-            ButtonList = GameObject.FindGameObjectWithTag("DialogBox").gameObject.transform.GetChild(3).gameObject.transform;
+            ButtonList = GameObject.FindGameObjectWithTag("Dialog").gameObject.transform.GetChild(0).gameObject.transform.GetChild(3).gameObject.transform;
 
             return;
         }

@@ -17,15 +17,15 @@ public class TicketCheckMachine : MonoBehaviour
         Debug.Log("IsEnd: " + IsEndSituation);  
         if (!IsEndSituation)
         {
-            if(GameObject.FindGameObjectWithTag("DialogBox").gameObject != null)
+            if(GameObject.FindGameObjectWithTag("Dialog").gameObject.transform.GetChild(0).gameObject != null)
             {
-                ButtonList = GameObject.FindGameObjectWithTag("DialogBox").gameObject.transform.GetChild(3).gameObject.transform;
+                ButtonList = GameObject.FindGameObjectWithTag("Dialog").gameObject.transform.GetChild(0).gameObject.transform.GetChild(3).gameObject.transform;
             }
             return;
         }
         if (IsEndSituation && npcController.playerIsClose)
         {
-            ButtonList = GameObject.FindGameObjectWithTag("DialogBox").gameObject.transform.GetChild(3).gameObject.transform;
+            ButtonList = GameObject.FindGameObjectWithTag("Dialog").gameObject.transform.GetChild(0).gameObject.transform.GetChild(3).gameObject.transform;
             AddButtonInDialog();
         }
     }
