@@ -20,8 +20,7 @@ public class NPCController : MonoBehaviour
 
     void Start()
     {
-
-        dialogueText.text = "";
+       dialogueText.text = "";
     }
 
     // Update is called once per frame
@@ -110,7 +109,6 @@ public class NPCController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("AAAdd");
             playerIsClose = true;
             player = other.gameObject;
             dialoguePanel = GameObject.FindGameObjectWithTag("Dialog").gameObject.transform.GetChild(0).gameObject;

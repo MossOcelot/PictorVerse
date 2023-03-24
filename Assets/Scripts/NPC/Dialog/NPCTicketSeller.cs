@@ -16,7 +16,7 @@ public class NPCTicketSeller : MonoBehaviour
 
         if (!IsEndSituation)
         {
-            ButtonList = GameObject.FindGameObjectWithTag("DialogBox").gameObject.transform.GetChild(3).gameObject.transform;
+            ButtonList = GameObject.FindGameObjectWithTag("Dialog").gameObject.transform.GetChild(0).gameObject.transform.GetChild(3).gameObject.transform;
 
             return;
         }
