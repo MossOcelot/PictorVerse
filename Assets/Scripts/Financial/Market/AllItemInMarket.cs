@@ -46,6 +46,5 @@ public class AllItemInMarket : MonoBehaviour
             }
             beforeDay= time_system.getDateTime()[0];
         }
-        Debug.Log("Size : " + itemsInMarkets.Count);
     }
 }

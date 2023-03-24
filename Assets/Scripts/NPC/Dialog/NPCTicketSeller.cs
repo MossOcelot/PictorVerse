@@ -12,11 +12,12 @@ public class NPCTicketSeller : MonoBehaviour
 
     public void Update()
     {
+        if (!npcController.playerIsClose) return;
         bool IsEndSituation = npcController.IsEndSituation;
 
         if (!IsEndSituation)
         {
-            ButtonList = GameObject.FindGameObjectWithTag("DialogBox").gameObject.transform.GetChild(3).gameObject.transform;
+            ButtonList = GameObject.FindGameObjectWithTag("Dialog").gameObject.transform.GetChild(0).gameObject.transform.GetChild(3).gameObject.transform;
 
             return;
         }
@@ -42,7 +43,7 @@ public class NPCTicketSeller : MonoBehaviour
     {
         TicketShelf.SetActive(true);
         TicketShelf.gameObject.GetComponent<BuyTicketShelfManager>().NPC = gameObject;
-        npcController.playerIsClose = false;
+        //npcController.playerIsClose = true;
         npcController.dialoguePanel.SetActive(false);
     }
 

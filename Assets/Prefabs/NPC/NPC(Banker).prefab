@@ -101,7 +101,6 @@ GameObject:
   - component: {fileID: 4121219768573872153}
   - component: {fileID: 4121219768573873120}
   - component: {fileID: 4121219768573873127}
-  - component: {fileID: 4121219768573872152}
   m_Layer: 7
   m_Name: NPC(Banker)
   m_TagString: NPC
@@ -301,18 +300,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4121219768573872152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4121219768573873134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8ee8c009bbdf8d4da8a1ee0a23dd156, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraToZoom: {fileID: 0}
-  zoomFactor: 1.2
-  smoothTime: 0.1

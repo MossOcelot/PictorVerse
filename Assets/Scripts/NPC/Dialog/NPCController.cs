@@ -17,15 +17,10 @@ public class NPCController : MonoBehaviour
     public bool playerIsClose;
     public bool IsEndSituation = false;
 
-    void Start()
-    {
-
-        dialogueText.text = "";
-    }
-
     // Update is called once per frame
     void Update()
     {
+        if (!playerIsClose) return;
         if (!dialoguePanel.active)
         {
             IsEndSituation = false;
@@ -114,6 +109,7 @@ public class NPCController : MonoBehaviour
             player = other.gameObject;
             dialoguePanel = GameObject.FindGameObjectWithTag("Dialog").gameObject.transform.GetChild(0).gameObject;
             dialogueText = dialoguePanel.gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+            dialogueText.text = "";
         }
     }
 

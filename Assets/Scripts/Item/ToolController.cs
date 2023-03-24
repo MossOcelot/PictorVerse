@@ -51,11 +51,7 @@ public class ToolController : MonoBehaviour
             animator.SetTrigger("SwordAttack");
             UseTool();
         }
-        else
-        {
-            animator.SetBool("isMoving", true);
-            Debug.Log("Not ItemCutD");
-        }
+        
     }
 
     private Collider2D GetMouseOverCollider()

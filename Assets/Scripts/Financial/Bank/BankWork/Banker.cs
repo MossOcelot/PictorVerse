@@ -43,7 +43,7 @@ public class Banker : MonoBehaviour
     {
         BankShelf.gameObject.transform.GetChild(0).gameObject.SetActive(true);
         BankShelf.gameObject.GetComponent<Bank_Status>().Banker = gameObject;
-        npcController.playerIsClose = false;
+        //npcController.playerIsClose = false;
         npcController.dialoguePanel.SetActive(false);
     }
 
@@ -56,7 +56,7 @@ public class Banker : MonoBehaviour
         insurance.SetInsurance();
         InsuranceShelf.SetActive(true);
         uIInsurance.UpdateUIInsurance();
-        npcController.playerIsClose = false;
+        //npcController.playerIsClose = false;
         npcController.dialoguePanel.SetActive(false);
     }
 

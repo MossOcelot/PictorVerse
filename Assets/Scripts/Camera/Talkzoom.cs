@@ -23,6 +23,7 @@ public class Talkzoom : MonoBehaviour
         {
             targetSize /= zoomFactor;
             StartCoroutine(SmoothZoom());
+            cameraToZoom = GameObject.FindGameObjectWithTag("MainCamera").gameObject.GetComponent<Camera>();
         }
     }
 
