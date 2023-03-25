@@ -47,7 +47,6 @@ public class FinancialChart : MonoBehaviour
                 List<float> valueList = new List<float>();
                 foreach (FinancialDataBase data in database)
                 {
-                    Debug.Log($"Section: {data.section} {sections.options[sections.value].text}");
                     if (data.section.ToString() == sections.options[sections.value].text)
                     {
                         valueList = data.data;
