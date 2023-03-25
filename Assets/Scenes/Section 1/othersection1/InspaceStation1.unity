@@ -20285,6 +20285,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: fe0c3061286ad7c4a818b6f630aec846, type: 3}
+--- !u!1 &1157936986 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 923397854569987475, guid: fe0c3061286ad7c4a818b6f630aec846, type: 3}
+  m_PrefabInstance: {fileID: 1157936985}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1157936987
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157936986}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 42856fe25f8e19e40b9b5099648da39d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1159325511
 GameObject:
   m_ObjectHideFlags: 0
@@ -33409,14 +33434,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1923258348}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.0033116657, y: -0, z: -0, w: 0.9999945}
   m_LocalPosition: {x: -9.129847, y: 4.896216, z: -0.8121827}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1326460887}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.379, y: 0, z: 0}
 --- !u!60 &1923258351
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -36717,6 +36742,10 @@ PrefabInstance:
       propertyPath: dialoguePanel
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 9071660455513818679, guid: 72a1ff215365dd847b1ac2da47d6f0aa, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 42856fe25f8e19e40b9b5099648da39d, type: 2}
     - target: {fileID: 9071660455513818687, guid: 72a1ff215365dd847b1ac2da47d6f0aa, type: 3}
       propertyPath: TicketShelf
       value: 
