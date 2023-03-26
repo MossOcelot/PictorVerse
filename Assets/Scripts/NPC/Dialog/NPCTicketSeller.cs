@@ -43,7 +43,7 @@ public class NPCTicketSeller : MonoBehaviour
     {
         TicketShelf.SetActive(true);
         TicketShelf.gameObject.GetComponent<BuyTicketShelfManager>().NPC = gameObject;
-        npcController.playerIsClose = false;
+        //npcController.playerIsClose = true;
         npcController.dialoguePanel.SetActive(false);
     }
 

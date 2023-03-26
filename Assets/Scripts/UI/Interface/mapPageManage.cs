@@ -1,4 +1,4 @@
-using inventory.Model;
+﻿using inventory.Model;
 using Mono.Cecil;
 using System;
 using System.Collections;
@@ -27,6 +27,9 @@ public class mapPageManage : MonoBehaviour
     private sortingSection sortingSection;
 
     [SerializeField]
+    private InventorySO resourceData;
+
+    [SerializeField]
     private UIplanetDescription planetDescription;
 
     public List<planetItem> initialItems = new List<planetItem>();
@@ -34,7 +37,7 @@ public class mapPageManage : MonoBehaviour
 
     bool isCityON = false;
     bool isGalaxyOn = false;
-
+    int Size_r = 0;
     //public int planetSize = 2;
     public void close()
     {
@@ -43,15 +46,12 @@ public class mapPageManage : MonoBehaviour
 
     public void open_planetPage()
     {
-        Debug.Log("Q");
         mapPage.planet.gameObject.SetActive(true);
         planetUI.Show();
         sortingSection.sortSection();
-        Debug.Log("k");
         PrepareUI();
         foreach (var item in sortingSection.planetData.GetCurrentPlanetState())
         {
-            Debug.Log("Key: " + item.Key);
             planetUI.UpdateData(item.Key,
                 item.Value.item.planetImage);
 
@@ -73,14 +73,14 @@ public class mapPageManage : MonoBehaviour
 
     private void PrepareResourceData()
     {
-        sortingSection.resourceData.OnInventoryUpdated += UpdateResourceUI;
+        resourceData.OnInventoryUpdated += UpdateResourceUI;
         foreach (var item in resource_initialItems)
         {
             if (item.IsEmpty)
             {
                 continue;
             }
-            sortingSection.resourceData.AddItem(item);
+           resourceData.AddItem(item);
         }
     }
 
@@ -108,17 +108,13 @@ public class mapPageManage : MonoBehaviour
     }
     public void open_galaxyMap()
     {
-        Debug.Log("D");
         if (isGalaxyOn != true)
         {
             mapPage.galaxyMap.gameObject.SetActive(!isGalaxyOn);
             isGalaxyOn = !isGalaxyOn;
         }
-        Debug.Log("A");
         mapPage.planet.gameObject.SetActive(false);
-        Debug.Log("V");
         planetDescription.gameObject.SetActive(false);
-        Debug.Log("B");
     }
 
     public void back_to_cityMap()
@@ -139,20 +135,17 @@ public class mapPageManage : MonoBehaviour
 
     private void PrepareResourceUI()
     {
-        Debug.Log("resource" + sortingSection.resourceData.Size);
-        resourceUI.InitializeResourceUI(sortingSection.resourceData.Size);
+        //Debug.Log("resource" + sortingSection.resourceData.Size);
+        resourceUI.InitializeResourceUI(10); // กำหนดให้ท่ากับ3
 
     }
 
     private void HandleDescriptionRequest(int itemIndex)
     {
-        Debug.Log("item index" + itemIndex);
-        Debug.Log("re1" + sortingSection.resourceData);
         planetDescription.gameObject.SetActive(true);
-        planetItem planetItem = sortingSection.planetData.GetItemAt(itemIndex);
+        planetItem planetItem = sortingSection.planetData.GetItemAt(itemIndex); //planetItem = ดาว1ดวงที่เลือก
         if (planetItem.IsEmpty)
         {
-            Debug.Log("get index");
             planetUI.ResetSelection();
             return;
         }
@@ -161,18 +154,19 @@ public class mapPageManage : MonoBehaviour
             item.Name, item.location, item.rank, item.uniqueness,
         item.Advantage, item.Disadvantage);
 
-        Debug.Log("re index1" + sortingSection.index);
-        sortingSection.index = itemIndex;
-        Debug.Log("re index2" + sortingSection.index);
-        sortingSection.selectingResource();
-        Debug.Log("re2" + sortingSection.resourceData);
+
+
+        //sortingSection.index = itemIndex;
+        //sortingSection.selectingResource();
+        //Debug.Log("re2" + sortingSection.resourceData);
         resourceUI.gameObject.SetActive(true);
+        resourceData = item.resourceSO;
         PrepareResourceUI();
-        foreach (var r_item in sortingSection.resourceData.GetCurrentInventoryState())
+        foreach (var r_item in item.resourceSO.GetCurrentInventoryState()) /// can use item.resourceSO
         {
             resourceUI.UpdateData(r_item.Key, r_item.Value.item, r_item.Value.item.icon);
         }
-        InventoryItem resourceItem = sortingSection.resourceData.GetItemAt(itemIndex);
+        InventoryItem resourceItem = item.resourceSO.GetItemAt(itemIndex);
         // inventoryUI
         if (resourceItem.IsEmpty)
         {

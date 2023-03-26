@@ -22,8 +22,6 @@ public class sortingSection : MonoBehaviour
 
     public planetBoxSO planetData = null;
 
-    public InventorySO resourceData = null;
-
     public int index = 0;
 
     bool switch1_ON = false;
@@ -64,11 +62,11 @@ public class sortingSection : MonoBehaviour
         //else if (switch4_ON) { planetData = section4.planetData;}
         //else { planetData = section5.planetData; }
 
-        Debug.Log("resourceData" + resourceData);
+        //Debug.Log("resourceData" + resourceData);
 
     }
 
-    public void selectingResource()
+    /*public void selectingResource()
     {
         if (switch1_ON == true)
         {
@@ -80,5 +78,5 @@ public class sortingSection : MonoBehaviour
             section2.selectSection(index);
             resourceData = section2.resourceData;
         }
-    }
+    }*/
 }

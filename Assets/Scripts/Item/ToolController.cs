@@ -60,15 +60,7 @@ public class ToolController : MonoBehaviour
             UseTool();
             Debug.Log("A10");
         }
-        /*else
-        {
-            Debug.Log("C");
-            animator.SetBool("isMoving", true);
-            Debug.Log("A11");
-            Debug.Log("Not ItemCutD");
-            Debug.Log("A12");
-        }*/
-        Debug.Log("A13");
+
     }
 
     private Collider2D GetMouseOverCollider()

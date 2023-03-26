@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 using System;
-
 public class NPCController : MonoBehaviour
 {
     public GameObject dialoguePanel;
