@@ -1,11 +1,21 @@
+using inventory.Model;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ItemDestroy : Tool
 {
+    [System.Serializable]
+    public class ItemDropData
+    {
+        public Item item;
+        public int Maxquantity;
+        public float PercentDrop;
+    }
     [SerializeField] private AIFollow aiFollow;
-    [SerializeField] GameObject drop;
+    [SerializeField] GameObject dropItem;
+    [SerializeField] List<ItemDropData> item_datas;
     [SerializeField] int dropCount = 15;
     [SerializeField] float spread = 2f;
     public float Hitpoints;
@@ -93,20 +103,45 @@ public class ItemDestroy : Tool
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
         yield return new WaitForSeconds(1f);
 
+        int quantity_item = item_datas.Count;
+        if (quantity_item == 0) quantity_item = 1;
+        int quantity_drop = (int)Random.Range(1, quantity_item);
+        Debug.Log("Random " + quantity_drop);
+        dropCount = quantity_drop;
         while (dropCount > 0)
         {
             dropCount -= 1;
             Vector3 pos = transform.position;
             pos.x += spread * UnityEngine.Random.value - spread / 2;
             pos.y += spread * UnityEngine.Random.value - spread / 2;
-            GameObject go = Instantiate(drop);
-            if (go == null)
-            {
-                break;
-            }
+            
+            GameObject go = Instantiate(dropItem);
+            ItemDropData item = GetRandowmItem();
+          
+            if (item == null) continue;
+            int quantity_itemDrop = (int)Random.Range(1, item.Maxquantity);
+            go.GetComponent<ItemPickup>().SetItemPickUp(item.item, quantity_itemDrop);
+            if (go == null) break;
             go.transform.position = pos;
+            Debug.Log($"index: {dropCount} item: {item.item.item_name} quantity: {quantity_itemDrop}");
         }
         Destroy(gameObject);
+    }
+
+    private ItemDropData GetRandowmItem()
+    {
+        float perdrop = Random.value;
+        foreach(ItemDropData item in item_datas)
+        {
+            float itemChance = (float)item.PercentDrop / 100;
+
+            Debug.Log("itemChance: " + itemChance);
+            if (itemChance > perdrop)
+            {
+                return item;
+            }
+        }
+        return null;
     }
 
     IEnumerator ResetHitpoints()

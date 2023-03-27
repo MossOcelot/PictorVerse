@@ -56,6 +56,9 @@ public class MailManager : MonoBehaviour
                 {
                     Action updateAction = mail.actionMail;
                     uiMailCard.SetActionBtn(new ActionBtn(true, "รับ", updateAction));
+                } else
+                {
+                    uiMailCard.SetActionBtn(new ActionBtn(false));
                 }
             }
         }
