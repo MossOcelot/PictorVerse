@@ -7,6 +7,10 @@ public class Swiitch : MonoBehaviour
 {
     public GameObject[] background;
     public int maxIndex;
+    public int numberElement;
+    public GameObject closetoggle;
+    bool toggleisClose;
+
     int index;
 
     void Start()
@@ -29,11 +33,12 @@ public class Swiitch : MonoBehaviour
     public void Next()
     {
         index += 1;
-
+        
         for (int i = 0; i < background.Length; i++)
         {
             background[i].gameObject.SetActive(false);
             background[index].gameObject.SetActive(true);
+            
 
         }
         Debug.Log(index);
@@ -41,6 +46,7 @@ public class Swiitch : MonoBehaviour
     public void Previous()
     {
         index -= 1;
+
         for (int i = 0; i < background.Length; i++)
         {
             background[i].gameObject.SetActive(false);
@@ -48,4 +54,14 @@ public class Swiitch : MonoBehaviour
         }
         Debug.Log(index);
     }
+
+    public void CloseToggle()
+    {
+        toggleisClose = true;
+
+        if (toggleisClose)
+        {
+            closetoggle.gameObject.SetActive(false);
+        }
     }
+}
