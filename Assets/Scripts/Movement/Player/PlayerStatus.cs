@@ -44,6 +44,8 @@ public class PlayerStatus : MonoBehaviour
     private int HP;
     [SerializeField]
     private int energy;
+    [SerializeField]
+    private AudioSource DeadSFX;
 
     public bool IsDead = false;
     private SceneStatus.section section_name;
@@ -230,6 +232,7 @@ public class PlayerStatus : MonoBehaviour
         }
         if (this.HP <= 0)
         {
+            DeadSFX.Play();
             IsDead = true;
 
         }

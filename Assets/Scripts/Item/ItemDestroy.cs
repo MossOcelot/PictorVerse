@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ItemDestroy : Tool
 {
+    [SerializeField]
+    private AudioSource DestroySFX;
     [SerializeField] private AIFollow aiFollow;
     [SerializeField] GameObject drop;
     [SerializeField] int dropCount = 15;
@@ -106,6 +108,7 @@ public class ItemDestroy : Tool
             }
             go.transform.position = pos;
         }
+        DestroySFX.Play();
         Destroy(gameObject);
     }
 
