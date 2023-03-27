@@ -39,4 +39,14 @@ public class GovermentStatus : MonoBehaviour
             this.govermentFinancial.debt = value;
         }
     }
+
+    public float GetTaxIncome()
+    {
+        float AllIncome = 0;
+        foreach(AccountsDetail account in govermentAccounts)
+        {
+            AllIncome += account.income;
+        }
+        return AllIncome;
+    }
 }

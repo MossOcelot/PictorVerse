@@ -20,6 +20,12 @@ public class ItemPickup : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().size = new Vector2(1f, 1f);
     }
 
+    public void SetItemPickUp(Item newItem, int quantity)
+    {
+        InventoryItem = newItem;
+        Quantity = quantity;
+    }
+
     internal void DestroyItem()
     {
         GetComponent<Collider2D>().enabled = false;
