@@ -10,7 +10,6 @@ public class Swiitch : MonoBehaviour
     public int numberElement;
     public GameObject closetoggle;
     bool toggleisClose;
-
     int index;
 
     void Start()
