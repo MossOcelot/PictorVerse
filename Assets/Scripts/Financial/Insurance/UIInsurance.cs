@@ -81,14 +81,17 @@ public class UIInsurance : MonoBehaviour
     public void Close()
     {
         Debug.Log("AKK");
+        if (insurance_manager.Banker == null) return;
         insurance_manager.Banker.gameObject.GetComponent<NPCController>().playerIsClose = false;
+        Debug.Log("A1");
         int len_endowment_table = endowment_table.childCount;
         int len_Hearth_table = Hearth_table.childCount;
+        Debug.Log("A2");
         for (int i = 0; i < len_endowment_table; i++)
         {
             Destroy(endowment_table.GetChild(i).gameObject);
         }
-
+        Debug.Log("A3");
         for (int i = 0; i < len_Hearth_table; i++)
         {
             Destroy(Hearth_table.GetChild(i).gameObject);

@@ -18,7 +18,7 @@ public class Banker : MonoBehaviour
 
         if (!IsEndSituation)
         {
-            ButtonList = GameObject.FindGameObjectWithTag("DialogBox").gameObject.transform.GetChild(3).gameObject.transform;
+            ButtonList = GameObject.FindGameObjectWithTag("Dialog").gameObject.transform.GetChild(0).gameObject.transform.GetChild(3).gameObject.transform;
             return;
         }
         if (IsEndSituation && npcController.playerIsClose)
@@ -66,7 +66,6 @@ public class Banker : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             BankShelf.gameObject.GetComponent<Bank_Status>().Close();
-            InsuranceShelf.gameObject.GetComponent<UIInsurance>().Close();
             LoanShelf.gameObject.GetComponent<BorrowingManager>().Close();
             InsuranceShelf.gameObject.GetComponent<UIInsurance>().Close();
         }

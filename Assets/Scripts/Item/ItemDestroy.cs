@@ -127,8 +127,8 @@ public class ItemDestroy : Tool
             go.transform.position = pos;
             Debug.Log($"index: {dropCount} item: {item.item.item_name} quantity: {quantity_itemDrop}");
         }
-        DestroySFX.Play();
         Destroy(gameObject);
+        DestroySFX.Play();
     }
 
     private ItemDropData GetRandowmItem()

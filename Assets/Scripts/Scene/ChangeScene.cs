@@ -25,13 +25,10 @@ public class ChangeScene : MonoBehaviour
 
     public IEnumerator _ChangeScene()
     {
-        Debug.Log("QQQ");
         fade.FadeIn();
-        Debug.Log("AAA");
         yield return new WaitForSeconds(1f);
-        Debug.Log("BBB");
+
         SceneManager.LoadScene(sceneName);
-        Debug.Log("CCC");
         yield return new WaitForEndOfFrame(); 
         player = GameObject.FindWithTag("Player");
         player.transform.position = desiredPosition; 
@@ -44,6 +41,7 @@ public class ChangeScene : MonoBehaviour
         {
             //Progessbar.gameObject.SetActive(true);
             //AnimateBar();
+            if (sceneName == "Inspace station") return; // fix bug в§иж 
             StartCoroutine(_ChangeScene());
 
         }
