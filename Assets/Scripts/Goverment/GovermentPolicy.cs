@@ -11,24 +11,16 @@ public class GovermentPolicy : MonoBehaviour
         public float maxIncome;
         public float Tax;
     }
-    [SerializeField]
-    private GovermentStatus govermentStatus;
+    public GovermentStatus govermentStatus;
 
-    [SerializeField]
-    private int vat_tax;
-    [SerializeField]
-    private int business_tax;
-    [SerializeField]
-    private List<IndividualRangeTax> individual_tax;
-    [SerializeField]
-    private int travel_tax;
-    [SerializeField]
-    private int vehicle_tax;
-    [SerializeField]
-    private int personal_star_tax;
+    public int vat_tax;
+    public int business_tax;
+    public List<IndividualRangeTax> individual_tax;
+    public int travel_tax;
+    public int vehicle_tax;
+    public int personal_star_tax;
 
-    [SerializeField]
-    private int[] taxCollectionDay;
+    public int[] taxCollectionDay;
 
     Timesystem time_system;
 

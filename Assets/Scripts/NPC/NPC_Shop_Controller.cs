@@ -41,12 +41,8 @@ public class NPC_Shop_Controller : MonoBehaviour
 
     public void OpenShopShelf(int n)
     {
-        Debug.Log("CX1");
         npc_shop.OpenShelf();
-        Debug.Log("CX2");
-        npcController.playerIsClose = false;
-        Debug.Log("CX3");
+        // npcController.playerIsClose = false;
         npcController.dialoguePanel.SetActive(false);
-        Debug.Log("CX4");
     }
 }

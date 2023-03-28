@@ -9,6 +9,7 @@ public class Banker : MonoBehaviour
     public Transform ButtonList;
     public GameObject BankShelf;
     public GameObject InsuranceShelf;
+    public GameObject LoanShelf;
     public NPCController npcController;
 
     public void Update()
@@ -66,6 +67,7 @@ public class Banker : MonoBehaviour
         {
             BankShelf.gameObject.GetComponent<Bank_Status>().Close();
             InsuranceShelf.gameObject.SetActive(false);
+            LoanShelf.gameObject.GetComponent<BorrowingManager>().Close();
             InsuranceShelf.gameObject.GetComponent<UIInsurance>().Close();
         }
     }

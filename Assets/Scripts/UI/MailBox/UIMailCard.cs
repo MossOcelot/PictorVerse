@@ -34,14 +34,20 @@ public class UIMailCard : MonoBehaviour
 
     public void SetActionBtn(ActionBtn actionBtn)
     {
-        this.actionBtn = actionBtn;
+        if (actionBtn != null)
+        {
+            this.actionBtn = actionBtn;
+        }
         myButton.onClick.AddListener(() => SetActionMailCardBtn());
     }
 
     public void SetActionMailCardBtn()
     {
         mailpaper.SetMailPaperData(subject, body);
-        mailpaper.SetCorrectBtn(actionBtn.status, actionBtn.text, actionBtn.action);
+        if (actionBtn != null)
+        {
+            mailpaper.SetCorrectBtn(actionBtn.status, actionBtn.text, actionBtn.action);
+        }
         mailpaper.SetDeleteBtn(true, "ลบ", ()=> DeleteCard());
     }
 
@@ -74,5 +80,10 @@ public class ActionBtn
         this.status = status;
         this.text = text;
         this.action = action;
+    }
+
+    public ActionBtn(bool status)
+    {
+        this.status = status;
     }
 }

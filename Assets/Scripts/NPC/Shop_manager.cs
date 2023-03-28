@@ -57,6 +57,11 @@ public class Shop_manager : MonoBehaviour
     Button removeSellBtn;
     float VAT;
     public int n_item;
+
+    private void Start()
+    {
+        section_cash = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection.ToString();
+    }
     public float[] getAccounts()
     {
         return new float[] { price, vat_value, total };

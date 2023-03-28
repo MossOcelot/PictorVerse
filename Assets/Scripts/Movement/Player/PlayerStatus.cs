@@ -57,6 +57,7 @@ public class PlayerStatus : MonoBehaviour
     public PlayerMovement movementScript;
     public ToolController attackScript;
 
+    public LoanPlayerController loanPlayerController;
 
     public void setPlayerName(string newName)
     {

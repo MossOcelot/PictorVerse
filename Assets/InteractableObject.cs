@@ -5,6 +5,7 @@ using UnityEngine;
 public class InteractableObject : MonoBehaviour
 {
     public GameObject ScenetoShow;
+    public GameObject BoxChangeTimer;
     private bool isInRange = false;
     public int numberToBack;
 
@@ -28,6 +29,7 @@ public class InteractableObject : MonoBehaviour
     {
         if (isInRange && Input.GetKeyDown(KeyCode.E))
         {
+            BoxChangeTimer.SetActive(true);
             ScenetoShow.SetActive(true);
             StartCoroutine(WaitForSeconds(numberToBack));
         }
