@@ -1,5 +1,138 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1146175300
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1146175301}
+  - component: {fileID: 1146175304}
+  - component: {fileID: 1146175303}
+  - component: {fileID: 1146175302}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1146175301
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146175300}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1000591860939293711}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 570, y: 422}
+  m_SizeDelta: {x: 60, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1146175304
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146175300}
+  m_CullTransparentMesh: 1
+--- !u!114 &1146175303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146175300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 421910899, guid: d1fad5e50a19aba4ca9f14e295e15d1a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1146175302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146175300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1146175303}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1000591862318380393}
+        m_TargetAssemblyTypeName: Bank_Status, Assembly-CSharp
+        m_MethodName: Close
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &172431480738786718
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,6 +745,7 @@ RectTransform:
   - {fileID: 1000591861712094020}
   - {fileID: 1000591861941753603}
   - {fileID: 1000591862582887963}
+  - {fileID: 1146175301}
   m_Father: {fileID: 1000591862318380394}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5731,8 +5865,9 @@ GameObject:
   - component: {fileID: 1000591862312609574}
   - component: {fileID: 1000591862312609572}
   - component: {fileID: 1000591862312609575}
+  - component: {fileID: 1052837567}
   m_Layer: 5
-  m_Name: P1 (2)
+  m_Name: loan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5798,6 +5933,86 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1052837567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000591862312609569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1000591862312609575}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1000591860939293710}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: BorrowingManager, Assembly-CSharp
+        m_MethodName: SetPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1000591862317954999
 GameObject:
   m_ObjectHideFlags: 0
@@ -5889,7 +6104,6 @@ GameObject:
   - component: {fileID: 1000591862318380395}
   - component: {fileID: 1000591862318380393}
   - component: {fileID: 1000591862318380392}
-  - component: {fileID: 9202468411701499793}
   m_Layer: 5
   m_Name: Bank
   m_TagString: Bank
@@ -5912,7 +6126,7 @@ RectTransform:
   - {fileID: 1000591860939293711}
   - {fileID: 1000591862250150742}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6044,112 +6258,6 @@ MonoBehaviour:
   DB: {fileID: 1000591862250150740}
   balance: {fileID: 1000591861010711243}
   player_status: {fileID: 0}
---- !u!114 &9202468411701499793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000591862318380406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f311342e1ea8a347b4238d3334f419f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bank_manager: {fileID: 0}
-  endowments:
-  - insurance: {fileID: 11400000, guid: cefca69a075f1754091e94c68653cb9b, type: 2}
-    subpackage:
-    - year: 1
-      price: 5000
-    - year: 3
-      price: 14000
-    - year: 5
-      price: 23000
-    buyDay: 
-    expireDay: 
-  - insurance: {fileID: 11400000, guid: 91846a54dda4d58458407d25d515a5f1, type: 2}
-    subpackage:
-    - year: 1
-      price: 550000
-    - year: 3
-      price: 1550000
-    - year: 5
-      price: 2450000
-    buyDay: 
-    expireDay: 
-  - insurance: {fileID: 11400000, guid: 225f477850bf44b42ba1d0cacebd65cd, type: 2}
-    subpackage:
-    - year: 1
-      price: 500000
-    - year: 3
-      price: 1400000
-    - year: 5
-      price: 2300000
-    buyDay: 
-    expireDay: 
-  - insurance: {fileID: 11400000, guid: 60e2568e0c9f5e142900292ce0d04d7b, type: 2}
-    subpackage:
-    - year: 1
-      price: 500000
-    - year: 3
-      price: 1400000
-    - year: 5
-      price: 2300000
-    buyDay: 
-    expireDay: 
-  - insurance: {fileID: 11400000, guid: 1ce01445aa207484f8444e0b697f5898, type: 2}
-    subpackage:
-    - year: 1
-      price: 1000000
-    - year: 3
-      price: 2900000
-    - year: 5
-      price: 5800000
-    buyDay: 
-    expireDay: 
-  health_insurances:
-  - insurance: {fileID: 11400000, guid: 60cd91e3f36675a439d5aeea693740d2, type: 2}
-    subpackage:
-    - year: 1
-      price: 1500
-    - year: 3
-      price: 4400
-    - year: 5
-      price: 7300
-    buyDay: 
-    expireDay: 
-  - insurance: {fileID: 11400000, guid: 70658fed134d4e440a3595caffe8c25d, type: 2}
-    subpackage:
-    - year: 1
-      price: 4500
-    - year: 3
-      price: 12500
-    - year: 5
-      price: 20500
-    buyDay: 
-    expireDay: 
-  - insurance: {fileID: 11400000, guid: 2fbdd76cd0cb78349a1724fafd1a3625, type: 2}
-    subpackage:
-    - year: 1
-      price: 45000
-    - year: 3
-      price: 125000
-    - year: 5
-      price: 205000
-    buyDay: 
-    expireDay: 
-  - insurance: {fileID: 11400000, guid: 493f11e5c1bd97b4eb262b527abdb27a, type: 2}
-    subpackage:
-    - year: 1
-      price: 450000
-    - year: 3
-      price: 1250000
-    - year: 5
-      price: 2050000
-    buyDay: 
-    expireDay: 
-  insurance_manager: {fileID: 0}
 --- !u!1 &1000591862343307150
 GameObject:
   m_ObjectHideFlags: 0
@@ -7690,7 +7798,7 @@ MonoBehaviour:
           m_StringArgument: Bank
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 9202468411701499793}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CallInsurancePage, Assembly-CSharp
         m_MethodName: SetInsurance
         m_Mode: 1
@@ -7714,7 +7822,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1000591862318380406}
+      - m_Target: {fileID: 1000591860939293710}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
