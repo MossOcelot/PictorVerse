@@ -44,8 +44,11 @@ public class PlayerStatus : MonoBehaviour
     private int HP;
     [SerializeField]
     private int energy;
+    [SerializeField]
+    private AudioSource DeadSFX;
 
     public bool IsDead = false;
+    public PlayerTeleport player_teleport;
     private SceneStatus.section section_name;
 
 
@@ -231,10 +234,11 @@ public class PlayerStatus : MonoBehaviour
         }
         if (this.HP <= 0)
         {
+            DeadSFX.Play();
             IsDead = true;
 
         }
-        if (IsDead || this.HP <= 0)
+        if (IsDead)
         {
             animator.SetTrigger("isDeath");
             movementScript.enabled = false;
@@ -242,6 +246,18 @@ public class PlayerStatus : MonoBehaviour
             rb.velocity = new Vector2(0f, 0f);
             rb.angularDrag = 0;
             rb.mass = 5000f;
+
+            yield return new WaitForSeconds(5f);
+            // Respawner
+            player_teleport.Respawner();
+            animator.SetTrigger("Respawn");
+
+            IsDead = false;
+            this.HP = 100;
+            movementScript.enabled = true;
+            attackScript.enabled = true;
+            rb.mass = 50f;
+
         }
 
     }

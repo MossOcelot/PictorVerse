@@ -14,6 +14,10 @@ public class UpdatePlayerAccount : MonoBehaviour
     int last_count;
     GameObject account_card;
     // Update is called once per frame
+    private void Start()
+    {
+        player_status = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerStatus>();
+    }
     void Update()
     {
         List<AccountsDetail> player_account = player_status.getAccountsDetails();

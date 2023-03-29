@@ -171,7 +171,7 @@ public class UIInventoryPage : MonoBehaviour
         DeselectAllItems();
         listOfUIItems[itemIndex].Select();
         descriptionActionPanel.Toggle(true);
-        descriptionActionPanel.transform.position = listOfUIItems[itemIndex].transform.position + new Vector3(105.7f, -187f, 0);
+        descriptionActionPanel.transform.position = listOfUIItems[itemIndex].transform.position + new Vector3(135.7f, -197f, 0);
     }
 
     public void hideItem(int itemIndex)

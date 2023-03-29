@@ -36,7 +36,7 @@ public class NPCController : MonoBehaviour
                 {
                     IsEndSituation = true;
                 }
-                if(player != null)
+                if (player != null)
                 {
                     player.gameObject.GetComponent<PlayerMovement>().isLooking = true;
                 }
@@ -46,7 +46,7 @@ public class NPCController : MonoBehaviour
             {
                 NextLine();
             }
-            
+
 
         }
         if (Input.GetKeyDown(KeyCode.Q) && dialoguePanel.activeInHierarchy)
@@ -60,11 +60,11 @@ public class NPCController : MonoBehaviour
         dialogueText.text = "";
         index = 0;
         int len = dialoguePanel.transform.GetChild(3).gameObject.transform.childCount;
-        for(int i = 0; i < len - 1; i++) 
+        for (int i = 0; i < len - 1; i++)
         {
             dialoguePanel.transform.GetChild(3).gameObject.transform.GetChild(i + 1).gameObject.SetActive(false);
-        } 
-        if(player != null)
+        }
+        if (player != null)
         {
             player.gameObject.GetComponent<PlayerMovement>().isLooking = false;
         }
@@ -91,7 +91,7 @@ public class NPCController : MonoBehaviour
             }
             dialogueText.text = "";
             StartCoroutine(Typing());
-        } 
+        }
         else
         {
             RemoveText();
@@ -104,9 +104,9 @@ public class NPCController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("AAAdd");
             playerIsClose = true;
-            player = other.gameObject;
+            player = GameObject.FindGameObjectWithTag("Player");
+            //player = other.gameObject;
             dialoguePanel = GameObject.FindGameObjectWithTag("Dialog").gameObject.transform.GetChild(0).gameObject;
             dialogueText = dialoguePanel.gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
             dialogueText.text = "";

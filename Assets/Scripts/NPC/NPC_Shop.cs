@@ -206,7 +206,9 @@ public class NPC_Shop : MonoBehaviour
     private void OnTriggerExit2D(Collider2D target)
     {
         if (target.gameObject.CompareTag("Player"))
-        { 
+        {
+            int len = GameObject.FindGameObjectWithTag("ShopManager").gameObject.transform.childCount;
+            if (len == 0) return;
             Destroy(GameObject.FindGameObjectWithTag("ShopManager").gameObject.transform.GetChild(0).gameObject);
         } 
     }

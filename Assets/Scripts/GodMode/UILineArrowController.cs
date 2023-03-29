@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-
+using TMPro;
 public class UILineArrowController : MonoBehaviour
 {
     [System.Serializable]
@@ -14,7 +13,7 @@ public class UILineArrowController : MonoBehaviour
     }
 
     public List<LineArrowShow> ArrowShows;
-
+    public TextMeshProUGUI title;
     public bool finish = true;
 
     public void SetFinish(bool finish)
@@ -37,6 +36,7 @@ public class UILineArrowController : MonoBehaviour
         for(int i = 0; i < count; i++)
         {
             Debug.Log("Round : " + i);
+
             if( i != 0)
             {
                 foreach(GameObject arrow in ArrowShows[i - 1].Arrows)
@@ -44,7 +44,10 @@ public class UILineArrowController : MonoBehaviour
                     arrow.SetActive(false);
                 }
             }
-            foreach(GameObject arrow in ArrowShows[i].Arrows)
+
+            title.text = ArrowShows[i].name;
+
+            foreach (GameObject arrow in ArrowShows[i].Arrows)
             {
                 arrow.SetActive(true);
             }

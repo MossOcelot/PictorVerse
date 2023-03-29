@@ -8,6 +8,9 @@ public class PickupSystem : MonoBehaviour
     [SerializeField]
     private InventorySO inventoryData;
 
+    [SerializeField]
+    private AudioSource CollectSFX;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         ItemPickup item = collision.GetComponent<ItemPickup>();
@@ -17,6 +20,7 @@ public class PickupSystem : MonoBehaviour
 
             if(reminder == 0)
             {
+                CollectSFX.Play();
                 item.DestroyItem();
             } else
             {

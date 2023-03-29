@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class ItemDestroy : Tool
 {
+    [SerializeField]
+    private AudioSource DestroySFX;
     [System.Serializable]
     public class ItemDropData
     {
@@ -68,33 +70,33 @@ public class ItemDestroy : Tool
 
     public override void Hit()
     {
-            Hitpoints -= 1;
+        Hitpoints -= 1;
 
-            moveDirection += new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0f);
-            rb.AddForce(moveDirection.normalized * -3000f);
+        moveDirection += new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0f);
+        rb.AddForce(moveDirection.normalized * -3000f);
 
-            if (HealthBar != null)
-            {
-                HealthBar.SetHealth(Hitpoints, MaxHitpoints);
-            }
+        if (HealthBar != null)
+        {
+            HealthBar.SetHealth(Hitpoints, MaxHitpoints);
+        }
 
-            if (Hitpoints <= 0 && !isDestroyed)
-            {
-                isDestroyed = true;
-                StartCoroutine(DestroyAfterDelay());
+        if (Hitpoints <= 0 && !isDestroyed)
+        {
+            isDestroyed = true;
+            StartCoroutine(DestroyAfterDelay());
 
-            }
-            else
-            {
-                timer = 0f;
-                StartCoroutine(ResetHitpoints());
-                animator.SetTrigger("isHurt");
-                GameObject points = Instantiate(floatingPoints, transform.position, Quaternion.identity) as GameObject;
-                points.transform.GetChild(0).GetComponent<TextMesh>().text = "-1";
+        }
+        else
+        {
+            timer = 0f;
+            StartCoroutine(ResetHitpoints());
+            animator.SetTrigger("isHurt");
+            GameObject points = Instantiate(floatingPoints, transform.position, Quaternion.identity) as GameObject;
+            points.transform.GetChild(0).GetComponent<TextMesh>().text = "-1";
 
         }
     }
-    
+
 
 
     IEnumerator DestroyAfterDelay()
@@ -114,10 +116,10 @@ public class ItemDestroy : Tool
             Vector3 pos = transform.position;
             pos.x += spread * UnityEngine.Random.value - spread / 2;
             pos.y += spread * UnityEngine.Random.value - spread / 2;
-            
+
             GameObject go = Instantiate(dropItem);
             ItemDropData item = GetRandowmItem();
-          
+
             if (item == null) continue;
             int quantity_itemDrop = (int)Random.Range(1, item.Maxquantity);
             go.GetComponent<ItemPickup>().SetItemPickUp(item.item, quantity_itemDrop);
@@ -126,12 +128,13 @@ public class ItemDestroy : Tool
             Debug.Log($"index: {dropCount} item: {item.item.item_name} quantity: {quantity_itemDrop}");
         }
         Destroy(gameObject);
+        DestroySFX.Play();
     }
 
     private ItemDropData GetRandowmItem()
     {
         float perdrop = Random.value;
-        foreach(ItemDropData item in item_datas)
+        foreach (ItemDropData item in item_datas)
         {
             float itemChance = (float)item.PercentDrop / 100;
 
@@ -146,7 +149,7 @@ public class ItemDestroy : Tool
 
     IEnumerator ResetHitpoints()
     {
-        yield return new WaitForSeconds(1f); 
+        yield return new WaitForSeconds(1f);
         while (timer < timeBetweenHits)
         {
             timer += Time.deltaTime;

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SkillAttack : MonoBehaviour
 {
+    [SerializeField]
+    private AudioSource AttackSFX;
 
     public Animator animator;
     void Update()
@@ -21,6 +23,7 @@ public class SkillAttack : MonoBehaviour
         {
             if (collider.gameObject.CompareTag("ItemCutD") || collider.gameObject.CompareTag("DT"))
             {
+                AttackSFX.Play();
                 animator.SetTrigger("SwordAttack");
             }
             else

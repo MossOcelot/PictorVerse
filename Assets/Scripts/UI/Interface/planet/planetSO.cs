@@ -30,5 +30,7 @@ public class planetSO : ScriptableObject
     [field: TextArea]
     public string Disadvantage { get; set; }
 
+    [field: SerializeField]
+    public InventorySO resourceSO { get; set; }    
 
 }

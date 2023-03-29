@@ -55,8 +55,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Load();
     }
-    public GameObject swordHitbox;
-    Collider2D swordCollider;
 
 
 
@@ -65,7 +63,6 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerposition = transform.position;
         realMoveSpeed = defaultMoveSpeed;
-        swordCollider = swordHitbox.GetComponent<Collider2D>();
     }
     private void Update()
     {

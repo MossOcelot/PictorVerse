@@ -24,8 +24,6 @@ public class UIplanetDescription : MonoBehaviour
     private TMP_Text Advantage;
     [SerializeField]
     private TMP_Text Disadvantage;
-    [SerializeField]
-    private InventorySO resouceData;
 
 
     public void Awake()
