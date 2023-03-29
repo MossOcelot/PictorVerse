@@ -1,10 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerTeleport : MonoBehaviour
 {
-    
+    [System.Serializable]
+    public class RespanwerData
+    {
+        public string Scene_name;
+        public SceneStatus.section section;
+        public Vector3 location;
+    }
+
+    [SerializeField]
+    private RespanwerData RespawnDefault;
+    [SerializeField]
+    private List<RespanwerData> RespawnList;
+
     private GameObject currentTeleporter;
     private bool HaveTicket;
     public bool isOnTeleporter;
@@ -57,6 +71,26 @@ public class PlayerTeleport : MonoBehaviour
                 teleportTimer = 0f;
             }
         }
+    }
+
+    public void Respawner()
+    {
+        string section = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection.ToString();
+        foreach (RespanwerData respawn in RespawnList)
+        {
+            string res_section = respawn.section.ToString();
+            if (res_section == section)
+            {
+                SceneManager.LoadScene(respawn.Scene_name);
+                transform.position = respawn.location;
+                return;
+            }
+        }
+
+        SceneManager.LoadScene(RespawnDefault.Scene_name);
+        transform.position = RespawnDefault.location;
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
