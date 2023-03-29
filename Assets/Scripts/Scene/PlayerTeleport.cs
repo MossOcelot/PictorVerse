@@ -86,11 +86,8 @@ public class PlayerTeleport : MonoBehaviour
                 return;
             }
         }
-
         SceneManager.LoadScene(RespawnDefault.Scene_name);
         transform.position = RespawnDefault.location;
-
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -102,6 +99,7 @@ public class PlayerTeleport : MonoBehaviour
             isOnTeleporter = true;
         }
     }
+   
 
     private void OnTriggerExit2D(Collider2D collision)
     {
