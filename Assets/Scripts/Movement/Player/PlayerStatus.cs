@@ -238,7 +238,9 @@ public class PlayerStatus : MonoBehaviour
         rb.angularDrag = 0f;
         rb.mass = 5000f;
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
+       
         yield return new WaitForSeconds(5f);
+        
         IsDead = false;
         player_teleport.Respawner();
         animator.SetTrigger("Respawn");
