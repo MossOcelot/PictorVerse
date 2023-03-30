@@ -55,7 +55,7 @@ public class MailManager : MonoBehaviour
                 if(mail.mailType == "Tax")
                 {
                     Action updateAction = mail.actionMail;
-                    uiMailCard.SetActionBtn(new ActionBtn(true, "รับ", updateAction));
+                    uiMailCard.SetActionBtn(new ActionBtn(true, "จ่าย", updateAction));
                 } else
                 {
                     uiMailCard.SetActionBtn(new ActionBtn(false));
