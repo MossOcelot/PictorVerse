@@ -192,12 +192,12 @@ public class AgentSet : MonoBehaviour
 
     private void Awake()
     {
-        Load();
+        // Load();
     }
 
     private void OnApplicationQuit()
     {
-        Save();
+        // Save();
     }
 
     // ------------ save and load ------------

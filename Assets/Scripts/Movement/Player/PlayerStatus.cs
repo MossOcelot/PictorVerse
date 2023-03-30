@@ -324,7 +324,7 @@ public class PlayerStatus : MonoBehaviour
     
     private void OnApplicationQuit()
     {
-        Save();
+        // Save();
     }
     public void Save()
     {

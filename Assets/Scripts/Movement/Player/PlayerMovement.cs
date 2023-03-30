@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        Load();
+       // Load();
     }
 
 
@@ -142,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        Save();
+       // Save();
     }
 
     private void Movement()
