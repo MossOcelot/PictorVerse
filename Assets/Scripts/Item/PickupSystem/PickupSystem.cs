@@ -16,15 +16,23 @@ public class PickupSystem : MonoBehaviour
         ItemPickup item = collision.GetComponent<ItemPickup>();
         if(item != null )
         {
+            Debug.Log("item!=null");
             int reminder = inventoryData.AddItem(item.InventoryItem, item.Quantity);
 
             if(reminder == 0)
             {
+                Debug.Log("reminder == 0");
+
                 CollectSFX.Play();
                 item.DestroyItem();
-            } else
+                Debug.Log("DestroyItem()");
+
+            }
+            else
             {
                 item.Quantity = reminder;
+                Debug.Log("item.Quantity = reminder");
+
             }
         }
     }

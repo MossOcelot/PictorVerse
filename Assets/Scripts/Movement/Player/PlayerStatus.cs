@@ -244,7 +244,8 @@ public class PlayerStatus : MonoBehaviour
         IsDead = false;
         player_teleport.Respawner();
         animator.SetTrigger("Respawn");
-        this.HP = 100;
+        this.HP = 50;
+        this.energy = 5000;
         movementScript.enabled = true;
         attackScript.enabled = true;
         rb.mass = 50f;

@@ -36,8 +36,10 @@ public class UIMiniInventoryPage : MonoBehaviour
 
     public void InitializeMiniInventoryUI(int inventorysize)
     {
+        Debug.Log("Irrsa: " + inventorysize);
         for (int i = 0; i < inventorysize; i++)
         {
+            Debug.Log("sa");
             UIInventoryItem uiItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
             uiItem.transform.SetParent(contentPanel);
             listOfUIItems.Add(uiItem);
