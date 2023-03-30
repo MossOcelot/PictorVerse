@@ -68,7 +68,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e471dd6d698c4ca4f8067fac16457565, type: 3}
+  m_Sprite: {fileID: -1792630707, guid: 98188afc33327a144b31662a2d9a98ce, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1491,6 +1491,7 @@ MonoBehaviour:
   planetUI: {fileID: 4835908757231128444}
   resourceUI: {fileID: 571617008}
   sortingSection: {fileID: 1138612999}
+  resourceData: {fileID: 0}
   planetDescription: {fileID: 4649038422669627369}
   initialItems: []
   resource_initialItems: []
@@ -1512,7 +1513,6 @@ MonoBehaviour:
   section4: {fileID: 0}
   section5: {fileID: 0}
   planetData: {fileID: 0}
-  resourceData: {fileID: 0}
   index: 0
 --- !u!1 &637710895176840275
 GameObject:
@@ -5701,7 +5701,6 @@ MonoBehaviour:
   section4: {fileID: 0}
   section5: {fileID: 0}
   planetData: {fileID: 0}
-  resourceData: {fileID: 0}
   index: 0
 --- !u!1 &5671725659271845096
 GameObject:
@@ -6344,6 +6343,10 @@ PrefabInstance:
       propertyPath: resourceData2
       value: 
       objectReference: {fileID: 11400000, guid: 86a2b9c0e7a77ef429e7dc6f2f9b302d, type: 2}
+    - target: {fileID: 3157395168725666286, guid: 362a257da1791434cb3352bd725e1cf2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 107645902, guid: 98188afc33327a144b31662a2d9a98ce, type: 3}
     - target: {fileID: 3700832881664224329, guid: 362a257da1791434cb3352bd725e1cf2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

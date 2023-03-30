@@ -107,8 +107,7 @@ public class NPC_Shop : MonoBehaviour
 
     private void Start()
     {
-        goverment = GameObject.FindGameObjectWithTag("Goverment").gameObject;
-        VAT = goverment.GetComponent<GovermentPolicy>().getVat();
+        
 
         // get section cash
         section_cash = NPC_status.live_place;
@@ -124,6 +123,9 @@ public class NPC_Shop : MonoBehaviour
 
     public void OpenShelf()
     {
+        goverment = GameObject.FindGameObjectWithTag("Goverment").gameObject;
+        VAT = goverment.GetComponent<GovermentPolicy>().getVat();
+
         shop = Instantiate(myshop, shop_manager);
         shop.transform.GetChild(0).gameObject.GetComponent<Shop_manager>().player = player.gameObject;
         shop.transform.GetChild(0).gameObject.GetComponent<Shop_manager>().npc = gameObject;
