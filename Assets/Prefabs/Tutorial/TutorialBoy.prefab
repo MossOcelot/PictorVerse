@@ -238,11 +238,15 @@ MonoBehaviour:
   MaxEnergy: 1000
   HP: 80
   energy: 1000
+  DeadSFX: {fileID: 0}
   IsDead: 0
+  IsRespawn: 0
+  player_teleport: {fileID: 0}
   animator: {fileID: 0}
   rb: {fileID: 0}
   movementScript: {fileID: 0}
   attackScript: {fileID: 0}
+  loanPlayerController: {fileID: 0}
 --- !u!114 &5662638429519359992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,8 +267,8 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 128
-  defaultMoveSpeed: 1000
-  moveSpeed: 1000
+  defaultMoveSpeed: 5
+  moveSpeed: 5
   isLooking: 0
   dashSpeed: 22
   status: {fileID: 5662638429519359993}
@@ -276,7 +280,6 @@ MonoBehaviour:
   strength: 0
   weight_player: 0
   tr: {fileID: 5662638429519359997}
-  swordHitbox: {fileID: 0}
   dashCountdownTimer: 5
   canDashSpeed: 1
   maxCountDashSpeed: 5
@@ -337,6 +340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryData: {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
+  CollectSFX: {fileID: 0}
 --- !u!114 &8118915250114176245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,7 +463,7 @@ MonoBehaviour:
   - {x: 0.9585426, y: -1.9040359, z: 0}
   m_ShapePathHash: -869264443
   m_Mesh: {fileID: 0}
-  m_InstanceId: -2194742
+  m_InstanceId: 129384
 --- !u!114 &5662638429519359996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,6 +476,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f0432a14ee3ca1468de55932adafe57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RespawnDefault:
+    Scene_name: 
+    section: 0
+    location: {x: 0, y: 0, z: 0}
+  RespawnList: []
   isOnTeleporter: 0
 --- !u!96 &5662638429519359997
 TrailRenderer:
@@ -608,6 +617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba24907c1b9e58846a60ea3f24759398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackSFX: {fileID: 0}
   animator: {fileID: 5662638429519359974}
 --- !u!95 &5662638429519359974
 Animator:

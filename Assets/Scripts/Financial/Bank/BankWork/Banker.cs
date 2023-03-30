@@ -31,6 +31,7 @@ public class Banker : MonoBehaviour
     {
         SetButtonOnDialogBox(1, "OpenInsurance", () => OpenInsurance());
         SetButtonOnDialogBox(2, "OpenBank", () => OpenBank());
+        Debug.Log("AA");
     }
 
     public void SetButtonOnDialogBox(int n, string nameBtn, Action action)
@@ -50,15 +51,21 @@ public class Banker : MonoBehaviour
 
     public void OpenInsurance()
     {
+        Debug.Log("OpenInsurance");
         CallInsurancePage insurance = GameObject.FindGameObjectWithTag("BankCompany").gameObject.GetComponent<CallInsurancePage>();
         UIInsurance uIInsurance = GameObject.FindGameObjectWithTag("Insurance").gameObject.GetComponent<UIInsurance>();
 
         uIInsurance.insurance_manager.Banker = gameObject;
+        Debug.Log("OI1");
         insurance.SetInsurance();
+        Debug.Log("OI2");
         InsuranceShelf.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        Debug.Log("OI3");
         uIInsurance.UpdateUIInsurance();
+        Debug.Log("OI4");
         //npcController.playerIsClose = false;
         npcController.dialoguePanel.SetActive(false);
+        Debug.Log("OI5");
     }
 
     private void OnTriggerExit2D(Collider2D other)

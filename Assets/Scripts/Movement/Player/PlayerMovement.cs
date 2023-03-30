@@ -66,38 +66,36 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        
-        if (!isLooking) // เช็คว่าผู้เล่นเปิดอะไรอยู่หรือเปล่า
+        if(isLooking) { animator.SetBool("isMoving", false); return; }
+        Movement();
+        if (movement.x != 0 || movement.y != 0)
         {
-            Movement();
-            if (movement.x != 0 || movement.y != 0)
-            {
-                iswalk = true;
-                isMoving = true;
+            iswalk = true;
+            isMoving = true;
 
-            }
-            else
-            {
-                iswalk = false;
-                isMoving = false;
-
-            }
-            count_distance_for_walk();
-            //Set การหยุดหรือไม่หยุดของ Animation
-            animator.SetBool("isMoving", isMoving);
-
-
-            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
-            { 
-                lastPos = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.LeftShift)))
-            {
-                isDashButtonDown = true;
-
-            }
         }
+        else
+        {
+            iswalk = false;
+            isMoving = false;
+
+        }
+        count_distance_for_walk();
+        //Set การหยุดหรือไม่หยุดของ Animation
+        animator.SetBool("isMoving", isMoving);
+
+
+        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+        { 
+            lastPos = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.LeftShift)))
+        {
+            isDashButtonDown = true;
+
+        }
+       
 
 
     }
@@ -296,6 +294,11 @@ public class PlayerMovement : MonoBehaviour
     public float getDefaultMoveSpeed()
     {
         return defaultMoveSpeed;
+    }
+
+    public void SetIsLooking(bool newStatus)
+    {
+        isLooking = newStatus;
     }
 
     // ------------ save and load ------------

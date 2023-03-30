@@ -23,12 +23,12 @@ public class BankCompany : MonoBehaviour
 
     private void Awake()
     {
-        Load();
+       // Load();
     }
 
     private void OnApplicationQuit()
     {
-        Save();
+       // Save();
     }
 
     // ------------ save and load ------------
