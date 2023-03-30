@@ -105,7 +105,8 @@ public class NPCController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerIsClose = true;
-            player = other.gameObject;
+            player = GameObject.FindGameObjectWithTag("Player");
+            //player = other.gameObject;
             dialoguePanel = GameObject.FindGameObjectWithTag("Dialog").gameObject.transform.GetChild(0).gameObject;
             dialogueText = dialoguePanel.gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
             dialogueText.text = "";

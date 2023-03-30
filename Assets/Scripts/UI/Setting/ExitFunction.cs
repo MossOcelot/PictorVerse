@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ExitFunction : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class ExitFunction : MonoBehaviour
         {
             Application.Quit();
         }
+    }
+
+    public void SkipTutorial()
+    {
+        SceneManager.LoadScene(1);
     }
 }
 #endif

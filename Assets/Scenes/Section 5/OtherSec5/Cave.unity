@@ -6171,7 +6171,7 @@ PrefabInstance:
     - target: {fileID: 8199269314772499335, guid: c091a5d1047ac0340889c91cbd90f342, type: 3}
       propertyPath: floatingPoints
       value: 
-      objectReference: {fileID: 74850826}
+      objectReference: {fileID: 0}
     - target: {fileID: 8199269314772499450, guid: c091a5d1047ac0340889c91cbd90f342, type: 3}
       propertyPath: m_RootOrder
       value: 28
@@ -12093,6 +12093,22 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1504447442714280731, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946427959703446860, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4981838367627358793, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4981838367907694939, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7941805325052129713, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
       propertyPath: m_Name
       value: Main Camera
@@ -45801,9 +45817,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85f6d1949059a7c48a8bdbd869c07c19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Section 5
+  sceneName: CapitalSection5
   player: {fileID: 0}
-  desiredPosition: {x: 0, y: 0}
+  desiredPosition: {x: -23.8, y: -22.6}
   CanNotOpen: 0
 --- !u!61 &1634785652
 BoxCollider2D:

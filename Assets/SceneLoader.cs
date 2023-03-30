@@ -14,7 +14,7 @@ public class SceneLoader : MonoBehaviour
         private IEnumerator LoadGameAfterDelay()
         {
             yield return new WaitForSeconds(5f);
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
         }
     
     public void Active()
