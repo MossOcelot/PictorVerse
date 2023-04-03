@@ -16,7 +16,7 @@ public class BankCompany : MonoBehaviour
 
     public void Close()
     {
-        Save();
+        // Save();
         Bank.gameObject.transform.GetChild(0).gameObject.SetActive(false);
         Insurance.SetActive(false);
     }

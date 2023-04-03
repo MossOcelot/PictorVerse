@@ -47,25 +47,21 @@ public class Banker : MonoBehaviour
         BankShelf.gameObject.GetComponent<Bank_Status>().Banker = gameObject;
         //npcController.playerIsClose = false;
         npcController.dialoguePanel.SetActive(false);
+        npcController.IsOpenShelf = true;
     }
 
     public void OpenInsurance()
     {
-        Debug.Log("OpenInsurance");
         CallInsurancePage insurance = GameObject.FindGameObjectWithTag("BankCompany").gameObject.GetComponent<CallInsurancePage>();
         UIInsurance uIInsurance = GameObject.FindGameObjectWithTag("Insurance").gameObject.GetComponent<UIInsurance>();
 
         uIInsurance.insurance_manager.Banker = gameObject;
-        Debug.Log("OI1");
         insurance.SetInsurance();
-        Debug.Log("OI2");
         InsuranceShelf.gameObject.transform.GetChild(0).gameObject.SetActive(true);
-        Debug.Log("OI3");
         uIInsurance.UpdateUIInsurance();
-        Debug.Log("OI4");
         //npcController.playerIsClose = false;
         npcController.dialoguePanel.SetActive(false);
-        Debug.Log("OI5");
+        npcController.IsOpenShelf = true;
     }
 
     private void OnTriggerExit2D(Collider2D other)

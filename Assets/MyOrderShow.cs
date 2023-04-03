@@ -51,8 +51,13 @@ public class MyOrderShow : MonoBehaviour
         List<BrokerOrder> newStorage = storage.getListBrokerOrder();
 
         int len = newStorage.Count;
+
         for(int i = 0; i < len; i++)
         {
+            if(newStorage[i].Order.Customer == null)
+            {
+                break;
+            }
             PlayerStatus player = newStorage[i].Order.Customer.player;
             if(player != null )
             {

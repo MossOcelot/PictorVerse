@@ -6,6 +6,15 @@ using UnityEngine;
 
 public class Timesystem : MonoBehaviour
 {
+    public float minutesPerSecond = 1.2f;
+    public int startYear = 4023;
+    public int startMonth = 1;
+    public int startDay = 1;
+    public int startHour = 8;
+    public int daysPerMonth = 12;
+    public int monthPerYear = 12;
+
+    public float _timeOfDay = 0f;
     // Next update in second
     private int nextUpdate = 1;
     [SerializeField] private int day;
@@ -13,41 +22,58 @@ public class Timesystem : MonoBehaviour
     [SerializeField] private int year;
 
     [SerializeField] private int hours;
-    [SerializeField] private int minutes;
-    [SerializeField] private int seconds;
+    [SerializeField] private float minutes;
 
     // Update is called once per frame
     public int[] getDateTime()
     {
-        return new int[] { day, month, year, hours, minutes, seconds };
+        return new int[] { day, month, year, hours, Mathf.RoundToInt(minutes) };
     }
 
-    private void Awake()
+    private void Start()
     {
-        UpdateEverySecond();
+        year = startYear;
+        month = startMonth;
+        day = startDay;
+        hours = startHour;
+        _timeOfDay = (float)hours;
     }
     void Update()
     {
-        // If the next update is reached
-        if (Time.time >= nextUpdate)
+        _timeOfDay += Time.deltaTime * minutesPerSecond / 60f;
+        if(_timeOfDay > 24f)
         {
-            // Change the next update (current second+1)
-            nextUpdate = Mathf.FloorToInt(Time.time) + 1;
-            // Call your fonction
-            UpdateEverySecond();
+            _timeOfDay -= 24f;
+            day++;
+            if (day > daysPerMonth)
+            {
+                day = 1;
+                month++;
+            }
+            if (month > monthPerYear)
+            {
+                month = 1;
+                year++;
+            }
         }
 
-    }
+        minutes = (_timeOfDay * 60) - ((float)hours * 60f);
+        if(minutes > 59f)
+        {
+            minutes = 0;
+            hours++;
 
-    // Update is called once per second
-    void UpdateEverySecond()
-    {
-        DateTime date = DateTime.Now;
-        day = date.Day;
-        month = date.Month;
-        year = date.Year + 2000;
-        hours = date.Hour;
-        minutes = date.Minute;
-        seconds = date.Second;
+            if(hours > 23)
+            {
+                Debug.Log("Full Time");
+                hours = 0;
+            };
+            
+        }
+
+        // float timePercent = _timeOfDay / 24f;
+        // float sunAngle = Mathf.Lerp(-90f, 270f, timePercent);
+        // transform.rotation = Quaternion.Euler(sunAngle, 0f, 0f);
+
     }
 }

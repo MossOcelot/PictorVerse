@@ -16,7 +16,7 @@ public class NPCController : MonoBehaviour
     public float wordSpeed;
     public bool playerIsClose;
     public bool IsEndSituation = false;
-
+    public bool IsOpenShelf = false;
     // Update is called once per frame
     void Update()
     {
@@ -26,7 +26,7 @@ public class NPCController : MonoBehaviour
             IsEndSituation = false;
             RemoveText();
         }
-        if (Input.GetKeyDown(KeyCode.E) && playerIsClose)
+        if (Input.GetKeyDown(KeyCode.E) && !IsOpenShelf)
         {
             if (!dialoguePanel.activeInHierarchy)
             {
@@ -98,6 +98,10 @@ public class NPCController : MonoBehaviour
         }
     }
 
+    public void SetIsOpenShelft(bool IsOpen)
+    {
+        IsOpenShelf = IsOpen;
+    }
 
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -117,7 +121,7 @@ public class NPCController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-
+            IsOpenShelf = false;
             IsEndSituation = false;
             playerIsClose = false;
             RemoveText();

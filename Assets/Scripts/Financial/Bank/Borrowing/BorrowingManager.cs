@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BorrowingManager : MonoBehaviour
 {
+    public GameObject Banker;
     public PlayerStatus playerStatus;
 
     public void SetPlayer()
@@ -13,6 +14,7 @@ public class BorrowingManager : MonoBehaviour
 
     public void Close()
     {
+        Banker.gameObject.GetComponent<NPCController>().IsOpenShelf = false;
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
     }
 }
