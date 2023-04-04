@@ -10,6 +10,7 @@ public class UI_CharacterEquipmentSlot : MonoBehaviour, IDropHandler
     public class OnItemDroppedEventArgs : EventArgs
     {
         public Item item;
+        public int item_amount;
         public int indexSlot;
     }
     public void OnDrop(PointerEventData eventData) 
@@ -17,6 +18,8 @@ public class UI_CharacterEquipmentSlot : MonoBehaviour, IDropHandler
         
         Item item = UIInventoryItem.Instance.GetItem();
         int index = UIInventoryItem.Instance.GetIndex();
-        OnItemDropped?.Invoke(this, new OnItemDroppedEventArgs { item = item, indexSlot = index });
+        int amount = UIInventoryItem.Instance.GetItemAmount();
+        OnItemDropped?.Invoke(this, new OnItemDroppedEventArgs { item = item, item_amount = amount, indexSlot = index });
     }
 }
+
