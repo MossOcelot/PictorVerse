@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NPC_Status : MonoBehaviour
@@ -54,4 +55,6 @@ public class NPC_Status : MonoBehaviour
     {
         this.accountsDetails.Insert(0, account);
     }
+
+    
 }

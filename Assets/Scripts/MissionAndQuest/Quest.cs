@@ -1,9 +1,10 @@
+using inventory.Model;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-[CreateAssetMenu(fileName = "New Quest", menuName = "Mission/Quest")]
+[CreateAssetMenu(fileName = "New Quest", menuName = "Mission/Quest")] 
 public class Quest : ScriptableObject
 {
     [System.Serializable]
@@ -20,12 +21,18 @@ public class Quest : ScriptableObject
     public struct Stat
     {
         public float Currency;
+        public PlayerStatus.StaticValue status;
+        public InventoryItem[] RewardItems;
+        public bool HaveItems;
+        public bool HaveStatus;
     }
 
     [Header("Reward")] public Stat Reward = new Stat { Currency = 1000 };
 
     public bool Completed { get; protected set; }
     public QuestCompletedEvent QuestCompleted;
+    public List<Quest> nextQuest;
+
     public abstract class QuestGoal : ScriptableObject
     {
         protected string Description;
