@@ -48,6 +48,8 @@ public class PlayerStatus : MonoBehaviour
     private AudioSource DeadSFX;
 
     public bool IsDead = false;
+    public bool IsRespawn = false;
+
     public PlayerTeleport player_teleport;
     private SceneStatus.section section_name;
 
@@ -110,7 +112,7 @@ public class PlayerStatus : MonoBehaviour
 
     public StaticValue getMyStaticFromData()
     {
-        return this.myStatic;   
+        return this.myStatic;
     }
 
     public StaticValue getMyStatic()
@@ -191,7 +193,7 @@ public class PlayerStatus : MonoBehaviour
             this.financial_detail.debt = value;
         }
     }
-    
+
     public Financial_Details getFinancial_Details()
     {
         return this.financial_detail;
@@ -218,7 +220,7 @@ public class PlayerStatus : MonoBehaviour
     }
     //private void Start()
     //{
-      // Load();
+    // Load();
     //}
 
     public void Awake()
@@ -227,31 +229,58 @@ public class PlayerStatus : MonoBehaviour
         section_name = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection;
     }
 
+    private IEnumerator RespawnCoroutine()
+    {
+        animator.SetTrigger("isDeath");
+        movementScript.enabled = false;
+        attackScript.enabled = false;
+        rb.velocity = new Vector2(0f, 0f);
+        rb.angularDrag = 0f;
+        rb.mass = 5000f;
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+       
+        yield return new WaitForSeconds(5f);
+        
+        IsDead = false;
+        player_teleport.Respawner();
+        animator.SetTrigger("Respawn");
+        this.HP = 50;
+        this.energy = 5000;
+        movementScript.enabled = true;
+        attackScript.enabled = true;
+        rb.mass = 50f;
+        rb.constraints = RigidbodyConstraints2D.None;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+    }
     private void Update()
     {
-        if (this.energy <= 0) {
+        if (this.energy <= 0)
+        {
             this.energy = 0;
         }
         if (this.HP <= 0)
         {
             DeadSFX.Play();
             IsDead = true;
-
+            
         }
         if (IsDead)
         {
-            animator.SetTrigger("isDeath");
-            movementScript.enabled = false;
-            attackScript.enabled = false;
-            rb.velocity = new Vector2(0f, 0f);
-            rb.angularDrag = 0;
-            rb.mass = 5000f;
-
-            // Respawner
-            player_teleport.Respawner();
-            IsDead = false;
-            this.HP = 100;
+            StartCoroutine(RespawnCoroutine());
+            IsRespawn = true;
         }
+        if (IsRespawn)
+        {
+
+            this.HP = 100;
+            movementScript.enabled = true;
+            attackScript.enabled = true;
+            rb.mass = 50f;
+            IsRespawn = false;
+        }
+        
+
 
     }
     private void OnCollisionEnter2D(Collision2D other)
@@ -324,7 +353,7 @@ public class PlayerStatus : MonoBehaviour
     
     private void OnApplicationQuit()
     {
-        Save();
+        // Save();
     }
     public void Save()
     {
@@ -359,10 +388,10 @@ public class PlayerStatus : MonoBehaviour
 
     public float PayTaxes()
     {
-        List<GovermentPolicy.IndividualRangeTax> invidualRangeTax = GameObject.FindGameObjectWithTag("Goverment").gameObject.GetComponent<GovermentPolicy>().getIndividualTax();
+        List<GovermentPolicyData.IndividualRangeTax> invidualRangeTax = GameObject.FindGameObjectWithTag("Goverment").gameObject.GetComponent<GovermentPolicy>().getIndividualTax();
         float incomeAllYear = GetIncomeAllYear();
         float tax = 0;
-        foreach(GovermentPolicy.IndividualRangeTax IndividualTax in invidualRangeTax)
+        foreach(GovermentPolicyData.IndividualRangeTax IndividualTax in invidualRangeTax)
         { 
             float maxIncome = IndividualTax.maxIncome;
             float minIncome = IndividualTax.minIncome;

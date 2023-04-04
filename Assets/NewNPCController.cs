@@ -19,9 +19,9 @@ public class NewNPCController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameObject.FindGameObjectWithTag("DialogBox").gameObject != null)
+        if (GameObject.FindGameObjectWithTag("Dialog").gameObject.transform.GetChild(0).gameObject != null)
         {
-            ButtonList = GameObject.FindGameObjectWithTag("DialogBox").gameObject.transform;
+            ButtonList = GameObject.FindGameObjectWithTag("Dialog").gameObject.transform.GetChild(0).gameObject.transform;
         }
         return;
     }

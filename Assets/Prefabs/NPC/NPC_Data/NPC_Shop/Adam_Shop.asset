@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2585e82a9ce9e345b23ba6844eb315f, type: 3}
+  m_Name: Adam_Shop
+  m_EditorClassIdentifier: 
+  financialDetail:
+    balance: 800
+    debt: 0
+  buy_items_list:
+  - quantity: 46
+    item: {fileID: 11400000, guid: 21b1c537793bcf34c91242c605c86785, type: 2}
+    itemState: []
+    owner: 
+    before_owner: 
+    price: 200
+  resource: []
+  product_type: []
+  accountsDetails:
+  - date: 0100000001000000b70f00000800000014000000
+    accounts_name: sell items
+    account_type: sell
+    income: 800
+    expense: 0

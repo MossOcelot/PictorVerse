@@ -83,7 +83,7 @@ public class Sell_Shelf_operation : MonoBehaviour
     public void UnPackInPlayerBag(int type)
     {
         Dictionary<int, InventoryItem> player_items = playerOperation.playerInventorySO.GetCurrentInventoryState();
-        List<string> product_types = shop.npc.gameObject.GetComponent<NPC_Shop>().product_type;
+        List<string> product_types = shop.npc.gameObject.GetComponent<NPC_Shop>().npc_shop_data.product_type;
         
         
         if(type == 0) inventoryMyBag.Initialize(); // Clear data

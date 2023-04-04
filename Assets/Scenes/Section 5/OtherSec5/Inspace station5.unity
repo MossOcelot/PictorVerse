@@ -2191,6 +2191,38 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1504447442714280731, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946427959703446860, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4621801216998304996, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4621801216998304996, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 4981838367627358793, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4981838367907694939, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474244668889100796, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 3.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 5474244668889100796, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.67
+      objectReference: {fileID: 0}
     - target: {fileID: 7941805325052129713, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
       propertyPath: m_Name
       value: Main Camera
@@ -2238,6 +2270,26 @@ PrefabInstance:
     - target: {fileID: 7941805325052129718, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941805325795943444, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550667703669875043, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014383692542600660, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185442418482809967, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185442418482809967, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -2496,18 +2548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3234906f77aa9704a924a4ce5bc74145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameCompany: InSpace5TicketCompany
-  pocketCompany:
-    section1_cashs: 0
-    section2_cashs: 0
-    section3_cashs: 0
-    section4_cashs: 0
-    section5_cashs: 0
-    gold: 0
-  financialDetail:
-    balance: 0
-    debt: 0
-  accountDetailCompany: []
+  companyData: {fileID: 11400000, guid: aeb0d4b5bbd1d4648a32d5a412d47e5c, type: 2}
 --- !u!4 &637181417
 Transform:
   m_ObjectHideFlags: 0
@@ -2820,6 +2861,30 @@ MonoBehaviour:
   fadein: 0
   fadeout: 0
   TimeToFade: 1
+--- !u!68 &667909653
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667909646}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.87781715, y: -0.051034905}
+  - {x: -0.8739031, y: 0.78936374}
+  - {x: 0.9726677, y: -0.20906273}
+  - {x: 0.94497734, y: -0.9062598}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &667945944
 GameObject:
   m_ObjectHideFlags: 0
@@ -5840,6 +5905,7 @@ MonoBehaviour:
   wordSpeed: 0
   playerIsClose: 0
   IsEndSituation: 0
+  IsOpenShelf: 0
 --- !u!61 &1404304880
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13476,10 +13542,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85f6d1949059a7c48a8bdbd869c07c19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: 
+  sceneName: CapitalSection5
   player: {fileID: 0}
-  desiredPosition: {x: 10, y: 9}
-  CanNotOpen: 1
+  desiredPosition: {x: -52.9, y: -5.4}
+  CanNotOpen: 0
 --- !u!70 &1777021209
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -13542,6 +13608,29 @@ EdgeCollider2D:
   - {x: -0.70697683, y: 1.1738172}
   - {x: -0.66566586, y: -0.39512348}
   - {x: -1.0785402, y: -0.12562704}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
+--- !u!68 &1777021212
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1777021206}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.93307537, y: 0.10234712}
+  - {x: -0.8350814, y: 0.6514279}
+  - {x: 1.0028429, y: -0.31571692}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -14942,6 +15031,7 @@ MonoBehaviour:
   wordSpeed: 0
   playerIsClose: 0
   IsEndSituation: 0
+  IsOpenShelf: 0
 --- !u!61 &4980268605631262095
 BoxCollider2D:
   m_ObjectHideFlags: 0

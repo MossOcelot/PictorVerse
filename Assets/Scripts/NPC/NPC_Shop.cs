@@ -12,19 +12,12 @@ public class NPC_Shop : MonoBehaviour
     public NPC_Status NPC_status;
     [SerializeField]
     private InventorySO playerBag;
-    [SerializeField]
-    private Financial_Details financial_shop_detail;
-    [SerializeField]
-    private List<InventoryItem> buy_items_list;
-    [SerializeField]
-    private List<InventoryItem> resource;
-    public List<string> product_type;
+
+    public NPCShopData npc_shop_data;
     [SerializeField] 
     private Transform shop_manager;
     [SerializeField]
     private GameObject myshop; 
-    [SerializeField]
-    private List<AccountsDetail> accountsDetails;
     [SerializeField]
     public string section_cash;
 
@@ -37,72 +30,72 @@ public class NPC_Shop : MonoBehaviour
     Button cofirmBtn;
     public void setBuy_items_list(int index,InventoryItem inventoryitem)
     {
-        this.buy_items_list[index] = inventoryitem;
+        npc_shop_data.buy_items_list[index] = inventoryitem;
     }
 
     public void addBuy_items_list(InventoryItem inventoryitem)
     {
-        this.buy_items_list.Add(inventoryitem);
+        npc_shop_data.buy_items_list.Add(inventoryitem);
     }
 
     public void deleteBuy_items_list(InventoryItem inventoryitem)
     {
-        this.buy_items_list.Remove(inventoryitem);
+        npc_shop_data.buy_items_list.Remove(inventoryitem);
     }
     public List<InventoryItem> getBuy_items_list()
     {
-        return this.buy_items_list;
+        return npc_shop_data.buy_items_list;
     }
 
     public void setResource(int index, InventoryItem resourceitem)
     {
-        this.resource[index] = resourceitem;
+        npc_shop_data.resource[index] = resourceitem;
     }
 
     public void addResource(InventoryItem resourceitem)
     {
-        this.resource.Add(resourceitem);
+        npc_shop_data.resource.Add(resourceitem);
     }
 
     public void deleteResource(InventoryItem resourceitem)
     {
-        this.resource.Remove(resourceitem);
+        npc_shop_data.resource.Remove(resourceitem);
     }
     public List<InventoryItem> getResource()
     {
-        return this.resource;
+        return npc_shop_data.resource;
     }
 
     public void setFinancial_detail(string command, float value)
     {
         if (command == "balance")
         {
-            this.financial_shop_detail.balance = value;
+            npc_shop_data.financialDetail.balance = value;
         }
         else if (command == "debt")
         {
-            this.financial_shop_detail.debt = value;
+            npc_shop_data.financialDetail.debt = value;
         }
     }
 
     public float GetFinancial_balance()
     {
-        return this.financial_shop_detail.balance;
+        return npc_shop_data.financialDetail.balance;
     }
 
     public float GetFinancial_debt()
     {
-        return this.financial_shop_detail.debt;
+        return npc_shop_data.financialDetail.debt;
     }
 
     public List<AccountsDetail> getAccountsDetails()
     {
-        return this.accountsDetails;
+        return npc_shop_data.accountsDetails;
     }
 
     public void addAccountsDetails(AccountsDetail account)
     {
-        this.accountsDetails.Insert(0, account);
+        npc_shop_data.accountsDetails.Insert(0, account);
     }
 
     private void Start()
@@ -170,13 +163,13 @@ public class NPC_Shop : MonoBehaviour
             InventoryItem new_item = item.ChangeOwner(status.name);
 
             // update stock
-            int len_buy_item_list = buy_items_list.Count;
+            int len_buy_item_list = npc_shop_data.buy_items_list.Count;
             for(int i = 0; i < len_buy_item_list; i++)
             {
-                if (buy_items_list[i].item.item_id == new_item.item.item_id)
+                if (npc_shop_data.buy_items_list[i].item.item_id == new_item.item.item_id)
                 {
-                    int remain = buy_items_list[i].quantity - new_item.quantity;
-                    buy_items_list[i] = buy_items_list[i].ChangeQuantity(remain);
+                    int remain = npc_shop_data.buy_items_list[i].quantity - new_item.quantity;
+                    npc_shop_data.buy_items_list[i] = npc_shop_data.buy_items_list[i].ChangeQuantity(remain);
 
                     back_shop.UpdateQuatityItem(i, remain);
                     break;
@@ -192,7 +185,7 @@ public class NPC_Shop : MonoBehaviour
             Destroy(back_shop.shoppingCartShelf.transform.GetChild(i).gameObject);
         }
         float price = total - vat_value;
-        financial_shop_detail.balance += price;
+        npc_shop_data.financialDetail.balance += price;
         // Update Accounts Player
         AccountsDetail account_Player = new AccountsDetail() { date = dateTime, accounts_name = "buy items", account_type = "buy", income = 0, expense = total };
         player.gameObject.GetComponent<PlayerStatus>().addAccountsDetails(account_Player);

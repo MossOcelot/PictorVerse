@@ -387,36 +387,30 @@ public class InventoryController : MonoBehaviour
 
     public void Awake()
     {
-        Load();    
+        // Load();    
     }
 
     private void Update()
     { 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Debug.Log("P");
             if (Player_pocket.status == false)
             {
-                Debug.Log("P1");
                 Player_pocket.show();
             }
             else
             {
-                Debug.Log("P2");
                 Player_pocket.hide();
             }
         }
         
         if(Input.GetKeyDown(KeyCode.F)) 
         {
-            Debug.Log("F");
             if (Foreign_Exchange.status == false)
             {
-                Debug.Log("F1");
                 Foreign_Exchange.show();
             } else
             {
-                Debug.Log("F2");
                 Foreign_Exchange.hide();
             }
         }
@@ -460,7 +454,7 @@ public class InventoryController : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        Save();
+        // Save();
     }
 
     // ------------ save and load ------------

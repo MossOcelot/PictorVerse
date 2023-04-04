@@ -40,7 +40,7 @@ public class InsuranceController : MonoBehaviour
 
     private void Awake()
     {
-        Load();
+        // Load();
     }
 
     private void Start()
@@ -194,7 +194,7 @@ public class InsuranceController : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        Save();
+        // Save();
     }
     // ------------ save and load ------------
     public void Save()

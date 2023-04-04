@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class AnimationMonsterAttack : MonoBehaviour
 {
+    private bool canKnockback = true;
+
     public void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("ItemCutD") || other.gameObject.CompareTag("Enemy"))
+        if (canKnockback && (other.gameObject.CompareTag("ItemCutD") || canKnockback && (other.gameObject.CompareTag("Enemy"))))
         {
             Vector2 knockbackDirection = (transform.position - other.gameObject.transform.position).normalized;
-            GetComponent<Rigidbody2D>().AddForce(knockbackDirection * 1200, ForceMode2D.Impulse);
+            GetComponent<Rigidbody2D>().AddForce(knockbackDirection * 1500, ForceMode2D.Impulse);
             StartCoroutine(FlashRed());
+            canKnockback = false;
+            StartCoroutine(ResetKnockback());
         }
     }
+
+    private IEnumerator ResetKnockback()
+    {
+        yield return new WaitForSeconds(2f);
+        canKnockback = true;
+    }
+
     public IEnumerator FlashRed()
     {
         GetComponent<SpriteRenderer>().color = Color.red;
@@ -21,6 +32,7 @@ public class AnimationMonsterAttack : MonoBehaviour
 
         GetComponent<SpriteRenderer>().color = Color.white;
     }
+
     public void OnCollisionExit2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("ItemCutD") || other.gameObject.CompareTag("Enemy"))

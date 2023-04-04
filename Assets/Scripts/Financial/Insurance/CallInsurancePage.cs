@@ -12,6 +12,8 @@ public class CallInsurancePage : MonoBehaviour
 
     [SerializeField]
     private Insurance_manager insurance_manager;
+    [SerializeField]
+    private BorrowingManager borrowing_manager;
     private void Start()
     {
         insurance_manager = GameObject.FindGameObjectWithTag("Insurance").gameObject.GetComponent<Insurance_manager>();
@@ -28,6 +30,12 @@ public class CallInsurancePage : MonoBehaviour
         insurance_manager.Banker = bank_manager.sendDataBanker();
         SetInsurance();
     }
+
+    public void SetBankerForBorrowing()
+    {
+        borrowing_manager.Banker = bank_manager.sendDataBanker();
+    }
+
     public List<InsuranceItems> GetEndowments()
     {
         return endowments;
