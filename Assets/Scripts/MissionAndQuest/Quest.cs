@@ -7,6 +7,9 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = "New Quest", menuName = "Mission/Quest")] 
 public class Quest : ScriptableObject
 {
+    public enum QuestType { MainQuest, SecondaryQuest, DailyQuest };
+
+    public QuestType questType;
     [System.Serializable]
     public struct Info
     {
