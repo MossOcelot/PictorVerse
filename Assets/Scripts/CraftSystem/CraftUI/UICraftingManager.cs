@@ -1,7 +1,7 @@
 using inventory.Model;
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Serialization;
+using System.ComponentModel;
 using UnityEngine;
 
 public class UICraftingManager : MonoBehaviour
@@ -11,13 +11,19 @@ public class UICraftingManager : MonoBehaviour
     [SerializeField]
     private InventorySO inventoryBag;
     public List<InventoryItem> initialItems = new List<InventoryItem>();
+    [SerializeField] 
+    private List<CraftingRecipe> craftingRecipes;
 
     [SerializeField]
     private InventorySO CraftingInventory;
 
     [SerializeField]
     private Transform craftTrans;
+    [SerializeField]
+    private Transform itemPanelContent;
 
+    public GameObject ItemPanelCraftTemplate;
+    GameObject itemPanelCraft;
     //
     private UI_CharacterEquipmentSlot slot1;
     private UIInventoryItem slot1_box;
@@ -104,103 +110,217 @@ public class UICraftingManager : MonoBehaviour
         }
     }
 
-     
+    public List<CraftingRecipe> have_resive;
+    private void FixedUpdate()
+    {
+        foreach(CraftingRecipe recipe in craftingRecipes)
+        {
+            bool status = recipe.CanCraft(CraftingInventory);
+
+            if(status)
+            {
+                bool IsHave = have_resive.Contains(recipe);
+                if (IsHave) continue;
+                have_resive.Add(recipe);
+                foreach (InventoryItem result in recipe.Results)
+                {
+                    itemPanelCraft = Instantiate(ItemPanelCraftTemplate, itemPanelContent);
+                    ItemPanelCraft itemPanel = itemPanelCraft.gameObject.GetComponent<ItemPanelCraft>();
+                    itemPanel.SetData(result.item.icon, result.item.item_name, 1);
+                }
+            } else
+            {
+                bool IsHave = have_resive.Contains(recipe);
+                if (IsHave)
+                {
+                    int len = itemPanelContent.childCount;
+                    for(int i = 0; i < len; i++)
+                    {
+                        Destroy(itemPanelContent.GetChild(i).gameObject);
+                    }
+                    have_resive.Remove(recipe);
+                }
+            }
+        }
+    }
+
     private void slot1_OnItemDropped(object sender, UI_CharacterEquipmentSlot.OnItemDroppedEventArgs e)
     {
+        if (e.name == "craftSlot") return;
         slot1.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
         slot1_box.SetData(e.indexSlot, e.item, e.item.icon, e.item_amount);
+        inventoryBag.RemoveItem(e.indexSlot, e.item_amount);
+        CraftingInventory.AddItemInIndex(0, e.item, e.item_amount);
         slot1_box.OnRightMouseBtnClick += HandleShowSlot1Action;
     }
 
     private void HandleShowSlot1Action(UIInventoryItem inventoryItemUI)
     {
+        int index = 0;
+        int amount = inventoryItemUI.GetItemAmount();   
+        CraftingInventory.RemoveItem(index, amount);
+
+        inventoryBag.AddItem(inventoryItemUI.GetItem(), amount);
+        inventoryItemUI.ResetData();
         slot1.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     private void slot2_OnItemDropped(object sender, UI_CharacterEquipmentSlot.OnItemDroppedEventArgs e)
     {
+        if (e.name == "craftSlot") return;
         slot2.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
         slot2_box.SetData(e.indexSlot, e.item, e.item.icon, e.item_amount);
+        inventoryBag.RemoveItem(e.indexSlot, e.item_amount);
+        CraftingInventory.AddItemInIndex(1, e.item, e.item_amount);
         slot2_box.OnRightMouseBtnClick += HandleShowSlot2Action;
     }
     private void HandleShowSlot2Action(UIInventoryItem inventoryItemUI)
     {
+        int index = 1;
+        int amount = inventoryItemUI.GetItemAmount();
+        CraftingInventory.RemoveItem(index, amount);
+
+        inventoryBag.AddItem(inventoryItemUI.GetItem(), amount);
+        inventoryItemUI.ResetData();
         slot2.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     private void slot3_OnItemDropped(object sender, UI_CharacterEquipmentSlot.OnItemDroppedEventArgs e)
     {
+        if (e.name == "craftSlot") return;
         slot3.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
         slot3_box.SetData(e.indexSlot, e.item, e.item.icon, e.item_amount);
+        inventoryBag.RemoveItem(e.indexSlot, e.item_amount);
+        CraftingInventory.AddItemInIndex(2, e.item, e.item_amount);
         slot3_box.OnRightMouseBtnClick += HandleShowSlot3Action;
     }
     private void HandleShowSlot3Action(UIInventoryItem inventoryItemUI)
     {
+        int index = 2;
+        int amount = inventoryItemUI.GetItemAmount();
+        CraftingInventory.RemoveItem(index, amount);
+
+        inventoryBag.AddItem(inventoryItemUI.GetItem(), amount);
+        inventoryItemUI.ResetData();
         slot3.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     private void slot4_OnItemDropped(object sender, UI_CharacterEquipmentSlot.OnItemDroppedEventArgs e)
     {
+        if (e.name == "craftSlot") return;
         slot4.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
         slot4_box.SetData(e.indexSlot, e.item, e.item.icon, e.item_amount);
+        inventoryBag.RemoveItem(e.indexSlot, e.item_amount);
+        CraftingInventory.AddItemInIndex(3, e.item, e.item_amount);
         slot4_box.OnRightMouseBtnClick += HandleShowSlot4Action;
     }
     private void HandleShowSlot4Action(UIInventoryItem inventoryItemUI)
     {
+        int index = 3;
+        int amount = inventoryItemUI.GetItemAmount();
+        CraftingInventory.RemoveItem(index, amount);
+
+        inventoryBag.AddItem(inventoryItemUI.GetItem(), amount);
+        inventoryItemUI.ResetData();
         slot4.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     private void slot5_OnItemDropped(object sender, UI_CharacterEquipmentSlot.OnItemDroppedEventArgs e)
     {
+        if (e.name == "craftSlot") return;
         slot5.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
         slot5_box.SetData(e.indexSlot, e.item, e.item.icon, e.item_amount);
+        inventoryBag.RemoveItem(e.indexSlot, e.item_amount);
+        CraftingInventory.AddItemInIndex(4, e.item, e.item_amount);
         slot5_box.OnRightMouseBtnClick += HandleShowSlot5Action;
     }
     private void HandleShowSlot5Action(UIInventoryItem inventoryItemUI)
     {
+        int index = 4;
+        int amount = inventoryItemUI.GetItemAmount();
+        CraftingInventory.RemoveItem(index, amount);
+
+        inventoryBag.AddItem(inventoryItemUI.GetItem(), amount);
+        inventoryItemUI.ResetData();
         slot5.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     private void slot6_OnItemDropped(object sender, UI_CharacterEquipmentSlot.OnItemDroppedEventArgs e)
     {
+        if (e.name == "craftSlot") return;
         slot6.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
         slot6_box.SetData(e.indexSlot, e.item, e.item.icon, e.item_amount);
+        inventoryBag.RemoveItem(e.indexSlot, e.item_amount);
+        CraftingInventory.AddItemInIndex(5, e.item, e.item_amount);
         slot6_box.OnRightMouseBtnClick += HandleShowSlot6Action;
     }
     private void HandleShowSlot6Action(UIInventoryItem inventoryItemUI)
     {
+        int index = 5;
+        int amount = inventoryItemUI.GetItemAmount();   
+        CraftingInventory.RemoveItem(index, amount);
+
+        inventoryBag.AddItem(inventoryItemUI.GetItem(), amount);
+        inventoryItemUI.ResetData();
         slot6.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     private void slot7_OnItemDropped(object sender, UI_CharacterEquipmentSlot.OnItemDroppedEventArgs e)
     {
+        if (e.name == "craftSlot") return;
         slot7.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
         slot7_box.SetData(e.indexSlot, e.item, e.item.icon, e.item_amount);
+        inventoryBag.RemoveItem(e.indexSlot, e.item_amount);
+        CraftingInventory.AddItemInIndex(6, e.item, e.item_amount);
         slot7_box.OnRightMouseBtnClick += HandleShowSlot7Action;
     }
     private void HandleShowSlot7Action(UIInventoryItem inventoryItemUI)
     {
+        int index = 6;
+        int amount = inventoryItemUI.GetItemAmount();
+        CraftingInventory.RemoveItem(index, amount);
+
+        inventoryBag.AddItem(inventoryItemUI.GetItem(), amount);
+        inventoryItemUI.ResetData();
         slot7.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     private void slot8_OnItemDropped(object sender, UI_CharacterEquipmentSlot.OnItemDroppedEventArgs e)
     {
+        if (e.name == "craftSlot") return;
         slot8.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
         slot8_box.SetData(e.indexSlot, e.item, e.item.icon, e.item_amount);
+        inventoryBag.RemoveItem(e.indexSlot, e.item_amount);
+        CraftingInventory.AddItemInIndex(7, e.item, e.item_amount);
         slot8_box.OnRightMouseBtnClick += HandleShowSlot8Action;
     }
     private void HandleShowSlot8Action(UIInventoryItem inventoryItemUI)
     {
+        int index = 7;
+        int amount = inventoryItemUI.GetItemAmount();
+        CraftingInventory.RemoveItem(index, amount);
+
+        inventoryBag.AddItem(inventoryItemUI.GetItem(), amount);
+        inventoryItemUI.ResetData();
         slot8.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
     }
     private void slot9_OnItemDropped(object sender, UI_CharacterEquipmentSlot.OnItemDroppedEventArgs e)
     {
+        if (e.name == "craftSlot") return;
         slot9.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
         slot9_box.SetData(e.indexSlot, e.item, e.item.icon, e.item_amount);
+        inventoryBag.RemoveItem(e.indexSlot, e.item_amount);
+        CraftingInventory.AddItemInIndex(8, e.item, e.item_amount);
         slot9_box.OnRightMouseBtnClick += HandleShowSlot9Action;
     }
     private void HandleShowSlot9Action(UIInventoryItem inventoryItemUI)
     {
+        int index = 8;
+        int amount = inventoryItemUI.GetItemAmount();
+        CraftingInventory.RemoveItem(index, amount);
+
+        inventoryBag.AddItem(inventoryItemUI.GetItem(), amount);
+        inventoryItemUI.ResetData();
         slot9.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
     }
 

@@ -36,6 +36,9 @@ public class UIInventoryItem : MonoBehaviour
 
     public void ResetData()
     {
+        index = -1;
+        item = null;
+        item_amount = 0;
         this.itemImage.gameObject.SetActive(false);
         this.empty = true;
     }

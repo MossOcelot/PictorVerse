@@ -11,18 +11,28 @@ public class CraftingRecipe : ScriptableObject
 
     public bool CanCraft(InventorySO CraftSlot)
     {
-        foreach(InventoryItem itemAmount in Materials)
+        int n = 0;
+        foreach (InventoryItem itemAmount in Materials)
         {
+            bool isHave = false;
             foreach (InventoryItem item in CraftSlot.GetCurrentInventoryState().Values)
             {
                 if(item.item.item_id == itemAmount.item.item_id)
                 {
                     if(item.quantity >= itemAmount.quantity) {
-                        return true;
+                        isHave = true;
+                        break;
                     }
                 }
             }
-            return false;
+            if (isHave) 
+            {
+                n++;
+            }
+        }
+        if (n == Results.Count)
+        {
+            return true;
         }
         return false;
     }

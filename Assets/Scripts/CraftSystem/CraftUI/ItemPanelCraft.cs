@@ -9,7 +9,7 @@ public class ItemPanelCraft : MonoBehaviour
     public TextMeshProUGUI item_name;
     public TextMeshProUGUI item_quantity;
 
-    public ItemPanelCraft (Sprite newIcon, string name, int quantity)
+    public void SetData (Sprite newIcon, string name, int quantity)
     {
         icon.sprite = newIcon;
         item_name.text = name;
