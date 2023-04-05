@@ -7,13 +7,11 @@ public class ChangeProfiles : MonoBehaviour
 
     public GameObject profile1;
     public GameObject profile2;
-    public GameObject profile3;
 
     public void ShowProfile()
     {
         profile1.SetActive(true);
         profile2.SetActive(true);
-        profile3.SetActive(true);
 
     }
 
@@ -21,7 +19,6 @@ public class ChangeProfiles : MonoBehaviour
     {
         profile1.SetActive(false);
         profile2.SetActive(false);
-        profile3.SetActive(false);
 
     }
 }
