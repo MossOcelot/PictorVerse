@@ -1,8 +1,12 @@
 using inventory.Model;
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class UICraftingManager : MonoBehaviour
 {
@@ -105,11 +109,38 @@ public class UICraftingManager : MonoBehaviour
                 }
             } else
             {
+                int len = CraftingInventory.GetCurrentInventoryState().Count;
+                if(len > 0)
+                {
+                    foreach(int index in CraftingInventory.GetCurrentInventoryState().Keys) 
+                    {
+                        InventoryItem item = CraftingInventory.GetCurrentInventoryState()[index];
+                        inventoryBag.AddItem(item);
+                        CraftingInventory.RemoveItem(index, item.quantity);
+                    }
+
+                }
+                clearAllCraftSlot();
                 inventoryPage.hide();
             }
         }
     }
 
+    public void clearAllCraftSlot()
+    {
+        int len = craftTrans.childCount;
+        for(int i = 0; i < len; i++)
+        {
+            InventoryItem item = CraftingInventory.getInventoryItems()[i];
+            if(item.item == null)
+            {
+                craftTrans.GetChild(i).gameObject.GetComponent<UIInventoryItem>().ResetData();
+                continue;
+            }
+            int index = craftTrans.GetChild(i).gameObject.GetComponent<UIInventoryItem>().GetIndex();
+            craftTrans.GetChild(i).gameObject.GetComponent<UIInventoryItem>().SetData(index, item.item, item.item.icon, item.quantity);
+        }
+    }
     public List<CraftingRecipe> have_resive;
     private void FixedUpdate()
     {
@@ -122,11 +153,15 @@ public class UICraftingManager : MonoBehaviour
                 bool IsHave = have_resive.Contains(recipe);
                 if (IsHave) continue;
                 have_resive.Add(recipe);
+                
                 foreach (InventoryItem result in recipe.Results)
                 {
                     itemPanelCraft = Instantiate(ItemPanelCraftTemplate, itemPanelContent);
                     ItemPanelCraft itemPanel = itemPanelCraft.gameObject.GetComponent<ItemPanelCraft>();
                     itemPanel.SetData(result.item.icon, result.item.item_name, 1);
+                    
+                    itemPanelCraft.gameObject.GetComponent<Button>().AddEventListener(recipe, Crafting);
+                    
                 }
             } else
             {
@@ -141,6 +176,18 @@ public class UICraftingManager : MonoBehaviour
                     have_resive.Remove(recipe);
                 }
             }
+        }
+    }
+
+    private void Crafting(CraftingRecipe recipe)
+    {
+        recipe.Craft(CraftingInventory, inventoryBag);
+        clearAllCraftSlot();
+        have_resive.Clear();
+        int len = itemPanelContent.childCount;
+        for (int i = 0; i < len; i++)
+        {
+            Destroy(itemPanelContent.GetChild(i).gameObject);
         }
     }
 

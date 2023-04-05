@@ -12,6 +12,8 @@ public class CraftingRecipe : ScriptableObject
     public bool CanCraft(InventorySO CraftSlot)
     {
         int n = 0;
+        if (Materials.Count != CraftSlot.GetCurrentInventoryState().Count) return false;
+
         foreach (InventoryItem itemAmount in Materials)
         {
             bool isHave = false;
@@ -23,14 +25,14 @@ public class CraftingRecipe : ScriptableObject
                         isHave = true;
                         break;
                     }
-                }
+                } 
             }
             if (isHave) 
             {
                 n++;
             }
         }
-        if (n == Results.Count)
+        if (n == Materials.Count)
         {
             return true;
         }
@@ -46,7 +48,7 @@ public class CraftingRecipe : ScriptableObject
                 Dictionary<int, InventoryItem> itemInCraft = CraftSlot.GetCurrentInventoryState();
                 foreach(int index in itemInCraft.Keys)
                 {
-                    int amount = itemInCraft[index].quantity;
+                    int amount = itemAmount.quantity;
                     CraftSlot.RemoveItem(index, amount);
                 }
             }

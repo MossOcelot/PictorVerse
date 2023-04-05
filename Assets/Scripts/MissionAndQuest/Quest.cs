@@ -14,6 +14,7 @@ public class Quest : ScriptableObject
     public struct Info
     {
         public string Name;
+        public string location;
         public Sprite Icon;
         public string Description;
     }

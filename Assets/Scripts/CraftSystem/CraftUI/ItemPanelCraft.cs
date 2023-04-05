@@ -8,7 +8,6 @@ public class ItemPanelCraft : MonoBehaviour
     public Image icon;
     public TextMeshProUGUI item_name;
     public TextMeshProUGUI item_quantity;
-
     public void SetData (Sprite newIcon, string name, int quantity)
     {
         icon.sprite = newIcon;
