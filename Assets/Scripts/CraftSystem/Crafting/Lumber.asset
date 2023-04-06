@@ -9,20 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6430bf6408366a4290994778292be50, type: 3}
-  m_Name: PlayerWeaponBox
+  m_Script: {fileID: 11500000, guid: 14be11c2f979b9648a2c9525ff10d9f4, type: 3}
+  m_Name: Lumber
   m_EditorClassIdentifier: 
-  inventoryItems:
-  - quantity: 0
-    item: {fileID: 0}
+  Materials:
+  - quantity: 2
+    item: {fileID: 11400000, guid: 7cc42b90c4a2f94458684b1a47c1ec6d, type: 2}
     itemState: []
     owner: 
     before_owner: 
     price: 0
-  - quantity: 0
-    item: {fileID: 0}
+  Results:
+  - quantity: 1
+    item: {fileID: 11400000, guid: 648dda5f31d73e349a91c562ff544e95, type: 2}
     itemState: []
     owner: 
     before_owner: 
     price: 0
-  <Size>k__BackingField: 2

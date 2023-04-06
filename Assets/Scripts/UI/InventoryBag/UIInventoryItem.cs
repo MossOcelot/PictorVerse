@@ -14,6 +14,7 @@ public class UIInventoryItem : MonoBehaviour
     private int index;
     [SerializeField]
     private Item item;
+    [SerializeField] private int item_amount;
     [SerializeField]
     private Image itemImage;
     [SerializeField]
@@ -35,6 +36,9 @@ public class UIInventoryItem : MonoBehaviour
 
     public void ResetData()
     {
+        index = -1;
+        item = null;
+        item_amount = 0;
         this.itemImage.gameObject.SetActive(false);
         this.empty = true;
     }
@@ -51,6 +55,7 @@ public class UIInventoryItem : MonoBehaviour
         this.item = item;
         this.itemImage.gameObject.SetActive(true);
         this.itemImage.sprite = spritem;
+        this.item_amount = quantity;
         this.quantityTxt.text = quantity.ToString() + "";
         this.empty = false;
     }
@@ -106,6 +111,11 @@ public class UIInventoryItem : MonoBehaviour
     public Item GetItem()
     {
         return item;
+    }
+
+    public int GetItemAmount()
+    {
+        return item_amount;
     }
 
     public int GetIndex()
