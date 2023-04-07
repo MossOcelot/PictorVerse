@@ -20,7 +20,7 @@ public class openMenu : MonoBehaviour
     private void Start()
     {
         mission_controller = GameObject.FindGameObjectWithTag("MissionQuest").gameObject.GetComponent<MissionCanvasController>();
-        questList = mission_controller.QuestList;
+        
     }
 
     public void openPanel()
@@ -40,6 +40,7 @@ public class openMenu : MonoBehaviour
 
     public void FixedUpdate()
     {
+        questList = mission_controller.QuestList.QuestList;
         int len = questList.Count;
         
         if (len != oldQuestListCount)
@@ -51,11 +52,19 @@ public class openMenu : MonoBehaviour
                     Destroy(go.gameObject);
                 }
             }
-            foreach(Quest quest in questList)
+            foreach (Quest quest in questList)
             {
                 miniQuestBox = Instantiate(miniQuest_template, miniQuest_content);
-                miniQuestBox.gameObject.GetComponent<UIMiniQuestBox>().SetData(quest.questType.ToString(), quest.Information.Name, quest.Information.Description);
+                if (quest.status == Quest.QuestStatus.Completed)
+                {
+                    miniQuestBox.gameObject.GetComponent<UIMiniQuestBox>().SetData("Completed" , quest.information.quest_name, quest.information.description);
+                } else
+                {
+                    miniQuestBox.gameObject.GetComponent<UIMiniQuestBox>().SetData(quest.questType.ToString(), quest.information.quest_name, quest.information.description);
+                }
+               
                 miniQuestBox.gameObject.GetComponent<Button>().AddEventListener(quest, ClickOpenQuest);
+                miniQuestBox_Group.Add(miniQuestBox);
             }
             oldQuestListCount = len;
         }

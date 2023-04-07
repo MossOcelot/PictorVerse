@@ -295,6 +295,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 979f61c0b19ff7843a36d3d57feb9ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name_object: Slime
+  type: 1
+  DestroySFX: {fileID: 0}
   aiFollow: {fileID: 1267876904186170159}
   dropItem: {fileID: 1800061988387116420, guid: 14cd6ae7f83befc44956708a784d3aff, type: 3}
   item_datas:
@@ -337,7 +340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   position_player: {x: 0, y: 0, z: 0}
   firstposition_AI: {x: 0, y: 0, z: 0}
-  position_spawner: {x: -19.13, y: -11.48, z: 0}
+  position_spawner: {x: -12.37, y: -27.7, z: 0}
   speed: 2
   distanceBetween: 15
   isFollowPlayer: 0
@@ -421,6 +424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2594543de64797a46b22c8c39144632c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterStatus: {fileID: 7763780136528454717}
   damageAmount: 10
   knockbackForce: 2
 --- !u!114 &-5768761218848434974
@@ -448,10 +452,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name_monster: 
-  birthplace: Slime Spawner (1)
+  birthplace: Slime Spawner (3)
   HP: 0
   energy: 0
-  atk: 2
+  atk: 1
   speed: 0
 --- !u!114 &2254834400824466678
 MonoBehaviour:

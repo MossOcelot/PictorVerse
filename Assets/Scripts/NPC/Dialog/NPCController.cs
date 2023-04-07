@@ -5,22 +5,43 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 using System;
+using JetBrains.Annotations;
+
 public class NPCController : MonoBehaviour
 {
     public GameObject dialoguePanel;
     public GameObject player;
     public TextMeshProUGUI dialogueText;
-    public string[] dialogue;
-    private int index = 0;
+    public QuestDialogue DefaultDialogue;
+
+    public List<string> dialogue;
+    public NPC_Quest npc_quest;
+    public NPC_Reach npc_reach;
+    public int index = 0;
 
     public float wordSpeed;
     public bool playerIsClose;
     public bool IsEndSituation = false;
     public bool IsOpenShelf = false;
+
+    public bool IsInQuest;
+    public bool IsInReachQuest;
     // Update is called once per frame
     void Update()
     {
         if (!playerIsClose) return;
+        if (IsInQuest)
+        {
+            int len = dialoguePanel.transform.GetChild(3).gameObject.transform.childCount;
+            for (int i = 0; i < len; i++)
+            {
+                dialoguePanel.transform.GetChild(3).gameObject.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            dialoguePanel.transform.GetChild(3).gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        }
         if (!dialoguePanel.active)
         {
             IsEndSituation = false;
@@ -28,31 +49,58 @@ public class NPCController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E) && !IsOpenShelf)
         {
+            
+
             if (!dialoguePanel.activeInHierarchy)
             {
-                dialoguePanel.SetActive(true);
-
-                if (index == dialogue.Length - 1)
+                if (!IsInQuest)
                 {
-                    IsEndSituation = true;
+                    dialogue.Clear();
+                    dialogue.Add(DefaultDialogue.greeting);
+                    dialogue.AddRange(DefaultDialogue.conversation);
                 }
-                if (player != null)
+                if (npc_reach != null)
                 {
-                    player.gameObject.GetComponent<PlayerMovement>().isLooking = true;
+                    QuestDialogue reachQuestDialogue = npc_reach.CheckQuestInPlayer();
+                    if (reachQuestDialogue != null)
+                    {
+                        IsInReachQuest = true;
+                        dialogue.Clear();
+                        dialogue.Add(reachQuestDialogue.greeting);
+                        dialogue.AddRange(reachQuestDialogue.conversation);
+                    }
                 }
-                StartCoroutine(Typing());
+                StartDialogue();
             }
-            else if (dialogueText.text == dialogue[index])
+            else if (dialogueText.text == dialogue[index] || IsInQuest)
             {
                 NextLine();
             }
 
 
         }
-        if (Input.GetKeyDown(KeyCode.Q) && dialoguePanel.activeInHierarchy)
+        /*if (Input.GetKeyDown(KeyCode.q) && dialoguePanel.activeInHierarchy)
         {
             RemoveText();
+        }*/
+    }
+    public void StartDialogue()
+    {
+        dialoguePanel.SetActive(true);
+
+        if (index == dialogue.Count - 1)
+        {
+            IsEndSituation = true;
         }
+        if (player != null)
+        {
+            player.gameObject.GetComponent<PlayerMovement>().isLooking = true;
+        }
+        StartCoroutine(Typing());
+    }
+    public void SetIndexConversation(int index)
+    {
+        this.index = index;
     }
 
     public void RemoveText()
@@ -60,6 +108,7 @@ public class NPCController : MonoBehaviour
         dialogueText.text = "";
         index = 0;
         int len = dialoguePanel.transform.GetChild(3).gameObject.transform.childCount;
+        Debug.Log("Len Button: " + len);
         for (int i = 0; i < len - 1; i++)
         {
             dialoguePanel.transform.GetChild(3).gameObject.transform.GetChild(i + 1).gameObject.SetActive(false);
@@ -69,6 +118,18 @@ public class NPCController : MonoBehaviour
             player.gameObject.GetComponent<PlayerMovement>().isLooking = false;
         }
         dialoguePanel.SetActive(false);
+
+        if (IsInQuest)
+        {
+            npc_quest.SendQuest();
+            IsInQuest = false;
+        }
+
+        if (IsInReachQuest)
+        {
+            npc_reach.FinishReach();
+            IsInReachQuest = false;
+        }
     }
 
     IEnumerator Typing()
@@ -82,10 +143,10 @@ public class NPCController : MonoBehaviour
 
     public void NextLine()
     {
-        if (index < dialogue.Length - 1)
+        if (index < dialogue.Count - 1)
         {
             index++;
-            if (index == dialogue.Length - 1)
+            if (index == dialogue.Count - 1)
             {
                 IsEndSituation = true;
             }

@@ -58,6 +58,7 @@ public class Timesystem : MonoBehaviour
         }
 
         minutes = (_timeOfDay * 60) - ((float)hours * 60f);
+        if (minutes < 0) minutes = 0;
         if(minutes > 59f)
         {
             minutes = 0;

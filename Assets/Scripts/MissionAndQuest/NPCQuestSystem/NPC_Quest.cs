@@ -6,22 +6,31 @@ using UnityEngine.UI;
 
 public class NPC_Quest : MonoBehaviour
 {
+    [System.Serializable]
+    public class QuestEvent
+    {
+        public Quest quest;
+        public QuestDialogue Dialogue;
+    }
     [SerializeField]
-    private List<Quest> MainQuest;
+    private List<QuestEvent> MainQuest;
     public bool HaveMainQuest;
     public int index_MainQuestBtn;
     [SerializeField]
-    private List<Quest> SecondaryQuests;
+    private List<QuestEvent> SecondaryQuests;
     public bool HaveSecondaryQuests;
     public int index_SecondaryQuests;
     [SerializeField]
-    private List<Quest> DailyQuest;
+    private List<QuestEvent> DailyQuest;
     public bool HaveDailyQuest;
     public int index_DailyQuest;
 
     public Transform ButtonList;
 
     public NPCController npcController;
+
+    Quest quest;
+
     public void Update()
     {
         if (!npcController.playerIsClose) return;
@@ -33,9 +42,10 @@ public class NPC_Quest : MonoBehaviour
 
             return;
         }
+
         if (IsEndSituation && npcController.playerIsClose)
         {
-            AddButtonInDialog();
+            if(!npcController.IsInQuest) AddButtonInDialog();
         }
     }
 
@@ -70,13 +80,63 @@ public class NPC_Quest : MonoBehaviour
 
     public void AcceptingMainQuest()
     {
-        foreach(Quest quest in MainQuest)
+        foreach(QuestEvent questEvent in MainQuest)
         {
-            if (!quest.Completed)
+            Quest quest = questEvent.quest;
+
+            if (quest.status != Quest.QuestStatus.Completed)
             {
-                GameObject.FindGameObjectWithTag("MissionQuest").gameObject.GetComponent<MissionCanvasController>().QuestList.Add(quest);
+                if (quest.status == Quest.QuestStatus.InProgress) 
+                {
+                    NPCSendAlert(); 
+                    break; 
+                }
+                NpcSendQuest(questEvent);
                 break;
             }
-        }
+         } 
     }
+    
+    public void NPCSendAlert()
+    {
+        npcController.RemoveText();
+        npcController.IsEndSituation = false;
+        npcController.dialogue.Clear();
+        npcController.dialogue.Add("คุณได้ รับภารกิจไปแล้ว");
+        npcController.dialogue.Add("โปรดทำให้ภารกิจก่อนหน้าให้เสร็จก่อน");
+
+        npcController.SetIndexConversation(0);
+
+        npcController.IsInQuest = true;
+        npcController.StartDialogue();
+    }
+
+    public void NpcSendQuest(QuestEvent questEvent)
+    {
+
+        QuestDialogue dialogue = questEvent.Dialogue;
+        npcController.RemoveText();
+        npcController.IsEndSituation = false;
+        npcController.dialogue.Clear();
+        npcController.dialogue.Add(dialogue.greeting);
+        npcController.dialogue.AddRange(dialogue.conversation);
+
+        npcController.SetIndexConversation(0);
+
+        quest = questEvent.quest;
+
+        npcController.IsInQuest = true;
+        npcController.StartDialogue();
+    }
+
+    public void SendQuest()
+    {
+        if (quest == null) return;
+        quest.status = Quest.QuestStatus.InProgress;
+        GameObject.FindGameObjectWithTag("MissionQuest").gameObject.GetComponent<MissionCanvasController>().QuestList.QuestList.Add(quest);
+        quest = null;
+    }
+
+
+
 }

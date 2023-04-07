@@ -1,113 +1,75 @@
 using inventory.Model;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System.Drawing;
 using UnityEngine;
-using UnityEngine.Events;
 
-[CreateAssetMenu(fileName = "New Quest", menuName = "Mission/Quest")] 
+[CreateAssetMenu(fileName = "New Quest", menuName = "Mission/Quest")]
 public class Quest : ScriptableObject
 {
-    public enum QuestType { MainQuest, SecondaryQuest, DailyQuest };
-
-    public QuestType questType;
     [System.Serializable]
-    public struct Info
+    public class Info
     {
-        public string Name;
+        public Sprite icon;
+        public string quest_name;
+        public string description;
         public string location;
-        public Sprite Icon;
-        public string Description;
     }
 
-    [Header("Info")] public Info Information;
+    public Info information;
+    public QuestType questType;
+    public QuestStatus status;
+    public List<QuestObjective> goals;
 
     [System.Serializable]
-    public struct Stat
+    public class Stat
     {
-        public float Currency;
-        public PlayerStatus.StaticValue status;
-        public InventoryItem[] RewardItems;
-        public bool HaveItems;
-        public bool HaveStatus;
+        [System.Serializable]
+        public class RewardCurrency
+        {
+            public float amount;
+            public SceneStatus.section currency;
+        }
+
+        public List<RewardCurrency> currency;
+        public PlayerStatus.StaticValue staticReward;
+        public int career_score;
+        public List<InventoryItem> itemReward;
     }
 
-    [Header("Reward")] public Stat Reward = new Stat { Currency = 1000 };
+    public Stat Rewards;
+    public bool HaveStatic;
+    public bool HaveItemReward;
 
-    public bool Completed { get; protected set; }
-    public QuestCompletedEvent QuestCompleted;
-    public List<Quest> nextQuest;
-
-    public abstract class QuestGoal : ScriptableObject
+    public void UpdateGoals()
     {
-        protected string Description;
-        public int CurrentAmount { get; protected set; }
-        public int RequiredAmount = 1;
-
-        public bool Completed { get; protected set; }
-        [HideInInspector] public UnityEvent GoalCompleted;
-
-        public virtual string GetDescription() 
-        { 
-            return Description;
-        }
-
-        public virtual void Initialize()
+        int n = 0;
+        foreach(QuestObjective goal in goals)
         {
-            Completed = false;
-            GoalCompleted = new UnityEvent();
-        }
-
-        protected void Evaluate()
-        {
-            if(CurrentAmount >= RequiredAmount)
+            if(goal.completed)
             {
-                Complete();
+                n++;
             }
         }
-
-        private void Complete()
+        int len = goals.Count;
+        if(n == len)
         {
-            Completed = true;
-            GoalCompleted.Invoke();
-            GoalCompleted.RemoveAllListeners();
-        }
-
-        public void Skip()
-        {
-            // charget the player some game currency   
-            Complete();
+            status = QuestStatus.Completed;
         }
     }
 
-    public List<QuestGoal> Goals;
-
-    public void Initialize()
+    public enum QuestStatus
     {
-        Completed = false;
-        QuestCompleted = new QuestCompletedEvent();
-
-        foreach(QuestGoal goal in Goals)
-        {
-            goal.Initialize();
-            goal.GoalCompleted.AddListener(delegate { CheckGoals(); });
-        }
+        None,
+        InProgress,
+        Completed,
+        Failed
     }
 
-    private void CheckGoals()
+    public enum QuestType
     {
-        Completed = Goals.All(g => g.Completed);
-        if (Completed)
-        {
-            // give rewards
-            QuestCompleted.Invoke(this);
-            QuestCompleted.RemoveAllListeners();
-        }
+        MainQuest,
+        SecondaryQuest,
+        DailyQuest
     }
-
-}
-
-
-public class QuestCompletedEvent : UnityEvent<Quest>
-{
-
 }

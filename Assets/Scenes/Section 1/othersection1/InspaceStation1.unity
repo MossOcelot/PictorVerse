@@ -9548,6 +9548,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 492621241}
     - target: {fileID: 9071660455513818677, guid: 72a1ff215365dd847b1ac2da47d6f0aa, type: 3}
+      propertyPath: DefaultDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: befb0b6a33ab0f14faff5846474b3421, type: 2}
+    - target: {fileID: 9071660455513818677, guid: 72a1ff215365dd847b1ac2da47d6f0aa, type: 3}
       propertyPath: dialogue.Array.data[0]
       value: Hello.Welcome to CapitalSection1 space station.
       objectReference: {fileID: 0}
@@ -21354,12 +21358,16 @@ MonoBehaviour:
   dialoguePanel: {fileID: 492621241}
   player: {fileID: 0}
   dialogueText: {fileID: 492621240}
+  DefaultDialogue: {fileID: 11400000, guid: befb0b6a33ab0f14faff5846474b3421, type: 2}
   dialogue:
   - 'Use ticket to open door '
+  npc_quest: {fileID: 0}
+  index: 0
   wordSpeed: 0
   playerIsClose: 0
   IsEndSituation: 0
   IsOpenShelf: 0
+  IsInQuest: 0
 --- !u!61 &1209150865
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -27881,6 +27889,10 @@ PrefabInstance:
       propertyPath: dialoguePanel
       value: 
       objectReference: {fileID: 492621241}
+    - target: {fileID: 9071660455513818677, guid: 72a1ff215365dd847b1ac2da47d6f0aa, type: 3}
+      propertyPath: DefaultDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: befb0b6a33ab0f14faff5846474b3421, type: 2}
     - target: {fileID: 9071660455513818677, guid: 72a1ff215365dd847b1ac2da47d6f0aa, type: 3}
       propertyPath: dialogue.Array.data[0]
       value: Hello.Welcome to CapitalSection1 space station.
@@ -37163,6 +37175,10 @@ PrefabInstance:
       propertyPath: dialoguePanel
       value: 
       objectReference: {fileID: 492621241}
+    - target: {fileID: 9071660455513818677, guid: 72a1ff215365dd847b1ac2da47d6f0aa, type: 3}
+      propertyPath: DefaultDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: befb0b6a33ab0f14faff5846474b3421, type: 2}
     - target: {fileID: 9071660455513818677, guid: 72a1ff215365dd847b1ac2da47d6f0aa, type: 3}
       propertyPath: dialogue.Array.data[0]
       value: Hello.Welcome to CapitalSection1 space station.
