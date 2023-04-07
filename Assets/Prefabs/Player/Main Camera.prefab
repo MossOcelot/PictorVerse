@@ -1089,7 +1089,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2147483895
+    m_Bits: 2147483647
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 02f5c9263e0afc54a822d5853855b556, type: 2}
   m_TargetDisplay: 0
@@ -2648,6 +2648,10 @@ PrefabInstance:
     - target: {fileID: 6572890121834418880, guid: 201c5d73509b9a44dbb029260d9e92e0, type: 3}
       propertyPath: m_Name
       value: CameraBigmap
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572890121834418885, guid: 201c5d73509b9a44dbb029260d9e92e0, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 767
       objectReference: {fileID: 0}
     - target: {fileID: 6572890121834418887, guid: 201c5d73509b9a44dbb029260d9e92e0, type: 3}
       propertyPath: m_RootOrder
