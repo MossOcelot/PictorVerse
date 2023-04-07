@@ -11,6 +11,7 @@ public class UIMiniQuestBox : MonoBehaviour
     public Sprite[] img_type;
 
     public Image icon;
+    public Image Panel_BG;
     public TextMeshProUGUI title;
     public TextMeshProUGUI description;
 
@@ -24,18 +25,22 @@ public class UIMiniQuestBox : MonoBehaviour
     private void SetIcon(string type)
     {
         if(img_type.Length == 0) return;
-        
+
         if (type == "MainQuest")
         {
-            icon.sprite = img_type[0];
+            Panel_BG.sprite = img_type[0];
         }
         else if (type == "SecondaryQuest")
         {
-            icon.sprite = img_type[1];
+            Panel_BG.sprite = img_type[1];
         }
         else if (type == "DailyQuest")
         {
-            icon.sprite = img_type[2];
-        } 
+            Panel_BG.sprite = img_type[2];
+        }
+        else
+        {
+            Panel_BG.sprite = img_type[3];
+        }
     }
 }

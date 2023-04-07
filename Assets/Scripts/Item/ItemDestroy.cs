@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class ItemDestroy : Tool
 {
+    public string name_object;
+    public QuestObjective.QuestObjectiveType type;
     [SerializeField]
     private AudioSource DestroySFX;
     [System.Serializable]
@@ -33,7 +35,7 @@ public class ItemDestroy : Tool
     public Vector3 moveDirection;
     public GameObject floatingPoints;
 
-
+    bool isDestroy;
     void Start()
     {
         Hitpoints = MaxHitpoints;
@@ -50,6 +52,12 @@ public class ItemDestroy : Tool
         CheckCollision();
         if (Hitpoints <= 0)
         {
+            if (!isDestroy)
+            {
+
+                GameObject.FindGameObjectWithTag("MissionQuest").gameObject.GetComponent<MissionCanvasController>().UpdateObjective(type, name_object, 1);
+                isDestroy = true;
+            }
             aiFollow.setIsDied(true);
         }
     }

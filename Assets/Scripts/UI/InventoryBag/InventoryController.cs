@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
+using static QuestObjective;
 
 public class InventoryController : MonoBehaviour
 {
@@ -22,12 +23,9 @@ public class InventoryController : MonoBehaviour
     private ExchangeManager Foreign_Exchange;
 
 
-    [SerializeField]
-    private InventorySO inventoryData;
-    [SerializeField]
-    private InventorySO WeaponBoxData;
-    [SerializeField]
-    private InventorySO miniInventoryData;
+    public InventorySO inventoryData;
+    public InventorySO WeaponBoxData;
+    public InventorySO miniInventoryData;
     
 
     public List<InventoryItem> initialItems= new List<InventoryItem>();
@@ -452,6 +450,24 @@ public class InventoryController : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        Dictionary<string, int> allAmount_item = new Dictionary<string, int>();
+
+        foreach(InventoryItem item in inventoryData.GetCurrentInventoryState().Values)
+        {
+            if (!allAmount_item.ContainsKey(item.item.item_name))
+            {
+                allAmount_item[item.item.item_name] = 0;
+            }
+            allAmount_item[item.item.item_name] += item.quantity;
+        }
+
+        foreach(string item_name in allAmount_item.Keys)
+        {
+            GameObject.FindGameObjectWithTag("MissionQuest").gameObject.GetComponent<MissionCanvasController>().UpdateObjectiveItem(QuestObjectiveType.CollectItem, item_name, allAmount_item[item_name]);
+        }
+    }
     private void OnApplicationQuit()
     {
         // Save();
