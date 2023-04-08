@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: -6548516153152810734}
   - component: {fileID: -9050283520360670951}
   - component: {fileID: 3192474562410210545}
+  - component: {fileID: 2131668089665948639}
   - component: {fileID: 1956649661961853465}
   - component: {fileID: 1956649661961853464}
   - component: {fileID: 1956649661961853467}
@@ -281,6 +282,8 @@ MonoBehaviour:
   energy: 1000
   DeadSFX: {fileID: 4934100284200213865}
   IsDead: 0
+  IsRespawn: 0
+  player_teleport: {fileID: 0}
   animator: {fileID: 0}
   rb: {fileID: 0}
   movementScript: {fileID: 0}
@@ -319,7 +322,6 @@ MonoBehaviour:
   strength: 0
   weight_player: 0
   tr: {fileID: 1956649661961853466}
-  swordHitbox: {fileID: 0}
   dashCountdownTimer: 5
   canDashSpeed: 1
   maxCountDashSpeed: 0
@@ -461,6 +463,25 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e3cf19e2ed0b30d4a9aaaad483db2916, type: 2}
   - {fileID: 11400000, guid: eb42cd07f06c8da4197148488baa153b, type: 2}
   - {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
+--- !u!114 &2131668089665948639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956649661961853460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e1d7798fe5fa534ba4026840fae958f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Career: {fileID: 0}
+  finishDailyQuest: 0
+  HaveCareer: 0
+  absenteeismPerDay: 0
+  absenteeismPerMonth: 0
+  DayInGame: 0
+  playerStatus: {fileID: 1956649661961853470}
 --- !u!114 &1956649661961853465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,7 +524,7 @@ MonoBehaviour:
   - {x: 0.9585426, y: -1.9040359, z: 0}
   m_ShapePathHash: -869264443
   m_Mesh: {fileID: 0}
-  m_InstanceId: 58628
+  m_InstanceId: 203932
 --- !u!114 &1956649661961853467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,6 +537,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f0432a14ee3ca1468de55932adafe57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RespawnDefault:
+    Scene_name: 
+    section: 0
+    location: {x: 0, y: 0, z: 0}
+  RespawnList: []
   isOnTeleporter: 0
 --- !u!96 &1956649661961853466
 TrailRenderer:
