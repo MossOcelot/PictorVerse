@@ -429,13 +429,14 @@ public class UICraftingManager : MonoBehaviour
         }
 
         //ddata
+        Sprite icon = inventoryItem.item.icon;
         string item_name = inventoryItem.item.item_name;
         int item_quantity = inventoryItem.quantity;
         float item_price = inventoryItem.price;
         string item_description = inventoryItem.item.description;
 
         inventoryPage.showItemDescriptionAction(itemIndex);
-        inventoryPage.AddDescription(item_name, item_quantity, item_price, item_description);
+        inventoryPage.AddDescription(icon, item_name, item_quantity, item_price, item_description);
 
         IItemAction itemAction = inventoryItem.item as IItemAction;
         int n = 0;

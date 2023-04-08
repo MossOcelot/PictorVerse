@@ -155,9 +155,9 @@ public class UIBigMiniInventory : MonoBehaviour
         actionPanel.transform.position = listOfUIItems[itemIndex].transform.position;
     }
 
-    public void AddDescription(string item_name, int quantity, float item_price, string description)
+    public void AddDescription(Sprite icon, string item_name, int quantity, float item_price, string description)
     {
-        descriptionActionPanel.AddDescription(item_name, quantity, item_price, description);
+        descriptionActionPanel.AddDescription(icon, item_name, quantity, item_price, description);
     }
 
     public void AddActionInDescription(int n, string actionName, Action action)
@@ -225,13 +225,14 @@ public class UIBigMiniInventory : MonoBehaviour
         }
 
         //ddata
+        Sprite icon = MiniItem.item.icon;
         string item_name = MiniItem.item.item_name;
         int item_quantity = MiniItem.quantity;
         float item_price = MiniItem.price;
         string item_description = MiniItem.item.description;
 
         showItemDescriptionAction(itemIndex);
-        AddDescription(item_name, item_quantity, item_price, item_description);
+        AddDescription(icon, item_name, item_quantity, item_price, item_description);
 
         IItemAction itemAction = MiniItem.item as IItemAction;
         if (itemAction != null)

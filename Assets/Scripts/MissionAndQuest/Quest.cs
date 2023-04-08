@@ -19,6 +19,7 @@ public class Quest : ScriptableObject
     public Info information;
     public QuestType questType;
     public QuestStatus status;
+    public List<QuestAcceptanceConditions> conditions;
     public List<QuestObjective> goals;
 
     [System.Serializable]
@@ -35,11 +36,22 @@ public class Quest : ScriptableObject
         public PlayerStatus.StaticValue staticReward;
         public int career_score;
         public List<InventoryItem> itemReward;
+        public CareerSO career;
     }
 
     public Stat Rewards;
     public bool HaveStatic;
     public bool HaveItemReward;
+    public bool HaveCareer;
+
+    public bool CheckCareer(CareerPlayer player)
+    {
+        if(player.Career == null)
+        {
+            return true;
+        }
+        return false;
+    }
 
     public void UpdateGoals()
     {

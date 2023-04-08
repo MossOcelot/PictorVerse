@@ -109,7 +109,9 @@ public class UIDetailQuest : MonoBehaviour
     private void GetReward(Quest quest)
     {
         MissionCanvasController missionController = GameObject.FindGameObjectWithTag("MissionQuest").gameObject.GetComponent<MissionCanvasController>();
-        GameObject player = GameObject.FindGameObjectWithTag("Player").gameObject; 
+        
+        GameObject player = GameObject.FindGameObjectWithTag("Player").gameObject;
+       
         if (quest.HaveItemReward)
         {
             InventoryController inventoryPlayer = player.GetComponent<InventoryController>();   
@@ -148,7 +150,20 @@ public class UIDetailQuest : MonoBehaviour
 
         }
 
-        int len = quest.Rewards.currency.Count;
+        CareerPlayer career = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<CareerPlayer>();
+        if (quest.HaveCareer)
+        {
+            career.Career = quest.Rewards.career;
+            if (career.Career == null)
+            {
+                career.RemoveCareer();
+            }
+        }
+
+        if(quest.questType == Quest.QuestType.DailyQuest)
+        {
+
+        }
 
         foreach(Quest.Stat.RewardCurrency currency in quest.Rewards.currency)
         {
