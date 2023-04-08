@@ -28,11 +28,11 @@ public class UIGoverment : MonoBehaviour
 
         if ((oldsection != section.ToString() && section.ToString() == GovermentInSection.ToString()) || godmode.reset)
         {
-            GovermentName.text = policy.govermentStatus.name_goverment.ToString();
-            Taxs[0].text = $"{policy.individual_tax.Last().Tax} %";
-            Taxs[1].text = $"{policy.business_tax} %";
-            Taxs[2].text = $"{policy.vat_tax} %";
-            CollectTaxValue.text = $"<sprite index={(int)policy.govermentStatus.govermentInSection}> {policy.govermentStatus.GetTaxIncome()}";
+            GovermentName.text = policy.govermentStatus.goverment.name_goverment.ToString();
+            Taxs[0].text = $"{policy.govermentPolicy.individual_tax.Last().Tax} %";
+            Taxs[1].text = $"{policy.govermentPolicy.business_tax} %";
+            Taxs[2].text = $"{policy.govermentPolicy.vat_tax} %";
+            CollectTaxValue.text = $"<sprite index={(int)policy.govermentStatus.goverment.govermentInSection}> {policy.govermentStatus.GetTaxIncome()}";
             oldsection = section.ToString();
             godmode.reset = false;
         }

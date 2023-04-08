@@ -323,7 +323,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DestroySFX: {fileID: 7883019503520145063}
   aiFollow: {fileID: 0}
-  drop: {fileID: 3382479965641908431, guid: 9913bacb019e15c419e5ce184aae88dd, type: 3}
+  dropItem: {fileID: 1800061988387116420, guid: 14cd6ae7f83befc44956708a784d3aff, type: 3}
+  item_datas:
+  - item: {fileID: 11400000, guid: 59476837436b01c4490934a3acff0cdb, type: 2}
+    Maxquantity: 1
+    PercentDrop: 1
+  - item: {fileID: 11400000, guid: c12c9cf265f03a647aca1a4f008b8fa1, type: 2}
+    Maxquantity: 5
+    PercentDrop: 10
+  - item: {fileID: 11400000, guid: d3f5f79d9087d8141bea40a3491c4a4c, type: 2}
+    Maxquantity: 5
+    PercentDrop: 5
+  - item: {fileID: 11400000, guid: 31f2bb170ae2c514f9050b4212791ab2, type: 2}
+    Maxquantity: 5
+    PercentDrop: 7
+  - item: {fileID: 11400000, guid: 8c572f7107453ee4882020f36b7052b2, type: 2}
+    Maxquantity: 5
+    PercentDrop: 9
+  - item: {fileID: 11400000, guid: d257d1d0ad582c245abdea518d7f1ecd, type: 2}
+    Maxquantity: 5
+    PercentDrop: 12
+  - item: {fileID: 11400000, guid: ac8ff3e9f0dfab448837742746d5edb4, type: 2}
+    Maxquantity: 2
+    PercentDrop: 2
+  - item: {fileID: 11400000, guid: 5440b4e9bb32e6044934c651354980d5, type: 2}
+    Maxquantity: 5
+    PercentDrop: 7
+  - item: {fileID: 11400000, guid: 3ff8dc994ee59a148be51aed281c3154, type: 2}
+    Maxquantity: 5
+    PercentDrop: 6
+  - item: {fileID: 11400000, guid: 28149635c97af2a458cdd1d5948dff72, type: 2}
+    Maxquantity: 1
+    PercentDrop: 1
+  - item: {fileID: 11400000, guid: ecaeb17fcff3fd84bbf8d5b363b8799f, type: 2}
+    Maxquantity: 5
+    PercentDrop: 40
   dropCount: 15
   spread: 2
   Hitpoints: 0

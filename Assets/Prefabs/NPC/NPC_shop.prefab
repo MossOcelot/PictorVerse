@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 8692904785758231639}
   - component: {fileID: 8692904785758231638}
   - component: {fileID: 2631767545836326227}
-  - component: {fileID: 2631767545836326226}
+  - component: {fileID: 2042292262711552136}
   - component: {fileID: 2631767545836326225}
   m_Layer: 7
   m_Name: NPC_shop
@@ -124,7 +124,7 @@ Transform:
   m_Children:
   - {fileID: 8692904784314423531}
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.079}
 --- !u!212 &8692904785758231628
 SpriteRenderer:
@@ -253,6 +253,7 @@ MonoBehaviour:
   wordSpeed: 0.01
   playerIsClose: 0
   IsEndSituation: 0
+  IsOpenShelf: 0
 --- !u!114 &8692904785758231639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,7 +300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npc_img: {fileID: 148003980, guid: e6dadec6d3104b5438fc1582c6a8a7e9, type: 3}
-  npc_name: 
+  npc_name: Adam
   birthday: 
   live_place: 
   financial_detail:
@@ -307,7 +308,7 @@ MonoBehaviour:
     debt: 0
   accountsDetails: []
   assets: []
---- !u!114 &2631767545836326226
+--- !u!114 &2042292262711552136
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -319,8 +320,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2db8d4c97b93bca4d9fa90949e986e31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPC_status: {fileID: 2631767545836326227}
-  playerBag: {fileID: 11400000, guid: 69c3d2a503db2bb45a5cd94446792b87, type: 2}
+  NPC_status: {fileID: 0}
+  playerBag: {fileID: 0}
   financial_shop_detail:
     balance: 0
     debt: 0
@@ -328,7 +329,7 @@ MonoBehaviour:
   resource: []
   product_type: []
   shop_manager: {fileID: 0}
-  myshop: {fileID: 7387413289116649874, guid: 812848b5acabc2d4abc97ba2ea94f032, type: 3}
+  myshop: {fileID: 0}
   accountsDetails: []
   section_cash: 
   VAT: 0
@@ -346,5 +347,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonList: {fileID: 0}
-  npc_shop: {fileID: 2631767545836326226}
+  npc_shop: {fileID: 2042292262711552136}
   npcController: {fileID: 8692904785758231632}

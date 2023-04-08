@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UIElements;
+using inventory.Model;
 public class data_storage : MonoBehaviour
 {
     [SerializeField]

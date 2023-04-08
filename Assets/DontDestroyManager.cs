@@ -21,7 +21,7 @@ public class DontDestroyManager : MonoBehaviour
                     SceneStatus scene = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>();
                     if (obj2.name == "Goverment")
                     {
-                        if(obj2.gameObject.GetComponent<GovermentStatus>().govermentInSection.ToString() != scene.sceneInsection.ToString())
+                        if(obj2.gameObject.GetComponent<GovermentStatus>().goverment.govermentInSection.ToString() != scene.sceneInsection.ToString())
                         {
                             Destroy(obj2.gameObject);
                             status = true;

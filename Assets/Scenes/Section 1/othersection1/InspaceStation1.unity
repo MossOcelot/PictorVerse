@@ -9392,6 +9392,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 9071660455513818677, guid: 72a1ff215365dd847b1ac2da47d6f0aa, type: 3}
+      propertyPath: DefaultDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: befb0b6a33ab0f14faff5846474b3421, type: 2}
+    - target: {fileID: 9071660455513818677, guid: 72a1ff215365dd847b1ac2da47d6f0aa, type: 3}
       propertyPath: dialogue.Array.data[0]
       value: Hello.Welcome to CapitalSection1 space station.
       objectReference: {fileID: 0}
@@ -21198,11 +21202,17 @@ MonoBehaviour:
   dialoguePanel: {fileID: 0}
   player: {fileID: 0}
   dialogueText: {fileID: 0}
+  dialogueText: {fileID: 492621240}
+  DefaultDialogue: {fileID: 11400000, guid: befb0b6a33ab0f14faff5846474b3421, type: 2}
   dialogue:
   - 'Use ticket to open door '
+  npc_quest: {fileID: 0}
+  index: 0
   wordSpeed: 0
   playerIsClose: 0
   IsEndSituation: 0
+  IsOpenShelf: 0
+  IsInQuest: 0
 --- !u!61 &1209150865
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -27880,6 +27890,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 9071660455513818677, guid: 72a1ff215365dd847b1ac2da47d6f0aa, type: 3}
+      propertyPath: DefaultDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: befb0b6a33ab0f14faff5846474b3421, type: 2}
+    - target: {fileID: 9071660455513818677, guid: 72a1ff215365dd847b1ac2da47d6f0aa, type: 3}
       propertyPath: dialogue.Array.data[0]
       value: Hello.Welcome to CapitalSection1 space station.
       objectReference: {fileID: 0}
@@ -34069,18 +34083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3234906f77aa9704a924a4ce5bc74145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameCompany: InSpace1TicketCompany
-  pocketCompany:
-    section1_cashs: 0
-    section2_cashs: 0
-    section3_cashs: 0
-    section4_cashs: 0
-    section5_cashs: 0
-    gold: 0
-  financialDetail:
-    balance: 0
-    debt: 0
-  accountDetailCompany: []
+  companyData: {fileID: 11400000, guid: f0a4b6daf2ec2474baaa7bf17b7b010c, type: 2}
 --- !u!4 &1924496457
 Transform:
   m_ObjectHideFlags: 0
@@ -37172,6 +37175,10 @@ PrefabInstance:
       propertyPath: dialoguePanel
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 9071660455513818677, guid: 72a1ff215365dd847b1ac2da47d6f0aa, type: 3}
+      propertyPath: DefaultDialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: befb0b6a33ab0f14faff5846474b3421, type: 2}
     - target: {fileID: 9071660455513818677, guid: 72a1ff215365dd847b1ac2da47d6f0aa, type: 3}
       propertyPath: dialogue.Array.data[0]
       value: Hello.Welcome to CapitalSection1 space station.

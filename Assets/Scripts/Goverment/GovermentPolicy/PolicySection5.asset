@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 322399db76b0e7642b42780870f3fc82, type: 3}
+  m_Name: PolicySection5
+  m_EditorClassIdentifier: 
+  vat_tax: 10
+  business_tax: 20
+  individual_tax:
+  - minIncome: 0
+    maxIncome: 150000
+    Tax: 0
+  - minIncome: 150001
+    maxIncome: 300000
+    Tax: 5
+  - minIncome: 300001
+    maxIncome: 500000
+    Tax: 10
+  - minIncome: 500001
+    maxIncome: 750000
+    Tax: 15
+  - minIncome: 750001
+    maxIncome: 1000000
+    Tax: 20
+  - minIncome: 1000001
+    maxIncome: 2000000
+    Tax: 25
+  - minIncome: 2000001
+    maxIncome: 5000000
+    Tax: 30
+  - minIncome: 5000001
+    maxIncome: 0
+    Tax: 35
+  travel_tax: 10
+  vehicle_tax: 40
+  personal_star_tax: 10
+  taxCollectionDay: 0b00000003000000b70f0000

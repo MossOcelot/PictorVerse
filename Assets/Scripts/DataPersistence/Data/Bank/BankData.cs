@@ -14,7 +14,7 @@ public class BankData
     public List<InsuranceItems> endowments;
     public List<InsuranceItems> health_insurances;
 
-    public List<Bank_Account_DB.Accounts> accountDB;
+    public List<AccountData.Accounts> accountDB;
 
     public int[] interestDate;
     public bool IsActive;

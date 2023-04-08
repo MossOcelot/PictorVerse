@@ -353,7 +353,7 @@ public class PlayerStatus : MonoBehaviour
     
     private void OnApplicationQuit()
     {
-        Save();
+        // Save();
     }
     public void Save()
     {
@@ -388,10 +388,10 @@ public class PlayerStatus : MonoBehaviour
 
     public float PayTaxes()
     {
-        List<GovermentPolicy.IndividualRangeTax> invidualRangeTax = GameObject.FindGameObjectWithTag("Goverment").gameObject.GetComponent<GovermentPolicy>().getIndividualTax();
+        List<GovermentPolicyData.IndividualRangeTax> invidualRangeTax = GameObject.FindGameObjectWithTag("Goverment").gameObject.GetComponent<GovermentPolicy>().getIndividualTax();
         float incomeAllYear = GetIncomeAllYear();
         float tax = 0;
-        foreach(GovermentPolicy.IndividualRangeTax IndividualTax in invidualRangeTax)
+        foreach(GovermentPolicyData.IndividualRangeTax IndividualTax in invidualRangeTax)
         { 
             float maxIncome = IndividualTax.maxIncome;
             float minIncome = IndividualTax.minIncome;

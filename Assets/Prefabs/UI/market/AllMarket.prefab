@@ -746,6 +746,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8075676939371872476, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
+      propertyPath: m_SortingOrder
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8075676939371872479, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -847,8 +851,72 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8075676940446844059, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
+      propertyPath: stock.Array.data[0].itemStock.Array.data[0].QuantityOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075676940446844059, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
+      propertyPath: stock.Array.data[0].itemStock.Array.data[1].QuantityOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075676940446844059, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
       propertyPath: stock.Array.data[0].itemStock.Array.data[0].orderBook.marketPrice
-      value: 130
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075676940446844059, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
+      propertyPath: stock.Array.data[0].itemStock.Array.data[1].orderBook.marketPrice
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075676940446844059, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
+      propertyPath: stock.Array.data[0].itemStock.Array.data[0].orderBook.quantityItem
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075676940446844059, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
+      propertyPath: stock.Array.data[0].itemStock.Array.data[0].orderBook.price_list.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075676940446844059, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
+      propertyPath: stock.Array.data[0].itemStock.Array.data[1].orderBook.price_list.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075676940446844059, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
+      propertyPath: stock.Array.data[0].itemStock.Array.data[0].orderBook.price_list.Array.data[0]
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075676940446844059, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
+      propertyPath: stock.Array.data[0].itemStock.Array.data[0].orderBook.price_list.Array.data[1]
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075676940446844059, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
+      propertyPath: stock.Array.data[0].itemStock.Array.data[0].orderBook.price_list.Array.data[2]
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075676940446844059, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
+      propertyPath: stock.Array.data[0].itemStock.Array.data[0].orderBook.price_list.Array.data[3]
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075676940446844059, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
+      propertyPath: stock.Array.data[0].itemStock.Array.data[0].orderBook.price_list.Array.data[4]
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075676940446844059, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
+      propertyPath: stock.Array.data[0].itemStock.Array.data[1].orderBook.price_list.Array.data[0]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075676940446844059, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
+      propertyPath: stock.Array.data[0].itemStock.Array.data[1].orderBook.price_list.Array.data[1]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075676940446844059, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
+      propertyPath: stock.Array.data[0].itemStock.Array.data[1].orderBook.price_list.Array.data[2]
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075676940446844059, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
+      propertyPath: stock.Array.data[0].itemStock.Array.data[1].orderBook.price_list.Array.data[3]
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075676940446844059, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
+      propertyPath: stock.Array.data[0].itemStock.Array.data[1].orderBook.price_list.Array.data[4]
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8362231299834290509, guid: 7b43cfb3c5173ec4fbaa2a6398b25c90, type: 3}
       propertyPath: m_Text

@@ -2,11 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeEnemy : MonoBehaviour
+public class SlimeEnemy : MonoBehaviour, IEnemy
 {
-    public int damageAmount = 10;
+    public int ID { get; set; }
+    public Monster_Status monsterStatus;
+    public int damageAmount;
     public float knockbackForce = 100f;
 
+    private void Start()
+    {
+        ID = 0;
+        damageAmount =  monsterStatus.atk;
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))

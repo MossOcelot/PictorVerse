@@ -9,7 +9,6 @@ public class NPC_Shop_Controller : MonoBehaviour
     public Transform ButtonList;
     public NPC_Shop npc_shop;
     public NPCController npcController;
-
     public void Update()
     {
         if (!npcController.playerIsClose) return;

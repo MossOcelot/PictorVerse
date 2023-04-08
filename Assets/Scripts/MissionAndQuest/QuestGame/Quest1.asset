@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb8ec5eb721a346469de555db391aa0f, type: 3}
+  m_Name: Quest1
+  m_EditorClassIdentifier: 
+  information:
+    icon: {fileID: 21300000, guid: c020cff4af422a5479ef745b325afd6a, type: 3}
+    quest_name: IronMan
+    description: iron
+    location: iron
+  questType: 0
+  status: 2
+  goals:
+  - {fileID: 11400000, guid: 33df6f15cfc95f244a6daba45960cef3, type: 2}
+  - {fileID: 11400000, guid: 4ec81ff969fb3554a9651c38dd1e29f3, type: 2}
+  - {fileID: 11400000, guid: 14ce6d8983c052d47841fc3c0023ac19, type: 2}
+  Rewards:
+    currency:
+    - amount: 100
+      currency: 0
+    - amount: 50000
+      currency: 4
+    staticReward:
+      static_useEnergy: 0
+      static_spendVAT: 0
+      static_spendBuy: 0
+      static_spendSell: 0
+      static_distanceWalk: 0
+      static_stability: 0
+      static_happy: 0
+      static_credibility: 10
+      static_healthy: 0
+      static_risk: 100
+    career_score: 50
+    itemReward:
+    - quantity: 1
+      item: {fileID: 11400000, guid: 9864c4b4352d55f4998f7923399793f8, type: 2}
+      itemState: []
+      owner: 
+      before_owner: 
+      price: 0
+  HaveStatic: 1
+  HaveItemReward: 1

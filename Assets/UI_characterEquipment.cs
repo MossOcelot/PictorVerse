@@ -11,7 +11,6 @@ public class UI_characterEquipment : MonoBehaviour
     [SerializeField]
     private InventorySO WeaponBox;
 
-    private Transform itemContainer;
     private UI_CharacterEquipmentSlot capSlot;
     private UIInventoryItem capSlot_box;
     private UI_CharacterEquipmentSlot bagSlot;
@@ -33,7 +32,6 @@ public class UI_characterEquipment : MonoBehaviour
 
     private void Awake()
     {
-        itemContainer = transform.Find("itemContainer");
         capSlot = transform.Find("capSlot").GetComponent<UI_CharacterEquipmentSlot>();  
         capSlot_box = transform.Find("capSlot").GetComponent<UIInventoryItem>();
 
