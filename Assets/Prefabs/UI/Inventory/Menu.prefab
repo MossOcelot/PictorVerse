@@ -5470,6 +5470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   item: {fileID: 0}
+  item_amount: 0
   itemImage: {fileID: 7581279165951019743}
   quantityTxt: {fileID: 3945949085294988895}
   borderImage: {fileID: 6313955707537958044}
@@ -5607,6 +5608,7 @@ MonoBehaviour:
   DescriptionPrefab: {fileID: 5489911757215329290, guid: 9cf2a31bde8452f48ae3dec98a421f90, type: 3}
   ButtonBar: {fileID: 9025193518478333700, guid: 00a6ee01eee01c44cb34c3fd66b56cb4, type: 3}
   buttonPrefab: {fileID: 4795628397257620820, guid: 82ef5855d5a8c234a87f58a4aef06152, type: 3}
+  trans: {fileID: 0}
 --- !u!1 &3540573783507087292
 GameObject:
   m_ObjectHideFlags: 0
@@ -6542,6 +6544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   item: {fileID: 0}
+  item_amount: 0
   itemImage: {fileID: 262017424999344030}
   quantityTxt: {fileID: 5075704605646788397}
   borderImage: {fileID: 137468635883645145}
@@ -7774,6 +7777,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   item: {fileID: 0}
+  item_amount: 0
   itemImage: {fileID: 1308579482797816420}
   quantityTxt: {fileID: 7316190624203592008}
   borderImage: {fileID: 1188559109702762249}
@@ -8830,6 +8834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   item: {fileID: 0}
+  item_amount: 0
   itemImage: {fileID: 6596267482672286139}
   quantityTxt: {fileID: 3286244641135584944}
   borderImage: {fileID: 5659314780182119814}
@@ -9761,6 +9766,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   item: {fileID: 0}
+  item_amount: 0
   itemImage: {fileID: 7229729360769066751}
   quantityTxt: {fileID: 4175388601915505233}
   borderImage: {fileID: 9056451970677916741}
@@ -10726,7 +10732,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5480144397769840592
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11730,6 +11736,7 @@ MonoBehaviour:
   mouseFollower: {fileID: 2962563990581734295}
   actionPanel: {fileID: 4617142405607426733}
   descriptionActionPanel: {fileID: 7391320708071178115}
+  ButtonPanel: {fileID: 0}
 --- !u!114 &3027589511283710689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11763,6 +11770,7 @@ MonoBehaviour:
   mouseFollower: {fileID: 2962563990581734295}
   actionPanel: {fileID: 4617142405607426733}
   descriptionActionPanel: {fileID: 7391320708071178115}
+  ButtonPanel: {fileID: 0}
 --- !u!1 &7823932352668864884
 GameObject:
   m_ObjectHideFlags: 0
@@ -12596,6 +12604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   item: {fileID: 0}
+  item_amount: 0
   itemImage: {fileID: 1674908889609784517}
   quantityTxt: {fileID: 8775802417476026344}
   borderImage: {fileID: 901578448481928611}
@@ -12675,7 +12684,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7123726192138730841
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13127,6 +13136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   item: {fileID: 0}
+  item_amount: 0
   itemImage: {fileID: 1510586572598355513}
   quantityTxt: {fileID: 5301841142985291834}
   borderImage: {fileID: 1702960107938064796}
@@ -13553,6 +13563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   item: {fileID: 0}
+  item_amount: 0
   itemImage: {fileID: 4047827672636503635}
   quantityTxt: {fileID: 4009806451005058031}
   borderImage: {fileID: 2425303493287026703}
@@ -13882,7 +13893,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4254785891224641855, guid: 0035d1bd03a38424d99cd83049aeb3d1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 82
       objectReference: {fileID: 0}
     - target: {fileID: 4254785891224641855, guid: 0035d1bd03a38424d99cd83049aeb3d1, type: 3}
       propertyPath: m_AnchoredPosition.y

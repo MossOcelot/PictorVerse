@@ -30,7 +30,7 @@ public class Timesystem : MonoBehaviour
         return new int[] { day, month, year, hours, Mathf.RoundToInt(minutes) };
     }
 
-    private void Start()
+    private void Awake()
     {
         year = startYear;
         month = startMonth;

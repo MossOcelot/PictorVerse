@@ -34,6 +34,7 @@ public class InventoryController : MonoBehaviour
 
     public GameObject MyInventoryObj;
     public GameObject MyAccountObj;
+    public GameObject MyLife;
     /*
     [SerializeField]
     private AudioClip dropClip;
@@ -445,6 +446,7 @@ public class InventoryController : MonoBehaviour
             {
                 MyInventoryObj.gameObject.SetActive(true);
                 MyAccountObj.gameObject.SetActive(false);
+                MyLife.gameObject.SetActive(false); 
                 inventoryUI.hide();
                 WeaponBoxUI.hide();
                 miniInventoryUI.hide();

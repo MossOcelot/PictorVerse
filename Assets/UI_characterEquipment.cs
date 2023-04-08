@@ -1,6 +1,7 @@
 using inventory.Model;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -81,6 +82,8 @@ public class UI_characterEquipment : MonoBehaviour
             capSlot.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
             capSlot_box.SetData(e.indexSlot, e.item, e.item.icon, 1);
             capSlot_box.OnRightMouseBtnClick += HandleShowCapAction;
+
+            CheckParameter(e.item, "increase");
         } else
         {
             Debug.Log("No cap");
@@ -91,6 +94,8 @@ public class UI_characterEquipment : MonoBehaviour
     {
         characterSetEquipment.RemoveCap(capItem, capDefaultParametersList);
         capSlot.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
+
+        CheckParameter(capItem, "decrease");
     }
 
     Item bagItem;
@@ -110,6 +115,8 @@ public class UI_characterEquipment : MonoBehaviour
             bagSlot.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
             bagSlot_box.SetData(e.indexSlot, e.item, e.item.icon, 1);
             bagSlot_box.OnRightMouseBtnClick += HandleShowBagAction;
+
+            CheckParameter(e.item, "increase");
         }
         else
         {
@@ -121,6 +128,8 @@ public class UI_characterEquipment : MonoBehaviour
     {
         characterSetEquipment.RemoveBag(bagItem, bagDefaultParametersList);
         bagSlot.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
+
+        CheckParameter(bagItem, "decrease");
     }
 
     Item leggingsItem;
@@ -141,6 +150,8 @@ public class UI_characterEquipment : MonoBehaviour
             leggingsSlot.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
             leggingsSlot_box.SetData(e.indexSlot, e.item, e.item.icon, 1);
             leggingsSlot_box.OnRightMouseBtnClick += HandleShowLeggingsAction;
+
+            CheckParameter(e.item, "increase");
         }
         else
         {
@@ -153,6 +164,8 @@ public class UI_characterEquipment : MonoBehaviour
 
         characterSetEquipment.RemoveLeggings(leggingsItem, leggingsDefaultParametersList);
         leggingsSlot.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
+
+        CheckParameter(leggingsItem, "decrease");
     }
 
     Item chestplateItem;
@@ -164,14 +177,15 @@ public class UI_characterEquipment : MonoBehaviour
         {
             chestplate_e = e;
 
+            Debug.LogError("A");
             chestplateItem = e.item;
             chestplateDefaultParametersList = e.item.DefaultParametersList;
             characterSetEquipment.SetChestplate(e.item, e.item.DefaultParametersList);
             InventoryData.RemoveItem(e.indexSlot, 1);
-
             chestplateSlot.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
             chestplateSlot_box.SetData(e.indexSlot, e.item, e.item.icon, 1);
             chestplateSlot_box.OnRightMouseBtnClick += HandleShowChestplateAction;
+            CheckParameter(e.item, "increase");
         }
         else
         {
@@ -183,6 +197,8 @@ public class UI_characterEquipment : MonoBehaviour
     {
         characterSetEquipment.RemoveChestplate(chestplateItem, chestplateDefaultParametersList);
         chestplateSlot.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
+
+        CheckParameter(chestplateItem, "decrease");
     }
 
     Item bootsSlotItem;
@@ -203,6 +219,8 @@ public class UI_characterEquipment : MonoBehaviour
             bootsSlot.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
             bootsSlot_box.SetData(e.indexSlot, e.item, e.item.icon, 1);
             bootsSlot_box.OnRightMouseBtnClick += HandleShowBootsSlotAction;
+
+            CheckParameter(e.item, "increase");
         }
         else
         {
@@ -214,6 +232,7 @@ public class UI_characterEquipment : MonoBehaviour
     {
         characterSetEquipment.RemoveBoots(bootsSlotItem, bootsSlotDefaultParametersList);
         bootsSlot.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        CheckParameter(bootsSlotItem, "decrease");
     }
 
     Item weaponItem;
@@ -235,6 +254,8 @@ public class UI_characterEquipment : MonoBehaviour
             weaponSlot1.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
             weaponSlot1_box.SetData(e.indexSlot, e.item, e.item.icon, 1);
             weaponSlot1_box.OnRightMouseBtnClick += HandleShowItemActions;
+
+            CheckParameter(e.item, "increase");
         } else
         {
             Debug.Log("No Weapon");
@@ -252,6 +273,8 @@ public class UI_characterEquipment : MonoBehaviour
     {
         characterWeaponEquipment.RemoveWeapon(weaponItem, weaponDefaultParamtersList);
         weaponSlot1.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
+
+        CheckParameter(weaponItem, "decrease");
     }
 
     Item weaponItem2;
@@ -272,6 +295,8 @@ public class UI_characterEquipment : MonoBehaviour
             weaponSlot2.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
             weaponSlot2_box.SetData(e.indexSlot, e.item, e.item.icon, 1);
             weaponSlot2_box.OnRightMouseBtnClick += HandleShowItemActions2;
+
+            CheckParameter(e.item, "increase");
         }
         else
         {
@@ -283,6 +308,48 @@ public class UI_characterEquipment : MonoBehaviour
     {
         characterWeaponEquipment.RemoveWeapon2(weaponItem2, weapon2DefaultParamtersList);
         weaponSlot2.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
+
+        CheckParameter(weaponItem2, "decrease");
+    }
+
+    private void CheckParameter(Item item, string command)
+    {
+        List<ItemParameter> itemParameters = item.DefaultParametersList;
+
+        foreach(ItemParameter parameter in itemParameters)
+        {
+            
+            string parameterName = parameter.itemParameter.ParameterName;
+            int value = (int)parameter.value;
+            if (command == "increase")
+            {
+                ParameterActive(parameterName, value);
+            }
+            else if(command == "decrease")
+            {
+                ParameterActive(parameterName, -value);
+            }
+        }
+    }
+
+    private void ParameterActive(string parameterName, int value) 
+    {
+        PlayerStatus playerStatus = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerStatus>();
+        PlayerMovement playerMovement = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerMovement>();
+        if (parameterName == "HP")
+        {
+            playerStatus.setMaxHP(value);
+            playerStatus.setHP(value);
+        } else if(parameterName == "Strength")
+        {
+            playerMovement.strength += value;
+        } else if(parameterName == "MoveSpeed")
+        {
+            playerMovement.moveSpeed += value;
+        } else if(parameterName == "energyUse")
+        {
+            playerMovement.energy_for_walk -= value;
+        }
     }
 
     private void Start()
