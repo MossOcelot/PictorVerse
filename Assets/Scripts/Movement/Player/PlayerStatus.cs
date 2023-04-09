@@ -229,30 +229,25 @@ public class PlayerStatus : MonoBehaviour
         section_name = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection;
     }
 
-    private IEnumerator RespawnCoroutine()
+    public void newBorn()
     {
-        animator.SetTrigger("isDeath");
-        movementScript.enabled = false;
-        attackScript.enabled = false;
-        rb.velocity = new Vector2(0f, 0f);
-        rb.angularDrag = 0f;
-        rb.mass = 5000f;
-        rb.constraints = RigidbodyConstraints2D.FreezeAll;
-       
-        yield return new WaitForSeconds(5f);
-        
         IsDead = false;
+       
         player_teleport.Respawner();
-        animator.SetTrigger("Respawn");
-        this.HP = 50;
-        this.energy = 5000;
+        this.HP = Mathf.RoundToInt((float)MaxHP / 2f);
+        this.energy = Mathf.RoundToInt((float)MaxEnergy / 2f);
         movementScript.enabled = true;
         attackScript.enabled = true;
         rb.mass = 50f;
         rb.constraints = RigidbodyConstraints2D.None;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-
+        animator.SetTrigger("Respawn");
+        movementScript.enabled = true;
+        attackScript.enabled = true;
+        rb.mass = 50f;
+        IsRespawn = true;
     }
+
     private void Update()
     {
         if (this.energy <= 0)
@@ -267,20 +262,26 @@ public class PlayerStatus : MonoBehaviour
         }
         if (IsDead)
         {
-            StartCoroutine(RespawnCoroutine());
-            IsRespawn = true;
+            Debug.Log("IsDead");
+            animator.SetTrigger("isDeath");
+            movementScript.enabled = false;
+            attackScript.enabled = false;
+            rb.velocity = new Vector2(0f, 0f);
+            rb.angularDrag = 0f;
+            rb.mass = 5000f;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
         }
-        if (IsRespawn)
+        if (IsRespawn )
         {
-
-            this.HP = 100;
-            movementScript.enabled = true;
-            attackScript.enabled = true;
-            rb.mass = 50f;
-            IsRespawn = false;
+            StartCoroutine(RespawnAnimation());
         }
-        
+    }
 
+    private IEnumerator RespawnAnimation()
+    {
+        animator.SetTrigger("Respawn");
+        yield return new WaitForSeconds(5f);
+        IsRespawn = false;
 
     }
     private void OnCollisionEnter2D(Collision2D other)

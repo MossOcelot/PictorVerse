@@ -262,12 +262,6 @@ public class UI_characterEquipment : MonoBehaviour
         }
     }
 
-    public void LoadWeaponSlot1(UI_CharacterEquipmentSlot.OnItemDroppedEventArgs e)
-    {
-        weaponSlot1.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(true);
-        weaponSlot1_box.SetData(e.indexSlot, e.item, e.item.icon, 1);
-        weaponSlot1_box.OnRightMouseBtnClick += HandleShowItemActions;
-    }
 
     private void HandleShowItemActions(UIInventoryItem inventoryItemUI)
     {
@@ -352,10 +346,6 @@ public class UI_characterEquipment : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        LoadWeaponSlot1(weapon_e);
-    }
 
     private void OnApplicationQuit()
     {

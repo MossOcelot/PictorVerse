@@ -50,7 +50,9 @@ public class GovermentPolicy : MonoBehaviour
                     Mail newMail = new Mail("Tax", $"ใบแจ้งภาษี วันที่ {date[0]}/{date[1]}/{date[2]}",
                         $"{player.getPlayerName()} มีรายได้ปีที่ผ่านมาอยู่ที่ {player.GetIncomeAllYear()} ต้องเสียภาษีจำนวน {player.PayTaxes()}", ()=> TaxReport(player));
                     mail_manager.AddMails(newMail);
-
+                    Mail newMails = new Mail("xxx", $"asdasdasd",
+                        $"asdasdasdasdsad");
+                    mail_manager.AddMails(newMails);
                     govermentPolicy.taxCollectionDay[2]++;
                     IsSent = true;
                 } else

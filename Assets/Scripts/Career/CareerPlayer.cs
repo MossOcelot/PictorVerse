@@ -38,7 +38,6 @@ public class CareerPlayer : MonoBehaviour
     {
         int[] Now_time = time_system.getDateTime();
 
-        Debug.Log("Now_Time: " + Now_time[0]);
         if(present_day != Now_time[0])
         {
             CheckFinishDailyQuestInDay();
@@ -116,8 +115,8 @@ public class CareerPlayer : MonoBehaviour
         if (finishDailyQuestInADay >= Mathf.RoundToInt(amountDailyQ * 0.8f))
         {
             finishDailyQuest = true;
-            finishDailyQuestInADay = 0;
         }
+        finishDailyQuestInADay = 0;
     }
 
     private void ResetData()

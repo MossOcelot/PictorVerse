@@ -14,11 +14,10 @@ public class InsuranceController : MonoBehaviour
     [SerializeField]
     private InsuranceItems player_hearth_insurance;
 
-    [SerializeField]
-    private List<InventorySO> playerInventoryList;
+    public List<InventorySO> playerInventoryList;
     private Timesystem time_system;
     private AllItemInMarket allItemInMarket;
-
+    
     public InsuranceItems GetPlayer_endowment()
     {
         return this.player_endowment;
@@ -52,28 +51,40 @@ public class InsuranceController : MonoBehaviour
     private void Update()
     {
         CheckInsuranceExpireDay();
+    }
 
-        if(player_status.IsDead == true)
+    public bool DeadClearItem()
+    {
+        int totalQuantity = 0;
+        foreach (InventorySO inventory in playerInventoryList)
         {
-            Debug.Log("true Dead");
-            bool IsSuccess = endowment_claim();
-            if(IsSuccess) 
+            Dictionary<int, InventoryItem> items = inventory.GetCurrentInventoryState();
+            foreach (int index in items.Keys)
             {
-                player_endowment = new InsuranceItems();
-            } else
+                totalQuantity += items[index].quantity;
+            }
+        }
+        if (totalQuantity == 0) return false;
+
+        bool IsSuccess = endowment_claim();
+        if (IsSuccess)
+        {
+            player_endowment = new InsuranceItems();
+        }
+        else
+        {
+            // drop all item
+            foreach (InventorySO inventory in playerInventoryList)
             {
-                // drop all item
-                foreach (InventorySO inventory in playerInventoryList)
+                Dictionary<int, InventoryItem> items = inventory.GetCurrentInventoryState();
+                foreach (int index in items.Keys)
                 {
-                    Dictionary<int, InventoryItem> items = inventory.GetCurrentInventoryState();
-                    foreach (int index in items.Keys)
-                    {
-                        inventory.RemoveItem(index, items[index].quantity);
-                    }
+                    inventory.RemoveItem(index, items[index].quantity);
                 }
             }
-            player_status.IsDead = false;
         }
+        player_status.IsDead = false;
+        return true;
     }
 
     private void CheckInsuranceExpireDay()
@@ -143,7 +154,6 @@ public class InsuranceController : MonoBehaviour
                                 inventory.RemoveItem(index, quantityItems - quantityLimit);
                             } else if(priceItems > priceLimit)
                             {
-                                Debug.Log("items");
                                 float diffPrice = priceItems - priceLimit;
                                 int quantity = Mathf.FloorToInt(diffPrice / allItemInMarket.GetitemsInMarket()[items[index].item].quantity);
                                 inventory.RemoveItem(index, quantity);
@@ -154,6 +164,8 @@ public class InsuranceController : MonoBehaviour
                         
                         inventory.RemoveItem(index, items[index].quantity);
                     }
+
+
                 }
             }
 

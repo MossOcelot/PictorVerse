@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class UIMailCard : MonoBehaviour
 {
-    public int mail_id;
     public TextMeshProUGUI miniSubject;
     public TextMeshProUGUI miniBody;
     public ActionBtn actionBtn;
@@ -23,9 +22,8 @@ public class UIMailCard : MonoBehaviour
         mailpaper = GameObject.FindGameObjectWithTag("MailPaper").gameObject.GetComponent<UIMailPaper>();
         mailManager = GameObject.FindGameObjectWithTag("MailBox").gameObject.GetComponent<MailManager>();
     }
-    public void SetMailCard(int mailID, string subject, string body)
+    public void SetMailCard(string subject, string body)
     {
-        this.mail_id = mailID;
         this.subject = subject;
         this.body = body;
         miniSubject.text = subject;
@@ -59,8 +57,9 @@ public class UIMailCard : MonoBehaviour
         int len = mailManager.myMails.Count;
         for(int i = 0; i < len;i++)
         {
-            int mailId = mailManager.myMails[i].mail_index;
-            if(mailId == mail_id)
+            string mailId = mailManager.myMails[i].Subject;
+            string mailId2 = mailManager.myMails[i].Body;
+            if (mailId == subject && mailId2 == body)
             {
                 mailManager.myMails.RemoveAt(i);
             }

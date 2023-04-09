@@ -17,7 +17,7 @@ MonoBehaviour:
     quest_name: IronMan
     description: iron
     location: iron
-  questType: 0
+  questType: 1
   status: 2
   conditions:
   - {fileID: 11400000, guid: 979b856660a1e2c41b5377f3847926f3, type: 2}
@@ -50,7 +50,7 @@ MonoBehaviour:
       owner: 
       before_owner: 
       price: 0
-    career: {fileID: 0}
+    career: {fileID: 11400000, guid: 2fd2bced0030f0c42b54dfc9d457865b, type: 2}
   HaveStatic: 1
   HaveItemReward: 1
   HaveCareer: 1
