@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: -6548516153152810734}
   - component: {fileID: -9050283520360670951}
   - component: {fileID: 3192474562410210545}
+  - component: {fileID: 2131668089665948639}
   - component: {fileID: 1956649661961853465}
   - component: {fileID: 1956649661961853464}
   - component: {fileID: 1956649661961853467}
@@ -462,6 +463,25 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e3cf19e2ed0b30d4a9aaaad483db2916, type: 2}
   - {fileID: 11400000, guid: eb42cd07f06c8da4197148488baa153b, type: 2}
   - {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
+--- !u!114 &2131668089665948639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956649661961853460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e1d7798fe5fa534ba4026840fae958f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Career: {fileID: 0}
+  finishDailyQuest: 0
+  HaveCareer: 0
+  absenteeismPerDay: 0
+  absenteeismPerMonth: 0
+  DayInGame: 0
+  playerStatus: {fileID: 1956649661961853470}
 --- !u!114 &1956649661961853465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,6 +525,7 @@ MonoBehaviour:
   m_ShapePathHash: -869264443
   m_Mesh: {fileID: 0}
   m_InstanceId: 425108
+  m_InstanceId: 203932
 --- !u!114 &1956649661961853467
 MonoBehaviour:
   m_ObjectHideFlags: 0

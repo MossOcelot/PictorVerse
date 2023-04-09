@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static QuestAcceptanceConditions.CareerModel;
 
 public class NPC_Quest : MonoBehaviour
 {
@@ -58,15 +59,19 @@ public class NPC_Quest : MonoBehaviour
     {
         if (HaveMainQuest)
         {
-            SetButtonOnDialogBox(index_MainQuestBtn, "ÃÑºÀÒÃ¡Ô¨ËÅÑ¡", () => AcceptingMainQuest());
-        }
+            string name_quest = GetNameQuest(MainQuest);
+            if (name_quest != null) SetButtonOnDialogBox(index_MainQuestBtn, name_quest, () => AcceptingMainQuest());
+            
+        }   
         if (HaveSecondaryQuests)
         {
-            SetButtonOnDialogBox(index_SecondaryQuests, "ÃÑºÀÒÃ¡Ô¨ÃÍ§", () => AcceptingMainQuest());
+            string name_quest = GetNameQuest(SecondaryQuests);
+            if (name_quest != null) SetButtonOnDialogBox(index_SecondaryQuests, name_quest, () => AcceptingSecondaryQuest());
         }
         if (HaveDailyQuest)
         {
-            SetButtonOnDialogBox(index_DailyQuest, "ÃÑºÀÒÃ¡Ô¨»ÃÐ¨ÓÇÑ¹", () => AcceptingMainQuest());
+            string name_quest = GetNameQuest(DailyQuest);
+            if (name_quest != null)  SetButtonOnDialogBox(index_DailyQuest, name_quest, () => AcceptingDailyQuest());
         }
     }
 
@@ -77,7 +82,19 @@ public class NPC_Quest : MonoBehaviour
         ButtonList.GetChild(n).gameObject.GetComponent<Button>().onClick.RemoveAllListeners();
         ButtonList.GetChild(n).gameObject.GetComponent<Button>().onClick.AddListener(() => action());
     }
+    public string GetNameQuest(List<QuestEvent> ListQuest)
+    {
+        foreach (QuestEvent questEvent in ListQuest)
+        {
+            Quest quest = questEvent.quest;
 
+            if (quest.status != Quest.QuestStatus.Completed)
+            {
+                return quest.information.quest_name;
+            }
+        }
+        return null;
+    }
     public void AcceptingMainQuest()
     {
         foreach(QuestEvent questEvent in MainQuest)
@@ -86,24 +103,116 @@ public class NPC_Quest : MonoBehaviour
 
             if (quest.status != Quest.QuestStatus.Completed)
             {
+                QuestAcceptanceConditions condition = CheckConditions(quest.conditions);
+                if (condition != null)
+                {
+                    NPCSendAlert("ï¿½Ø³ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½Ñºï¿½ï¿½Ã¡Ô¨ï¿½ï¿½ï¿½ï¿½ï¿½Í§ï¿½Ò¡", condition.description);
+                    break;
+                }
                 if (quest.status == Quest.QuestStatus.InProgress) 
                 {
-                    NPCSendAlert(); 
+                    NPCSendAlert("ï¿½Ø³ï¿½ï¿½ ï¿½Ñºï¿½ï¿½Ã¡Ô¨ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¡Ô¨ï¿½ï¿½Í¹Ë¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç¨¡ï¿½Í¹"); 
                     break; 
                 }
+                
                 NpcSendQuest(questEvent);
                 break;
             }
          } 
     }
-    
-    public void NPCSendAlert()
+
+    public void AcceptingSecondaryQuest()
+    {
+        foreach (QuestEvent questEvent in SecondaryQuests)
+        {
+            Quest quest = questEvent.quest;
+
+            if (quest.status != Quest.QuestStatus.Completed)
+            {
+                QuestAcceptanceConditions condition = CheckConditions(quest.conditions);
+                if (condition != null)
+                {
+                    NPCSendAlert("ï¿½Ø³ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½Ñºï¿½ï¿½Ã¡Ô¨ï¿½ï¿½ï¿½ï¿½ï¿½Í§ï¿½Ò¡", condition.description);
+                    break;
+                }
+                if (quest.status == Quest.QuestStatus.InProgress)
+                {
+                    NPCSendAlert("ï¿½Ø³ï¿½ï¿½ ï¿½Ñºï¿½ï¿½Ã¡Ô¨ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¡Ô¨ï¿½ï¿½Í¹Ë¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç¨¡ï¿½Í¹");
+                    break;
+                }
+
+                NpcSendQuest(questEvent);
+                break;
+            }
+        }
+    }
+
+    public void AcceptingDailyQuest()
+    {
+        foreach (QuestEvent questEvent in DailyQuest)
+        {
+            Quest quest = questEvent.quest;
+
+            if (quest.status != Quest.QuestStatus.Completed)
+            {
+                QuestAcceptanceConditions condition = CheckConditions(quest.conditions);
+                if (condition != null)
+                {
+                    NPCSendAlert("ï¿½Ø³ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½Ñºï¿½ï¿½Ã¡Ô¨ï¿½ï¿½ï¿½ï¿½ï¿½Í§ï¿½Ò¡", condition.description);
+                    break;
+                }
+                if (quest.status == Quest.QuestStatus.InProgress)
+                {
+                    NPCSendAlert("ï¿½Ø³ï¿½ï¿½ ï¿½Ñºï¿½ï¿½Ã¡Ô¨ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¡Ô¨ï¿½ï¿½Í¹Ë¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç¨¡ï¿½Í¹");
+                    break;
+                }
+
+                NpcSendQuest(questEvent);
+                break;
+            }
+        }
+    }
+
+    public QuestAcceptanceConditions CheckConditions(List<QuestAcceptanceConditions> conditions)
+    {
+        foreach(QuestAcceptanceConditions condi in conditions)
+        {
+            if(condi.type == QuestAcceptanceConditions.QuestAcceptanceType.Career)
+            {
+                CareerPlayer career = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<CareerPlayer>();
+
+                bool status = CheckCareer(career.Career, condi);
+                if (!status)
+                {
+                    return condi;
+                }
+               
+            }
+        }
+        return null;
+    }
+
+    public bool CheckCareer(CareerSO career, QuestAcceptanceConditions condi)
+    {
+        if (condi.career_data.type == CareerModelType.none)
+        {
+            if (career == null) return true;
+            return false;
+        }
+
+        if (career.career_name == condi.career_data.careerName)
+        {
+            return true;
+        }
+        return false;
+    }
+    public void NPCSendAlert(string greeting, string convensation)
     {
         npcController.RemoveText();
         npcController.IsEndSituation = false;
         npcController.dialogue.Clear();
-        npcController.dialogue.Add("¤Ø³ä´é ÃÑºÀÒÃ¡Ô¨ä»áÅéÇ");
-        npcController.dialogue.Add("â»Ã´·ÓãËéÀÒÃ¡Ô¨¡èÍ¹Ë¹éÒãËéàÊÃç¨¡èÍ¹");
+        npcController.dialogue.Add(greeting);
+        npcController.dialogue.Add(convensation);
 
         npcController.SetIndexConversation(0);
 
@@ -137,6 +246,6 @@ public class NPC_Quest : MonoBehaviour
         quest = null;
     }
 
-
+    
 
 }

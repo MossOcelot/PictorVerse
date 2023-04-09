@@ -9,16 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c65af7cf665b82c499617fe37e847913, type: 3}
-  m_Name: normalBag
+  m_Script: {fileID: 11500000, guid: fb4940c54ae7a204cbef20310755a5c5, type: 3}
+  m_Name: normalBag 1
   m_EditorClassIdentifier: 
   icon: {fileID: 1174469828, guid: 407034fdddea09d45be5a0d335ece63f, type: 3}
   item_name: Normal Bag
-  item_type: equippable
+  item_type: bag
   IsStackable: 0
   max_stack: 1
   rarity: 0
   weight: 0
   description: just a regular canvas bag ;(
   showInventory: 1
-  <DefaultParametersList>k__BackingField: []
+  <DefaultParametersList>k__BackingField:
+  - itemParameter: {fileID: 11400000, guid: 93b3c11fa2e1e24468cb661663fcfea3, type: 2}
+    value: 200

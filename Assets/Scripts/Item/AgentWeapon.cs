@@ -42,6 +42,7 @@ public class AgentWeapon : MonoBehaviour
 
     public void SetWeapon(Item weaponItemSO, List<ItemParameter> itemState)
     {
+        Debug.Log("item");
         if (weapon1 != null)
         {
             inventoryData.AddItem(weapon1, 1, itemCurrentState);

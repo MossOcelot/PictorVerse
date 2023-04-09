@@ -10,6 +10,7 @@ public class MailManager : MonoBehaviour
     public GameObject MailCardTemplate;
     public Transform mailList;
     public TextMeshProUGUI mailCount;
+    public List<string> texts;
     int oldMailCount;
 
     GameObject mailCard;
@@ -51,7 +52,7 @@ public class MailManager : MonoBehaviour
             {
                 mailCard = Instantiate(MailCardTemplate, mailList);
                 UIMailCard uiMailCard = mailCard.GetComponent<UIMailCard>();
-                uiMailCard.SetMailCard(mail.mail_index,mail.Subject, mail.Body);
+                uiMailCard.SetMailCard(mail.Subject, mail.Body);
                 if(mail.mailType == "Tax")
                 {
                     Action updateAction = mail.actionMail;
@@ -66,9 +67,8 @@ public class MailManager : MonoBehaviour
 }
 
 [System.Serializable]
-public class Mail : MonoBehaviour
+public class Mail
 {
-    public int mail_index => GetInstanceID();
     public string mailType;
     public string Subject;
     public string Body;
@@ -76,6 +76,13 @@ public class Mail : MonoBehaviour
     public Action actionMail;
     public List<InventoryItem> itemGifts;
 
+    public Mail(string mailType, string subject, string body)
+    {
+        this.mailType = mailType;
+        this.Subject = subject;
+        this.Body = body;
+        UpdateTime();
+    }
     public Mail (string mailType, string subject, string body, Action action)
     {
         this.mailType = mailType;

@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: -130736752, guid: a4ccbc942cf57bf43a24b2fd254921db, type: 3}
   item_name: Animal Skin Bag
-  item_type: equippable
+  item_type: bag
   IsStackable: 0
   max_stack: 1
   rarity: 1
   weight: 0
   description: 
   showInventory: 1
-  <DefaultParametersList>k__BackingField: []
+  <DefaultParametersList>k__BackingField:
+  - itemParameter: {fileID: 11400000, guid: 93b3c11fa2e1e24468cb661663fcfea3, type: 2}
+    value: 400

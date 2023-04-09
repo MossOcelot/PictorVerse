@@ -10,6 +10,8 @@ using System;
 
 public class UIDetailQuest : MonoBehaviour
 {
+    public Sprite[] img_type;
+    public Image image;
     public TextMeshProUGUI head_name;
     public TextMeshProUGUI location_quest;
     public Transform goals_content;
@@ -24,10 +26,21 @@ public class UIDetailQuest : MonoBehaviour
     GameObject rewardPanel;
     List<GameObject> rewardPanel_Group = new List<GameObject>();
 
-    public Button GetRewardbutton; 
+    public Button GetRewardbutton;
     public void SetData(Quest quest)
     {
         gameObject.SetActive(true);
+        if (quest.questType == Quest.QuestType.MainQuest)
+        {
+            image.sprite = img_type[0];
+        }
+        else if (quest.questType == Quest.QuestType.SecondaryQuest)
+        {
+            image.sprite = img_type[1];
+        } else
+        {
+            image.sprite = img_type[2];
+        }
         this.head_name.text = quest.information.quest_name;
         this.location_quest.text = quest.information.location;
 
@@ -109,7 +122,9 @@ public class UIDetailQuest : MonoBehaviour
     private void GetReward(Quest quest)
     {
         MissionCanvasController missionController = GameObject.FindGameObjectWithTag("MissionQuest").gameObject.GetComponent<MissionCanvasController>();
-        GameObject player = GameObject.FindGameObjectWithTag("Player").gameObject; 
+        
+        GameObject player = GameObject.FindGameObjectWithTag("Player").gameObject;
+       
         if (quest.HaveItemReward)
         {
             InventoryController inventoryPlayer = player.GetComponent<InventoryController>();   
@@ -148,7 +163,20 @@ public class UIDetailQuest : MonoBehaviour
 
         }
 
-        int len = quest.Rewards.currency.Count;
+        CareerPlayer career = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<CareerPlayer>();
+        if (quest.HaveCareer)
+        {
+            career.Career = quest.Rewards.career;
+            if (career.Career == null)
+            {
+                career.RemoveCareer();
+            }
+        }
+
+        if(quest.questType == Quest.QuestType.DailyQuest)
+        {
+
+        }
 
         foreach(Quest.Stat.RewardCurrency currency in quest.Rewards.currency)
         {

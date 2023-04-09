@@ -57,10 +57,10 @@ public class openMenu : MonoBehaviour
                 miniQuestBox = Instantiate(miniQuest_template, miniQuest_content);
                 if (quest.status == Quest.QuestStatus.Completed)
                 {
-                    miniQuestBox.gameObject.GetComponent<UIMiniQuestBox>().SetData("Completed" , quest.information.quest_name, quest.information.description);
+                    miniQuestBox.gameObject.GetComponent<UIMiniQuestBox>().SetData(quest,"Completed" , quest.information.quest_name, quest.information.description);
                 } else
                 {
-                    miniQuestBox.gameObject.GetComponent<UIMiniQuestBox>().SetData(quest.questType.ToString(), quest.information.quest_name, quest.information.description);
+                    miniQuestBox.gameObject.GetComponent<UIMiniQuestBox>().SetData(quest,quest.questType.ToString(), quest.information.quest_name, quest.information.description);
                 }
                
                 miniQuestBox.gameObject.GetComponent<Button>().AddEventListener(quest, ClickOpenQuest);

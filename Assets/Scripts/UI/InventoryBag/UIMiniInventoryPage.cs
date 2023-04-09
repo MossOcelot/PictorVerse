@@ -28,6 +28,8 @@ public class UIMiniInventoryPage : MonoBehaviour
     [SerializeField]
     private ItemDescribtionAction descriptionActionPanel;
 
+    public Transform ButtonPanel;
+
     private void Awake()
     {
         hide();
@@ -151,14 +153,15 @@ public class UIMiniInventoryPage : MonoBehaviour
         actionPanel.transform.position = listOfUIItems[itemIndex].transform.position;
     }
 
-    public void AddDescription(string item_name, int quantity, float item_price, string description)
+    public void AddDescription(Sprite icon, string item_name, int quantity, float item_price, string description)
     {
-        descriptionActionPanel.AddDescription(item_name, quantity, item_price, description);
+        descriptionActionPanel.AddDescription(icon, item_name, quantity, item_price, description);
     }
 
     public void AddActionInDescription(int n, string actionName, Action action)
     {
         descriptionActionPanel.AddAction(n, actionName, action);
+        
     }
 
     public void showItemDescriptionAction(int itemIndex)
@@ -167,7 +170,7 @@ public class UIMiniInventoryPage : MonoBehaviour
         DeselectAllItems();
         listOfUIItems[itemIndex].Select();
         descriptionActionPanel.Toggle(true);
-        descriptionActionPanel.transform.position = listOfUIItems[itemIndex].transform.position + new Vector3(105.7f, 187f, 0);
+        ButtonPanel.transform.position = listOfUIItems[itemIndex].transform.position;
     }
 
     public void hideItem(int itemIndex)

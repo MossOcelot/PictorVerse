@@ -34,6 +34,7 @@ public class InventoryController : MonoBehaviour
 
     public GameObject MyInventoryObj;
     public GameObject MyAccountObj;
+    public GameObject MyLife;
     /*
     [SerializeField]
     private AudioClip dropClip;
@@ -177,13 +178,14 @@ public class InventoryController : MonoBehaviour
         }
 
         //ddata
+        Sprite icon = MiniItem.item.icon;
         string item_name = MiniItem.item.item_name;
         int item_quantity = MiniItem.quantity;
         float item_price = MiniItem.price;
         string item_description = MiniItem.item.description;
 
         miniInventoryUI.showItemDescriptionAction(itemIndex);
-        miniInventoryUI.AddDescription(item_name, item_quantity, item_price, item_description);
+        miniInventoryUI.AddDescription(icon, item_name, item_quantity, item_price, item_description);
 
         int n = 0;
         IItemAction itemAction = MiniItem.item as IItemAction;
@@ -216,15 +218,16 @@ public class InventoryController : MonoBehaviour
             inventoryUI.hideItem(itemIndex);
             return;
         }
-        
+
         //ddata
+        Sprite icon = inventoryItem.item.icon;
         string item_name = inventoryItem.item.item_name;
         int item_quantity = inventoryItem.quantity;
         float item_price = inventoryItem.price;
         string item_description = inventoryItem.item.description;
 
         inventoryUI.showItemDescriptionAction(itemIndex);
-        inventoryUI.AddDescription(item_name, item_quantity, item_price, item_description);
+        inventoryUI.AddDescription(icon, item_name, item_quantity, item_price, item_description);
 
         IItemAction itemAction = inventoryItem.item as IItemAction;
         int n = 0;
@@ -443,6 +446,7 @@ public class InventoryController : MonoBehaviour
             {
                 MyInventoryObj.gameObject.SetActive(true);
                 MyAccountObj.gameObject.SetActive(false);
+                MyLife.gameObject.SetActive(false); 
                 inventoryUI.hide();
                 WeaponBoxUI.hide();
                 miniInventoryUI.hide();

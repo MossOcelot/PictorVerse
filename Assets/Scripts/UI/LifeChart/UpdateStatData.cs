@@ -13,6 +13,12 @@ public class UpdateStatData : MonoBehaviour
     public TextMeshProUGUI happinessTxt;
     public TextMeshProUGUI riskTxt;
 
+    public TextMeshProUGUI HPTxt;
+    public TextMeshProUGUI StaminaTxt;
+    public TextMeshProUGUI StrengthTxt;
+    public TextMeshProUGUI MoveSpeedTxt;
+    public TextMeshProUGUI WeightTxt;
+
     private PlayerStatus playerStatus;
     private void Start()
     {
@@ -31,6 +37,7 @@ public class UpdateStatData : MonoBehaviour
         UpdateTxt(credit, stability, health, happiness, risk);
         Stats stats = new Stats(credit, stability, health, happiness, risk);
         uiStatsRadarChart.SetStats(stats);
+        UpdateStatus();
     }
 
     public void UpdateTxt(int credit, int stability, int health, int happiness, int risk)
@@ -40,5 +47,17 @@ public class UpdateStatData : MonoBehaviour
         healthTxt.text = health.ToString();  
         happinessTxt.text = happiness.ToString();
         riskTxt.text = risk.ToString();
+    }
+
+    public void UpdateStatus()
+    {
+        PlayerStatus playerStatus = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerStatus>();
+        PlayerMovement playerMovement = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerMovement>();
+
+        HPTxt.text = $"{playerStatus.getHP()} ({playerStatus.getMaxHP()})";
+        StaminaTxt.text = $"{playerStatus.getEnergy()} ({playerStatus.getMaxEnergy()})";
+        StrengthTxt.text = $"{playerMovement.strength}";
+        MoveSpeedTxt.text = $"{playerMovement.moveSpeed} ({playerMovement.getDefaultMoveSpeed()})";
+        WeightTxt.text = $"{playerMovement.GetWeight_player()}";
     }
 }

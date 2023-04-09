@@ -129,10 +129,9 @@ public class AgentSet : MonoBehaviour
             inventoryData.AddItem(chestplate, 1, itemCurrentState_chestplate);
             SetBox.RemoveItem(2, 1);
         }
-
         this.chestplate = weaponItemSO;
         SetBox.AddItemInIndex(2, chestplate, 1, itemCurrentState_chestplate);
-        this.itemCurrentState_chestplate = new List<ItemParameter>(itemState);
+        this.itemCurrentState_chestplate = itemState;
 
         // ModifyParameters();
     }

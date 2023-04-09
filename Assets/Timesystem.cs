@@ -30,7 +30,7 @@ public class Timesystem : MonoBehaviour
         return new int[] { day, month, year, hours, Mathf.RoundToInt(minutes) };
     }
 
-    private void Start()
+    private void Awake()
     {
         year = startYear;
         month = startMonth;
@@ -43,7 +43,7 @@ public class Timesystem : MonoBehaviour
         _timeOfDay += Time.deltaTime * minutesPerSecond / 60f;
         if(_timeOfDay > 24f)
         {
-            _timeOfDay -= 24f;
+            _timeOfDay = 0;
             day++;
             if (day > daysPerMonth)
             {
@@ -59,6 +59,7 @@ public class Timesystem : MonoBehaviour
 
         minutes = (_timeOfDay * 60) - ((float)hours * 60f);
         if (minutes < 0) minutes = 0;
+        if (_timeOfDay < 1) hours = 0;
         if(minutes > 59f)
         {
             minutes = 0;

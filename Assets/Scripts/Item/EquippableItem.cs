@@ -14,6 +14,7 @@ namespace inventory.Model
 
         public bool PerformAction(GameObject character, List<ItemParameter> itemState = null)
         {
+            Debug.Log("Weapon");
             AgentWeapon weaponSystem = character.GetComponent<AgentWeapon>();
 
             if(weaponSystem != null)

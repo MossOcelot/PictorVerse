@@ -147,7 +147,6 @@ public class PlayerMovement : MonoBehaviour
     {
         int energy = status.getEnergy();
 
-        Debug.Log("Energy: " + energy);
         checkWeightPerStrength();
 
         if (energy == 0)

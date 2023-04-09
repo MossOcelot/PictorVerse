@@ -32,6 +32,7 @@ public class UIInventoryPage : MonoBehaviour
     private ItemActionPanel actionPanel;
     [SerializeField]
     private ItemDescribtionAction descriptionActionPanel;
+    public Transform ButtonPanel;
     private void Awake()
     {
         hide();
@@ -154,9 +155,9 @@ public class UIInventoryPage : MonoBehaviour
         actionPanel.transform.position = listOfUIItems[itemIndex].transform.position;
     }
 
-    public void AddDescription(string item_name, int quantity, float item_price, string description)
+    public void AddDescription(Sprite icon, string item_name, int quantity, float item_price, string description)
     {
-        descriptionActionPanel.AddDescription(item_name, quantity, item_price, description);
+        descriptionActionPanel.AddDescription(icon, item_name, quantity, item_price, description);
     }
 
     public void AddActionInDescription(int n,string actionName, Action action)
@@ -171,7 +172,7 @@ public class UIInventoryPage : MonoBehaviour
         DeselectAllItems();
         listOfUIItems[itemIndex].Select();
         descriptionActionPanel.Toggle(true);
-        descriptionActionPanel.transform.position = listOfUIItems[itemIndex].transform.position + new Vector3(135.7f, -197f, 0);
+        ButtonPanel.transform.position = listOfUIItems[itemIndex].transform.position + new Vector3(-0.69995f, -59.3732f);
     }
 
     public void hideItem(int itemIndex)
@@ -180,7 +181,7 @@ public class UIInventoryPage : MonoBehaviour
         DeselectAllItems();
         descriptionActionPanel.Toggle(false);
     }
-    
+    // -42.69995  282.9732  => -42 223.6
     private void DeselectAllItems()
     {
         foreach(UIInventoryItem item in listOfUIItems)
