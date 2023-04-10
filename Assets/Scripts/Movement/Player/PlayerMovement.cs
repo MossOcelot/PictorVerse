@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private float defaultMoveSpeed = 5f;
-    float realMoveSpeed;
+    public float realMoveSpeed;
     [SerializeField]
     public float moveSpeed;
     private bool isMoving;
@@ -294,7 +294,10 @@ public class PlayerMovement : MonoBehaviour
     {
         return defaultMoveSpeed;
     }
-
+    public void setDefaultMoveSpeed(float newDefault)
+    {
+        defaultMoveSpeed = newDefault; 
+    }
     public void SetIsLooking(bool newStatus)
     {
         isLooking = newStatus;

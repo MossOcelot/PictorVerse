@@ -62,7 +62,7 @@ public class NPC_Quest : MonoBehaviour
             string name_quest = GetNameQuest(MainQuest);
             if (name_quest != null) SetButtonOnDialogBox(index_MainQuestBtn, name_quest, () => AcceptingMainQuest());
             
-        }
+        }   
         if (HaveSecondaryQuests)
         {
             string name_quest = GetNameQuest(SecondaryQuests);
@@ -106,12 +106,12 @@ public class NPC_Quest : MonoBehaviour
                 QuestAcceptanceConditions condition = CheckConditions(quest.conditions);
                 if (condition != null)
                 {
-                    NPCSendAlert("คุณยังไม่สามารถรับภารกิจได้เนื่องจาก", condition.description);
+                    NPCSendAlert("๏ฟฝุณ๏ฟฝัง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรถ๏ฟฝับ๏ฟฝ๏ฟฝรกิจ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝาก", condition.description);
                     break;
                 }
                 if (quest.status == Quest.QuestStatus.InProgress) 
                 {
-                    NPCSendAlert("คุณได้ รับภารกิจไปแล้ว", "โปรดทำให้ภารกิจก่อนหน้าให้เสร็จก่อน"); 
+                    NPCSendAlert("๏ฟฝุณ๏ฟฝ๏ฟฝ ๏ฟฝับ๏ฟฝ๏ฟฝรกิจ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ", "๏ฟฝรด๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรกิจ๏ฟฝ๏ฟฝอนหน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ็จก๏ฟฝอน"); 
                     break; 
                 }
                 
@@ -132,12 +132,12 @@ public class NPC_Quest : MonoBehaviour
                 QuestAcceptanceConditions condition = CheckConditions(quest.conditions);
                 if (condition != null)
                 {
-                    NPCSendAlert("คุณยังไม่สามารถรับภารกิจได้เนื่องจาก", condition.description);
+                    NPCSendAlert("๏ฟฝุณ๏ฟฝัง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรถ๏ฟฝับ๏ฟฝ๏ฟฝรกิจ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝาก", condition.description);
                     break;
                 }
                 if (quest.status == Quest.QuestStatus.InProgress)
                 {
-                    NPCSendAlert("คุณได้ รับภารกิจไปแล้ว", "โปรดทำให้ภารกิจก่อนหน้าให้เสร็จก่อน");
+                    NPCSendAlert("๏ฟฝุณ๏ฟฝ๏ฟฝ ๏ฟฝับ๏ฟฝ๏ฟฝรกิจ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ", "๏ฟฝรด๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรกิจ๏ฟฝ๏ฟฝอนหน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ็จก๏ฟฝอน");
                     break;
                 }
 
@@ -158,12 +158,12 @@ public class NPC_Quest : MonoBehaviour
                 QuestAcceptanceConditions condition = CheckConditions(quest.conditions);
                 if (condition != null)
                 {
-                    NPCSendAlert("คุณยังไม่สามารถรับภารกิจได้เนื่องจาก", condition.description);
+                    NPCSendAlert("๏ฟฝุณ๏ฟฝัง๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรถ๏ฟฝับ๏ฟฝ๏ฟฝรกิจ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝอง๏ฟฝาก", condition.description);
                     break;
                 }
                 if (quest.status == Quest.QuestStatus.InProgress)
                 {
-                    NPCSendAlert("คุณได้ รับภารกิจไปแล้ว", "โปรดทำให้ภารกิจก่อนหน้าให้เสร็จก่อน");
+                    NPCSendAlert("๏ฟฝุณ๏ฟฝ๏ฟฝ ๏ฟฝับ๏ฟฝ๏ฟฝรกิจ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ", "๏ฟฝรด๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝรกิจ๏ฟฝ๏ฟฝอนหน๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ็จก๏ฟฝอน");
                     break;
                 }
 
