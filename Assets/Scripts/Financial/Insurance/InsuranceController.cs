@@ -1,4 +1,5 @@
 using inventory.Model;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -174,12 +175,12 @@ public class InsuranceController : MonoBehaviour
         return false;
     }
 
-    public bool hearth_insurance_claim(float health_care_price, string section_name)
+    public float hearth_insurance_claim(float health_care_price, string section_name, string command)
     {
         InsuranceSO insurance = player_hearth_insurance.insurance;
         if(insurance != null)
         {
-            float full_protect_price = health_care_price * insurance.insurance_percent;
+            float full_protect_price = health_care_price * (insurance.insurance_percent / 100f);
 
             float protect_price = 0f;
             if (full_protect_price > insurance.insurance_limit)
@@ -194,14 +195,25 @@ public class InsuranceController : MonoBehaviour
             // add update value money insurance 
             // 
 
-            float newValue = player_status.player_accounts.getPocket()[section_name] + protect_price;
-            player_status.player_accounts.setPocket(section_name, newValue);
+            if (command != "Get")
+            {
+                Timesystem date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+
+                float newValue = player_status.player_accounts.getPocket()[section_name] + protect_price;
+                player_status.player_accounts.setPocket(section_name, newValue);
+
+                int[] dateTime = date.getDateTime();
+                AccountsDetail account = new AccountsDetail() { date = dateTime, accounts_name = "hearth_insurance_claim", account_type = "claim_insurance", income = protect_price, expense = 0 };
+
+                Debug.Log("Cost Cost: " + protect_price);
+                player_status.addAccountsDetails(account);
+            } 
 
             Debug.Log("protect_price sent to player success.");
-            return true;
+            return protect_price;
         }
 
-        return false;
+        return -1;
     }
 
     private void OnApplicationQuit()

@@ -52,13 +52,11 @@ public class UIStatusEffectItem : MonoBehaviour
 
     public void OnPointerEnter()
     {
-        Debug.Log("AAAAA");
         OnEnterMouseBtn?.Invoke(this);
     }
 
     public void OnPointerExit()
     {
-        Debug.Log("SSSSSSS");
         OnExitMouseBtn?.Invoke(this);
     }
 }

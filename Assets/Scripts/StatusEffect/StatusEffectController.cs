@@ -8,7 +8,7 @@ public class StatusEffectController : MonoBehaviour
     public UIStatusEffectBar statusEffectUI;
     [SerializeField]
     private PlayerStatus playerStatus;
-    [SerializeField] 
+    [SerializeField]
     private PlayerMovement playerMovement;
     [SerializeField]
     private List<StatusEffectPlayer> statusEffects;
@@ -24,13 +24,13 @@ public class StatusEffectController : MonoBehaviour
     private void Update()
     {
         int Count = statusEffects.Count;
-        if(Count != oldCount)
+        if (Count != oldCount)
         {
             UpdateData();
         }
 
         int[] time = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>().getDateTime();
-        if(oldTime != time[4])
+        if (oldTime != time[4])
         {
             CheckEffect();
             oldTime = time[4];
@@ -39,10 +39,10 @@ public class StatusEffectController : MonoBehaviour
 
     public void CheckEffect()
     {
-        foreach(StatusEffectPlayer statusEffect in statusEffects)
+        foreach (StatusEffectPlayer statusEffect in statusEffects)
         {
             statusEffect.current_time++;
-            if(statusEffect.data.TickSpeed != 0)
+            if (statusEffect.data.TickSpeed != 0)
             {
                 if (statusEffect.current_time % statusEffect.data.TickSpeed == 0)
                 {
@@ -114,5 +114,16 @@ public class StatusEffectController : MonoBehaviour
     public void AddStatus(StatusEffectPlayer statusEffect)
     {
         statusEffects.Add(statusEffect);
+    }
+
+    public List<StatusEffectPlayer> GetstatusEffects()
+    {
+        return statusEffects;
+    }
+
+    public void ClearEffects()
+    {
+        playerMovement.setDefaultMoveSpeed(5);
+        statusEffects.Clear();
     }
 }
