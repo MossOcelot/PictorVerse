@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -45,14 +46,10 @@ public class GovermentPolicy : MonoBehaviour
                 if (date[0] == govermentPolicy.taxCollectionDay[0])
                 {
                     if (IsSent) return;
-                    MailManager mail_manager = GameObject.FindGameObjectWithTag("MailBox").gameObject.GetComponent<MailManager>();
+                    UIMailBox mail_manager = GameObject.FindGameObjectWithTag("MailBox").gameObject.GetComponent<UIMailBox>();
                     PlayerStatus player = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerStatus>();
-                    Mail newMail = new Mail("Tax", $"ใบแจ้งภาษี วันที่ {date[0]}/{date[1]}/{date[2]}",
-                        $"{player.getPlayerName()} มีรายได้ปีที่ผ่านมาอยู่ที่ {player.GetIncomeAllYear()} ต้องเสียภาษีจำนวน {player.PayTaxes()}", ()=> TaxReport(player));
-                    mail_manager.AddMails(newMail);
-                    Mail newMails = new Mail("xxx", $"asdasdasd",
-                        $"asdasdasdasdsad");
-                    mail_manager.AddMails(newMails);
+                    mail_manager.AddMail("Tax", $"ใบแจ้งภาษี วันที่ {date[0]}/{date[1]}/{date[2]}",
+                        $"{player.getPlayerName()} มีรายได้ปีที่ผ่านมาอยู่ที่ {player.GetIncomeAllYear()} ต้องเสียภาษีจำนวน {player.PayTaxes()}", () => TaxReport(player), null);
                     govermentPolicy.taxCollectionDay[2]++;
                     IsSent = true;
                 } else
@@ -65,7 +62,7 @@ public class GovermentPolicy : MonoBehaviour
 
     private void TaxReport(PlayerStatus playerStatus)
     {
-        UIMailPaper uiMailPaper = GameObject.FindGameObjectWithTag("MailPaper").gameObject.GetComponent<UIMailPaper>();
+        UIMailNormal uiMailPaper = GameObject.FindGameObjectWithTag("MailPaper").gameObject.GetComponent<UIMailNormal>();
         string section = govermentStatus.goverment.govermentInSection.ToString();
         float tax = playerStatus.PayTaxes();
         float newCash = playerStatus.player_accounts.getPocket()[section] - tax;

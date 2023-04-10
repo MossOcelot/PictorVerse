@@ -19,7 +19,7 @@ public class UIPayLoan : MonoBehaviour
     public TextMeshProUGUI TrueLoan;
     public TextMeshProUGUI Interest;
     public TextMeshProUGUI balance;
-
+    public TextMeshProUGUI LimitPay;
     public Button SpendBtn;
     [SerializeField]
     private float SpendLoanAmount;
@@ -34,7 +34,7 @@ public class UIPayLoan : MonoBehaviour
     public float loanInterest;
 
     public float BalanceValue;
-
+    public float limit_pay;
     Timesystem time_system;
     private void Start()
     {
@@ -52,9 +52,10 @@ public class UIPayLoan : MonoBehaviour
         LoanInterest.text = $"{loanInterest}";
         sumLoan.text = $"{dept + loanInterest}";
         totalLoan = dept + loanInterest;
-
+        limit_pay = (totalLoan * 0.10f) * (float)loanPlayerController.round;
         BalanceValue = (dept + loanInterest) - (leftInterest + leftLoan);
         balance.text = BalanceValue.ToString("F");
+        LimitPay.text = limit_pay.ToString("F");
     }
     private void FixedUpdate()
     {
@@ -62,11 +63,11 @@ public class UIPayLoan : MonoBehaviour
         LoanPlayerController player = manager.playerStatus.loanPlayerController;
 
         int len = player.timer.Length;
-        if (date[2] < player.timer[2] || player.timer[2] == 0) { Debug.Log("A"); SpendBtn.interactable = false; return; };
-        if (date[1] < player.timer[1] || player.timer[1] == 0) { Debug.Log("B"); SpendBtn.interactable = false; return; };
-        if (date[0] < player.timer[0] || player.timer[0] == 0) { Debug.Log("C"); SpendBtn.interactable = false; return; };
+        if (date[2] < player.timer[2] || player.timer[2] == 0) {SpendBtn.interactable = false; return; };
+        if (date[1] < player.timer[1] || player.timer[1] == 0) {SpendBtn.interactable = false; return; };
+        if (date[0] < player.timer[0] || player.timer[0] == 0) {SpendBtn.interactable = false; return; };
 
-        if (SpendLoanAmount > totalLoan || SpendLoanAmount <= 0)
+        if (SpendLoanAmount > totalLoan || SpendLoanAmount < limit_pay)
         {
             SpendBtn.interactable = false;
         }

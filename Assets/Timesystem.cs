@@ -27,7 +27,7 @@ public class Timesystem : MonoBehaviour
     // Update is called once per frame
     public int[] getDateTime()
     {
-        return new int[] { day, month, year, hours, Mathf.RoundToInt(minutes) };
+        return new int[] { day, month, year, hours, Mathf.RoundToInt(minutes)};
     }
 
     private void Awake()

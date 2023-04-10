@@ -39,7 +39,9 @@ public class StatusEffectController : MonoBehaviour
 
     public void CheckEffect()
     {
-        foreach (StatusEffectPlayer statusEffect in statusEffects)
+        if (statusEffects.Count == 0) return;
+        List<StatusEffectPlayer> data = statusEffects;
+        foreach (StatusEffectPlayer statusEffect in data)
         {
             statusEffect.current_time++;
             if (statusEffect.data.TickSpeed != 0)

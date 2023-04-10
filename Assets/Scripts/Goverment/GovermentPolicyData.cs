@@ -19,6 +19,7 @@ public class GovermentPolicyData : ScriptableObject
     public int travel_tax;
     public int vehicle_tax;
     public int personal_star_tax;
+    public float limitLessExpenses;
 
     public int[] taxCollectionDay;
 }

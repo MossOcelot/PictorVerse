@@ -60,6 +60,7 @@ public class PlayerStatus : MonoBehaviour
     public Animator animator;
     public Rigidbody2D rb;
     public PlayerMovement movementScript;
+    public StatusEffectController effect_controller;
     public ToolController attackScript;
 
     public LoanPlayerController loanPlayerController;
@@ -232,7 +233,7 @@ public class PlayerStatus : MonoBehaviour
     public void newBorn()
     {
         IsDead = false;
-       
+        effect_controller.ClearEffects();
         player_teleport.Respawner();
         this.HP = Mathf.RoundToInt((float)MaxHP / 2f);
         this.energy = Mathf.RoundToInt((float)MaxEnergy / 2f);
@@ -389,10 +390,19 @@ public class PlayerStatus : MonoBehaviour
 
     public float PayTaxes()
     {
-        List<GovermentPolicyData.IndividualRangeTax> invidualRangeTax = GameObject.FindGameObjectWithTag("Goverment").gameObject.GetComponent<GovermentPolicy>().getIndividualTax();
+        GovermentPolicy goverment = GameObject.FindGameObjectWithTag("Goverment").gameObject.GetComponent<GovermentPolicy>();
+        List<GovermentPolicyData.IndividualRangeTax> invidualRangeTax = goverment.getIndividualTax();
         float incomeAllYear = GetIncomeAllYear();
         float tax = 0;
-        foreach(GovermentPolicyData.IndividualRangeTax IndividualTax in invidualRangeTax)
+        float net_income = 0;
+        if(incomeAllYear * 0.5f > goverment.govermentPolicy.limitLessExpenses)
+        {
+            net_income = goverment.govermentPolicy.limitLessExpenses;
+        } else
+        {
+            net_income = incomeAllYear * 0.5f;
+        }
+        foreach (GovermentPolicyData.IndividualRangeTax IndividualTax in invidualRangeTax)
         { 
             float maxIncome = IndividualTax.maxIncome;
             float minIncome = IndividualTax.minIncome;
@@ -400,13 +410,13 @@ public class PlayerStatus : MonoBehaviour
 
             if (maxIncome == 0)
             {
-                tax += ((incomeAllYear - minIncome + 1) * perTax);
+                tax += ((net_income - minIncome + 1) * perTax);
                 break;
             } 
 
-            if (incomeAllYear <= maxIncome)
+            if (net_income <= maxIncome)
             {
-                tax += ((incomeAllYear - minIncome) * perTax);
+                tax += ((net_income - minIncome) * perTax);
                 break;
             }
 

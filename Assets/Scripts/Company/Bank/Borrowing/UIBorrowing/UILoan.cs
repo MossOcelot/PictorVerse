@@ -31,10 +31,8 @@ public class UILoan : MonoBehaviour
     {
         PlayerStatus player = manager.playerStatus;
         float credit = player.getMyStatic().static_credibility;
-        Debug.Log("OldCreditPlayer " + OldCreditPlayer + " credit " + credit);
         if (OldCreditPlayer != credit)
         {
-            Debug.Log("A");
             if (credit < 100)
             {
                 loanAmount = 50000;

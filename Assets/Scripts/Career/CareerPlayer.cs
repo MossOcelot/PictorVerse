@@ -36,6 +36,7 @@ public class CareerPlayer : MonoBehaviour
 
     private void Update()
     {
+        if (Career == null) return;
         int[] Now_time = time_system.getDateTime();
 
         if(present_day != Now_time[0])
