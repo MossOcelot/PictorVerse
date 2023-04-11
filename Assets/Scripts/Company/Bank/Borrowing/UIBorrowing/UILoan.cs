@@ -35,11 +35,11 @@ public class UILoan : MonoBehaviour
         {
             if (credit < 100)
             {
-                loanAmount = 50000;
+                loanAmount = 50000f;
             }
             else
             {
-                loanAmount = 50000 + (credit * 5000);
+                loanAmount = 50000f + (credit * 5000f);
             }
         }
         playerHasLoan = player.loanPlayerController.SumDept();
@@ -87,7 +87,7 @@ public class UILoan : MonoBehaviour
 
         float newValue = manager.playerStatus.player_accounts.getPocket()[section] + BorrowAmount;
         manager.playerStatus.player_accounts.setPocket(section, newValue);
-
+        
         AccountsDetail newAccountDetail = new AccountsDetail() { date = present_date, accounts_name = "¡Ùéà§Ô¹", account_type = "Loan", income = BorrowAmount, expense = 0 };
         bank_manager.player_status.addAccountsDetails(newAccountDetail);
         // bank

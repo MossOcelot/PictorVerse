@@ -48,8 +48,8 @@ public class GovermentPolicy : MonoBehaviour
                     if (IsSent) return;
                     UIMailBox mail_manager = GameObject.FindGameObjectWithTag("MailBox").gameObject.GetComponent<UIMailBox>();
                     PlayerStatus player = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerStatus>();
-                    mail_manager.AddMail("Tax", $"ใบแจ้งภาษี วันที่ {date[0]}/{date[1]}/{date[2]}",
-                        $"{player.getPlayerName()} มีรายได้ปีที่ผ่านมาอยู่ที่ {player.GetIncomeAllYear()} ต้องเสียภาษีจำนวน {player.PayTaxes()}", () => TaxReport(player), null);
+                   // mail_manager.AddMail("Tax", $"ใบแจ้งภาษี วันที่ {date[0]}/{date[1]}/{date[2]}",
+                    //    $"{player.getPlayerName()} มีรายได้ปีที่ผ่านมาอยู่ที่ {player.GetIncomeAllYear()} ต้องเสียภาษีจำนวน {player.PayTaxes()}", () => TaxReport(player), null);
                     govermentPolicy.taxCollectionDay[2]++;
                     IsSent = true;
                 } else
@@ -60,7 +60,7 @@ public class GovermentPolicy : MonoBehaviour
         }
     }
 
-    private void TaxReport(PlayerStatus playerStatus)
+    /*private void TaxReport(PlayerStatus playerStatus)
     {
         UIMailNormal uiMailPaper = GameObject.FindGameObjectWithTag("MailPaper").gameObject.GetComponent<UIMailNormal>();
         string section = govermentStatus.goverment.govermentInSection.ToString();
@@ -101,6 +101,6 @@ public class GovermentPolicy : MonoBehaviour
         }
 
 
-    }
+    }*/
 
 }

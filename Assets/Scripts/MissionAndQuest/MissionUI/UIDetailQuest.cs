@@ -122,7 +122,7 @@ public class UIDetailQuest : MonoBehaviour
     private void GetReward(Quest quest)
     {
         MissionCanvasController missionController = GameObject.FindGameObjectWithTag("MissionQuest").gameObject.GetComponent<MissionCanvasController>();
-        
+        Timesystem time_system = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
         GameObject player = GameObject.FindGameObjectWithTag("Player").gameObject;
        
         if (quest.HaveItemReward)
@@ -182,6 +182,11 @@ public class UIDetailQuest : MonoBehaviour
         {
             float newValue = currency.amount + player_status.player_accounts.getPocket()[currency.currency.ToString()];
             player_status.player_accounts.setPocket(currency.currency.ToString(), newValue);
+
+            int[] Now_time = time_system.getDateTime();
+            AccountsDetail account_Player = new AccountsDetail() { date = Now_time, accounts_name = "เงินเดือน", account_type = quest.Rewards.incomeType.ToString(), income = currency.amount, expense = 0 };
+            player_status.addAccountsDetails(account_Player);
+
         }
 
         int size = missionController.QuestList.QuestList.Count;

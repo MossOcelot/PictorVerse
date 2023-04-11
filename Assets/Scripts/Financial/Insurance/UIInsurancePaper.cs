@@ -58,11 +58,11 @@ public class UIInsurancePaper : MonoBehaviour
         if (type == "endowment")
         {
 
-            player_Insurance.SetPlayer_endowment(newinsurance);
+            player_Insurance.SetPlayer_endowment(newinsurance, insurance.subpackage[dropType.value].price);
         } 
         else if(type == "health_insurance")
         {
-            player_Insurance.SetPlayer_health_insurance(newinsurance);
+            player_Insurance.SetPlayer_health_insurance(newinsurance, insurance.subpackage[dropType.value].price);
         }
 
         float newPrice = player_status.player_accounts.getPocket()[scene.sceneInsection.ToString()] - insurance.subpackage[dropType.value].price;

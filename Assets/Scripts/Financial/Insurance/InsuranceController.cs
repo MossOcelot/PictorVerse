@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InsuranceController : MonoBehaviour
@@ -18,14 +19,20 @@ public class InsuranceController : MonoBehaviour
     public List<InventorySO> playerInventoryList;
     private Timesystem time_system;
     private AllItemInMarket allItemInMarket;
-    
+
+    public float credit_endowment;
+    public float credit_hearth;
+
+    public List<InsuranceData> insuranceDataBuy;
     public InsuranceItems GetPlayer_endowment()
     {
         return this.player_endowment;
     }
-    public void SetPlayer_endowment(InsuranceItems insurance)
+    public void SetPlayer_endowment(InsuranceItems insurance, float amount)
     {
         this.player_endowment = insurance;
+        AddInsuranceData(insurance.buyDay, "Endowment", amount);
+        SetCreditHealth(insurance);
     }
 
     public InsuranceItems GetPlayer_hearth_insurance()
@@ -33,9 +40,11 @@ public class InsuranceController : MonoBehaviour
         return this.player_hearth_insurance;
     }
 
-    public void SetPlayer_health_insurance(InsuranceItems insurance)
+    public void SetPlayer_health_insurance(InsuranceItems insurance, float amount)
     {
         this.player_hearth_insurance = insurance;
+        AddInsuranceData(insurance.buyDay, "Health_insurance", amount);
+        SetCreditEndowment(insurance);
     }
 
     private void Awake()
@@ -71,6 +80,7 @@ public class InsuranceController : MonoBehaviour
         if (IsSuccess)
         {
             player_endowment = new InsuranceItems();
+            RemoveCreditEndowment();
         }
         else
         {
@@ -102,6 +112,7 @@ public class InsuranceController : MonoBehaviour
                 Debug.Log("Endowment has expired.");
 
                 player_endowment = new InsuranceItems();
+                RemoveCreditEndowment();
             }
         }
 
@@ -113,6 +124,7 @@ public class InsuranceController : MonoBehaviour
                 Debug.Log("HealthInsurance has expired.");
 
                 player_hearth_insurance = new InsuranceItems();
+                RemoveCreditHealth();
             }
         }
     }
@@ -216,6 +228,50 @@ public class InsuranceController : MonoBehaviour
         return -1;
     }
 
+    private void SetCreditEndowment(InsuranceItems insurance)
+    {
+        if(insurance.insurance != null)
+        {
+            credit_endowment = insurance.insurance.insurance_limit / 10000f;
+            float newCredit = player_status.getMyStatic().static_credibility + credit_endowment;
+            player_status.setMyStatic(7, newCredit);
+            return;
+        }
+        RemoveCreditEndowment();
+    }
+
+    private void RemoveCreditEndowment()
+    {
+        float new_credit = player_status.getMyStatic().static_credibility - credit_endowment;
+        credit_endowment = 0;
+        player_status.setMyStatic(7, new_credit);
+    }
+
+    private void SetCreditHealth(InsuranceItems insurance)
+    {
+        if (insurance.insurance != null)
+        {
+            credit_hearth = insurance.insurance.insurance_limit / 100000f;
+            float newCredit = player_status.getMyStatic().static_credibility + credit_hearth;
+            player_status.setMyStatic(7, newCredit);
+            return;
+        }
+        RemoveCreditHealth();
+    }
+
+    private void RemoveCreditHealth()
+    {
+        float new_credit = player_status.getMyStatic().static_credibility - credit_hearth;
+        credit_hearth = 0;
+        player_status.setMyStatic(7, new_credit);
+    }
+
+    private void AddInsuranceData(int[] date, string type, float amount)
+    {
+        InsuranceData newData = new InsuranceData(date, type, amount);
+        insuranceDataBuy.Insert(0, newData);
+    }
+
     private void OnApplicationQuit()
     {
         // Save();
@@ -237,4 +293,21 @@ public class InsuranceController : MonoBehaviour
         }
     }
 
+
+
+}
+
+[System.Serializable]
+public class InsuranceData
+{
+    public int[] buyDate;
+    public string type_insurance;
+    public float amount;
+
+    public InsuranceData(int[] buyDate, string type, float cost)
+    {
+        this.buyDate = buyDate;
+        type_insurance = type;
+        amount = cost;
+    }
 }

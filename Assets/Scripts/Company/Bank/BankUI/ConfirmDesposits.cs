@@ -45,6 +45,10 @@ public class ConfirmDesposits : MonoBehaviour
         AccountList account = new AccountList(present_date, "deposit", Deposit_amount, 0, newDeposit, "DEP/PC/CD");
         bank_manager.Setplayer_account(newDeposit, account);
 
+        float credit = Deposit_amount / 10000f;
+        float newCredit = playerStatus.getMyStatic().static_credibility + credit;
+        playerStatus.setMyStatic(7, newCredit);
+
         float newDept = bank_manager.bank_status.GetBank_Financial("debt") + Deposit_amount;
         bank_manager.bank_status.SetBank_Financial("debt", newDept);
 

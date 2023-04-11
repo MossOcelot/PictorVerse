@@ -130,6 +130,8 @@ public class UIPayLoan : MonoBehaviour
         {
             player.timer = new int[] { player.timer[0], player.timer[1] + 1, player.timer[2] };
         }
+
+        player.round = 0;
         resetData();
     }
 

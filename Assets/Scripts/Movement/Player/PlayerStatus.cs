@@ -388,11 +388,11 @@ public class PlayerStatus : MonoBehaviour
         }
     }
 
-    public float PayTaxes()
+    public float PayTaxes(float income)
     {
         GovermentPolicy goverment = GameObject.FindGameObjectWithTag("Goverment").gameObject.GetComponent<GovermentPolicy>();
         List<GovermentPolicyData.IndividualRangeTax> invidualRangeTax = goverment.getIndividualTax();
-        float incomeAllYear = GetIncomeAllYear();
+        float incomeAllYear = income;
         float tax = 0;
         float net_income = 0;
         if(incomeAllYear * 0.5f > goverment.govermentPolicy.limitLessExpenses)
