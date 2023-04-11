@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class NPC_Reach : MonoBehaviour
 {
+    public GameObject MissionComplete;
+
     [System.Serializable]
     public class ReachQuestEvent
     {
@@ -16,6 +18,8 @@ public class NPC_Reach : MonoBehaviour
     public List<ReachQuestEvent> QuestEvents;
     public string object_name;
 
+
+    
     private Quest Present_quest;
     public QuestDialogue CheckQuestInPlayer()
     {
@@ -59,6 +63,11 @@ public class NPC_Reach : MonoBehaviour
                     break;
                 }
             }
+        }
+        if (MissionComplete != null)
+        {
+            MissionComplete.SetActive(true);
+
         }
         Present_quest.UpdateGoals();
     }

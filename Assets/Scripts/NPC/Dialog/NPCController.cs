@@ -13,7 +13,8 @@ public class NPCController : MonoBehaviour
     public GameObject player;
     public TextMeshProUGUI dialogueText;
     public QuestDialogue DefaultDialogue;
-
+    public GameObject TimeLine;
+    public GameObject Sign;
     public List<string> dialogue;
     public NPC_Quest npc_quest;
     public NPC_Reach npc_reach;
@@ -29,6 +30,8 @@ public class NPCController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+       
         if (!playerIsClose) return;
         if (IsInQuest)
         {
@@ -36,6 +39,7 @@ public class NPCController : MonoBehaviour
             for (int i = 0; i < len; i++)
             {
                 dialoguePanel.transform.GetChild(3).gameObject.transform.GetChild(i).gameObject.SetActive(false);
+                
             }
         }
         else
@@ -78,6 +82,15 @@ public class NPCController : MonoBehaviour
             }
 
 
+        }
+
+        if(IsInQuest && IsEndSituation && TimeLine != null)
+        {
+            TimeLine.SetActive(true);
+        }
+        if(IsInQuest && IsEndSituation && Sign != null)
+        {
+            Sign.SetActive(false);
         }
         /*if (Input.GetKeyDown(KeyCode.q) && dialoguePanel.activeInHierarchy)
         {
@@ -149,6 +162,8 @@ public class NPCController : MonoBehaviour
             if (index == dialogue.Count - 1)
             {
                 IsEndSituation = true;
+
+
             }
             dialogueText.text = "";
             StartCoroutine(Typing());

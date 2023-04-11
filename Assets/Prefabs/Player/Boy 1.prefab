@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 1956649661961853465}
   - component: {fileID: 1956649661961853464}
   - component: {fileID: 1956649661961853467}
+  - component: {fileID: 4975508126169182774}
   - component: {fileID: 1956649661961853466}
   - component: {fileID: 7483556697510849753}
   - component: {fileID: 1956649661961853461}
@@ -369,6 +370,7 @@ MonoBehaviour:
   miniInitialItem: []
   MyInventoryObj: {fileID: 0}
   MyAccountObj: {fileID: 0}
+  MyLife: {fileID: 0}
 --- !u!114 &372831218654241934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,12 +478,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Career: {fileID: 0}
+  CareerScore: 0
   finishDailyQuest: 0
   HaveCareer: 0
   absenteeismPerDay: 0
   absenteeismPerMonth: 0
-  DayInGame: 0
   playerStatus: {fileID: 1956649661961853470}
+  finishDailyQuestInADay: 0
 --- !u!114 &1956649661961853465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,8 +527,7 @@ MonoBehaviour:
   - {x: 0.9585426, y: -1.9040359, z: 0}
   m_ShapePathHash: -869264443
   m_Mesh: {fileID: 0}
-  m_InstanceId: 425108
-  m_InstanceId: 203932
+  m_InstanceId: 77228
 --- !u!114 &1956649661961853467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,6 +546,22 @@ MonoBehaviour:
     location: {x: 0, y: 0, z: 0}
   RespawnList: []
   isOnTeleporter: 0
+--- !u!114 &4975508126169182774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956649661961853460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1d5b8b7ee47274fb197b9370aa318b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statusEffectUI: {fileID: 0}
+  playerStatus: {fileID: 1956649661961853470}
+  playerMovement: {fileID: 1956649661961853471}
+  statusEffects: []
 --- !u!96 &1956649661961853466
 TrailRenderer:
   serializedVersion: 3
