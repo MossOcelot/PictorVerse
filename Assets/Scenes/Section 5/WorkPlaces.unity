@@ -8553,6 +8553,90 @@ Transform:
   m_Father: {fileID: 601431367}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1232862007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1232862008}
+  - component: {fileID: 1232862009}
+  m_Layer: 0
+  m_Name: SignExcept
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1232862008
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232862007}
+  m_LocalRotation: {x: -0, y: -0, z: 3.4924597e-10, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1509953745}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1232862009
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232862007}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 822741803
+  m_SortingLayer: 2
+  m_SortingOrder: 500
+  m_Sprite: {fileID: -2060996833, guid: c21b8deaae67ab744bf5189a50badd4c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 3.5099998, y: 4.7116046}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1248751072
 GameObject:
   m_ObjectHideFlags: 0
@@ -9873,6 +9957,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1509953744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1509953745}
+  m_Layer: 0
+  m_Name: SignReach
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1509953745
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509953744}
+  m_LocalRotation: {x: -0.23175482, y: -0.007825991, z: 0.009323018, w: 0.9726981}
+  m_LocalPosition: {x: -3.0819983, y: 3.5319998, z: -0.6184}
+  m_LocalScale: {x: 0.398278, y: 0.22282319, z: 1.1606336}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1232862008}
+  m_Father: {fileID: 1522742390}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1522742388
 GameObject:
   m_ObjectHideFlags: 0
@@ -9957,7 +10073,8 @@ Transform:
   m_LocalPosition: {x: 9.167356, y: 3.74, z: 0}
   m_LocalScale: {x: 0.30000004, y: 0.32, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1509953745}
   m_Father: {fileID: 601431367}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 26.808, y: 0.7, z: -0.931}
@@ -10019,6 +10136,7 @@ MonoBehaviour:
   dialogueText: {fileID: 0}
   DefaultDialogue: {fileID: 11400000, guid: befb0b6a33ab0f14faff5846474b3421, type: 2}
   TimeLine: {fileID: 0}
+  Sign: {fileID: 0}
   dialogue:
   - ...
   npc_quest: {fileID: 0}
@@ -10043,6 +10161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MissionComplete: {fileID: 483988891}
+  SignReach: {fileID: 1509953744}
   QuestEvents:
   - status: 0
     quest: {fileID: 11400000, guid: e2e485996df34e44ba59a7e666bb584e, type: 2}
@@ -13222,6 +13341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MissionComplete: {fileID: 0}
+  SignReach: {fileID: 0}
   QuestEvents:
   - status: 0
     quest: {fileID: 11400000, guid: e2e485996df34e44ba59a7e666bb584e, type: 2}
@@ -13277,6 +13397,7 @@ MonoBehaviour:
   dialogueText: {fileID: 0}
   DefaultDialogue: {fileID: 11400000, guid: befb0b6a33ab0f14faff5846474b3421, type: 2}
   TimeLine: {fileID: 0}
+  Sign: {fileID: 0}
   dialogue:
   - "\u0E2A\u0E27\u0E31\u0E2A\u0E14\u0E35\u0E19\u0E31\u0E01\u0E40\u0E14\u0E34\u0E19\u0E17\u0E32\u0E07"
   - "\u0E0A\u0E48\u0E27\u0E07\u0E19\u0E35\u0E49\u0E21\u0E35\u0E04\u0E19\u0E22\u0E49\u0E32\u0E22\u0E40\u0E02\u0E49\u0E32\u0E21\u0E32\u0E32\u0E17\u0E35\u0E48\u0E40\u0E21\u0E37\u0E48\u0E2D\u0E07\u0E41\u0E2B\u0E48\u0E07\u0E19\u0E35\u0E49\u0E40\u0E22\u0E2D\u0E30\u0E41\u0E22\u0E30\u0E21\u0E32\u0E01\u0E21\u0E32\u0E22"

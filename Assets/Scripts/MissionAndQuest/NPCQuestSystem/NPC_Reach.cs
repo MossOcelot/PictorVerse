@@ -6,6 +6,8 @@ using UnityEngine;
 public class NPC_Reach : MonoBehaviour
 {
     public GameObject MissionComplete;
+    public GameObject SignReach;
+
 
     [System.Serializable]
     public class ReachQuestEvent
@@ -20,7 +22,11 @@ public class NPC_Reach : MonoBehaviour
 
 
     
+    
     private Quest Present_quest;
+
+
+    
     public QuestDialogue CheckQuestInPlayer()
     {
         MissionCanvasController missionPlayer = GameObject.FindGameObjectWithTag("MissionQuest").gameObject.GetComponent<MissionCanvasController>();
@@ -31,17 +37,17 @@ public class NPC_Reach : MonoBehaviour
             foreach (ReachQuestEvent reach in QuestEvents)
             {
                 Quest ReachQuest = reach.quest;
-                
                 if (ReachQuest.information.quest_name == quest.information.quest_name)
                 {
-                    if (reach.status) return null;
+
+                    if (reach.status)return null;
                     Present_quest = quest;
                     reach.status = true;
+                    SignReach.SetActive(true);
                     return reach.Dialogue;
                 }
             }
         }
-        
         return null;
     }
 
@@ -58,6 +64,7 @@ public class NPC_Reach : MonoBehaviour
                     objective.currentAmount += 1;
                     if (objective.currentAmount >= objective.targetAmount)
                     {
+                        SignReach.SetActive(false);
                         objective.completed = true;
                     }
                     break;
@@ -67,6 +74,7 @@ public class NPC_Reach : MonoBehaviour
         if (MissionComplete != null)
         {
             MissionComplete.SetActive(true);
+
 
         }
         Present_quest.UpdateGoals();
