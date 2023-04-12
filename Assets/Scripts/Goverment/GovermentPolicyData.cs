@@ -11,6 +11,7 @@ public class GovermentPolicyData : ScriptableObject
         public float minIncome;
         public float maxIncome;
         public float Tax;
+        public float cumulative_Tax;
     }
 
     public int vat_tax;
@@ -21,5 +22,7 @@ public class GovermentPolicyData : ScriptableObject
     public int personal_star_tax;
     public float limitLessExpenses;
 
+    public float maxdeductionEndowment;
+    public float maxdeductionHealthInsurance;
     public int[] taxCollectionDay;
 }

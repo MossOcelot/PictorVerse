@@ -6,6 +6,7 @@ using inventory.Model;
 using Random = UnityEngine.Random;
 using UnityEngine.Rendering;
 using Unity.VisualScripting;
+using JetBrains.Annotations;
 
 public class PlayerStatus : MonoBehaviour
 {
@@ -453,5 +454,39 @@ public class PlayerStatus : MonoBehaviour
             allIncome += account.income;
         }
         return allIncome;
+    }
+
+    public float GetIncomeTypeInYear(string type)
+    {
+        float allYearCost = 0;
+
+        GovermentPolicy goverment = GameObject.FindGameObjectWithTag("Goverment").gameObject.GetComponent<GovermentPolicy>();
+        int[] date = goverment.govermentPolicy.taxCollectionDay;
+
+        foreach(AccountsDetail account in accountsDetails)
+        {
+            int[] account_date = account.date;
+            if (account_date[2] <= date[2] - 1)
+            {
+                if (account_date[1] == date[1])
+                {
+                    if (account_date[0] <= date[0])
+                    {
+                        break;
+                    }
+                }
+                else if (account_date[1] < date[1])
+                {
+                    break;
+                }
+            }
+
+            if(account.account_type == type)
+            {
+                allYearCost += account.income;
+            }
+        }
+
+        return allYearCost;
     }
 }

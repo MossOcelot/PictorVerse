@@ -22,6 +22,7 @@ public class LoanPlayerController : MonoBehaviour
     private SceneStatus.section section;
 
     PlayerStatus player;
+
     AllItemInMarket allItemInMarket;
     private void Start()
     {
@@ -45,7 +46,6 @@ public class LoanPlayerController : MonoBehaviour
                     loanInterest += (debt + loanInterest) * 0.0167f;
                     if(round == 0)
                     {
-                        Debug.Log("Round Round");
                         UIMailBox mail_manager = GameObject.FindGameObjectWithTag("MailBox").gameObject.GetComponent<UIMailBox>();
                         mail_manager.AddMail("Loan", $"ใบแจ้งจ่ายหนี้ค้างชำระ วันที่ {date[0]}/{date[1]}/{date[2]}",
                             $"{player.getPlayerName()} มีหนี้ค้างชำระ {debt + loanInterest} โดยมีหนี้เงินต้น {debt} และ ดอกเบี้ย {loanInterest} จ่ายขั้นต่ำ {(debt + loanInterest) * 0.10f}", null, null);

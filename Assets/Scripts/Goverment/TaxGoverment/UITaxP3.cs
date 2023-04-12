@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+
 public class UITaxP3 : MonoBehaviour
 {
     [SerializeField]
@@ -17,6 +19,10 @@ public class UITaxP3 : MonoBehaviour
 
     public TextMeshProUGUI text1;
 
+    public TextMeshProUGUI text_year;
+
+    public Button PayTaxBtn;
+    public TextMeshProUGUI text2;
     public void SetData()
     {
         float allIncome = fileTax.AllIncome();
@@ -34,5 +40,31 @@ public class UITaxP3 : MonoBehaviour
         text_tax.text = netTax.ToString("F");
         text_nettax.text = netTax.ToString("F");
         text1.text = $"จำนวนวันที่ค้างชำระ {late_time} วัน";
+
+        PayTaxBtn.interactable = false;
+        text2.color = Color.white;
+        text2.text = "กดเพื่อตรวจสอบข้อมูลก่อน -->";
+    }
+
+    public void SetButton()
+    {
+        bool CheckInfo = fileTax.GetCheck();
+        if (CheckInfo)
+        {
+            PayTaxBtn.interactable = true;
+            text2.color = Color.green;
+            text2.text = "ข้อมูลถูกต้อง";
+        }
+        else
+        {
+            PayTaxBtn.interactable = false;
+            text2.color = Color.red;
+            text2.text = "ข้อมูลไม่ตรงกันโปรดกลับไปเช็คอีกครั้ง";
+        }
+        fileTax.FirstChangeT1 = false;
+        fileTax.FirstChangeT2 = false;
+        fileTax.FirstChangeT3 = false;
+        fileTax.isClick1 = true;
+        fileTax.isClick2 = true;
     }
 }

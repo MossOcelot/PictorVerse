@@ -17,6 +17,10 @@ public class UIPage13 : MonoBehaviour
     public Button EnterBtn;
     public float Amount;
 
+    public GameObject Details_template;
+    public Transform DetailCalculate;
+    GameObject Details;
+
     public void SetInput()
     {
         if (float.TryParse(input_income.gameObject.GetComponent<TMP_InputField>().text, out Amount))
@@ -30,7 +34,7 @@ public class UIPage13 : MonoBehaviour
 
     private void Update()
     {
-        if (Amount <= 0)
+        if (Amount < 0)
         {
             EnterBtn.interactable = false;
         }
@@ -43,7 +47,37 @@ public class UIPage13 : MonoBehaviour
     public void Enter()
     {
         taxSystem.InputFI = Amount;
+        taxSystem.FirstChangeT3 = true;
         taxP1.SetData();
         text.SetActive(true);
+    }
+
+    public void OpenClick()
+    {
+        if (Details == null)
+        {
+            OpenDetails();
+        }
+        else
+        {
+            CloseDetails();
+        }
+    }
+
+    public void OpenDetails()
+    {
+        Details = Instantiate(Details_template, DetailCalculate);
+        UICalDetails uiCalDetails = Details.GetComponent<UICalDetails>();
+
+        taxSystem.CalculateExpense();
+        uiCalDetails.SetData(taxSystem.InputRI, taxSystem.expensesRI,
+            taxSystem.InputMI, taxSystem.expensesMI,
+            taxSystem.InputFI, taxSystem.expensesFI);
+    }
+
+    public void CloseDetails()
+    {
+        Destroy(Details);
+        Details = null;
     }
 }

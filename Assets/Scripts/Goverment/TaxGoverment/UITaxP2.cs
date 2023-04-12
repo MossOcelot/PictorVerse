@@ -15,6 +15,15 @@ public class UITaxP2 : MonoBehaviour
     public float AmountHealthInsurance;
 
     public Button NextBtn;
+    public GameObject alert_Text;
+    private void FixedUpdate()
+    {
+        if (fileTax.isClick2)
+        {
+            SetWrong();
+        }
+    }
+
     public void SetInputEndownment()
     {
         if (float.TryParse(input_Endownment.gameObject.GetComponent<TMP_InputField>().text, out AmountEndowment) || input_Endownment.gameObject.GetComponent<TMP_InputField>().text == "")
@@ -26,6 +35,9 @@ public class UITaxP2 : MonoBehaviour
         {
             NextBtn.interactable = false;
         }
+
+        fileTax.isClick2 = false;
+        alert_Text.SetActive(false);
     }
 
     public void SetInputHealthInsurance()
@@ -39,5 +51,12 @@ public class UITaxP2 : MonoBehaviour
         {
             NextBtn.interactable = false;
         }
+        fileTax.isClick2 = false;
+        alert_Text.SetActive(false);
+    }
+
+    private void SetWrong()
+    {
+        alert_Text.SetActive(true);
     }
 }

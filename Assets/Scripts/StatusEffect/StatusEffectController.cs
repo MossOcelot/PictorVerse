@@ -57,7 +57,6 @@ public class StatusEffectController : MonoBehaviour
                 float defaultMoveSpeed = playerMovement.getDefaultMoveSpeed();
                 float realMoveSpeed = (defaultMoveSpeed - (float)statusEffect.data.MovementPenalty) * ((100f - (float)statusEffect.data.MovementPenaltyPercent) / 100f);
 
-
                 Debug.Log("Default: " + defaultMoveSpeed + " MoveSpeed " + realMoveSpeed);
                 if (realMoveSpeed < 1)
                 {

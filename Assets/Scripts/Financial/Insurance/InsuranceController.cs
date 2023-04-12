@@ -272,6 +272,39 @@ public class InsuranceController : MonoBehaviour
         insuranceDataBuy.Insert(0, newData);
     }
 
+    public float GetInsuranceCostInYear(string type)
+    {
+        float allYearCost = 0;
+
+        GovermentPolicy goverment = GameObject.FindGameObjectWithTag("Goverment").gameObject.GetComponent<GovermentPolicy>();
+        int[] date = goverment.govermentPolicy.taxCollectionDay;
+
+        foreach (InsuranceData data in insuranceDataBuy)
+        {
+            int[] account_date = data.buyDate;
+            if (account_date[2] <= date[2] - 1)
+            {
+                if (account_date[1] == date[1])
+                {
+                    if (account_date[0] <= date[0])
+                    {
+                        break;
+                    }
+                }
+                else if (account_date[1] < date[1])
+                {
+                    break;
+                }
+            }
+
+            if (data.type_insurance == type)
+            {
+                allYearCost += data.amount;
+            }
+        }
+
+        return allYearCost;
+    }
     private void OnApplicationQuit()
     {
         // Save();

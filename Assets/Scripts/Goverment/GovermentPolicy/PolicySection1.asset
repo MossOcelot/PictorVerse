@@ -18,11 +18,15 @@ MonoBehaviour:
   - minIncome: 0
     maxIncome: 150000
     Tax: 0
+    cumulative_Tax: 0
   - minIncome: 150001
     maxIncome: 0
     Tax: 5
+    cumulative_Tax: 0
   travel_tax: 20
   vehicle_tax: 200
   personal_star_tax: 0
   limitLessExpenses: 3000000
+  maxdeductionEndowment: 0
+  maxdeductionHealthInsurance: 0
   taxCollectionDay: 0100000001000000b80f0000
