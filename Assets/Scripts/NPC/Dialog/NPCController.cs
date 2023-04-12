@@ -88,7 +88,12 @@ public class NPCController : MonoBehaviour
         {
             TimeLine.SetActive(true);
         }
-        if(IsInQuest && IsEndSituation && Sign != null)
+        else if(IsEndSituation && IsInReachQuest && TimeLine != null)
+        {
+            TimeLine.SetActive(true);
+        }
+
+        if (IsInQuest && IsEndSituation && Sign != null)
         {
             Sign.SetActive(false);
         }
