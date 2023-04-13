@@ -5,46 +5,52 @@ using UnityEngine;
 
 public class NPC_Reach : MonoBehaviour
 {
-    public GameObject MissionComplete;
-    public GameObject SignReach;
-
+    public GameObject missionComplete;
+    public GameObject signReach;
 
     [System.Serializable]
     public class ReachQuestEvent
     {
         public bool status;
         public Quest quest;
-        public QuestDialogue Dialogue;
+        public QuestDialogue dialogue;
+        public NPC_Quest nextQuest;
     }
 
-    public List<ReachQuestEvent> QuestEvents;
-    public string object_name;
+    public List<ReachQuestEvent> questEvents;
+    public string objectName;
 
+    private Quest presentQuest;
 
-    
-    
-    private Quest Present_quest;
+    public void Update()
+    {
+        foreach (ReachQuestEvent reach in questEvents)
+        {
+            if (reach.status && reach.nextQuest != null)
+            {
+                reach.nextQuest.gameObject.SetActive(true);
+            }
+        }
+    }
 
-
-    
     public QuestDialogue CheckQuestInPlayer()
     {
         MissionCanvasController missionPlayer = GameObject.FindGameObjectWithTag("MissionQuest").gameObject.GetComponent<MissionCanvasController>();
         List<Quest> quests = missionPlayer.QuestList.QuestList;
-        foreach(Quest quest in quests)
+        foreach (Quest quest in quests)
         {
             if (quest.status != Quest.QuestStatus.InProgress) continue;
-            foreach (ReachQuestEvent reach in QuestEvents)
+            foreach (ReachQuestEvent reach in questEvents)
             {
-                Quest ReachQuest = reach.quest;
-                if (ReachQuest.information.quest_name == quest.information.quest_name)
+                Quest reachQuest = reach.quest;
+                if (reachQuest.information.quest_name == quest.information.quest_name)
                 {
 
-                    if (reach.status)return null;
-                    Present_quest = quest;
+                    if (reach.status) return null;
+                    presentQuest = quest;
                     reach.status = true;
-                    SignReach.SetActive(true);
-                    return reach.Dialogue;
+                    signReach.SetActive(true);
+                    return reach.dialogue;
                 }
             }
         }
@@ -53,30 +59,39 @@ public class NPC_Reach : MonoBehaviour
 
     public void FinishReach()
     {
-        List<QuestObjective> goals = Present_quest.goals;
+        List<QuestObjective> goals = presentQuest.goals;
 
-        foreach(QuestObjective objective in goals)
+        foreach (QuestObjective objective in goals)
         {
-            if(objective.type == QuestObjective.QuestObjectiveType.ReachLocation)
+            if (objective.type == QuestObjective.QuestObjectiveType.ReachLocation)
             {
-                if(objective.name_object == object_name)
+                if (objective.name_object == objectName)
                 {
                     objective.currentAmount += 1;
                     if (objective.currentAmount >= objective.targetAmount)
                     {
-                        SignReach.SetActive(false);
+                        signReach.SetActive(false);
                         objective.completed = true;
                     }
                     break;
                 }
             }
         }
-        if (MissionComplete != null)
+
+        if (missionComplete != null)
         {
-            MissionComplete.SetActive(true);
-
-
+            missionComplete.SetActive(true);
         }
-        Present_quest.UpdateGoals();
+
+        presentQuest.UpdateGoals();
+
+        foreach (ReachQuestEvent reach in questEvents)
+        {
+            if (reach.quest == presentQuest)
+            {
+                reach.nextQuest.gameObject.SetActive(true);
+                break;
+            }
+        }
     }
 }
