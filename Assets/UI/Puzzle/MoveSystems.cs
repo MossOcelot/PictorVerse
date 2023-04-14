@@ -6,7 +6,7 @@ public class MoveSystems : MonoBehaviour
     [SerializeField] private float snapDistance = 0.5f;
 
     private bool isMoving = false;
-    private bool isFinished = false;
+    public bool isFinished = false;
     private Vector3 resetPosition = Vector3.zero;
     private Vector3 initialMouseOffset = Vector3.zero;
 

@@ -2,28 +2,42 @@ using UnityEngine;
 
 public class ControllPazzle : MonoBehaviour
 {
-    public Camera mainCamera; 
-    public GameObject objectToToggle; 
+    public Camera mainCamera;
+    public GameObject objectToToggle;
 
     private bool isCameraSmall = false;
 
-    void Update()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (Input.GetKeyDown(KeyCode.L))
+        if (collision.gameObject.CompareTag("Player"))
         {
             if (!isCameraSmall)
             {
-                mainCamera.orthographicSize = 18f; 
+                mainCamera.orthographicSize = 18f;
                 isCameraSmall = true;
-            }
-            else
-            {
-                mainCamera.orthographicSize = 3.9f; 
-                isCameraSmall = false;
+                GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerMovement>().SetIsLooking(true);
+                GameObject.FindGameObjectWithTag("MainCamera").gameObject.GetComponent<interfaceCanvasController>().isLooking = true;
+                objectToToggle.SetActive(true);
 
             }
 
-            objectToToggle.SetActive(!objectToToggle.activeSelf);
+
         }
     }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            mainCamera.orthographicSize = 3.9f;
+            isCameraSmall = false;
+            GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerMovement>().isLooking = false;
+            GameObject.FindGameObjectWithTag("MainCamera").gameObject.GetComponent<interfaceCanvasController>().isLooking = false;
+            objectToToggle.SetActive(false);
+
+        }
+    }
+
+
+
 }
+

@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+using System.Security.AccessControl;
 using UnityEngine;
 
 public class NPC_Reach : MonoBehaviour
 {
     public GameObject missionComplete;
     public GameObject signReach;
+    public WinScripts winPuzzles;
+
 
     [System.Serializable]
     public class ReachQuestEvent
@@ -22,6 +24,11 @@ public class NPC_Reach : MonoBehaviour
 
     private Quest presentQuest;
 
+    void Start()
+    {
+
+        winPuzzles = GetComponent<WinScripts>();
+    }
     public void Update()
     {
         foreach (ReachQuestEvent reach in questEvents)
@@ -31,6 +38,8 @@ public class NPC_Reach : MonoBehaviour
                 reach.nextQuest.gameObject.SetActive(true);
             }
         }
+
+        
     }
 
     public QuestDialogue CheckQuestInPlayer()
@@ -68,7 +77,12 @@ public class NPC_Reach : MonoBehaviour
                 if (objective.name_object == objectName)
                 {
                     objective.currentAmount += 1;
-                    if (objective.currentAmount >= objective.targetAmount)
+                    if (winPuzzles != null && winPuzzles.WinNow)
+                    {
+                        objective.completed = true;
+                        Debug.Log("Completed Puzzles");
+                    }
+                    if (winPuzzles == null && objective.currentAmount >= objective.targetAmount)
                     {
                         signReach.SetActive(false);
                         objective.completed = true;

@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class WinScripts : MonoBehaviour
 {
-    private int pointstoWin;
-    private int currentPoints;
+    public int pointstoWin;
+    public int currentPoints;
     public GameObject MyPuzzles;
-
+    public bool WinNow;
     void Start()
     {
+        WinNow = false;
         pointstoWin = MyPuzzles.transform.childCount;
     }
     void Update()
@@ -17,6 +18,7 @@ public class WinScripts : MonoBehaviour
         
         if(currentPoints >= pointstoWin)
         {
+            WinNow = true;
             transform.GetChild(0).gameObject.SetActive(true);
         }
     }
