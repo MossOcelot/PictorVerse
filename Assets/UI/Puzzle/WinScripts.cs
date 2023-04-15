@@ -7,7 +7,8 @@ public class WinScripts : MonoBehaviour
     public int pointstoWin;
     public int currentPoints;
     public GameObject MyPuzzles;
-    public bool WinNow;
+    public bool WinNow = false;
+
     void Start()
     {
         WinNow = false;
@@ -19,6 +20,7 @@ public class WinScripts : MonoBehaviour
         if(currentPoints >= pointstoWin)
         {
             WinNow = true;
+            Debug.Log("Winnow");
             transform.GetChild(0).gameObject.SetActive(true);
         }
     }

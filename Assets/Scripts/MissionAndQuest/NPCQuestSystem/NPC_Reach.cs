@@ -8,7 +8,7 @@ public class NPC_Reach : MonoBehaviour
     public GameObject missionComplete;
     public GameObject signReach;
     public WinScripts winPuzzles;
-
+    public bool HavePuzzles;
 
     [System.Serializable]
     public class ReachQuestEvent
@@ -26,8 +26,7 @@ public class NPC_Reach : MonoBehaviour
 
     void Start()
     {
-
-        winPuzzles = GetComponent<WinScripts>();
+        winPuzzles = FindObjectOfType<WinScripts>();
     }
     public void Update()
     {
@@ -76,18 +75,35 @@ public class NPC_Reach : MonoBehaviour
             {
                 if (objective.name_object == objectName)
                 {
-                    objective.currentAmount += 1;
-                    if (winPuzzles != null && winPuzzles.WinNow)
+                    if(HavePuzzles == false)
                     {
-                        objective.completed = true;
-                        Debug.Log("Completed Puzzles");
+                        objective.currentAmount += 1;
+                        if (objective.currentAmount >= objective.targetAmount)
+                        {
+                            signReach.SetActive(false);
+                            objective.completed = true;
+                        }
+                        break;
+
+
                     }
-                    if (winPuzzles == null && objective.currentAmount >= objective.targetAmount)
+                    if (HavePuzzles == true )
                     {
-                        signReach.SetActive(false);
-                        objective.completed = true;
+                        if(winPuzzles.WinNow == true)
+                        {
+                            objective.currentAmount += 1;
+                            objective.completed = true;
+                            Debug.Log("Completed Puzzles");
+                            break;
+
+                        }
+                        if(winPuzzles.WinNow == false)
+                        {
+                            continue;
+                        }
+
                     }
-                    break;
+
                 }
             }
         }
@@ -107,5 +123,9 @@ public class NPC_Reach : MonoBehaviour
                 break;
             }
         }
+        
+
     }
-}
+    
+    }
+

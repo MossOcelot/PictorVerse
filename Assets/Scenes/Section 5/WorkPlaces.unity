@@ -3913,7 +3913,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missionComplete: {fileID: 483988891}
   signReach: {fileID: 1509953744}
-  winPuzzles: {fileID: 1534273369}
+  winPuzzles: {fileID: 1683986936}
+  HavePuzzles: 1
   questEvents:
   - status: 0
     quest: {fileID: 11400000, guid: a908d927b2c9f164bbf92529ba3f598a, type: 2}
@@ -10306,6 +10307,7 @@ MonoBehaviour:
   missionComplete: {fileID: 483988891}
   signReach: {fileID: 1509953744}
   winPuzzles: {fileID: 0}
+  HavePuzzles: 0
   questEvents:
   - status: 0
     quest: {fileID: 11400000, guid: e2e485996df34e44ba59a7e666bb584e, type: 2}
@@ -10324,7 +10326,6 @@ GameObject:
   - component: {fileID: 1534273372}
   - component: {fileID: 1534273371}
   - component: {fileID: 1534273370}
-  - component: {fileID: 1534273369}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -10353,22 +10354,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1534273369
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1534273367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 329049d8b44874c4cbdf5f4ed0853f6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointstoWin: 0
-  currentPoints: 0
-  MyPuzzles: {fileID: 1017121996}
-  WinNow: 0
 --- !u!114 &1534273370
 MonoBehaviour:
   m_ObjectHideFlags: 0
