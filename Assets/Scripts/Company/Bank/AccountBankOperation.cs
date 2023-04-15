@@ -21,6 +21,12 @@ public class AccountBankOperation : MonoBehaviour
         }
         return 0;
     }
+
+    public List<AccountData> GetAccountData()
+    {
+        return accountData;
+    }
+
     public void SetDeposit(string accountID, float newValue)
     {
         foreach (AccountData data in accountData)
