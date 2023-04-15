@@ -109,6 +109,7 @@ public class FileTaxSystem : MonoBehaviour
 
     public void CalNetTax()
     {
+
        netTax = player.PayTaxes(IncomeCalTax);
        if(netTax == 0)
        {
@@ -184,12 +185,14 @@ public class FileTaxSystem : MonoBehaviour
         if(myCash >= netTax)
         {
             InMoney.SetActive(true);
+            InMoney.gameObject.GetComponent<UIInMoney>().SetData(myCash, netTax);
             OutMoney.SetActive(false);
         }
         else
         {
             InMoney.SetActive(false);
             OutMoney.SetActive(true);
+            OutMoney.gameObject.GetComponent<UIInMoney>().SetData(myCash, netTax);
         }
     }
 
@@ -200,19 +203,19 @@ public class FileTaxSystem : MonoBehaviour
         Timesystem date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
         int[] dateTime = date.getDateTime();
 
-        string section = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection.ToString();
-        float newValue = player.player_accounts.getPocket()[section] - netTax;
+        SceneStatus.section section = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection;
+        float newValue = player.player_accounts.getPocket()[section.ToString()] - netTax;
 
-        player.player_accounts.setPocket(section, newValue);
+        player.player_accounts.setPocket(section.ToString(), newValue);
 
-        float newCost = goverment.govermentStatus.goverment.govermentPockets.getPocket()[section] + netTax;
+        float newCost = goverment.govermentStatus.goverment.govermentPockets.getPocket()[section.ToString()] + netTax;
 
-        goverment.govermentStatus.goverment.govermentPockets.setPocket(section, newCost);
+        goverment.govermentStatus.goverment.govermentPockets.setPocket(section.ToString(), newCost);
 
-        AccountsDetail account_Player = new AccountsDetail() { date = dateTime, accounts_name = "จ่ายภาษี", account_type = "PayTax", income = 0, expense = netTax };
+        AccountsDetail account_Player = new AccountsDetail() { date = dateTime, accounts_name = "จ่ายภาษี", account_type = "TAX", income = 0, expense = netTax, currencyIncome_Type = section, currencyExpense_Type = section };
         player.addAccountsDetails(account_Player);
 
-        AccountsDetail account_goverment = new AccountsDetail() { date = dateTime, accounts_name = "เก็บภาษี", account_type = "PayTax", income = netTax, expense = 0 };
+        AccountsDetail account_goverment = new AccountsDetail() { date = dateTime, accounts_name = "เก็บภาษี", account_type = "PayTax", income = netTax, expense = 0, currencyIncome_Type = section, currencyExpense_Type = section };
         goverment.govermentStatus.addAccountsDetail(account_goverment);
 
         // reset

@@ -175,7 +175,8 @@ public class UIDetailQuest : MonoBehaviour
 
         if(quest.questType == Quest.QuestType.DailyQuest)
         {
-
+            CareerPlayer careerPlayer = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<CareerPlayer>();
+            careerPlayer.finishDailyQuestInADay += 1;
         }
 
         foreach(Quest.Stat.RewardCurrency currency in quest.Rewards.currency)
@@ -184,7 +185,8 @@ public class UIDetailQuest : MonoBehaviour
             player_status.player_accounts.setPocket(currency.currency.ToString(), newValue);
 
             int[] Now_time = time_system.getDateTime();
-            AccountsDetail account_Player = new AccountsDetail() { date = Now_time, accounts_name = "เงินเดือน", account_type = quest.Rewards.incomeType.ToString(), income = currency.amount, expense = 0 };
+            SceneStatus.section section = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection;
+            AccountsDetail account_Player = new AccountsDetail() { date = Now_time, accounts_name = "เงินเดือน", account_type = quest.Rewards.incomeType.ToString(), income = currency.amount, expense = 0, currencyIncome_Type = section, currencyExpense_Type = section };
             player_status.addAccountsDetails(account_Player);
 
         }

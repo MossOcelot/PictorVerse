@@ -59,18 +59,24 @@ public class UIInsurancePaper : MonoBehaviour
         {
 
             player_Insurance.SetPlayer_endowment(newinsurance, insurance.subpackage[dropType.value].price);
+
+            AccountsDetail newAccount = new AccountsDetail() { date = time_system.getDateTime(), accounts_name = $"buy {type}", account_type = "IEE", income = 0, expense = insurance.subpackage[dropType.value].price, currencyIncome_Type = scene.sceneInsection, currencyExpense_Type = scene.sceneInsection };
+
+            player_status.addAccountsDetails(newAccount);
         } 
         else if(type == "health_insurance")
         {
             player_Insurance.SetPlayer_health_insurance(newinsurance, insurance.subpackage[dropType.value].price);
+
+            AccountsDetail newAccount = new AccountsDetail() { date = time_system.getDateTime(), accounts_name = $"buy {type}", account_type = "IHE", income = 0, expense = insurance.subpackage[dropType.value].price, currencyIncome_Type = scene.sceneInsection, currencyExpense_Type = scene.sceneInsection };
+
+            player_status.addAccountsDetails(newAccount);
         }
 
         float newPrice = player_status.player_accounts.getPocket()[scene.sceneInsection.ToString()] - insurance.subpackage[dropType.value].price;
         player_status.player_accounts.setPocket(scene.sceneInsection.ToString(), newPrice);
 
-        AccountsDetail newAccount = new AccountsDetail() { date = time_system.getDateTime(), accounts_name = $"buy {type}", account_type = "buy", income = 0, expense = insurance.subpackage[dropType.value].price };
-
-        player_status.addAccountsDetails(newAccount);
+        
     }
 
     private void Start()

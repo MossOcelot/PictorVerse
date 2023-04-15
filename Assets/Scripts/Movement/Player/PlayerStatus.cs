@@ -395,14 +395,7 @@ public class PlayerStatus : MonoBehaviour
         List<GovermentPolicyData.IndividualRangeTax> invidualRangeTax = goverment.getIndividualTax();
         float incomeAllYear = income;
         float tax = 0;
-        float net_income = 0;
-        if(incomeAllYear * 0.5f > goverment.govermentPolicy.limitLessExpenses)
-        {
-            net_income = goverment.govermentPolicy.limitLessExpenses;
-        } else
-        {
-            net_income = incomeAllYear * 0.5f;
-        }
+        
         foreach (GovermentPolicyData.IndividualRangeTax IndividualTax in invidualRangeTax)
         { 
             float maxIncome = IndividualTax.maxIncome;
@@ -411,13 +404,13 @@ public class PlayerStatus : MonoBehaviour
 
             if (maxIncome == 0)
             {
-                tax += ((net_income - minIncome + 1) * perTax);
+                tax += ((incomeAllYear - minIncome + 1) * perTax);
                 break;
             } 
 
-            if (net_income <= maxIncome)
+            if (incomeAllYear <= maxIncome)
             {
-                tax += ((net_income - minIncome) * perTax);
+                tax += ((incomeAllYear - minIncome) * perTax);
                 break;
             }
 

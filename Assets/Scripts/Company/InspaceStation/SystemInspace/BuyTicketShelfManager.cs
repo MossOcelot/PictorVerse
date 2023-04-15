@@ -1,3 +1,4 @@
+using inventory.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,12 +8,15 @@ public class BuyTicketShelfManager : MonoBehaviour
 {
     public GameObject NPC;
     public InSpaceDB inSpaceDB;
-    public string section;
+    public SceneStatus.section section;
     public string planet_section;
     public TicketController playerTicket;
     public GameObject topMap;
     public Button BuyBtn;
-    
+
+    public InventoryItem Ticket_template;
+    public InventorySO MiniBag;
+
     [SerializeField]
     private string LeaveStation = "";
     public float distance;
@@ -33,7 +37,7 @@ public class BuyTicketShelfManager : MonoBehaviour
 
     private void Awake()
     {
-        section = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection.ToString();
+        section = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection;
         planet_section = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().scenename;
         playerTicket = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<TicketController>();
         inSpaceDB = GameObject.FindGameObjectWithTag("TicketCompany").gameObject.GetComponent<InSpaceDB>();
@@ -46,7 +50,7 @@ public class BuyTicketShelfManager : MonoBehaviour
         {
             UIPlanetIcon planetIcon = topMap.transform.GetChild(i).gameObject.GetComponent<UIPlanetIcon>();
 
-            if(planetIcon.PlanetName == planet_section && planetIcon.PlanetInSection.ToString() == section)
+            if(planetIcon.PlanetName == planet_section && planetIcon.PlanetInSection.ToString() == section.ToString())
             {
                 planetIcon.SetArriveMarker(true);
                 planetIcon.SetLeaveMarker(false);
@@ -60,13 +64,12 @@ public class BuyTicketShelfManager : MonoBehaviour
     {
         if(LeaveStation != "" && playerTicket.GetTicket().LeaveStation == "")
         {
-            float myMoney = playerTicket.playerStatus.player_accounts.getPocket()[section];
+            float myMoney = playerTicket.playerStatus.player_accounts.getPocket()[section.ToString()];
             int myStamina = playerTicket.playerStatus.getEnergy();
             ArriveToLeaveData data = inSpaceDB.GetArriveToLeaveData(planet_section, LeaveStation);
             distance = data.distance;
             price = data.price;
             stamina = data.stamina;
-            Debug.Log("player: " + myMoney + " Price: " + price);
             if(myMoney >= data.price && myStamina >= data.stamina)
             {
 
@@ -87,7 +90,7 @@ public class BuyTicketShelfManager : MonoBehaviour
 
     public void BuyTicket()
     {
-        float myMoney = playerTicket.playerStatus.player_accounts.getPocket()[section];
+        float myMoney = playerTicket.playerStatus.player_accounts.getPocket()[section.ToString()];
         ArriveToLeaveData data = inSpaceDB.GetArriveToLeaveData(planet_section, LeaveStation);
 
         string playerName = playerTicket.playerStatus.getPlayerName();
@@ -95,21 +98,23 @@ public class BuyTicketShelfManager : MonoBehaviour
         newTicket.SetTicket(data.ArriveStation, data.LeaveStation, playerName, data.price, data.distance, data.stamina);
         playerTicket.AddTicket(newTicket);
 
+        MiniBag.AddItem(Ticket_template);
+
         // update money and price
         float newValue = myMoney - data.price;
 
         Timesystem date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
         int[] dateTime = date.getDateTime();
-        AccountsDetail newAccountDetail = new AccountsDetail() { date = dateTime, accounts_name = $"buy Ticket {planet_section} to {LeaveStation}", account_type = "buy", income = 0, expense = data.price };
+        AccountsDetail newAccountDetail = new AccountsDetail() { date = dateTime, accounts_name = $"buy Ticket {planet_section} to {LeaveStation}", account_type = "TE", income = 0, expense = data.price, currencyIncome_Type = section, currencyExpense_Type = section };
         playerTicket.playerStatus.addAccountsDetails(newAccountDetail);
 
         TicketCompanyStatus company = GameObject.FindGameObjectWithTag("TicketCompany").gameObject.GetComponent<TicketCompanyStatus>();
-        AccountsDetail newAcompanyccountDetail = new AccountsDetail() { date = dateTime, accounts_name = $"sell Ticket {planet_section} to {LeaveStation}", account_type = "sell", income = data.price, expense = 0 };
+        AccountsDetail newAcompanyccountDetail = new AccountsDetail() { date = dateTime, accounts_name = $"sell Ticket {planet_section} to {LeaveStation}", account_type = "sell", income = data.price, expense = 0 , currencyIncome_Type = section, currencyExpense_Type = section };
         company.addAccountsDetails(newAcompanyccountDetail);
-        float newCompanyValue = company.companyData.pocketCompany.getPocket()[section] + data.price;
-        company.companyData.pocketCompany.setPocket(section, newCompanyValue);
+        float newCompanyValue = company.companyData.pocketCompany.getPocket()[section.ToString()] + data.price;
+        company.companyData.pocketCompany.setPocket(section.ToString(), newCompanyValue);
 
-        playerTicket.playerStatus.player_accounts.setPocket(section, newValue);
+        playerTicket.playerStatus.player_accounts.setPocket(section.ToString(), newValue);
         playerTicket.playerStatus.setEnergy(-data.stamina);
         ResetData();
         Close();

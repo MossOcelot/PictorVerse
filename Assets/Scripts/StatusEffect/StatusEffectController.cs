@@ -27,6 +27,7 @@ public class StatusEffectController : MonoBehaviour
         if (Count != oldCount)
         {
             UpdateData();
+            oldCount = Count;
         }
 
         int[] time = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>().getDateTime();

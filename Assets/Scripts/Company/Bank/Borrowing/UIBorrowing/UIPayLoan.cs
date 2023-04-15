@@ -8,7 +8,7 @@ public class UIPayLoan : MonoBehaviour
 {
     [SerializeField]
     private Bank_Manager bank_manager;
-    private string section;
+    private SceneStatus.section section;
     public BorrowingManager manager;
     private LoanPlayerController loanPlayerController;
     public TextMeshProUGUI LoanAmount;
@@ -38,7 +38,7 @@ public class UIPayLoan : MonoBehaviour
     Timesystem time_system;
     private void Start()
     {
-        section = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection.ToString();
+        section = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection;
         loanPlayerController = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<LoanPlayerController>();
         time_system = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.AddComponent<Timesystem>();
     }
@@ -108,15 +108,15 @@ public class UIPayLoan : MonoBehaviour
         float newDeptStatus = manager.playerStatus.financial_detail.debt - SpendLoanAmount;
         manager.playerStatus.financial_detail.debt = newDeptStatus;
 
-        float newValue = manager.playerStatus.player_accounts.getPocket()[section] - SpendLoanAmount;
-        manager.playerStatus.player_accounts.setPocket(section, newValue);
+        float newValue = manager.playerStatus.player_accounts.getPocket()[section.ToString()] - SpendLoanAmount;
+        manager.playerStatus.player_accounts.setPocket(section.ToString(), newValue);
 
-        AccountsDetail newAccountDetail = new AccountsDetail() { date = present_date, accounts_name = "®Ë“¬‡ß‘π°ŸÈ", account_type = "Loan", income = 0, expense = SpendLoanAmount };
+        AccountsDetail newAccountDetail = new AccountsDetail() { date = present_date, accounts_name = "®Ë“¬‡ß‘π°ŸÈ", account_type = "DE", income = 0, expense = SpendLoanAmount, currencyIncome_Type = section, currencyExpense_Type = section };
         bank_manager.player_status.addAccountsDetails(newAccountDetail);
         // bank
-        float newAmount = bank_manager.bank_status.companyData.pocketCompany.getPocket()[section] + SpendLoanAmount;
-        bank_manager.bank_status.companyData.pocketCompany.setPocket(section, newAmount);
-        AccountsDetail newBankAccountDetail = new AccountsDetail() { date = present_date, accounts_name = "‡ß‘π°ŸÈ", account_type = "Loan", income = SpendLoanAmount, expense = 0 };
+        float newAmount = bank_manager.bank_status.companyData.pocketCompany.getPocket()[section.ToString()] + SpendLoanAmount;
+        bank_manager.bank_status.companyData.pocketCompany.setPocket(section.ToString(), newAmount);
+        AccountsDetail newBankAccountDetail = new AccountsDetail() { date = present_date, accounts_name = "‡ß‘π°ŸÈ", account_type = "LI", income = SpendLoanAmount, expense = 0, currencyIncome_Type = section, currencyExpense_Type = section };
         bank_manager.bank_status.AddBank_Account(newBankAccountDetail);
 
         if (BalanceValue == 0)

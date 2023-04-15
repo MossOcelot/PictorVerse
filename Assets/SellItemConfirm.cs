@@ -12,9 +12,11 @@ public class SellItemConfirm : MonoBehaviour
     private Sell_Shelf_operation sell_shelf_operation;
     private InventorySO inventory_player;
 
+    private SceneStatus.section section;
     private void Start()
     {
         inventory_player = shop_manager.player.gameObject.GetComponent<OrderOperation>().playerInventorySO;
+        section = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection;
     }
 
     public void SellConfirmBtn()
@@ -46,10 +48,10 @@ public class SellItemConfirm : MonoBehaviour
         Timesystem date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
         int[] dateTime = date.getDateTime();
 
-        AccountsDetail account_Player = new AccountsDetail() { date = dateTime, accounts_name = "sell items", account_type = "MI", income = shop_manager.getSellPrice(), expense = 0 };
+        AccountsDetail account_Player = new AccountsDetail() { date = dateTime, accounts_name = "sell items", account_type = "MI", income = shop_manager.getSellPrice(), expense = 0 , currencyIncome_Type = section, currencyExpense_Type = section };
         shop_manager.player.gameObject.GetComponent<PlayerStatus>().addAccountsDetails(account_Player);
         // Update Accounts NPC
-        AccountsDetail account_NPC = new AccountsDetail() { date = dateTime, accounts_name = "buy items", account_type = "buy", income = 0, expense = shop_manager.getSellPrice() };
+        AccountsDetail account_NPC = new AccountsDetail() { date = dateTime, accounts_name = "buy items", account_type = "buy", income = 0, expense = shop_manager.getSellPrice() , currencyIncome_Type = section, currencyExpense_Type = section };
         shop_manager.npc.gameObject.GetComponent<NPC_Shop>().addAccountsDetails(account_NPC);
         float newcash_player = shop_manager.player.gameObject.GetComponent<PlayerStatus>().player_accounts.getPocket()[shop_manager.section_cash] + sell_shelf_operation.total_price;
         shop_manager.player.gameObject.GetComponent<PlayerStatus>().player_accounts.setPocket(shop_manager.section_cash, newcash_player);

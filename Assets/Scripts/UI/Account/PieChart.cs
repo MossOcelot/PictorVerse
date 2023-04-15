@@ -27,7 +27,6 @@ public class PieChart : MonoBehaviour
         for(int i = 0; i < imagePieChart.Length; i++)
         {
             totalValues += FindPercentage(valuesToSet, i);
-            Debug.Log("totalValues: " + totalValues);
             imagePieChart[i].fillAmount = totalValues;
         }
     }

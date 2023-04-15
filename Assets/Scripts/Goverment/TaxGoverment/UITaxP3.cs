@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Security.Cryptography.X509Certificates;
+using UnityEditor.ShaderGraph.Internal;
 
 public class UITaxP3 : MonoBehaviour
 {
@@ -23,6 +25,8 @@ public class UITaxP3 : MonoBehaviour
 
     public Button PayTaxBtn;
     public TextMeshProUGUI text2;
+
+    public UICalcuTaxPanel calcutax;
     public void SetData()
     {
         float allIncome = fileTax.AllIncome();
@@ -66,5 +70,60 @@ public class UITaxP3 : MonoBehaviour
         fileTax.FirstChangeT3 = false;
         fileTax.isClick1 = true;
         fileTax.isClick2 = true;
+    }
+
+    public void SetPanelCalcuTax()
+    {
+        int day = fileTax.late_day;
+        float net_income = fileTax.IncomeCalTax;
+        float all_deduction = fileTax.deduction;
+
+        GovermentPolicy goverment = GameObject.FindGameObjectWithTag("Goverment").gameObject.GetComponent<GovermentPolicy>();
+        List<GovermentPolicyData.IndividualRangeTax> individualRangeTax = goverment.govermentPolicy.individual_tax;
+
+        int len = individualRangeTax.Count;
+        int tier = 0;
+        float per_tax = 0;
+        float tax_amount_tier = 0;
+        float max_before_amount_tier = 0;
+        for (int i = 0; i < len; i++)
+        {
+            if(individualRangeTax[i].maxIncome == 0)
+            {
+
+                Debug.Log("YOUT1");
+                tier = i;
+                per_tax = individualRangeTax[i].Tax;
+                tax_amount_tier = individualRangeTax[i - 1].cumulative_Tax;
+                max_before_amount_tier = individualRangeTax[i - 1].maxIncome;
+                break;
+            }
+            if(individualRangeTax[i].maxIncome > net_income) 
+            {
+                if(i == 0)
+                {
+                    tier = 0;
+                    per_tax = 0;
+                    tax_amount_tier = 0;
+                    max_before_amount_tier = 0;
+                    break;
+                }
+                if(i == 1)
+                {
+                    tier = 0;
+                    per_tax = individualRangeTax[0].Tax;
+                    tax_amount_tier = 0;
+                    max_before_amount_tier = 0;
+                    break;
+                }
+                tier = i - 1;
+                per_tax = individualRangeTax[i - 1].Tax;
+                tax_amount_tier += individualRangeTax[i - 2].cumulative_Tax;
+                max_before_amount_tier = individualRangeTax[i - 2].maxIncome;
+                break;
+            }
+        }
+
+        calcutax.SetData(day, net_income, tier, max_before_amount_tier, per_tax, tax_amount_tier, all_deduction, individualRangeTax);
     }
 }
