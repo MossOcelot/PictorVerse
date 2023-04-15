@@ -27,7 +27,7 @@ public class Timesystem : MonoBehaviour
     // Update is called once per frame
     public int[] getDateTime()
     {
-        return new int[] { day, month, year, hours, Mathf.RoundToInt(minutes) };
+        return new int[] { day, month, year, hours, Mathf.RoundToInt(minutes)};
     }
 
     private void Awake()
@@ -77,5 +77,24 @@ public class Timesystem : MonoBehaviour
         // float sunAngle = Mathf.Lerp(-90f, 270f, timePercent);
         // transform.rotation = Quaternion.Euler(sunAngle, 0f, 0f);
 
+    }
+
+    public void SkipDay()
+    {
+        day++;
+        if(day > daysPerMonth)
+        {
+            day = 1;
+            month++;
+            if(month > monthPerYear)
+            {
+                month = 1;
+                year++;
+            }
+        }
+
+        hours = 8;
+        minutes = 0;
+        _timeOfDay = 8f;
     }
 }

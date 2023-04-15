@@ -1,3 +1,4 @@
+using inventory.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ public class TicketCheckMachine : MonoBehaviour
     public GameObject TicketShelf;
     public NPCController npcController;
 
+    public InventorySO miniBag;
     public void Update()
     {
         bool IsEndSituation = npcController.IsEndSituation;
@@ -55,6 +57,16 @@ public class TicketCheckMachine : MonoBehaviour
             npcController.dialoguePanel.SetActive(false);
             // delete ticket
             npcController.player.gameObject.GetComponent<TicketController>().AddTicket(new TicketInspace());
+
+            Dictionary<int, InventoryItem> items = miniBag.GetCurrentInventoryState();
+            foreach (int i in items.Keys)
+            {
+                if (items[i].item.item_type == "Ticket")
+                {
+                    miniBag.RemoveItem(i, 1);
+                    break;
+                }
+            }
         }
     }
 }

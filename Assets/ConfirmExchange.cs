@@ -53,12 +53,14 @@ public class ConfirmExchange : MonoBehaviour
 
             // get date time
             int[] dateTime = GetDateTime();
-
-            AccountsDetail account_player = new AccountsDetail() { date = dateTime, accounts_name = "exchange cash", account_type = "exchange", income = toCurrency, expense = fromCurrency };
+            SceneStatus scene_Status = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>();
+            SceneStatus.section fromSection = scene_Status.CheckSectionString(checkTypeCurrency(fromDropBox.value));
+            SceneStatus.section toSection = scene_Status.CheckSectionString(checkTypeCurrency(toDropBox.value));
+            AccountsDetail account_player = new AccountsDetail() { date = dateTime, accounts_name = "exchange cash", account_type = "EX", income = toCurrency, expense = fromCurrency, currencyIncome_Type = toSection, currencyExpense_Type = fromSection };
             player_status.addAccountsDetails(account_player);
 
             // create accounts for central bank
-            AccountsDetail account_centralBank = new AccountsDetail() { date = dateTime, accounts_name = "exchange cash", account_type = "exchange", income = fromCurrency, expense = toCurrency };
+            AccountsDetail account_centralBank = new AccountsDetail() { date = dateTime, accounts_name = "exchange cash", account_type = "EX", income = fromCurrency, expense = toCurrency, currencyIncome_Type = fromSection, currencyExpense_Type = toSection };
             bank_status.addBankAccounts(account_centralBank);
 
             Debug.Log(cashInput.text);

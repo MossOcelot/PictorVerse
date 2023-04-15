@@ -36,6 +36,7 @@ public class CareerPlayer : MonoBehaviour
 
     private void Update()
     {
+        if (Career == null) return;
         int[] Now_time = time_system.getDateTime();
 
         if(present_day != Now_time[0])
@@ -101,7 +102,7 @@ public class CareerPlayer : MonoBehaviour
         playerStatus.player_accounts.setPocket(Career.section_workplace.ToString(), new_Amount);
 
         int[] Now_time = time_system.getDateTime();
-        AccountsDetail account_Player = new AccountsDetail() { date = Now_time, accounts_name = "เงินเดือน", account_type = "income", income = True_Salary, expense = 0 };
+        AccountsDetail account_Player = new AccountsDetail() { date = Now_time, accounts_name = "เงินเดือน", account_type = "RI", income = True_Salary, expense = 0 };
         playerStatus.addAccountsDetails(account_Player);
 
         ResetData();

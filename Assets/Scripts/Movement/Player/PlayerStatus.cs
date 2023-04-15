@@ -6,6 +6,7 @@ using inventory.Model;
 using Random = UnityEngine.Random;
 using UnityEngine.Rendering;
 using Unity.VisualScripting;
+using JetBrains.Annotations;
 
 public class PlayerStatus : MonoBehaviour
 {
@@ -60,6 +61,7 @@ public class PlayerStatus : MonoBehaviour
     public Animator animator;
     public Rigidbody2D rb;
     public PlayerMovement movementScript;
+    public StatusEffectController effect_controller;
     public ToolController attackScript;
 
     public LoanPlayerController loanPlayerController;
@@ -232,7 +234,7 @@ public class PlayerStatus : MonoBehaviour
     public void newBorn()
     {
         IsDead = false;
-       
+        effect_controller.ClearEffects();
         player_teleport.Respawner();
         this.HP = Mathf.RoundToInt((float)MaxHP / 2f);
         this.energy = Mathf.RoundToInt((float)MaxEnergy / 2f);
@@ -387,12 +389,14 @@ public class PlayerStatus : MonoBehaviour
         }
     }
 
-    public float PayTaxes()
+    public float PayTaxes(float income)
     {
-        List<GovermentPolicyData.IndividualRangeTax> invidualRangeTax = GameObject.FindGameObjectWithTag("Goverment").gameObject.GetComponent<GovermentPolicy>().getIndividualTax();
-        float incomeAllYear = GetIncomeAllYear();
+        GovermentPolicy goverment = GameObject.FindGameObjectWithTag("Goverment").gameObject.GetComponent<GovermentPolicy>();
+        List<GovermentPolicyData.IndividualRangeTax> invidualRangeTax = goverment.getIndividualTax();
+        float incomeAllYear = income;
         float tax = 0;
-        foreach(GovermentPolicyData.IndividualRangeTax IndividualTax in invidualRangeTax)
+        
+        foreach (GovermentPolicyData.IndividualRangeTax IndividualTax in invidualRangeTax)
         { 
             float maxIncome = IndividualTax.maxIncome;
             float minIncome = IndividualTax.minIncome;
@@ -443,5 +447,39 @@ public class PlayerStatus : MonoBehaviour
             allIncome += account.income;
         }
         return allIncome;
+    }
+
+    public float GetIncomeTypeInYear(string type)
+    {
+        float allYearCost = 0;
+
+        GovermentPolicy goverment = GameObject.FindGameObjectWithTag("Goverment").gameObject.GetComponent<GovermentPolicy>();
+        int[] date = goverment.govermentPolicy.taxCollectionDay;
+
+        foreach(AccountsDetail account in accountsDetails)
+        {
+            int[] account_date = account.date;
+            if (account_date[2] <= date[2] - 1)
+            {
+                if (account_date[1] == date[1])
+                {
+                    if (account_date[0] <= date[0])
+                    {
+                        break;
+                    }
+                }
+                else if (account_date[1] < date[1])
+                {
+                    break;
+                }
+            }
+
+            if(account.account_type == type)
+            {
+                allYearCost += account.income;
+            }
+        }
+
+        return allYearCost;
     }
 }

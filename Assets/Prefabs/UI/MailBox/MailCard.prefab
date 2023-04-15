@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3291496038326114057}
   - component: {fileID: 3291496038326114058}
   - component: {fileID: 3291496038326114059}
-  - component: {fileID: 3291496038326114056}
+  - component: {fileID: 3321699276828493775}
   m_Layer: 7
   m_Name: MailCard
   m_TagString: Untagged
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3291496038326114056
+--- !u!114 &3321699276828493775
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,11 +136,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1aa30b14e0563a4bbe284f1d960591c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  miniSubject: {fileID: 3291496038791501185}
-  miniBody: {fileID: 3291496038370443626}
-  myButton: {fileID: 3291496038326114059}
-  subject: 
-  body: 
+  title_text: {fileID: 3291496038791501185}
+  content_text: {fileID: 3291496038370443626}
+  clickBtn: {fileID: 3291496038326114059}
 --- !u!1 &3291496038370443628
 GameObject:
   m_ObjectHideFlags: 0

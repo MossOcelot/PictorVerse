@@ -25,7 +25,7 @@ public class UpdatePlayerAccount : MonoBehaviour
         int len = player_account.Count;
         if(last_count != len)
         {
-            last_count = len;
+            Debug.Log("Len Len: " + len);
 
             int amount_bar = account_list.gameObject.transform.childCount;
             for(int n = 0; n < amount_bar; n++)
@@ -44,6 +44,7 @@ public class UpdatePlayerAccount : MonoBehaviour
                 account_card = Instantiate(Account_Bar_template, account_list);
                 account_card.gameObject.GetComponent<UIAccount_Bar>().SetData(date, account_name, income, expense, account_type);
             }
+            last_count = len;
         }
     }
 }

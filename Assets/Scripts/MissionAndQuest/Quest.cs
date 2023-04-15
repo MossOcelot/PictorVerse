@@ -33,6 +33,7 @@ public class Quest : ScriptableObject
         }
 
         public List<RewardCurrency> currency;
+        public QuestIncomeType incomeType;
         public PlayerStatus.StaticValue staticReward;
         public int career_score;
         public List<InventoryItem> itemReward;
@@ -83,5 +84,11 @@ public class Quest : ScriptableObject
         MainQuest,
         SecondaryQuest,
         DailyQuest
+    }
+
+    public enum QuestIncomeType
+    {
+        RI,
+        FI
     }
 }
