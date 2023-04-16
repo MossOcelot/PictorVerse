@@ -2087,13 +2087,14 @@ GameObject:
   m_Component:
   - component: {fileID: 345556022}
   - component: {fileID: 345556021}
+  - component: {fileID: 345556023}
   m_Layer: 0
   m_Name: ControllCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &345556021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2108,6 +2109,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1675023949}
   objectToToggle: {fileID: 1547155563}
+  Menu: {fileID: 0}
+  Map: {fileID: 459138803}
+  Status: {fileID: 459138802}
+  Mission: {fileID: 459138801}
+  winPuzzles: {fileID: 0}
 --- !u!4 &345556022
 Transform:
   m_ObjectHideFlags: 0
@@ -2123,6 +2129,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!68 &345556023
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345556020}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -3.972053, y: 1.4080212}
+  - {x: -4.8040657, y: 2.1120317}
+  - {x: -3.2841985, y: 2.7232866}
+  - {x: -2.374418, y: 2.2841983}
+  - {x: -1.3072838, y: 1.9298773}
+  - {x: -1.2079235, y: 1.616357}
+  - {x: -3.1824746, y: 0.51799417}
+  - {x: -3.6775692, y: 0.66829073}
+  - {x: -3.8110404, y: 1.0081661}
+  - {x: -4.09207, y: 1.4720223}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &349092678
 GameObject:
   m_ObjectHideFlags: 0
@@ -3552,6 +3588,21 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+--- !u!1 &459138801 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1504447442714280731, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+  m_PrefabInstance: {fileID: 459138800}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &459138802 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4981838367627358793, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+  m_PrefabInstance: {fileID: 459138800}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &459138803 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4981838367907694939, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+  m_PrefabInstance: {fileID: 459138800}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &469340677
 GameObject:
   m_ObjectHideFlags: 0
@@ -3824,9 +3875,8 @@ GameObject:
   - component: {fileID: 524452184}
   - component: {fileID: 524452183}
   - component: {fileID: 524452185}
-  - component: {fileID: 524452186}
   m_Layer: 0
-  m_Name: WorkTabkle
+  m_Name: WorkTable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3915,6 +3965,8 @@ MonoBehaviour:
   signReach: {fileID: 1509953744}
   winPuzzles: {fileID: 1683986936}
   HavePuzzles: 1
+  puzzles: {fileID: 1547155563}
+  mainCamera: {fileID: 1675023949}
   questEvents:
   - status: 0
     quest: {fileID: 11400000, guid: a908d927b2c9f164bbf92529ba3f598a, type: 2}
@@ -3937,12 +3989,13 @@ MonoBehaviour:
   player: {fileID: 0}
   dialogueText: {fileID: 0}
   DefaultDialogue: {fileID: 11400000, guid: befb0b6a33ab0f14faff5846474b3421, type: 2}
-  TimeLine: {fileID: 0}
+  TimeLine: {fileID: 1547155563}
   Sign: {fileID: 0}
   dialogue: []
   npc_quest: {fileID: 0}
   npc_reach: {fileID: 524452183}
   index: 0
+  mainCamera: {fileID: 1675023949}
   wordSpeed: 0.01
   playerIsClose: 0
   IsEndSituation: 0
@@ -3975,20 +4028,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7.8599997, y: 5.651925}
   m_EdgeRadius: 0
---- !u!114 &524452186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 524452180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa93bfdc87b18be41bd73774b5d9638f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 1675023949}
-  objectToToggle: {fileID: 1547155563}
 --- !u!1 &530772530
 GameObject:
   m_ObjectHideFlags: 0
@@ -10361,6 +10400,7 @@ MonoBehaviour:
   npc_quest: {fileID: 1781439909}
   npc_reach: {fileID: 1522742394}
   index: 0
+  mainCamera: {fileID: 0}
   wordSpeed: 0.01
   playerIsClose: 0
   IsEndSituation: 0
@@ -10383,6 +10423,8 @@ MonoBehaviour:
   signReach: {fileID: 1509953744}
   winPuzzles: {fileID: 0}
   HavePuzzles: 0
+  puzzles: {fileID: 0}
+  mainCamera: {fileID: 0}
   questEvents:
   - status: 0
     quest: {fileID: 11400000, guid: e2e485996df34e44ba59a7e666bb584e, type: 2}

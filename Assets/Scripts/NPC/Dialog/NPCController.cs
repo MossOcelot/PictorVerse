@@ -19,6 +19,7 @@ public class NPCController : MonoBehaviour
     public NPC_Quest npc_quest;
     public NPC_Reach npc_reach;
     public int index = 0;
+    public Camera mainCamera;
 
     public float wordSpeed;
     public bool playerIsClose;
@@ -83,14 +84,28 @@ public class NPCController : MonoBehaviour
 
 
         }
+        if(mainCamera != null)
+        {
 
+        }
         if(IsInQuest && IsEndSituation && TimeLine != null)
         {
             TimeLine.SetActive(true);
+            if (mainCamera != null)
+            {
+                mainCamera.orthographicSize = 18f;
+
+            }
+
         }
         else if(IsEndSituation && IsInReachQuest && TimeLine != null)
         {
             TimeLine.SetActive(true);
+            if (mainCamera != null)
+            {
+                mainCamera.orthographicSize = 18f;
+
+            }
         }
 
         if (IsInQuest && IsEndSituation && Sign != null)
