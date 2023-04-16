@@ -15,7 +15,6 @@ public class UINotiController : MonoBehaviour
     int old_len;
     public void openPanel()
     {
-        Debug.Log("OpenPanel");
         if (isOpen != true)
         {
             panelToClose.SetActive(!isOpen);

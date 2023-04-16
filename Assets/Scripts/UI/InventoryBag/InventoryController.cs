@@ -35,6 +35,8 @@ public class InventoryController : MonoBehaviour
     public GameObject MyInventoryObj;
     public GameObject MyAccountObj;
     public GameObject MyLife;
+
+    public Timesystem time;
     /*
     [SerializeField]
     private AudioClip dropClip;
@@ -43,6 +45,8 @@ public class InventoryController : MonoBehaviour
     */
     public void Start()
     {
+        time = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();    
+
         PrepareInventoryUI();
         PrepareInventoryData();
 
@@ -261,6 +265,10 @@ public class InventoryController : MonoBehaviour
     {
         PlayerStatus playerStatus = gameObject.GetComponent<PlayerStatus>();
         if (playerStatus.getHP() >= playerStatus.getMaxHP() && playerStatus.getEnergy() >= playerStatus.getMaxEnergy()) return;
+
+        PlayerActivityController activity_controller = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerActivityController>();
+        activity_controller.AddActivity(time.getDateTime(), UIHourActivity.acitivty_type.eat);
+
         InventoryItem inventoryItem = miniInventoryData.GetItemAt(itemIndex);
         if (inventoryItem.IsEmpty)
             return;
@@ -282,6 +290,10 @@ public class InventoryController : MonoBehaviour
     {
         PlayerStatus playerStatus = gameObject.GetComponent<PlayerStatus>();
         if (playerStatus.getHP() >= playerStatus.getMaxHP() && playerStatus.getEnergy() >= playerStatus.getMaxEnergy()) return;
+
+        PlayerActivityController activity_controller = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerActivityController>();
+        activity_controller.AddActivity(time.getDateTime(), UIHourActivity.acitivty_type.eat);
+
         InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
         if (inventoryItem.IsEmpty)
             return;

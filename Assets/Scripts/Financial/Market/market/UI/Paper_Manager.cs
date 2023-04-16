@@ -55,6 +55,10 @@ public class Paper_Manager : MonoBehaviour
         float newbalance = stock.getBalance() - total_value;
         stock.setBalance(newbalance);
 
+        Timesystem time = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>(); 
+        PlayerActivityController activity_controller = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerActivityController>();
+        activity_controller.AddActivity(time.getDateTime(), UIHourActivity.acitivty_type.shopping);
+
         LimitOrder limitOrder = new LimitOrder("", stock.player, totalValueItems / quantity, (int)quantity, true);
         // add order to queue_manager (broker)
         priceInput.gameObject.GetComponent<InputField>().text = "0";
