@@ -122,7 +122,7 @@ public class UIDetailQuest : MonoBehaviour
     private void GetReward(Quest quest)
     {
         MissionCanvasController missionController = GameObject.FindGameObjectWithTag("MissionQuest").gameObject.GetComponent<MissionCanvasController>();
-        
+        Timesystem time_system = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
         GameObject player = GameObject.FindGameObjectWithTag("Player").gameObject;
        
         if (quest.HaveItemReward)
@@ -175,13 +175,20 @@ public class UIDetailQuest : MonoBehaviour
 
         if(quest.questType == Quest.QuestType.DailyQuest)
         {
-
+            CareerPlayer careerPlayer = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<CareerPlayer>();
+            careerPlayer.finishDailyQuestInADay += 1;
         }
 
         foreach(Quest.Stat.RewardCurrency currency in quest.Rewards.currency)
         {
             float newValue = currency.amount + player_status.player_accounts.getPocket()[currency.currency.ToString()];
             player_status.player_accounts.setPocket(currency.currency.ToString(), newValue);
+
+            int[] Now_time = time_system.getDateTime();
+            SceneStatus.section section = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection;
+            AccountsDetail account_Player = new AccountsDetail() { date = Now_time, accounts_name = "เงินเดือน", account_type = quest.Rewards.incomeType.ToString(), income = currency.amount, expense = 0, currencyIncome_Type = section, currencyExpense_Type = section };
+            player_status.addAccountsDetails(account_Player);
+
         }
 
         int size = missionController.QuestList.QuestList.Count;

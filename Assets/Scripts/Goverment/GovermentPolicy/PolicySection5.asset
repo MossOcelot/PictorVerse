@@ -18,28 +18,37 @@ MonoBehaviour:
   - minIncome: 0
     maxIncome: 150000
     Tax: 0
+    cumulative_Tax: 0
   - minIncome: 150001
     maxIncome: 300000
     Tax: 5
+    cumulative_Tax: 7500
   - minIncome: 300001
     maxIncome: 500000
     Tax: 10
+    cumulative_Tax: 27500
   - minIncome: 500001
     maxIncome: 750000
     Tax: 15
+    cumulative_Tax: 65000
   - minIncome: 750001
     maxIncome: 1000000
     Tax: 20
+    cumulative_Tax: 115000
   - minIncome: 1000001
     maxIncome: 2000000
     Tax: 25
+    cumulative_Tax: 365000
   - minIncome: 2000001
     maxIncome: 5000000
     Tax: 30
+    cumulative_Tax: 1265000
   - minIncome: 5000001
     maxIncome: 0
     Tax: 35
+    cumulative_Tax: 0
   travel_tax: 10
   vehicle_tax: 40
   personal_star_tax: 10
+  limitLessExpenses: 0
   taxCollectionDay: 0b00000003000000b70f0000

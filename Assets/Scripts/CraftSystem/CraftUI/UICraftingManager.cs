@@ -94,36 +94,31 @@ public class UICraftingManager : MonoBehaviour
         slot9.OnItemDropped += slot9_OnItemDropped;
     }
 
-    private void Update()
+    public void Open()
     {
-        // open close inventoryPage
-        if (Input.GetKeyDown(KeyCode.C))
+        inventoryPage.enabled = true;
+        inventoryPage.show();
+        foreach (var item in inventoryBag.GetCurrentInventoryState())
         {
-            if (inventoryPage.isActiveAndEnabled == false)
-            {
-
-                inventoryPage.show();
-                foreach (var item in inventoryBag.GetCurrentInventoryState())
-                {
-                    inventoryPage.UpdateData(item.Key, item.Value.item, item.Value.item.icon, item.Value.quantity);
-                }
-            } else
-            {
-                int len = CraftingInventory.GetCurrentInventoryState().Count;
-                if(len > 0)
-                {
-                    foreach(int index in CraftingInventory.GetCurrentInventoryState().Keys) 
-                    {
-                        InventoryItem item = CraftingInventory.GetCurrentInventoryState()[index];
-                        inventoryBag.AddItem(item);
-                        CraftingInventory.RemoveItem(index, item.quantity);
-                    }
-
-                }
-                clearAllCraftSlot();
-                inventoryPage.hide();
-            }
+            inventoryPage.UpdateData(item.Key, item.Value.item, item.Value.item.icon, item.Value.quantity);
         }
+    }
+
+    public void Close()
+    {
+        int len = CraftingInventory.GetCurrentInventoryState().Count;
+        if (len > 0)
+        {
+            foreach (int index in CraftingInventory.GetCurrentInventoryState().Keys)
+            {
+                InventoryItem item = CraftingInventory.GetCurrentInventoryState()[index];
+                inventoryBag.AddItem(item);
+                CraftingInventory.RemoveItem(index, item.quantity);
+            }
+
+        }
+        clearAllCraftSlot();
+        inventoryPage.hide();
     }
 
     public void clearAllCraftSlot()

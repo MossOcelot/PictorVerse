@@ -405,7 +405,7 @@ public class InventoryController : MonoBehaviour
             }
         }
         
-        if(Input.GetKeyDown(KeyCode.F)) 
+        if(Input.GetKeyDown(KeyCode.O)) 
         {
             if (Foreign_Exchange.status == false)
             {

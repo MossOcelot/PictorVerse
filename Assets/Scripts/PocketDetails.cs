@@ -30,6 +30,38 @@ public class PocketDetails
         };
     }
 
+    public List<float> getPocketList()
+    {
+        return new List<float> { section1_cashs, section2_cashs, section3_cashs, section4_cashs, section5_cashs, gold };
+    }
+
+    public void SetPocketList(int command, float values)
+    {
+        if (command == 0)
+        {
+            this.section1_cashs = values;
+        }
+        else if (command == 1)
+        {
+            this.section2_cashs = values;
+        }
+        else if (command == 2)
+        {
+            this.section3_cashs = values;
+        }
+        else if (command == 3)
+        {
+            this.section4_cashs = values;
+        }
+        else if (command == 4)
+        {
+            this.section5_cashs = values;
+        }
+        else if (command == 5)
+        {
+            this.gold = values;
+        }
+    }
     public void setPocket(string command, float values)
     {
         if (command == "section1")

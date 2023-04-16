@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Adam_Shop
   m_EditorClassIdentifier: 
   financialDetail:
-    balance: 800
+    balance: -15000
     debt: 0
   buy_items_list:
   - quantity: 46
@@ -23,8 +23,14 @@ MonoBehaviour:
     before_owner: 
     price: 200
   resource: []
-  product_type: []
+  product_type:
+  - Eatable
   accountsDetails:
+  - date: 0100000001000000b70f00000900000038000000
+    accounts_name: buy items
+    account_type: buy
+    income: 0
+    expense: 15800
   - date: 0100000001000000b70f00000800000014000000
     accounts_name: sell items
     account_type: sell

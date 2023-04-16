@@ -10,7 +10,7 @@ public class ExpandItem : MonoBehaviour
 
     private void Awake()
     {
-        img = GetComponent<Image>();
-        trans = transform;
+        //img = GetComponent<Image>();
+        //trans = transform;
     }
 }

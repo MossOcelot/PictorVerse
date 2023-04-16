@@ -21202,17 +21202,18 @@ MonoBehaviour:
   dialoguePanel: {fileID: 0}
   player: {fileID: 0}
   dialogueText: {fileID: 0}
-  dialogueText: {fileID: 492621240}
   DefaultDialogue: {fileID: 11400000, guid: befb0b6a33ab0f14faff5846474b3421, type: 2}
   dialogue:
   - 'Use ticket to open door '
   npc_quest: {fileID: 0}
+  npc_reach: {fileID: 0}
   index: 0
   wordSpeed: 0
   playerIsClose: 0
   IsEndSituation: 0
   IsOpenShelf: 0
   IsInQuest: 0
+  IsInReachQuest: 0
 --- !u!61 &1209150865
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -21255,6 +21256,7 @@ MonoBehaviour:
   ButtonList: {fileID: 0}
   TicketShelf: {fileID: 1264799663}
   npcController: {fileID: 1209150864}
+  miniBag: {fileID: 11400000, guid: eb42cd07f06c8da4197148488baa153b, type: 2}
 --- !u!1 &1210808707
 GameObject:
   m_ObjectHideFlags: 0
@@ -23581,6 +23583,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4477313622416928156, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4560450348782579041, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4560450348782579041, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4621801216998304996, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 1.47
@@ -23588,6 +23602,18 @@ PrefabInstance:
     - target: {fileID: 4621801216998304996, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 1.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 4798341070649166224, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4798341070649166224, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4798341070649166224, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4981838367627358793, guid: 665efef622923b34186e1fb7202a2a5e, type: 3}
       propertyPath: m_IsActive
@@ -37095,10 +37121,6 @@ PrefabInstance:
     - target: {fileID: 8873800922162464469, guid: 3b975538bc0906b49a49a2c3afd73dc5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8873800922162464474, guid: 3b975538bc0906b49a49a2c3afd73dc5, type: 3}
-      propertyPath: inSpaceDB
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

@@ -27,6 +27,7 @@ public class StatusEffectController : MonoBehaviour
         if (Count != oldCount)
         {
             UpdateData();
+            oldCount = Count;
         }
 
         int[] time = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>().getDateTime();
@@ -39,7 +40,9 @@ public class StatusEffectController : MonoBehaviour
 
     public void CheckEffect()
     {
-        foreach (StatusEffectPlayer statusEffect in statusEffects)
+        if (statusEffects.Count == 0) return;
+        List<StatusEffectPlayer> data = statusEffects;
+        foreach (StatusEffectPlayer statusEffect in data)
         {
             statusEffect.current_time++;
             if (statusEffect.data.TickSpeed != 0)
@@ -54,7 +57,6 @@ public class StatusEffectController : MonoBehaviour
             {
                 float defaultMoveSpeed = playerMovement.getDefaultMoveSpeed();
                 float realMoveSpeed = (defaultMoveSpeed - (float)statusEffect.data.MovementPenalty) * ((100f - (float)statusEffect.data.MovementPenaltyPercent) / 100f);
-
 
                 Debug.Log("Default: " + defaultMoveSpeed + " MoveSpeed " + realMoveSpeed);
                 if (realMoveSpeed < 1)

@@ -2,6 +2,7 @@ using inventory.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,6 +39,15 @@ public class UIInventoryPage : MonoBehaviour
         hide();
         mouseFollower.Toggle(false);
     }
+    public void Start()
+    {
+        Transform Menu = GameObject.FindGameObjectWithTag("Menu").gameObject.transform;
+        mouseFollower = Menu.GetChild(1).gameObject.GetComponent<MouseFollower>();
+        actionPanel = Menu.GetChild(2).gameObject.GetComponent<ItemActionPanel>();
+        descriptionActionPanel = Menu.GetChild(3).gameObject.GetComponent<ItemDescribtionAction>();
+        ButtonPanel = Menu.GetChild(4).gameObject.GetComponent<Transform>();
+    }
+
     public void InitializeInventoryUI(int inventorysize)
     {
         for (int i = 0;i < inventorysize;i++)

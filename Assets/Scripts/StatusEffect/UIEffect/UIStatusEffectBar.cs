@@ -78,7 +78,6 @@ public class UIStatusEffectBar : MonoBehaviour
     {
         description_content.transform.position = listOfUIstatusEffect[itemIndex].transform.position + new Vector3(100.002f, 239.422f);
     }
-    // -363.892 -374.422 => -263.89 -85
     public void AllDestroyDescription()
     {
         int len = description_content.transform.childCount;

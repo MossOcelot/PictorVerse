@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -7,11 +8,17 @@ public class GovermentPolicy : MonoBehaviour
 {
     public GovermentPolicyData govermentPolicy;
     public GovermentStatus govermentStatus;
-
-
+    public GameObject FileTax_Template;
+    public Transform content_FileTax;
+    
     Timesystem time_system;
 
+    public bool GovermentAlert;
     public bool IsSent;
+
+    public int NonPayTaxDay;
+
+    int oldDate;
     public int getVat()
     {
         return govermentPolicy.vat_tax;
@@ -37,6 +44,7 @@ public class GovermentPolicy : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Debug.Log("FixedUpdate");
         int[] date = time_system.getDateTime();
         if (date[2] == govermentPolicy.taxCollectionDay[2])
         {
@@ -45,15 +53,12 @@ public class GovermentPolicy : MonoBehaviour
                 if (date[0] == govermentPolicy.taxCollectionDay[0])
                 {
                     if (IsSent) return;
-                    MailManager mail_manager = GameObject.FindGameObjectWithTag("MailBox").gameObject.GetComponent<MailManager>();
-                    PlayerStatus player = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerStatus>();
-                    Mail newMail = new Mail("Tax", $"ใบแจ้งภาษี วันที่ {date[0]}/{date[1]}/{date[2]}",
-                        $"{player.getPlayerName()} มีรายได้ปีที่ผ่านมาอยู่ที่ {player.GetIncomeAllYear()} ต้องเสียภาษีจำนวน {player.PayTaxes()}", ()=> TaxReport(player));
-                    mail_manager.AddMails(newMail);
-                    Mail newMails = new Mail("xxx", $"asdasdasd",
-                        $"asdasdasdasdsad");
-                    mail_manager.AddMails(newMails);
+                    UIMailBox mail_manager = GameObject.FindGameObjectWithTag("MailBox").gameObject.GetComponent<UIMailBox>();
+                    mail_manager.AddMail("Goverment", $"ถึงเวลาจ่ายภาษีแล้ว ของปี {date[2] - 1}",
+                        $"โปรดยื่นภาษีและจ่ายภาษีให้เรียบร้อยภายใน 30 วัน นับจากวันที่ {date[0]}/{date[1]}/{date[2]}", null, null);
+                    GameObject FileTax = Instantiate(FileTax_Template, content_FileTax);
                     govermentPolicy.taxCollectionDay[2]++;
+                    GovermentAlert = true;
                     IsSent = true;
                 } else
                 {
@@ -61,49 +66,26 @@ public class GovermentPolicy : MonoBehaviour
                 }
             }
         }
-    }
 
-    private void TaxReport(PlayerStatus playerStatus)
-    {
-        UIMailPaper uiMailPaper = GameObject.FindGameObjectWithTag("MailPaper").gameObject.GetComponent<UIMailPaper>();
-        string section = govermentStatus.goverment.govermentInSection.ToString();
-        float tax = playerStatus.PayTaxes();
-        float newCash = playerStatus.player_accounts.getPocket()[section] - tax;
-        float newCashGoverment = govermentStatus.goverment.govermentPockets.getPocket()[section] + tax;
-        int[] date = time_system.getDateTime();
-        if (newCash < 0)
+        if(GovermentAlert && (date[0] != oldDate)) 
         {
-            Debug.Log("No Enough money");
-            uiMailPaper.SetAlert("เงินไม่เพียงพอ");
-        } else
-        {
-            Debug.Log("Finish Tax");
-            AccountsDetail player_account = new AccountsDetail() { 
-                date = date, 
-                accounts_name = $"จ่ายภาษี {section}", 
-                account_type= "expenses", income = 0, 
-                expense = tax 
-            }; 
-            AccountsDetail Goverment_account = new AccountsDetail()
+            if(NonPayTaxDay >= 30)
             {
-                date = date,
-                accounts_name = $"{playerStatus.getPlayerName()} จ่ายภาษี",
-                account_type = "income",
-                income = tax,
-                expense = 0
-            };
+                LoanPlayerController loanPlayer = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<LoanPlayerController>();
+                PlayerStatus playerStatus = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerStatus>();
+                float incomeAll = playerStatus.GetIncomeTypeInYear("FI") + playerStatus.GetIncomeTypeInYear("MI") + playerStatus.GetIncomeTypeInYear("RI");
+                float tax = playerStatus.PayTaxes(incomeAll);
+                float newDebt = loanPlayer.GetDept() + (tax * 2);
+                loanPlayer.SetDebt(newDebt);
 
-            playerStatus.addAccountsDetails(player_account);
-            playerStatus.player_accounts.setPocket(section, newCash);
 
-            govermentStatus.addAccountsDetail(Goverment_account);
-            govermentStatus.goverment.govermentPockets.setPocket(section, newCashGoverment);
-
-            uiMailPaper.SetAlert("จ่ายภาษีเรียบร้อยแล้ว");
-            uiMailPaper.SetCorrectBtn(false);
+                UIMailBox mail_manager = GameObject.FindGameObjectWithTag("MailBox").gameObject.GetComponent<UIMailBox>();
+                mail_manager.AddMail("Goverment", $"โดนปรับภาษี",
+                    $"เนื่องจากท่านไม่ได้เสียภาษีตามเวลาที่กำหนด ท่านได้ถูกปรับเป็นจำนวน {tax * 2} ซึ่งเป็น 2 เท่าของภาษีที่ทั่นต้องเสีย โปรดที่รายการบัญชี ค่าปรับจะถูกบวกเข้ากับหนี้สินของท่าน", null, null);
+            }
+            NonPayTaxDay += 1;
+            oldDate = date[0];
         }
-
-
     }
 
 }

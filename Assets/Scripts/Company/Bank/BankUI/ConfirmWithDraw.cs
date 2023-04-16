@@ -43,6 +43,10 @@ public class ConfirmWithDraw : MonoBehaviour
         AccountList account = new AccountList(present_date, "withDraw", 0, WithDraw_amount, newWithDraw, "TRW/XW");
         bank_manager.Setplayer_account(newWithDraw, account);
 
+        float credit = WithDraw_amount / 10000f;
+        float newCredit = playerStatus.getMyStatic().static_credibility - credit;
+        playerStatus.setMyStatic(7, newCredit);
+
         float newDept = bank_manager.bank_status.GetBank_Financial("debt") - WithDraw_amount;
         bank_manager.bank_status.SetBank_Financial("debt", newDept);
 
