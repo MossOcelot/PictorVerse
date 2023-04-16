@@ -104,7 +104,11 @@ public class mapPageManage : MonoBehaviour
 
     public void open_cityMap()
     {
-        mapPage.gameObject.SetActive(true);
+        Debug.Log("i do");
+        mapPage.open_window();
+
+        isCityON = !isCityON;
+        Debug.Log("bitch");
     }
     public void open_galaxyMap()
     {
