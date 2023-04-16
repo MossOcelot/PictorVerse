@@ -15,7 +15,7 @@ public class UIAlertCircle : MonoBehaviour
         ResetData();
     }
 
-    public void SetData(AlertDescription alertDescription)
+    public void SetData(AlertAnalytic alertDescription)
     {
         int alert_type_index = (int)alertDescription.type;
        

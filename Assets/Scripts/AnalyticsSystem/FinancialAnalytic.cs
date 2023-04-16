@@ -51,7 +51,7 @@ public class FinancialAnalytic : MonoBehaviour
             if (count <= 0) return;
             incomeExpenseData = CleanIncomeAndExpense();
             FinancialAnalyticPlayer(incomeExpenseData);
-            
+            GameObject.FindGameObjectWithTag("AccountDetailSystem").gameObject.GetComponent<DescriptionAlertController>().alert_description = show_analytic.alert_details;
         } 
         
 
@@ -70,40 +70,40 @@ public class FinancialAnalytic : MonoBehaviour
 
         if(predictedMonth == 0)
         {
-            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.angry,
+            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.angry, AlertAnalytic.Alert_type.cashflow,
                 $"เดือนนี้ Cash Flow ของคุณติดลบ เราขอแนะนำให้เดือนถัดไปคุณควรหารายได้เพิ่มเติม หรือลดรายจ่าย");
         }
         else if(predictedMonth <= 3)
         {
-            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.angry,
+            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.angry, AlertAnalytic.Alert_type.cashflow,
                 $"คุณมีโอกาส Cash Flow หรือกระแสเงินสด จะติดลบในอีก {predictedMonth} เดือน จำเป็นต้องหารายได้เพิ่ม หรือ ประหยัดเพื่อลดค่าใช้จ่ายลง" +
                 $"โดย Cash Flow คือ กระแสเงินสดที่ได้รับมา และจ่ายออกไป โดย Cash Flow ไม่ควรติดลบนั้นหมายความว่า กระแสเงินเข้า(รายรับ) ควรมากกว่ากระแสเงินออก(รายจ่าย)");
         }
         else if(predictedMonth <= 6) 
         {
             // Alert Green
-            show_analytic.Add_Alert_Details(1, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend,
+            show_analytic.Add_Alert_Details(1, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend, AlertAnalytic.Alert_type.cashflow,
                 $"คุณมีโอกาส Cash Flow หรือกระแสเงินสด จะติดลบในอีก {predictedMonth} เดือน จำเป็นต้องหารายได้เพิ่ม หรือ ประหยัดเพื่อลดค่าใช้จ่ายลง" +
                 $"โดย Cash Flow คือ กระแสเงินสดที่ได้รับมา และจ่ายออกไป โดย Cash Flow ไม่ควรติดลบนั้นหมายความว่า กระแสเงินเข้า(รายรับ) ควรมากกว่ากระแสเงินออก(รายจ่าย)");
         } 
         else if(predictedMonth <= 12)
         {
             // good
-            show_analytic.Add_Alert_Details(1, AlertAnalytic.NPC_RECOMMEND_TYPE.admire,
+            show_analytic.Add_Alert_Details(1, AlertAnalytic.NPC_RECOMMEND_TYPE.admire, AlertAnalytic.Alert_type.cashflow,
                $"เยี่ยมมากจากสถิติในอดีตคุณจะมีกระแสเงินสดไปอีก {predictedMonth} เดือน ซึ่งอยู่ในระดับที่ดี โปรดรักษาปริมาณ Cash Flow แบบนี้ต่อไป" +
                $"โดย Cash Flow คือ กระแสเงินสดที่ได้รับมา และจ่ายออกไป โดย Cash Flow ไม่ควรติดลบนั้นหมายความว่า กระแสเงินเข้า(รายรับ) ควรมากกว่ากระแสเงินออก(รายจ่าย)");
         }
         else if (predictedMonth <= 24)
         {
             // very good
-            show_analytic.Add_Alert_Details(2, AlertAnalytic.NPC_RECOMMEND_TYPE.admire,
+            show_analytic.Add_Alert_Details(2, AlertAnalytic.NPC_RECOMMEND_TYPE.admire, AlertAnalytic.Alert_type.cashflow,
                $"เยี่ยมมาก ๆ จากสถิติในอดีตคุณจะมีกระแสเงินสดไปอีก {predictedMonth} เดือน ซึ่งอยู่ในระดับที่ดี โปรดรักษาปริมาณ Cash Flow แบบนี้ต่อไป" +
                $"โดย Cash Flow คือ กระแสเงินสดที่ได้รับมา และจ่ายออกไป โดย Cash Flow ไม่ควรติดลบนั้นหมายความว่า กระแสเงินเข้า(รายรับ) ควรมากกว่ากระแสเงินออก(รายจ่าย)");
         }
         else if (predictedMonth <= 36)
         {
             // very very good
-            show_analytic.Add_Alert_Details(3, AlertAnalytic.NPC_RECOMMEND_TYPE.admire,
+            show_analytic.Add_Alert_Details(3, AlertAnalytic.NPC_RECOMMEND_TYPE.admire, AlertAnalytic.Alert_type.cashflow,
               $"เยี่ยมมาก ๆๆๆ จากสถิติในอดีตคุณจะมีกระแสเงินสดไปอีก {predictedMonth} เดือน ซึ่งอยู่ในระดับที่ดี โปรดรักษาปริมาณ Cash Flow แบบนี้ต่อไป" +
               $"โดย Cash Flow คือ กระแสเงินสดที่ได้รับมา และจ่ายออกไป โดย Cash Flow ไม่ควรติดลบนั้นหมายความว่า กระแสเงินเข้า(รายรับ) ควรมากกว่ากระแสเงินออก(รายจ่าย)");
         }
@@ -117,7 +117,7 @@ public class FinancialAnalytic : MonoBehaviour
         if(status_saving)
         {
             // pass
-            show_analytic.Add_Alert_Details(2, AlertAnalytic.NPC_RECOMMEND_TYPE.admire,
+            show_analytic.Add_Alert_Details(2, AlertAnalytic.NPC_RECOMMEND_TYPE.admire, AlertAnalytic.Alert_type.saving,
                $"ผ่านเดือนนี้คุณได้เก็บเงินมากกว่า 20% ของรายได้" +
                $"โดยในแต่ละเดือน เราควรเก็บเงินไม่น้อยกว่า 20% ของรายได้ ตามกฎ 80/20 ซึ่งการออมเงิน จะช่วยให้เรามีเงินใช้ในยามจำเป็น และเงินออมถือเป็น สินทรัพย์หมุนเวียน ที่หากผู้เล่นมีปัญหา ก็สามารถนำออกมาใช้ได้ทันที" +
                $"และในเกมคุณก็จะสามารถได้รับแต้ม Credit ได้จากการฝากเงินในธนาคาร");
@@ -125,7 +125,7 @@ public class FinancialAnalytic : MonoBehaviour
         else
         {
             // wrong
-            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend,
+            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend, AlertAnalytic.Alert_type.saving,
                $"ผ่านเดือนนี้คุณได้เก็บเงินน้อยกว่า 20% ของรายได้ คุณควรเก็บเงินมากกว่านี้" +
                $"โดยในแต่ละเดือน เราควรเก็บเงินไม่น้อยกว่า 20% ของรายได้ ตามกฎ 80/20 ซึ่งการออมเงิน จะช่วยให้เรามีเงินใช้ในยามจำเป็น และเงินออมถือเป็น สินทรัพย์หมุนเวียน ที่หากผู้เล่นมีปัญหา ก็สามารถนำออกมาใช้ได้ทันที" +
                $"และในเกมคุณก็จะสามารถได้รับแต้ม Credit ได้จากการฝากเงินในธนาคาร");
@@ -140,7 +140,7 @@ public class FinancialAnalytic : MonoBehaviour
             if(career == null)
             {
                 // recommend new gameplay
-                show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.angry,
+                show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.angry, AlertAnalytic.Alert_type.career,
                $"คุณมีปัญหาทางการเงิน และอาชีพประจำภายในเกมปัจจุบันไม่มีอาชีพ ไหนที่ให้เงินเพียงพอกับรายจ่ายที่คุณมี " +
                $"โดยเราขอแนะนำให้คุณลดค่าใช้จ่าย และค่อย ๆ หยุดสร้างหนี้หากไม่สามารถหยุดได้ทันที และพยายามหาเงิน จากแหล่งอื่น ๆ เพิ่มเติมโดยคุณควรมีมากกว่า 1 อาชีพ โดยอาจทำอาชีพอิสระ เช่นการไปขุดแร่ คราฟของไปขาย" +
                $" เป็นต้น เพื่อให้คุณมีรายได้เพิ่มขึ้น");
@@ -151,7 +151,7 @@ public class FinancialAnalytic : MonoBehaviour
             else
             {
                 // recommend new Career
-                show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend,
+                show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend, AlertAnalytic.Alert_type.career,
                $"คุณมีปัญหาทางการเงิน เราขอแนะนำอาชีพ {career.career_name} นี้ซึ่งให้เงินเดือน {career.salary_default} ซึ่งมากพอกับรายจ่ายของคุณ " +
                $"โดยคุณควรลดรายจ่าย และหารายได้ทางอื่นเพิ่มเติมไปด้วย");
 
@@ -169,42 +169,42 @@ public class FinancialAnalytic : MonoBehaviour
         AccountAmount.AccountType type = maxExpenseType.accountType;
         if (type == AccountAmount.AccountType.DE)
         {
-            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend,
+            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend, AlertAnalytic.Alert_type.expense,
                $"คุณมีรายจ่ายที่จ่ายไปกับหนี้สินในแต่ละเดือนเป็นอัตราส่วนที่มากที่สุด เราขอแนะนำให้คุณหยุดมีหนี้เพิ่ม และชำระหนี้ให้หมดเสียก่อน เพราะยิ่งถ้าคุณมีหนี้เยอะ จะยิ่งทำให้ดอกเบี้ยที่ต้องจ่ายในแต่ละเดือนมมีมาก ");
         }
         else if (type == AccountAmount.AccountType.IEE)
         {
-            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend,
+            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend, AlertAnalytic.Alert_type.expense,
               $"คุณมีรายจ่ายที่จ่ายไปกับประกันชีวิตมากไป ในเดือนนี้ เราขอแนะนำให้คุณซื้อประกันที่เหมาะสมกับตัวเองไม่จ่ายมากเกินไป");
         }
         else if (type == AccountAmount.AccountType.IHE)
         {
-            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend,
+            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend, AlertAnalytic.Alert_type.expense,
               $"คุณมีรายจ่ายที่จ่ายไปกับประกันสุขภาพมากไป ในเดือนนี้ เราขอแนะนำให้คุณซื้อประกันที่เหมาะสมกับตัวเองไม่จ่ายมากเกินไป");
         }
         else if (type == AccountAmount.AccountType.TF)
         {
-            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend,
+            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend, AlertAnalytic.Alert_type.expense,
               $"คุณมีรายจ่ายที่จ่ายไปกับค่ารักษา มากเกินไปเราขอแนะนำให้คุณซื้อประกันสุขภาพ เพื่อช่วยลดค่าใช้จ่ายในส่วนตรงนี้");
         }
         else if (type == AccountAmount.AccountType.SE)
         {
-            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend,
+            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend, AlertAnalytic.Alert_type.expense,
               $"คุณเก็บเงินเยอะมากในเดือนนี้ เราขอแนะนำให้คุณเก็บประมาณ 20% หรือจะมากกว่านี้ก็ได้ แต่ไม่ควรเกินกำลังของตัวเองเกินไป");
         }
         else if (type == AccountAmount.AccountType.TE)
         {
-            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend,
+            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend, AlertAnalytic.Alert_type.expense,
               $"คุณมีค่าใช้จ่ายสำหรับการเดินทาง เยอะเกินไป เราขอแนะนำให้คุณวางแผนที่่จะเดินทางไปที่ต่าง ๆ อย่างรอบขอบ");
         }
         else if (type == AccountAmount.AccountType.EE)
         {
-            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend,
+            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend, AlertAnalytic.Alert_type.expense,
               $"คุณมีค่าใช้จ่ายสำหรับกินมากเกินไป คุณควรซื้ออาหารที่พอดีไม่มากจนเกินไป");
         }
         else if (type == AccountAmount.AccountType.OE)
         {
-            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend,
+            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend, AlertAnalytic.Alert_type.expense,
               $"คุณมีค่าใช้จ่ายสำหรับซื้อสินค้าอื่น ๆ มากเกินไป หากสินค้า ที่ซื้อไปนั้นไม่ก่อให้เกิดรายได้ เราขอแนะนำให้คุณลดค่าใช้จ่ายในส่วนตรงนี้");
         }
     }
@@ -216,24 +216,24 @@ public class FinancialAnalytic : MonoBehaviour
         AccountAmount.AccountType type = maxIncomeType.accountType;
         if (type == AccountAmount.AccountType.FI)
         {
-            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend,
+            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend, AlertAnalytic.Alert_type.income,
               $"คุณมีรายได้จากการทำงานอาชีพอิสระ ต่าง ๆ มากที่สุด เราขอแนะนำให้คุณทำงานที่หลากหลายและมีแหล่งรายได้ที่แตกต่างกัน " +
               $"เพื่อป้องกันความเสี่ยงหากคุณไม่สามารถหารายได้จากส่วนนี้ เนื่องจากอาชีพอิสระนั้นไม่ค่อยมีความมั่นคง ทางรายได้");
         }
         else if (type == AccountAmount.AccountType.RI)
         {
-            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend,
+            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend, AlertAnalytic.Alert_type.income,
               $"คุณมีรายได้จากการทำงานอาชีพประจำ ต่าง ๆ มากที่สุด เราขอแนะนำให้คุณทำงานที่หลากหลายและมีแหล่งรายได้ที่แตกต่างกัน " +
               $"เพราะคุณอาจจะถูกไล่ออกได้ เราขอแนะนำให้คุณทำอาชีพเสริมในช่วงว่าง ๆ หลังเลิกงาน");
         }
         else if (type == AccountAmount.AccountType.MI)
         {
-            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend,
+            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend, AlertAnalytic.Alert_type.income,
               $"คุณมีรายได้จากการทำงานอาชีพค้าขาย ต่าง ๆ มากที่สุด เราขอแนะนำให้คุณทำงานที่หลากหลายและมีแหล่งรายได้ที่แตกต่างกัน ");
         }
         else if (type == AccountAmount.AccountType.LI)
         {
-            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend,
+            show_analytic.Add_Alert_Details(0, AlertAnalytic.NPC_RECOMMEND_TYPE.recommend, AlertAnalytic.Alert_type.income,
               $"เดือนนี้มีรายรับจากการกู้เงินมากที่สุด คุณควรใช้เงินที่กู้มาอย่างถูกต้องและก่อให้เกิดรายได้ และเราขอแนะนำให้คุณทำอาชีพเสริมต่าง ๆ ที่จะสามารถหาเงินมาชำระหนี้ที่คุณยืมมาได้ ");
         }
     }

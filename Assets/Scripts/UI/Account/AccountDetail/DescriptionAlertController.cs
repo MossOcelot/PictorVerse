@@ -12,8 +12,7 @@ public class DescriptionAlertController : MonoBehaviour
 
     public GameObject Alert_Description;
 
-    [SerializeField]
-    private List<AlertDescription> alert_description;
+    public List<AlertAnalytic> alert_description;
     public Transform content;
     public Transform description_content;
 
@@ -38,12 +37,15 @@ public class DescriptionAlertController : MonoBehaviour
     private void UpdateData()
     {
         ClearData();
-        foreach (AlertDescription alert in alert_description)
+        foreach (AlertAnalytic alert in alert_description)
         {
-            Alert = Instantiate(Alert_template, content);
-            UIAlertCircle uiAlert = Alert.GetComponent<UIAlertCircle>();
-            uiAlert.SetData(alert);
-            Alert.GetComponent<Button>().AddEventListener(alert, OnClick);
+            if(alert.alert_type == AlertAnalytic.Alert_type.expense)
+            {
+                Alert = Instantiate(Alert_template, content);
+                UIAlertCircle uiAlert = Alert.GetComponent<UIAlertCircle>();
+                uiAlert.SetData(alert);
+                Alert.GetComponent<Button>().AddEventListener(alert, OnClick);
+            }
         }
     }
 
@@ -56,7 +58,7 @@ public class DescriptionAlertController : MonoBehaviour
         }
     }
 
-    private void OnClick(AlertDescription i)
+    private void OnClick(AlertAnalytic i)
     {
         GameObject alertDescription = Instantiate(Alert_Description, description_content);
         UIDescriptionAlertTemplate uiAlertDescription = alertDescription.AddComponent<UIDescriptionAlertTemplate>();
@@ -64,10 +66,4 @@ public class DescriptionAlertController : MonoBehaviour
     }
 }
 
-[System.Serializable]
-public class AlertDescription
-{
-    public enum Alert_type { type1, type2, type3, type4 }
-    public Alert_type type;
-    public string description;
-}
+/*PlayerAnalyticSystem*/

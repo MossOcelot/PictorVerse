@@ -6,9 +6,9 @@ public class UIDescriptionAlertTemplate : MonoBehaviour
 {
     public TextMeshProUGUI description;
 
-    public void SetData(AlertDescription alert) 
+    public void SetData(AlertAnalytic alert) 
     { 
-        this.description.text = alert.description;
+        this.description.text = alert.text;
     }
 
     public void Close()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UINotiController : MonoBehaviour
 {
@@ -48,6 +49,7 @@ public class UINotiController : MonoBehaviour
             {
                 GameObject obj = Instantiate(mail_card, mail_content);
                 obj.GetComponent<UINotiBox>().SetData(mails[i].mail_title);
+                obj.GetComponent<Button>().AddEventListener(1, OpenMail);
                 obj.transform.SetAsFirstSibling();
                 if (mail_content.childCount > 5)
                 {
@@ -56,5 +58,11 @@ public class UINotiController : MonoBehaviour
                 old_len = mails.Count;
             }
         }
+    }
+
+    private void OpenMail(int i)
+    {
+        UIMailBox mailBox = GameObject.FindGameObjectWithTag("MailBox").gameObject.GetComponent<UIMailBox>();
+        mailBox.UI.gameObject.SetActive(true);
     }
 }
