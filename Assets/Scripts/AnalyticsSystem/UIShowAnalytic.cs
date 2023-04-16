@@ -19,9 +19,9 @@ public class UIShowAnalytic : MonoBehaviour
     public Transform content_trans;
     bool IsOpen;
     int index = 0;
-    public void Add_Alert_Details(int level, AlertAnalytic.NPC_RECOMMEND_TYPE type, string text)
+    public void Add_Alert_Details(int level, AlertAnalytic.NPC_RECOMMEND_TYPE type, AlertAnalytic.Alert_type alert_type, string text)
     {
-        AlertAnalytic alert = new AlertAnalytic(level, type, text);
+        AlertAnalytic alert = new AlertAnalytic(level, type, alert_type, text);
         alert_details.Add(alert);
     }
 
@@ -124,14 +124,17 @@ public class UIShowAnalytic : MonoBehaviour
 public class AlertAnalytic
 {
     public enum NPC_RECOMMEND_TYPE { angry, recommend, admire}
+    public enum Alert_type { income, expense, career, saving, cashflow }
     public int important_recommend;
     public NPC_RECOMMEND_TYPE type;
+    public Alert_type alert_type;
     public string text;
 
-    public AlertAnalytic (int important_recommend, NPC_RECOMMEND_TYPE type, string text)
+    public AlertAnalytic (int important_recommend, NPC_RECOMMEND_TYPE type, Alert_type alert_type, string text)
     {
         this.important_recommend = important_recommend;
         this.type = type;
+        this.alert_type = alert_type;
         this.text = text;
     }
 }
