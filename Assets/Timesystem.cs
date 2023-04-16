@@ -80,7 +80,8 @@ public class Timesystem : MonoBehaviour
     }
 
     public void SkipDay()
-    {
+    { 
+
         day++;
         if(day > daysPerMonth)
         {

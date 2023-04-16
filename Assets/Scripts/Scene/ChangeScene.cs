@@ -28,7 +28,18 @@ public class ChangeScene : MonoBehaviour
         fade.FadeIn();
         yield return new WaitForSeconds(1f);
 
+        Timesystem time = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
         SceneManager.LoadScene(sceneName);
+        if(sceneName == "Bank")
+        {
+            
+            PlayerActivityController activity_controller = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerActivityController>();
+            activity_controller.AddActivity(time.getDateTime(), UIHourActivity.acitivty_type.bank);
+        } else if(sceneName == "Cave")
+        {
+            PlayerActivityController activity_controller = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerActivityController>();
+            activity_controller.AddActivity(time.getDateTime(), UIHourActivity.acitivty_type.Mining);
+        }
         yield return new WaitForEndOfFrame(); 
         player = GameObject.FindWithTag("Player");
         player.transform.position = desiredPosition; 
