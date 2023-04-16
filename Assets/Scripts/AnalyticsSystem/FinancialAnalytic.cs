@@ -42,7 +42,7 @@ public class FinancialAnalytic : MonoBehaviour
 
     private void Start()
     {
-        FinancialAnalyticPlayer(incomeExpenseData);
+        // FinancialAnalyticPlayer(incomeExpenseData);
     }
 
     public void FinancialAnalyticPlayer(List<IncomeExpenseData> incomeExpenseData)
