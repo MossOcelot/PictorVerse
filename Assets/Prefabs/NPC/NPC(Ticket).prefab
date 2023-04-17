@@ -244,13 +244,20 @@ MonoBehaviour:
   dialoguePanel: {fileID: 0}
   player: {fileID: 0}
   dialogueText: {fileID: 0}
+  DefaultDialogue: {fileID: 0}
   dialogue:
   - Im a Minor mannnn
   - Welcome to PictorVerse !
   - Nice to meet you
+  npc_quest: {fileID: 0}
+  npc_reach: {fileID: 0}
+  index: 0
   wordSpeed: 0.01
   playerIsClose: 0
   IsEndSituation: 0
+  IsOpenShelf: 0
+  IsInQuest: 0
+  IsInReachQuest: 0
 --- !u!114 &9071660455513818687
 MonoBehaviour:
   m_ObjectHideFlags: 0
