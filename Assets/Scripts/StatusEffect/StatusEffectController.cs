@@ -115,7 +115,21 @@ public class StatusEffectController : MonoBehaviour
     }
     public void AddStatus(StatusEffectPlayer statusEffect)
     {
+        if (CheckHasStatus(statusEffect)) return;
         statusEffects.Add(statusEffect);
+    }
+
+    private bool CheckHasStatus(StatusEffectPlayer statusEffect)
+    {
+        foreach(StatusEffectPlayer effect in statusEffects)
+        {
+            if(effect.data.effect_name == statusEffect.data.effect_name)
+            {
+                effect.current_time = 0;
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<StatusEffectPlayer> GetstatusEffects()

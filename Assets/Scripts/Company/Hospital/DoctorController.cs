@@ -9,6 +9,7 @@ public class DoctorController : MonoBehaviour
     public Transform ButtonList;
     public NPCController npcController;
     public GameObject Hospital_Template;
+    public QuestDialogue doctor_controller;
 
     GameObject Hospital;
     public void Update()
@@ -43,6 +44,24 @@ public class DoctorController : MonoBehaviour
 
     private void OpenHospital(int n)
     {
+        StatusEffectController player_effect = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<StatusEffectController>();
+        int count = player_effect.GetstatusEffects().Count;
+        if(count == 0)
+        {
+            // player Not has effect
+            ButtonList.GetChild(n).gameObject.SetActive(false);
+            npcController.RemoveText();
+            npcController.IsEndSituation = false;
+            npcController.dialogue.Clear();
+            npcController.dialogue.Add(doctor_controller.greeting);
+            npcController.dialogue.AddRange(doctor_controller.conversation);
+
+
+            npcController.SetIndexConversation(0);
+           
+            npcController.StartDialogue();
+            return;
+        }
         Hospital = Instantiate(Hospital_Template, transform);
         npcController.dialoguePanel.SetActive(false);
 

@@ -45,7 +45,7 @@ public class Bank_Policy : MonoBehaviour
             BeforePolicyInterestRate = policyInterestRate;
             InterestRate = policyInterestRate * Random.Range(0.9f, 1.1f);
             accountData.InterestRate = InterestRate;
-            InteresetRate_text.text = "Interest " + InterestRate.ToString("0.00") + " % per year"; 
+            InteresetRate_text.text = "´Í¡àºÕéÂ " + InterestRate.ToString("0.00") + " % µèÍ»Õ"; 
         }
     }
     

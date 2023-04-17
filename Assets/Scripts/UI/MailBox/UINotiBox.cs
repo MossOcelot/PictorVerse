@@ -20,10 +20,10 @@ public class UINotiBox : MonoBehaviour
     {
         for(int i = 0; i < 5; i++)
         {
-            this.BG.color = Color.red;
+            this.icon.color = Color.red;
             this.text.color = Color.white;
             yield return new WaitForSeconds(1);
-            this.BG.color = Color.white;
+            this.icon.color = Color.white;
             this.text.color = Color.black;
             yield return new WaitForSeconds(1);
         }
