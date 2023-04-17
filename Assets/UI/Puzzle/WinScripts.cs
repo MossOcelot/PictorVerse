@@ -8,22 +8,28 @@ public class WinScripts : MonoBehaviour
     public int currentPoints;
     public GameObject MyPuzzles;
     public bool WinNow = false;
+    public GameObject Complete;
+
+    private IEnumerator SetCompleteActiveCoroutine()
+    {
+        transform.GetChild(0).gameObject.SetActive(true);
+        yield return new WaitForSeconds(8);
+        transform.GetChild(0).gameObject.SetActive(false);
+    }
 
     void Start()
     {
         WinNow = false;
         pointstoWin = MyPuzzles.transform.childCount;
     }
+
     void Update()
     {
-        
-        if(currentPoints >= pointstoWin)
+        if (currentPoints >= pointstoWin && !WinNow)
         {
             WinNow = true;
             Debug.Log("Winnow");
-            transform.GetChild(0).gameObject.SetActive(true);
-
-
+            StartCoroutine(SetCompleteActiveCoroutine());
         }
     }
 
@@ -31,6 +37,4 @@ public class WinScripts : MonoBehaviour
     {
         currentPoints++;
     }
-
-    
 }
