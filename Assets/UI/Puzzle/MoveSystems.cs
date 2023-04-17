@@ -9,7 +9,6 @@ public class MoveSystems : MonoBehaviour
     public bool isFinished = false;
     private Vector3 resetPosition = Vector3.zero;
     private Vector3 initialMouseOffset = Vector3.zero;
-
     private void Awake()
     {
         resetPosition = transform.localPosition;

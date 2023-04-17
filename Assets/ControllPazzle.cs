@@ -10,45 +10,40 @@ public class ControllPazzle : MonoBehaviour
     public GameObject Status;
     public GameObject Mission;
     public WinScripts winPuzzles;
+    public NPCController npcController;
+    
 
 
-    private bool isCameraSmall = false;
 
     void Start()
     {
         Menu = GameObject.FindGameObjectWithTag("Menu");
         winPuzzles = FindObjectOfType<WinScripts>();
+        npcController = FindObjectOfType<NPCController>();
 
-        if (winPuzzles.WinNow == true)
-        {
-            isCameraSmall = true;
-
-        }
-        if (isCameraSmall == false)
-        {
-            Menu.SetActive(false);
-            Map.SetActive(false);
-            Status.SetActive(false);
-            Mission.SetActive(false);
-            mainCamera.orthographicSize = 3.9f;
-            objectToToggle.SetActive(true);
-        }
-        if (isCameraSmall == true)
+        if (winPuzzles.WinNow == true || npcController.isPuzzle == false)
         {
             Menu.SetActive(true);
             Map.SetActive(true);
             Status.SetActive(true);
             Mission.SetActive(true);
-            mainCamera.orthographicSize = 18f;
-            objectToToggle.SetActive(false);
+            mainCamera.orthographicSize = 3.9f;
 
         }
+        if(npcController.isPuzzle == true)
+        {
+            Menu.SetActive(false);
+            Map.SetActive(false);
+            Status.SetActive(false);
+            Mission.SetActive(false);
+            mainCamera.orthographicSize = 18f;
+        }
+
+
+
+
+
     }
-
-
-
-
-
 
 }
 

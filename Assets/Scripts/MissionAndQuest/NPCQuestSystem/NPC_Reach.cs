@@ -87,18 +87,19 @@ public class NPC_Reach : MonoBehaviour
                             objective.completed = true;
                         }
                         break;
-
-
                     }
                     if (HavePuzzles == true )
                     {
                         if (winPuzzles.WinNow == true)
                             {
+
                                 mainCamera.orthographicSize = 3.9f;
                                 puzzles.SetActive(false);
+                                
                                 objective.currentAmount += 1;
                                 objective.completed = true;
                                 Debug.Log("Completed Puzzles");
+
                                 break;
                                 
                             }

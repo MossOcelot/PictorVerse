@@ -20,15 +20,17 @@ public class NPCController : MonoBehaviour
     public NPC_Reach npc_reach;
     public int index = 0;
     public Camera mainCamera;
-
+    
     public float wordSpeed;
     public bool playerIsClose;
     public bool IsEndSituation = false;
     public bool IsOpenShelf = false;
-
     public bool IsInQuest;
     public bool IsInReachQuest;
+    public bool isPuzzle = false;
+
     // Update is called once per frame
+
     void Update()
     {
 
@@ -84,15 +86,14 @@ public class NPCController : MonoBehaviour
 
 
         }
-        if(mainCamera != null)
-        {
-
-        }
+        
         if(IsInQuest && IsEndSituation && TimeLine != null)
         {
             TimeLine.SetActive(true);
+            
             if (mainCamera != null)
             {
+                isPuzzle = true;
                 mainCamera.orthographicSize = 18f;
 
             }
@@ -103,6 +104,7 @@ public class NPCController : MonoBehaviour
             TimeLine.SetActive(true);
             if (mainCamera != null)
             {
+                isPuzzle = true;
                 mainCamera.orthographicSize = 18f;
 
             }
@@ -136,6 +138,7 @@ public class NPCController : MonoBehaviour
         this.index = index;
     }
 
+    
     public void RemoveText()
     {
         dialogueText.text = "";
@@ -173,7 +176,7 @@ public class NPCController : MonoBehaviour
             yield return new WaitForSeconds(wordSpeed);
         }
     }
-
+    
     public void NextLine()
     {
         if (index < dialogue.Count - 1)
@@ -191,6 +194,7 @@ public class NPCController : MonoBehaviour
         else
         {
             RemoveText();
+            
         }
     }
 

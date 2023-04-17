@@ -22,6 +22,8 @@ public class WinScripts : MonoBehaviour
             WinNow = true;
             Debug.Log("Winnow");
             transform.GetChild(0).gameObject.SetActive(true);
+
+
         }
     }
 
@@ -29,4 +31,6 @@ public class WinScripts : MonoBehaviour
     {
         currentPoints++;
     }
+
+    
 }
