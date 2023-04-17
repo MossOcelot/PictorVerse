@@ -19,7 +19,6 @@ namespace inventory.Model
         GameObject template;
         public void AddDescription(Sprite icon, string item_name, int quantity, float item_price, string description)
         {
-            
             GameObject descriptionCard = Instantiate(DescriptionPrefab, transform);
             descriptionCard.gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = item_name;
             descriptionCard.gameObject.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = quantity.ToString();

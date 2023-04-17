@@ -34,6 +34,8 @@ public class UIInventoryPage : MonoBehaviour
     [SerializeField]
     private ItemDescribtionAction descriptionActionPanel;
     public Transform ButtonPanel;
+
+    public Vector3 location_ItemDescription;
     private void Awake()
     {
         hide();
@@ -168,6 +170,7 @@ public class UIInventoryPage : MonoBehaviour
     public void AddDescription(Sprite icon, string item_name, int quantity, float item_price, string description)
     {
         descriptionActionPanel.AddDescription(icon, item_name, quantity, item_price, description);
+        descriptionActionPanel.transform.position = location_ItemDescription;
     }
 
     public void AddActionInDescription(int n,string actionName, Action action)
@@ -198,8 +201,8 @@ public class UIInventoryPage : MonoBehaviour
         {
             item.Deselect();
         }
-        actionPanel.Toggle(false);
-        descriptionActionPanel.Toggle(false);
+        if(actionPanel != null) actionPanel.Toggle(false);
+        if (descriptionActionPanel != null) descriptionActionPanel.Toggle(false);
     }
 
     public void hide()

@@ -41,7 +41,10 @@ public class CraftingController : MonoBehaviour
     private void OpenCraftTable()
     {
         CraftTable.SetActive(true);
+        Debug.Log("OpenCraft1");
         CraftTable.GetComponent<UICraftingManager>().Open();
+
+        Debug.Log("OpenCraft3223");
         npcController.dialoguePanel.SetActive(false);
     }
 
