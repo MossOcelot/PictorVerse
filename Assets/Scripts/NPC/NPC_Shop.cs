@@ -187,7 +187,7 @@ public class NPC_Shop : MonoBehaviour
         float price = total - vat_value;
         npc_shop_data.financialDetail.balance += price;
         // Update Accounts Player
-        AccountsDetail account_Player = new AccountsDetail() { date = dateTime, accounts_name = "buy items", account_type = "buy", income = 0, expense = total };
+        AccountsDetail account_Player = new AccountsDetail() { date = dateTime, accounts_name = "OE", account_type = "buy", income = 0, expense = total };
         player.gameObject.GetComponent<PlayerStatus>().addAccountsDetails(account_Player);
         // Update Accounts NPC
         AccountsDetail account_NPC = new AccountsDetail() { date = dateTime, accounts_name = "sell items", account_type = "sell", income = price, expense =  0};
