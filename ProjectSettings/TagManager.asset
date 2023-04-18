@@ -46,6 +46,7 @@ TagManager:
   - GodMode
   - BankCompany
   - MissionQuest
+  - GameOver
   layers:
   - Default
   - TransparentFX
@@ -76,8 +77,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - puzzleblack
+  - puzzles
   - PlayerIcon
   m_SortingLayers:
   - name: Default
@@ -89,6 +90,9 @@ TagManager:
   - name: Foreground
     uniqueID: 822741803
     locked: 0
+  - name: puzzles
+    uniqueID: 1632345855
+    locked: 0
   - name: Players
     uniqueID: 1552751223
     locked: 0
@@ -97,4 +101,7 @@ TagManager:
     locked: 0
   - name: PopUp
     uniqueID: 43048193
+    locked: 0
+  - name: puzzleblacks
+    uniqueID: 956904475
     locked: 0

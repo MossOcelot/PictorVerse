@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 682c026f5b223ec459864735d559549e, type: 3}
-  m_Name: NoneHairConversation
+  m_Script: {fileID: 11500000, guid: da8d86cd4d0819b40a6f06f2c39df3e8, type: 3}
+  m_Name: GoalQuest2
   m_EditorClassIdentifier: 
-  greeting: Hello
-  conversation:
-  - I dont have hair
-  - Its me
-  IsSayed: 0
+  name: GoalQuest2
+  description: "\u0E17\u0E33\u0E07\u0E32\u0E19\u0E23\u0E32\u0E0A\u0E01\u0E32\u0E23"
+  type: 2
+  name_object: WorkTable
+  targetAmount: 1
+  currentAmount: 0
+  completed: 0

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -15,6 +15,6 @@ public class UIupdateDate : MonoBehaviour
     {
         int[] time = timeSystem.getDateTime();
         DateText.text = time[2].ToString() + "-" + time[1].ToString("00") + "-" + time[0].ToString("00") + " "
-            + time[3].ToString("00") + " ªÑèÇâÁ§ " + time[4].ToString("00") + " ¹Ò·Õ";
+            + time[3].ToString("00") + " ÂªÃ‘Ã¨Ã‡sÃÂ§ " + time[4].ToString("00") + " Â¹Ã’Â·Ã•";
     }
 }

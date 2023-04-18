@@ -8,6 +8,13 @@ public class TimeSkipController : MonoBehaviour
 {
     public Transform ButtonList;
     public NPCController npcController;
+    public GameObject TimeLineSleep;
+    private GameObject player;
+
+    public void Start()
+    {
+        player = GameObject.FindWithTag("Player");
+    }
     public void Update()
     {
         if (!npcController.playerIsClose) return;
@@ -37,9 +44,13 @@ public class TimeSkipController : MonoBehaviour
         ButtonList.GetChild(n).gameObject.GetComponent<Button>().onClick.RemoveAllListeners();
         ButtonList.GetChild(n).gameObject.GetComponent<Button>().onClick.AddListener(() => action());
     }
-
-    private void SkipDay()
+    private IEnumerator SleepRoutine()
     {
+        player.SetActive(false);
+        TimeLineSleep.SetActive(true);
+        yield return new WaitForSeconds(12f);
+        player.SetActive(true);
+        TimeLineSleep.SetActive(false);
         Timesystem time = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
         time.SkipDay();
 
@@ -47,5 +58,16 @@ public class TimeSkipController : MonoBehaviour
         activity_controller.AddActivity(time.getDateTime(), UIHourActivity.acitivty_type.sleep);
 
         npcController.dialoguePanel.SetActive(false);
+    }
+    public void SkipDay()
+    {
+        if (TimeLineSleep.activeSelf)
+        {
+            return;
+        }
+        else
+        {
+            StartCoroutine(SleepRoutine());
+        }
     }
 }

@@ -13,22 +13,28 @@ public class NPCController : MonoBehaviour
     public GameObject player;
     public TextMeshProUGUI dialogueText;
     public QuestDialogue DefaultDialogue;
-
+    public GameObject TimeLine;
+    public GameObject Sign;
     public List<string> dialogue;
     public NPC_Quest npc_quest;
     public NPC_Reach npc_reach;
     public int index = 0;
-
+    public Camera mainCamera;
+    
     public float wordSpeed;
     public bool playerIsClose;
     public bool IsEndSituation = false;
     public bool IsOpenShelf = false;
-
     public bool IsInQuest;
     public bool IsInReachQuest;
+    public bool isPuzzle = false;
+
     // Update is called once per frame
+
     void Update()
     {
+
+       
         if (!playerIsClose) return;
         if (IsInQuest)
         {
@@ -36,6 +42,7 @@ public class NPCController : MonoBehaviour
             for (int i = 0; i < len; i++)
             {
                 dialoguePanel.transform.GetChild(3).gameObject.transform.GetChild(i).gameObject.SetActive(false);
+                
             }
         }
         else
@@ -79,6 +86,34 @@ public class NPCController : MonoBehaviour
 
 
         }
+        
+        if(IsInQuest && IsEndSituation && TimeLine != null)
+        {
+            TimeLine.SetActive(true);
+            
+            if (mainCamera != null)
+            {
+                isPuzzle = true;
+                mainCamera.orthographicSize = 18f;
+
+            }
+
+        }
+        else if(IsEndSituation && IsInReachQuest && TimeLine != null)
+        {
+            TimeLine.SetActive(true);
+            if (mainCamera != null)
+            {
+                isPuzzle = true;
+                mainCamera.orthographicSize = 18f;
+
+            }
+        }
+
+        if (IsInQuest && IsEndSituation && Sign != null)
+        {
+            Sign.SetActive(false);
+        }
         /*if (Input.GetKeyDown(KeyCode.q) && dialoguePanel.activeInHierarchy)
         {
             RemoveText();
@@ -103,6 +138,7 @@ public class NPCController : MonoBehaviour
         this.index = index;
     }
 
+    
     public void RemoveText()
     {
         dialogueText.text = "";
@@ -140,7 +176,7 @@ public class NPCController : MonoBehaviour
             yield return new WaitForSeconds(wordSpeed);
         }
     }
-
+    
     public void NextLine()
     {
         if (index < dialogue.Count - 1)
@@ -149,6 +185,8 @@ public class NPCController : MonoBehaviour
             if (index == dialogue.Count - 1)
             {
                 IsEndSituation = true;
+
+
             }
             dialogueText.text = "";
             StartCoroutine(Typing());
@@ -156,6 +194,7 @@ public class NPCController : MonoBehaviour
         else
         {
             RemoveText();
+            
         }
     }
 
@@ -171,7 +210,6 @@ public class NPCController : MonoBehaviour
         {
             playerIsClose = true;
             player = GameObject.FindGameObjectWithTag("Player");
-            //player = other.gameObject;
             dialoguePanel = GameObject.FindGameObjectWithTag("Dialog").gameObject.transform.GetChild(0).gameObject;
             dialogueText = dialoguePanel.gameObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
             dialogueText.text = "";
