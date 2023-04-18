@@ -88,9 +88,11 @@ public class Paper_manager2 : MonoBehaviour
 
         LimitOrder limitOrder = new LimitOrder("", stock.player, totalValueItems / quantity, (int)quantity, false);
 
+        Timesystem time = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+        PlayerActivityController activity_controller = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerActivityController>();
+        activity_controller.AddActivity(time.getDateTime(), UIHourActivity.acitivty_type.shopping);
 
-        
-        foreach(int n in itemIndexs)
+        foreach (int n in itemIndexs)
         {
             Dictionary<int, InventoryItem> PlayerInventory = stock.player.playerInventorySO.GetCurrentInventoryState();
             bool success = false;

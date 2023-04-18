@@ -30,6 +30,7 @@ public class NPC_Quest : MonoBehaviour
 
     public NPCController npcController;
 
+    public QuestDialogue thai_language;
     Quest quest;
 
     public void Update()
@@ -106,12 +107,12 @@ public class NPC_Quest : MonoBehaviour
                 QuestAcceptanceConditions condition = CheckConditions(quest.conditions);
                 if (condition != null)
                 {
-                    NPCSendAlert("�س�ѧ�������ö�Ѻ��áԨ�����ͧ�ҡ", condition.description);
+                    NPCSendAlert(thai_language.conversation[0], condition.description);
                     break;
                 }
                 if (quest.status == Quest.QuestStatus.InProgress) 
                 {
-                    NPCSendAlert("�س�� �Ѻ��áԨ�����", "�ô�������áԨ��͹˹��������稡�͹"); 
+                    NPCSendAlert(thai_language.conversation[1], thai_language.conversation[2]); 
                     break; 
                 }
                 
@@ -132,12 +133,12 @@ public class NPC_Quest : MonoBehaviour
                 QuestAcceptanceConditions condition = CheckConditions(quest.conditions);
                 if (condition != null)
                 {
-                    NPCSendAlert("�س�ѧ�������ö�Ѻ��áԨ�����ͧ�ҡ", condition.description);
+                    NPCSendAlert(thai_language.conversation[0], condition.description);
                     break;
                 }
                 if (quest.status == Quest.QuestStatus.InProgress)
                 {
-                    NPCSendAlert("�س�� �Ѻ��áԨ�����", "�ô�������áԨ��͹˹��������稡�͹");
+                    NPCSendAlert(thai_language.conversation[1], thai_language.conversation[2]);
                     break;
                 }
 
@@ -158,12 +159,12 @@ public class NPC_Quest : MonoBehaviour
                 QuestAcceptanceConditions condition = CheckConditions(quest.conditions);
                 if (condition != null)
                 {
-                    NPCSendAlert("�س�ѧ�������ö�Ѻ��áԨ�����ͧ�ҡ", condition.description);
+                    NPCSendAlert(thai_language.conversation[0], condition.description);
                     break;
                 }
                 if (quest.status == Quest.QuestStatus.InProgress)
                 {
-                    NPCSendAlert("�س�� �Ѻ��áԨ�����", "�ô�������áԨ��͹˹��������稡�͹");
+                    NPCSendAlert(thai_language.conversation[1], thai_language.conversation[2]);
                     break;
                 }
 

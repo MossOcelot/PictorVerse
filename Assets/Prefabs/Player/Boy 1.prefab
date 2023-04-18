@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 7483556697510849753}
   - component: {fileID: 1956649661961853461}
   - component: {fileID: 1956649661961853441}
+  - component: {fileID: 1227809331696052500}
   - component: {fileID: 474016000313793867}
   - component: {fileID: 4919307208050748314}
   - component: {fileID: 4254152041474495757}
@@ -288,6 +289,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   rb: {fileID: 0}
   movementScript: {fileID: 0}
+  effect_controller: {fileID: 0}
   attackScript: {fileID: 0}
   loanPlayerController: {fileID: 474016000313793867}
 --- !u!114 &1956649661961853471
@@ -311,6 +313,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   defaultMoveSpeed: 1000
+  realMoveSpeed: 0
   moveSpeed: 1000
   isLooking: 0
   dashSpeed: 22
@@ -465,6 +468,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e3cf19e2ed0b30d4a9aaaad483db2916, type: 2}
   - {fileID: 11400000, guid: eb42cd07f06c8da4197148488baa153b, type: 2}
   - {fileID: 11400000, guid: a264f79b09cf5c345bdfb75fa6a9b12e, type: 2}
+  credit_endowment: 0
+  credit_hearth: 0
+  insuranceDataBuy: []
 --- !u!114 &2131668089665948639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -527,7 +533,7 @@ MonoBehaviour:
   - {x: 0.9585426, y: -1.9040359, z: 0}
   m_ShapePathHash: -869264443
   m_Mesh: {fileID: 0}
-  m_InstanceId: 77228
+  m_InstanceId: 1009222
 --- !u!114 &1956649661961853467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -719,6 +725,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1227809331696052500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956649661961853460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2d444b96bb63b4da7ee76fce720416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activityList: []
 --- !u!114 &474016000313793867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -731,11 +750,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21fabd750d07cab4b810f0f8f581e6cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainBagPlayer: {fileID: 0}
   debt: 0
   loanInterest: 0
   HaveDept: 0
   timer: 
   IsSent: 0
+  round: 0
 --- !u!82 &4919307208050748314
 AudioSource:
   m_ObjectHideFlags: 0

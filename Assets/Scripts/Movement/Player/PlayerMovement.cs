@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
 using inventory.Model;
 
 public class PlayerMovement : MonoBehaviour
@@ -46,6 +44,9 @@ public class PlayerMovement : MonoBehaviour
     public float strength;
     public float weight_player;
     [SerializeField] private TrailRenderer tr;
+
+    public StatusEffectController player_effects;
+    [SerializeField] private StatusEffectPlayer effect_to_work;
     Vector2 playerposition;
 
 
@@ -168,6 +169,9 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat("moveX", movement.x);
             animator.SetFloat("moveY", movement.y);
 
+            chanceOfGettingSick();
+
+
         }
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
 
@@ -204,8 +208,16 @@ public class PlayerMovement : MonoBehaviour
 
                 float newDistanceStatic = status.getMyStatic().static_distanceWalk + distance;
                 status.setMyStatic(4, newDistanceStatic);
-                status.setMyStatic(6, newDistanceStatic / 10000);
-                status.setMyStatic(8, newDistanceStatic / 1000);
+                
+
+                float rand_chance = UnityEngine.Random.Range(0f, 100f);
+                if (rand_chance <= 10f)
+                {
+                    float newHealth = status.getMyStatic().static_healthy + 1;
+                    float newHappy = status.getMyStatic().static_happy + 0.5f;
+                    status.setMyStatic(8, newHealth);
+                    status.setMyStatic(6, newHappy);
+                }
 
                 useEnergy(energy_for_walk);
            }
@@ -301,6 +313,39 @@ public class PlayerMovement : MonoBehaviour
     public void SetIsLooking(bool newStatus)
     {
         isLooking = newStatus;
+    }
+
+    private void chanceOfGettingSick()
+    {
+        float rand_chance = UnityEngine.Random.Range(0f, 100f);
+        float chance = CalculateChanceSick();
+        if (rand_chance <= chance)
+        {
+            player_effects.AddStatus(effect_to_work);
+        }
+    }
+
+    private float CalculateChanceSick()
+    {
+        float healthy = status.getMyStatic().static_healthy;
+        float chance = 0.01f;
+        if(healthy <= 20)
+        {
+            chance *= 5f;
+        }
+        else if(healthy <= 80)
+        {
+            chance *= 2.5f;
+        }
+        else if(healthy <= 100)
+        {
+            chance *= 1;
+        }
+        else
+        {
+            chance *= 0.5f;
+        }
+        return chance;
     }
 
     // ------------ save and load ------------

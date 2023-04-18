@@ -203,10 +203,12 @@ public class Shop_manager : MonoBehaviour
             total = (price + vat_value);
 
             shoppingCartCard = Instantiate(CartCardTemplate, shoppingCartShelf.transform);
+           
             shoppingCartCard.gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().color = stick_tags(item_in_stock.item.rarity.ToString());
             shoppingCartCard.gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = item_in_stock.item.icon;
             shoppingCartCard.gameObject.transform.GetChild(2).gameObject.GetComponent<Text>().text = item_in_stock.item.name;
             shoppingCartCard.gameObject.transform.GetChild(4).gameObject.GetComponent<Text>().text = item_in_stock.price.ToString("F");
+            
             removeBtn = shoppingCartCard.gameObject.GetComponent<Button>();
             removeBtn.AddEventListener(itemIndex, OnRemoveItemInCart);
         } else

@@ -157,6 +157,10 @@ public class PlayerStatus : MonoBehaviour
         }
         else if (command == 8)
         {
+            if(value > 120)
+            {
+                value = 120;
+            }
             this.myStatic.static_healthy = value;
         }
         else if (command == 9)

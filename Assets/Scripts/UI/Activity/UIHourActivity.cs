@@ -25,6 +25,18 @@ public class UIHourActivity : MonoBehaviour
         }
     }
 
+    public void ResetData()
+    {
+        foreach(Transform trans in Day_content)
+        {
+            int len = trans.childCount;
+            for(int i = 0; i < len; i++)
+            {
+                Destroy(trans.GetChild(i).gameObject);
+            }
+        }
+    }
+
     [System.Serializable]
     public class ActivitySprite
     {

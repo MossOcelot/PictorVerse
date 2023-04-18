@@ -53,6 +53,10 @@ public class TimeSkipController : MonoBehaviour
         TimeLineSleep.SetActive(false);
         Timesystem time = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
         time.SkipDay();
+
+        PlayerActivityController activity_controller = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerActivityController>();
+        activity_controller.AddActivity(time.getDateTime(), UIHourActivity.acitivty_type.sleep);
+
         npcController.dialoguePanel.SetActive(false);
     }
     public void SkipDay()

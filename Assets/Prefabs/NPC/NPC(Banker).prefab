@@ -244,13 +244,20 @@ MonoBehaviour:
   dialoguePanel: {fileID: 0}
   player: {fileID: 0}
   dialogueText: {fileID: 0}
+  DefaultDialogue: {fileID: 0}
   dialogue:
   - Im a Minor mannnn
   - Welcome to PictorVerse !
   - Nice to meet you
+  npc_quest: {fileID: 0}
+  npc_reach: {fileID: 0}
+  index: 0
   wordSpeed: 0.01
   playerIsClose: 0
   IsEndSituation: 0
+  IsOpenShelf: 0
+  IsInQuest: 0
+  IsInReachQuest: 0
 --- !u!114 &4121219768573872153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +273,7 @@ MonoBehaviour:
   ButtonList: {fileID: 0}
   BankShelf: {fileID: 0}
   InsuranceShelf: {fileID: 0}
+  LoanShelf: {fileID: 0}
   npcController: {fileID: 4121219768573873121}
 --- !u!114 &4121219768573873120
 MonoBehaviour:

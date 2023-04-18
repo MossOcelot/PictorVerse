@@ -76,7 +76,7 @@ public class UIInsurancePaper : MonoBehaviour
         float newPrice = player_status.player_accounts.getPocket()[scene.sceneInsection.ToString()] - insurance.subpackage[dropType.value].price;
         player_status.player_accounts.setPocket(scene.sceneInsection.ToString(), newPrice);
 
-        
+        gameObject.SetActive(false);
     }
 
     private void Start()
