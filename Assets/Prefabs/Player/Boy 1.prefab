@@ -118,6 +118,7 @@ GameObject:
   - component: {fileID: 4919307208050748314}
   - component: {fileID: 4254152041474495757}
   - component: {fileID: 4934100284200213865}
+  - component: {fileID: 6461771395327272232}
   m_Layer: 7
   m_Name: Boy 1
   m_TagString: Player
@@ -326,6 +327,11 @@ MonoBehaviour:
   strength: 0
   weight_player: 0
   tr: {fileID: 1956649661961853466}
+  player_effects: {fileID: 0}
+  effect_to_work:
+    data: {fileID: 0}
+    current_time: 0
+    StatusSlow: 0
   dashCountdownTimer: 5
   canDashSpeed: 1
   maxCountDashSpeed: 0
@@ -374,6 +380,7 @@ MonoBehaviour:
   MyInventoryObj: {fileID: 0}
   MyAccountObj: {fileID: 0}
   MyLife: {fileID: 0}
+  time: {fileID: 0}
 --- !u!114 &372831218654241934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -533,7 +540,7 @@ MonoBehaviour:
   - {x: 0.9585426, y: -1.9040359, z: 0}
   m_ShapePathHash: -869264443
   m_Mesh: {fileID: 0}
-  m_InstanceId: 1009222
+  m_InstanceId: 90400
 --- !u!114 &1956649661961853467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1045,6 +1052,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6461771395327272232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956649661961853460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32be9af0e6a9c347a971f654112841c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultSkin: {fileID: 22100000, guid: 07b6a1d95aae3a5498f6d30f123af55d, type: 2}
+  DiggerSkin: {fileID: 22100000, guid: d31dcd57fe50e9047b8122fc9cd5db56, type: 2}
 --- !u!1 &1956649662423594575
 GameObject:
   m_ObjectHideFlags: 0
