@@ -50,12 +50,11 @@ public class UIHospitalShow : MonoBehaviour
 
     public void Show()
     {
-        GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerMovement>().isLooking = true;
+        Debug.Log("Show");
         GameObject.FindGameObjectWithTag("MainCamera").gameObject.GetComponent<interfaceCanvasController>().isLooking = true;
     }
     public void Close()
     {
-        GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerMovement>().isLooking = false;
         GameObject.FindGameObjectWithTag("MainCamera").gameObject.GetComponent<interfaceCanvasController>().isLooking = false;
         Destroy(gameObject);
     }

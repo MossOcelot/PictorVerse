@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,18 +37,20 @@ public class UIInventoryPage : MonoBehaviour
     public Transform ButtonPanel;
 
     public Vector3 location_ItemDescription;
+    public bool IsCrafting;
     private void Awake()
     {
         hide();
         mouseFollower.Toggle(false);
     }
-    public void Start()
+
+    public void ConfigData()
     {
         Transform Menu = GameObject.FindGameObjectWithTag("Menu").gameObject.transform;
-        mouseFollower = Menu.GetChild(1).gameObject.GetComponent<MouseFollower>();
-        actionPanel = Menu.GetChild(2).gameObject.GetComponent<ItemActionPanel>();
-        descriptionActionPanel = Menu.GetChild(3).gameObject.GetComponent<ItemDescribtionAction>();
-        ButtonPanel = Menu.GetChild(4).gameObject.GetComponent<Transform>();
+        mouseFollower = Menu.GetChild(2).gameObject.GetComponent<MouseFollower>();
+        actionPanel = Menu.GetChild(3).gameObject.GetComponent<ItemActionPanel>();
+        descriptionActionPanel = Menu.GetChild(4).gameObject.GetComponent<ItemDescribtionAction>();
+        ButtonPanel = Menu.GetChild(5).gameObject.GetComponent<Transform>();
     }
 
     public void InitializeInventoryUI(int inventorysize)
@@ -62,6 +65,7 @@ public class UIInventoryPage : MonoBehaviour
             uiItem.OnItemDroppedOn += HandleSwap;
             uiItem.OnItemEndDrag += HandleEndDrag;
             uiItem.OnEnterMouseBtn += HandleShowItemDescription;
+            uiItem.OnExitMouseBtn += HandleCloseItemDescription;
         }
     }
 
@@ -92,6 +96,23 @@ public class UIInventoryPage : MonoBehaviour
         OnDescriptionRequested?.Invoke(index);
     }
 
+    private void HandleCloseItemDescription(UIInventoryItem inventoryItemUI)
+    {
+        int index = listOfUIItems.IndexOf(inventoryItemUI);
+        if (index == -1)
+        {
+            return;
+        }
+
+        int len1 = descriptionActionPanel.transform.childCount;
+
+        for(int i = 0 ; i < len1; i++)
+        {
+            Destroy(descriptionActionPanel.transform.GetChild(i).gameObject);
+        }
+
+        Debug.Log("CloseDescription");
+    }
 
     private void HandleEndDrag(UIInventoryItem inventoryItemUI)
     {
@@ -185,6 +206,16 @@ public class UIInventoryPage : MonoBehaviour
         DeselectAllItems();
         listOfUIItems[itemIndex].Select();
         descriptionActionPanel.Toggle(true);
+        if(IsCrafting)
+        {
+            int len = ButtonPanel.childCount;
+            Debug.Log($"IsCrafting: {len}");
+            for(int i = 0; i < len; i++) 
+            { 
+                Destroy(ButtonPanel.GetChild(i).gameObject);
+            }
+            return;
+        }
         ButtonPanel.transform.position = listOfUIItems[itemIndex].transform.position + new Vector3(-0.69995f, -59.3732f);
     }
 

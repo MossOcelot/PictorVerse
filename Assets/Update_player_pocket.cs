@@ -29,7 +29,7 @@ public class Update_player_pocket : MonoBehaviour
     private void FixedUpdate()
     {
         Dictionary<string, float> player_pocket = player_status.player_accounts.getPocket();
-        main_cash.text = String.Format("<sprite index={0}>", player_pocket.Values.ToList().IndexOf(player_pocket[SceneStatus])) + player_pocket[SceneStatus].ToString("F");
+        main_cash.text = String.Format("<sprite index={0}> ", player_pocket.Values.ToList().IndexOf(player_pocket[SceneStatus])) + player_pocket[SceneStatus].ToString("F");
 
         int n = 0;
         foreach (string key in player_pocket.Keys)
@@ -38,7 +38,7 @@ public class Update_player_pocket : MonoBehaviour
             {
                 continue;
             }
-            otherCash[n].text = String.Format("<sprite index={0}>",n+1) + player_pocket[key].ToString();
+            otherCash[n].text = String.Format("<sprite index={0}> ",n+1) + player_pocket[key].ToString();
             n++;
         }
     }

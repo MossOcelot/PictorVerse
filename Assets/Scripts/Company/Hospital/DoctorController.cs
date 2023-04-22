@@ -71,4 +71,12 @@ public class DoctorController : MonoBehaviour
 
         Hospital.gameObject.GetComponent<UIHospitalShow>().Show();
     }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Hospital.gameObject.GetComponent<UIHospitalShow>().Close();
+        }
+    }
 }

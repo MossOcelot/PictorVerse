@@ -48,14 +48,13 @@ public class UICraftingManager : MonoBehaviour
     private UI_CharacterEquipmentSlot slot9;
     private UIInventoryItem slot9_box;
 
-    private void Start()
-    {
-        PrepareInventoryUI();
-        PrepareInventoryData();
-    }
+
 
     private void Awake()
     {
+        PrepareInventoryUI();
+        PrepareInventoryData();
+
         slot1 = craftTrans.GetChild(0).gameObject.GetComponent<UI_CharacterEquipmentSlot>();
         slot1_box = craftTrans.GetChild(0).gameObject.GetComponent<UIInventoryItem>();
 
@@ -98,6 +97,7 @@ public class UICraftingManager : MonoBehaviour
     {
         inventoryPage.enabled = true;
         inventoryPage.show();
+        inventoryPage.ConfigData();
         foreach (var item in inventoryBag.GetCurrentInventoryState())
         {
             inventoryPage.UpdateData(item.Key, item.Value.item, item.Value.item.icon, item.Value.quantity);
@@ -377,7 +377,7 @@ public class UICraftingManager : MonoBehaviour
 
     private void PrepareInventoryData()
     {
-        inventoryBag.Initialize();
+        // inventoryBag.Initialize();
         inventoryBag.OnInventoryUpdated += UpdateInventoryUI;
         foreach (var item in initialItems)
         {

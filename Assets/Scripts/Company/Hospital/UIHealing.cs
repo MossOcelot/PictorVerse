@@ -78,7 +78,7 @@ public class UIHealing : MonoBehaviour
 
         Timesystem date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
         int[] dateTime = date.getDateTime();
-        AccountsDetail account = new AccountsDetail() { date = dateTime, accounts_name = "ค่ารักษาพยาบาล", account_type = "buy", income = 0, expense = player_cost };
+        AccountsDetail account = new AccountsDetail() { date = dateTime, accounts_name = "ค่ารักษาพยาบาล", account_type = "TF", income = 0, expense = player_cost, currencyIncome_Type = SceneStatus.section.section1, currencyExpense_Type = SceneStatus.section.section1 };
         playerStatus.addAccountsDetails(account);
         ClearDesease();
     }
@@ -103,10 +103,10 @@ public class UIHealing : MonoBehaviour
         float newValue = playerStatus.player_accounts.getPocket()[section.ToString()] + player_cost;
         playerStatus.player_accounts.setPocket(section.ToString(), newValue);
 
-        AccountsDetail newAccountDetail = new AccountsDetail() { date = present_date, accounts_name = "กู้เงิน", account_type = "Loan", income = player_cost, expense = 0 };
+        AccountsDetail newAccountDetail = new AccountsDetail() { date = present_date, accounts_name = "กู้เงิน", account_type = "TF", income = player_cost, expense = 0, currencyIncome_Type = SceneStatus.section.section1, currencyExpense_Type = SceneStatus.section.section1 };
         playerStatus.addAccountsDetails(newAccountDetail);
 
-        AccountsDetail account = new AccountsDetail() { date = present_date, accounts_name = "ค่ารักษาพยาบาล", account_type = "buy", income = 0, expense = player_cost };
+        AccountsDetail account = new AccountsDetail() { date = present_date, accounts_name = "ค่ารักษาพยาบาล", account_type = "buy", income = 0, expense = player_cost, currencyIncome_Type = SceneStatus.section.section1, currencyExpense_Type = SceneStatus.section.section1 };
         playerStatus.addAccountsDetails(account);
         ClearDesease();
     }

@@ -70,7 +70,7 @@ public class InventoryController : MonoBehaviour
 
     private void PrepareInventoryData()
     {
-        inventoryData.Initialize();
+        inventoryData.Initialize(); 
         inventoryData.OnInventoryUpdated += UpdateInventoryUI;
         foreach (var item in initialItems)
         {
@@ -410,6 +410,7 @@ public class InventoryController : MonoBehaviour
             if (Player_pocket.status == false)
             {
                 Player_pocket.show();
+                Foreign_Exchange.hide();
             }
             else
             {
@@ -422,6 +423,7 @@ public class InventoryController : MonoBehaviour
             if (Foreign_Exchange.status == false)
             {
                 Foreign_Exchange.show();
+                Player_pocket.hide();
             } else
             {
                 Foreign_Exchange.hide();
@@ -454,6 +456,7 @@ public class InventoryController : MonoBehaviour
                     miniInventoryUI.UpdateData(item.Key, item.Value.item, item.Value.item.icon, item.Value.quantity);
                 }
                 miniInitialItem = miniInventoryData.getInventoryItems();
+
             } else
             {
                 MyInventoryObj.gameObject.SetActive(true);

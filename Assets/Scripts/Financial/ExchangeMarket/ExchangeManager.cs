@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Windows;
 using TMPro;
+
 public class ExchangeManager : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -24,7 +25,7 @@ public class ExchangeManager : MonoBehaviour
 
     public float default_cash;
     public TextMeshProUGUI exchangeCash;
-    public Text textinputField;
+    public GameObject textinputField;
 
     string text_cash;
 
@@ -39,11 +40,14 @@ public class ExchangeManager : MonoBehaviour
     {
         text_cash = checkTypeCurrency(fromCurrencys.value);
         float rate = exchangeRate.getExchangeRate(fromCurrencys.value, toCurrencys.value);
-        string text = textinputField.text;
-        bool result = float.TryParse(text, out float number);
+        string text = textinputField.gameObject.GetComponent<TMP_InputField>().text;
+        bool result = float.TryParse(textinputField.gameObject.GetComponent<TMP_InputField>().text, out float number);
+
+        Debug.Log("Hello True: "+ text + " result: " + result + " number: " + number);
         if (result)
         {
-            if (textinputField.text == "")
+            Debug.Log("Update True");
+            if (textinputField.gameObject.GetComponent<TMP_InputField>().text == "")
             {
                 text = "0";
             }
