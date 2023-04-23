@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StatusEffectController : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class StatusEffectController : MonoBehaviour
     private PlayerMovement playerMovement;
     [SerializeField]
     private List<StatusEffectPlayer> statusEffects;
-
+    public GameObject animationHealing;
     int oldCount;
     int oldTime;
     // Start is called before the first frame update
@@ -141,5 +142,12 @@ public class StatusEffectController : MonoBehaviour
     {
         playerMovement.setDefaultMoveSpeed(5);
         statusEffects.Clear();
+        StartCoroutine((IEnumerator)LoadAnimationHealer());
+            }
+    private IEnumerator LoadAnimationHealer()
+    {
+        animationHealing.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        animationHealing.SetActive(false);
     }
 }

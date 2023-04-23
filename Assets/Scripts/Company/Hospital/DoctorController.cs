@@ -12,6 +12,8 @@ public class DoctorController : MonoBehaviour
     public QuestDialogue doctor_controller;
 
     GameObject Hospital;
+
+    
     public void Update()
     {
         if (!npcController.playerIsClose) return;
@@ -58,7 +60,6 @@ public class DoctorController : MonoBehaviour
 
 
             npcController.SetIndexConversation(0);
-           
             npcController.StartDialogue();
             return;
         }
@@ -68,7 +69,6 @@ public class DoctorController : MonoBehaviour
         Timesystem time = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
         PlayerActivityController activity_controller = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerActivityController>();
         activity_controller.AddActivity(time.getDateTime(), UIHourActivity.acitivty_type.hospital);
-
         Hospital.gameObject.GetComponent<UIHospitalShow>().Show();
     }
 }

@@ -46,10 +46,10 @@ public class TimeSkipController : MonoBehaviour
     }
     private IEnumerator SleepRoutine()
     {
-        player.SetActive(false);
+        player.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         TimeLineSleep.SetActive(true);
         yield return new WaitForSeconds(12f);
-        player.SetActive(true);
+        player.gameObject.GetComponent<SpriteRenderer>().enabled = true;
         TimeLineSleep.SetActive(false);
         Timesystem time = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
         time.SkipDay();
