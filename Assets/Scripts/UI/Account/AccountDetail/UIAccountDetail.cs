@@ -21,6 +21,16 @@ public class UIAccountDetail : MonoBehaviour
                 Open();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UISettingBar settingBar = GameObject.FindGameObjectWithTag("SettingBar").gameObject.GetComponent<UISettingBar>();
+            if (UI.activeSelf)
+            {
+                Hide();
+                settingBar.CanExit = false;
+            }
+        }
     }
 
     public void Hide()
@@ -39,27 +49,27 @@ public class UIAccountDetail : MonoBehaviour
         float[] RI = new float[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         float[] FI = new float[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         float[] MI = new float[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        float[] expense = new float[] { 0, 0, 0, 0, 0, 110, 230, 420, 530, 120, 10, 0 };
+        float[] expense = new float[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         PlayerStatus player_status = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerStatus>();
         foreach(AccountsDetail account in player_status.getAccountsDetails())
         {
             if(account.account_type == "RI")
             {
-                RI[account.date[1]] += account.income;
+                RI[account.date[1] - 1] += account.income;
             }
             else if(account.account_type == "FI")
             {
-                FI[account.date[1]] += account.income;
+                FI[account.date[1] - 1] += account.income;
             }
             else if(account.account_type == "MI")
             {
-                MI[account.date[1]] += account.income;
+                MI[account.date[1] - 1] += account.income;
             }
             
             if(account.expense > 0)
             {
                 Debug.Log($"Expense {account.date[1]} : {account.expense}");    
-                expense[account.date[1]] += account.expense;
+                expense[account.date[1] - 1] += account.expense;
             }
         }
         dashboard.RI = RI.ToList();
@@ -74,11 +84,11 @@ public class UIAccountDetail : MonoBehaviour
         {
             if(data.type_insurance == "Endowment")
             {
-                insurance1[data.buyDate[1]] += data.amount;
+                insurance1[data.buyDate[1] - 1] += data.amount;
             }
             else if(data.type_insurance == "Health_insurance")
             {
-                insurance2[data.buyDate[1]] += data.amount;
+                insurance2[data.buyDate[1] - 1] += data.amount;
             }
         }
 

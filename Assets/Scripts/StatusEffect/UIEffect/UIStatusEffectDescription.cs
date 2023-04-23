@@ -25,7 +25,7 @@ public class UIStatusEffectDescription : MonoBehaviour
 
     private void Update()
     {
-        int[] times = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>().getDateTime();
+        int[] times = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>().getDateTime();
         
         if(old_time != times[4])
         {

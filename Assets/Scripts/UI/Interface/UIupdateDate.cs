@@ -9,7 +9,7 @@ public class UIupdateDate : MonoBehaviour
 
     private void Start()
     {
-        timeSystem = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+        timeSystem = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();
     }
     private void FixedUpdate()
     {

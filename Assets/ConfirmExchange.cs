@@ -78,7 +78,7 @@ public class ConfirmExchange : MonoBehaviour
     }
     int[] GetDateTime()
     {
-        Timesystem date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+        Timesystem date = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();
         return date.getDateTime();
     }
 

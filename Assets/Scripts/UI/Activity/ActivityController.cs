@@ -10,7 +10,7 @@ public class ActivityController : MonoBehaviour
 
     private void Start()
     {
-        firstYear = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>().startYear;
+        firstYear = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>().startYear;
     }
 
     public void SetActivityInHoursDay(int[] date, UIHourActivity.acitivty_type acitivty_Type)

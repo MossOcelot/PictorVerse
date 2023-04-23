@@ -32,7 +32,7 @@ public class UIStatusEffectItem : MonoBehaviour
 
     public void Update()
     {
-        int[] times = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>().getDateTime();
+        int[] times = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>().getDateTime();
         if (times[4] != old_time)
         {
             current_time++;

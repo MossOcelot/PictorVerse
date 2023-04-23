@@ -45,7 +45,7 @@ public class SellItemConfirm : MonoBehaviour
             }
             
         }
-        Timesystem date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+        Timesystem date = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();
         int[] dateTime = date.getDateTime();
 
         AccountsDetail account_Player = new AccountsDetail() { date = dateTime, accounts_name = "sell items", account_type = "MI", income = shop_manager.getSellPrice(), expense = 0 , currencyIncome_Type = section, currencyExpense_Type = section };

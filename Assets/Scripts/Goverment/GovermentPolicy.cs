@@ -9,7 +9,6 @@ public class GovermentPolicy : MonoBehaviour
     public GovermentPolicyData govermentPolicy;
     public GovermentStatus govermentStatus;
     public GameObject FileTax_Template;
-    public Transform content_FileTax;
     
     Timesystem time_system;
 
@@ -39,12 +38,11 @@ public class GovermentPolicy : MonoBehaviour
         govermentPolicy.vehicle_tax = vat_check["vehicle_tax"];
         govermentPolicy.personal_star_tax = vat_check["personal_star_tax"];
 
-        time_system = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.AddComponent<Timesystem>();
+        time_system = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();
     }
 
     private void FixedUpdate()
     {
-        Debug.Log("FixedUpdate");
         int[] date = time_system.getDateTime();
         if (date[2] == govermentPolicy.taxCollectionDay[2])
         {

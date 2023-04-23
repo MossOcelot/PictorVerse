@@ -37,7 +37,7 @@ public class FinancialAnalytic : MonoBehaviour
         player_career = player.GetComponent<CareerPlayer>();
         player_loan = player.GetComponent<LoanPlayerController>();
         account_bank_operation = GameObject.FindGameObjectWithTag("AccountOperation").gameObject.GetComponent<AccountBankOperation>();
-        time_system = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>(); 
+        time_system = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>(); 
     }
 
     private void Update()
@@ -296,7 +296,7 @@ public class FinancialAnalytic : MonoBehaviour
     private List<IncomeExpenseData> CleanIncomeAndExpense()
     {
         List<AccountsDetail> accounts = player_status.getAccountsDetails();
-        int[] present_date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>().getDateTime();
+        int[] present_date = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>().getDateTime();
         int present_month = present_date[1];
         int present_year = present_date[2];
 
@@ -307,7 +307,6 @@ public class FinancialAnalytic : MonoBehaviour
         for(int i = len - 1; i >= 0; i--)
         {
             AccountsDetail account = accounts[i];
-            Debug.Log($"Account: {account.income}");
             int[] date = account.date;
             string type = account.account_type;
             float income = account.income;

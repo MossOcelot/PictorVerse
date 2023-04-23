@@ -54,7 +54,7 @@ public class InsuranceController : MonoBehaviour
 
     private void Start()
     {
-        time_system = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+        time_system = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();
         allItemInMarket = GameObject.FindGameObjectWithTag("AllMarket").gameObject.GetComponent<AllItemInMarket>();
     }
 

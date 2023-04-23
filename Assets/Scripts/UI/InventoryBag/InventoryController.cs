@@ -45,7 +45,7 @@ public class InventoryController : MonoBehaviour
     */
     public void Start()
     {
-        time = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();    
+        time = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();    
 
         PrepareInventoryUI();
         PrepareInventoryData();
@@ -465,6 +465,33 @@ public class InventoryController : MonoBehaviour
                 inventoryUI.hide();
                 WeaponBoxUI.hide();
                 miniInventoryUI.hide();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UISettingBar settingBar = GameObject.FindGameObjectWithTag("SettingBar").gameObject.GetComponent<UISettingBar>();   
+            if (Player_pocket.status)
+            {
+                Player_pocket.hide();
+                settingBar.CanExit = false;
+            }
+
+            if (Foreign_Exchange.status)
+            {
+                Foreign_Exchange.hide();
+                settingBar.CanExit = false;
+            }
+            
+            if (inventoryUI.isActiveAndEnabled)
+            {
+                MyInventoryObj.gameObject.SetActive(true);
+                MyAccountObj.gameObject.SetActive(false);
+                MyLife.gameObject.SetActive(false);
+                inventoryUI.hide();
+                WeaponBoxUI.hide();
+                miniInventoryUI.hide();
+                settingBar.CanExit = false;
             }
         }
     }

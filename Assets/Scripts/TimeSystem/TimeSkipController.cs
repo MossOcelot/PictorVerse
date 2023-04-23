@@ -51,7 +51,7 @@ public class TimeSkipController : MonoBehaviour
         yield return new WaitForSeconds(12f);
         player.SetActive(true);
         TimeLineSleep.SetActive(false);
-        Timesystem time = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+        Timesystem time = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();
         time.SkipDay();
 
         PlayerActivityController activity_controller = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerActivityController>();

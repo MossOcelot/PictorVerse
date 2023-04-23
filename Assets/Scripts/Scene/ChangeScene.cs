@@ -28,7 +28,7 @@ public class ChangeScene : MonoBehaviour
         fade.FadeIn();
         yield return new WaitForSeconds(1f);
 
-        Timesystem time = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+        Timesystem time = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();
         SceneManager.LoadScene(sceneName);
         if(sceneName == "Bank")
         {

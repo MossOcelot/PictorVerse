@@ -116,7 +116,6 @@ public class ItemDestroy : Tool
         int quantity_item = item_datas.Count;
         if (quantity_item == 0) quantity_item = 1;
         int quantity_drop = (int)Random.Range(1, quantity_item);
-        Debug.Log("Random " + quantity_drop);
         dropCount = quantity_drop;
         while (dropCount > 0)
         {
@@ -133,7 +132,6 @@ public class ItemDestroy : Tool
             go.GetComponent<ItemPickup>().SetItemPickUp(item.item, quantity_itemDrop);
             if (go == null) break;
             go.transform.position = pos;
-            Debug.Log($"index: {dropCount} item: {item.item.item_name} quantity: {quantity_itemDrop}");
         }
         Destroy(gameObject);
         DestroySFX.Play();

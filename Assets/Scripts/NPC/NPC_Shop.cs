@@ -26,7 +26,7 @@ public class NPC_Shop : MonoBehaviour
 
     GameObject shop;
     public GameObject goverment;
-
+    public bool EatShop;
     Button cofirmBtn;
     public void setBuy_items_list(int index,InventoryItem inventoryitem)
     {
@@ -132,7 +132,7 @@ public class NPC_Shop : MonoBehaviour
     void OnShopConfirmBuy(GameObject player)
     {
         // get Time date
-        Timesystem date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+        Timesystem date = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();
         int[] dateTime = date.getDateTime();
 
         PlayerStatus status = player.GetComponent<PlayerStatus>();
@@ -187,7 +187,15 @@ public class NPC_Shop : MonoBehaviour
         float price = total - vat_value;
         npc_shop_data.financialDetail.balance += price;
         // Update Accounts Player
-        AccountsDetail account_Player = new AccountsDetail() { date = dateTime, accounts_name = "OE", account_type = "buy", income = 0, expense = total };
+        AccountsDetail account_Player;
+        if (EatShop)
+        {
+            account_Player = new AccountsDetail() { date = dateTime, accounts_name = "BuyEatable", account_type = "EE", income = 0, expense = total };
+        }
+        else
+        {
+            account_Player = new AccountsDetail() { date = dateTime, accounts_name = "BuyItem", account_type = "OE", income = 0, expense = total };
+        }
         player.gameObject.GetComponent<PlayerStatus>().addAccountsDetails(account_Player);
         // Update Accounts NPC
         AccountsDetail account_NPC = new AccountsDetail() { date = dateTime, accounts_name = "sell items", account_type = "sell", income = price, expense =  0};
@@ -206,5 +214,18 @@ public class NPC_Shop : MonoBehaviour
             if (len == 0) return;
             Destroy(GameObject.FindGameObjectWithTag("ShopManager").gameObject.transform.GetChild(0).gameObject);
         } 
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            int len = GameObject.FindGameObjectWithTag("ShopManager").gameObject.transform.childCount;
+            if (len == 0) return;
+
+            UISettingBar settingBar = GameObject.FindGameObjectWithTag("SettingBar").gameObject.GetComponent<UISettingBar>();
+            Destroy(GameObject.FindGameObjectWithTag("ShopManager").gameObject.transform.GetChild(0).gameObject);
+            settingBar.CanExit = false;
+        }
     }
 }

@@ -77,7 +77,7 @@ public class UILoan : MonoBehaviour
 
     public void ConfirmBorrow()
     {
-        int[] present_date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>().getDateTime();
+        int[] present_date = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>().getDateTime();
         LoanPlayerController player = manager.playerStatus.loanPlayerController;
         float newDebt = player.GetDept() + BorrowAmount;
         player.SetDebt(newDebt);

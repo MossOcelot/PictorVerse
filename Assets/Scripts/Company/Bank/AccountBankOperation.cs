@@ -44,7 +44,7 @@ public class AccountBankOperation : MonoBehaviour
 
     private void FixedUpdate()
     {
-        int[] present_date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>().getDateTime();
+        int[] present_date = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>().getDateTime();
 
         if(old_day != present_date[0]) 
         {

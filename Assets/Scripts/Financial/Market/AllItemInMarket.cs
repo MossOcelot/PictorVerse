@@ -28,7 +28,7 @@ public class AllItemInMarket : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        time_system = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();  
+        time_system = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();  
     }
 
     // Update is called once per frame

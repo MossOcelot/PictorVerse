@@ -69,7 +69,7 @@ public class FileTaxSystem : MonoBehaviour
     public void CalculateExpense()
     {
         expensesFI = Mathf.RoundToInt(InputFI * 0.5f);
-        expensesRI = Mathf.RoundToInt(InputRI * 0.5f);
+        expensesRI = 0f;
         expensesMI = Mathf.RoundToInt(InputMI * 0.6f);
     }
 
@@ -201,7 +201,7 @@ public class FileTaxSystem : MonoBehaviour
     {
         GovermentPolicy goverment = GameObject.FindGameObjectWithTag("Goverment").gameObject.GetComponent<GovermentPolicy>();
 
-        Timesystem date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+        Timesystem date = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();
         int[] dateTime = date.getDateTime();
 
         SceneStatus.section section = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection;
@@ -218,6 +218,10 @@ public class FileTaxSystem : MonoBehaviour
 
         AccountsDetail account_goverment = new AccountsDetail() { date = dateTime, accounts_name = "เก็บภาษี", account_type = "PayTax", income = netTax, expense = 0, currencyIncome_Type = section, currencyExpense_Type = section };
         goverment.govermentStatus.addAccountsDetail(account_goverment);
+
+        UIMailBox mail_manager = GameObject.FindGameObjectWithTag("MailBox").gameObject.GetComponent<UIMailBox>();
+        mail_manager.AddMail("Goverment", $"จ่ายภาษีแล้ว ของปี {dateTime[2] - 1}",
+            $"ขอแสดงความยินดี คุณจ่ายภาษีแล้ว เป็นจำนวน {netTax} <sprite index={(int)section}>", null, null);
 
         // reset
         goverment.NonPayTaxDay = 0;

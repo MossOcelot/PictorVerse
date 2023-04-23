@@ -12,6 +12,16 @@ public class NPCTicketSeller : MonoBehaviour
 
     public void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UISettingBar settingBar = GameObject.FindGameObjectWithTag("SettingBar").gameObject.GetComponent<UISettingBar>();
+            if (TicketShelf.gameObject.activeSelf)
+            {
+                TicketShelf.gameObject.SetActive(false);
+                settingBar.CanExit = false;
+            }
+        }
+
         if (!npcController.playerIsClose) return;
         bool IsEndSituation = npcController.IsEndSituation;
 
@@ -25,6 +35,8 @@ public class NPCTicketSeller : MonoBehaviour
         {
             AddButtonInDialog();
         }
+
+        
     }
 
     public void AddButtonInDialog()

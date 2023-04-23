@@ -43,6 +43,16 @@ public class UIMailBox : MonoBehaviour
                 UI.gameObject.SetActive(true);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UISettingBar settingBar = GameObject.FindGameObjectWithTag("SettingBar").gameObject.GetComponent<UISettingBar>();
+            if (UI.gameObject.activeSelf)
+            {
+                UI.gameObject.SetActive(false);
+                settingBar.CanExit = false;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -145,6 +155,6 @@ public class Mail
 
     private int[] GetDate()
     {
-        return GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>().getDateTime();
+        return GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>().getDateTime();
     }
 }

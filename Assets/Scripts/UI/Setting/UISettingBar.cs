@@ -7,21 +7,29 @@ public class UISettingBar : MonoBehaviour
 {
     [SerializeField]
     private GameObject SettingBar;
-    bool isClick = false;
+    [SerializeField] bool isClick = false;
+    public bool CanExit = true;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isClick)
+            if (CanExit)
             {
-                SettingBar.SetActive(false);
-                isClick = false;
+                if (isClick)
+                {
+                    SettingBar.SetActive(false);
+                    isClick = false;
+                }
+                else
+                {
+                    SettingBar.SetActive(true);
+                    isClick = true;
+                }
+            } else
+            {
+                CanExit = true;
             }
-            else 
-            { 
-                SettingBar.SetActive(true);
-                isClick = true;
-            }
+            
         }
     }
 }

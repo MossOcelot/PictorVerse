@@ -26,7 +26,7 @@ public class CareerPlayer : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        time_system = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+        time_system = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();
 
         int[] Now_time = time_system.getDateTime();
         DayInGame = time_system.daysPerMonth;

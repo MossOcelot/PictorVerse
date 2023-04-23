@@ -27,7 +27,7 @@ public class LoanPlayerController : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerStatus>();
-        TimeSystem = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+        TimeSystem = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();
         section = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection;
         allItemInMarket = GameObject.FindGameObjectWithTag("AllMarket").gameObject.GetComponent<AllItemInMarket>();
     }
@@ -47,8 +47,8 @@ public class LoanPlayerController : MonoBehaviour
                     if(round == 0)
                     {
                         UIMailBox mail_manager = GameObject.FindGameObjectWithTag("MailBox").gameObject.GetComponent<UIMailBox>();
-                        mail_manager.AddMail("Loan", $"ใบแจ้งจ่ายหนี้ค้างชำระ วันที่ {date[0]}/{date[1]}/{date[2]}",
-                            $"{player.getPlayerName()} มีหนี้ค้างชำระ {debt + loanInterest} โดยมีหนี้เงินต้น {debt} และ ดอกเบี้ย {loanInterest} จ่ายขั้นต่ำ {(debt + loanInterest) * 0.10f}", null, null);
+                        mail_manager.AddMail("Loan", $"ใบแจ้งจ่ายหนี้ค้างชำระ ",
+                            $"ใบแจ้งจ่ายหนี้ค้างชำระ วันที่ {date[0]}/{date[1]}/{date[2]} {player.getPlayerName()} มีหนี้ค้างชำระ {debt + loanInterest} โดยมีหนี้เงินต้น {debt} และ ดอกเบี้ย {loanInterest} จ่ายขั้นต่ำ {(debt + loanInterest) * 0.10f}", null, null);
                     }
                     round++;
                     CheckDefaultStatus(date);
@@ -68,8 +68,8 @@ public class LoanPlayerController : MonoBehaviour
        if(round > 4)
        {
             UIMailBox mail_manager = GameObject.FindGameObjectWithTag("MailBox").gameObject.GetComponent<UIMailBox>();
-            mail_manager.AddMail("Loan", $"ใบแจ้งค้างชำระหนี้ วันที่ {date[0]}/{date[1]}/{date[2]}",
-                $"{player.getPlayerName()} มีหนี้ค้างชำระ {debt + loanInterest} โดยมีหนี้เงินต้น {debt} และ ดอกเบี้ย {loanInterest} เนื่องจากคุณไม่ได้จ่ายมาแล้ว {round - 1} เดือน ส่งผลทำให้ธนาคารจะยึดทรัพย์สินทั้งหมดของคุณ เพื่อนำมาชำระหนี้", null, null);
+            mail_manager.AddMail("Loan", $"ใบแจ้งค้างชำระหนี้",
+                $"ใบแจ้งจ่ายหนี้ค้างชำระ วันที่ {date[0]}/{date[1]}/{date[2]} {player.getPlayerName()} มีหนี้ค้างชำระ {debt + loanInterest} โดยมีหนี้เงินต้น {debt} และ ดอกเบี้ย {loanInterest} เนื่องจากคุณไม่ได้จ่ายมาแล้ว {round - 1} เดือน ส่งผลทำให้ธนาคารจะยึดทรัพย์สินทั้งหมดของคุณ เพื่อนำมาชำระหนี้", null, null);
 
             player.setMyStatic(7, 0);
             if (SeizePropertyDeposite()) return;
@@ -83,8 +83,8 @@ public class LoanPlayerController : MonoBehaviour
        else if(round >= 2)
        {
             UIMailBox mail_manager = GameObject.FindGameObjectWithTag("MailBox").gameObject.GetComponent<UIMailBox>();
-            mail_manager.AddMail("Loan", $"ใบแจ้งจ่ายค่าค้างหนี้ค้างชำระ วันที่ {date[0]}/{date[1]}/{date[2]}",
-                $"{player.getPlayerName()} มีหนี้ค้างชำระ {debt + loanInterest} โดยมีหนี้เงินต้น {debt} และ ดอกเบี้ย {loanInterest} จ่ายขั้นต่ำ {((debt + loanInterest) * 0.10f) * round } เนื่องจากคุณไม่ได้จ่ายมาแล้ว {round - 1} เดือน", null, null);
+            mail_manager.AddMail("Loan", $"ใบแจ้งจ่ายค่าค้างหนี้ค้างชำระ",
+                $"ใบแจ้งจ่ายหนี้ค้างชำระ วันที่ {date[0]}/{date[1]}/{date[2]} {player.getPlayerName()} มีหนี้ค้างชำระ {debt + loanInterest} โดยมีหนี้เงินต้น {debt} และ ดอกเบี้ย {loanInterest} จ่ายขั้นต่ำ {((debt + loanInterest) * 0.10f) * round } เนื่องจากคุณไม่ได้จ่ายมาแล้ว {round - 1} เดือน", null, null);
        }
     }
 

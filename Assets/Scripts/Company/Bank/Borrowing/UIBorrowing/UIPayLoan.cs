@@ -40,7 +40,7 @@ public class UIPayLoan : MonoBehaviour
     {
         section = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection;
         loanPlayerController = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<LoanPlayerController>();
-        time_system = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.AddComponent<Timesystem>();
+        time_system = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();
     }
 
 
@@ -98,7 +98,7 @@ public class UIPayLoan : MonoBehaviour
 
     public void ConfirmSpendLoan()
     {
-        int[] present_date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>().getDateTime();
+        int[] present_date = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>().getDateTime();
         LoanPlayerController player = manager.playerStatus.loanPlayerController;
         float newDebt = player.GetDept() - leftLoan;
         float newInterest = player.GetloanInterest() - leftInterest;
@@ -130,6 +130,10 @@ public class UIPayLoan : MonoBehaviour
         {
             player.timer = new int[] { player.timer[0], player.timer[1] + 1, player.timer[2] };
         }
+
+        UIMailBox mail_manager = GameObject.FindGameObjectWithTag("MailBox").gameObject.GetComponent<UIMailBox>();
+        mail_manager.AddMail("Dept", $"คุณจ่ายหนี้สินแล้ว",
+            $"ขอแสดงความยินดี คุณจ่ายหนี้แล้ว เดือนนี้ เป็นจำนวน {SpendLoanAmount} <sprite index={(int)section}>", null, null);
 
         player.round = 0;
         resetData();
