@@ -147,11 +147,12 @@ public class FileTaxSystem : MonoBehaviour
         CheckRI = player.GetIncomeTypeInYear("RI") == InputRI;
         CheckFI = player.GetIncomeTypeInYear("FI") == InputFI;
 
+       
         CheckIncome = CheckMI && CheckRI && CheckFI;
 
-        CheckEndowment = insurance.GetInsuranceCostInYear("Endowment") >= InputEndownment;
-        CheckHealthInsurance = insurance.GetInsuranceCostInYear("Health_insurance") >= InputHeathInsurance;
-
+        CheckEndowment = insurance.GetInsuranceCostInYear("Endowment") >= InputHeathInsurance;
+        CheckHealthInsurance = insurance.GetInsuranceCostInYear("Health_insurance") >= InputEndownment;
+        Debug.Log($"MI: {player.GetIncomeTypeInYear("MI")} RI: {player.GetIncomeTypeInYear("RI")} E: {insurance.GetInsuranceCostInYear("Endowment")} H:{insurance.GetInsuranceCostInYear("Health_insurance")}");
         CheckDeduction = CheckEndowment && CheckHealthInsurance;
 
         if (CheckIncome && CheckDeduction)

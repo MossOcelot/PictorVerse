@@ -164,7 +164,7 @@ SpriteRenderer:
   m_SortingLayerID: 822741803
   m_SortingLayer: 2
   m_SortingOrder: 500
-  m_Sprite: {fileID: 148003980, guid: e6dadec6d3104b5438fc1582c6a8a7e9, type: 3}
+  m_Sprite: {fileID: 1541076792, guid: 95420f717dc61ac43b3b27ff613f0395, type: 3}
   m_Color: {r: 1, g: 0.89807063, b: 0.73018867, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -243,13 +243,24 @@ MonoBehaviour:
   dialoguePanel: {fileID: 0}
   player: {fileID: 0}
   dialogueText: {fileID: 0}
+  DefaultDialogue: {fileID: 0}
+  TimeLine: {fileID: 0}
+  Sign: {fileID: 0}
   dialogue:
   - Im a Minor mannnn
   - Welcome to PictorVerse !
   - Nice to meet you
+  npc_quest: {fileID: 0}
+  npc_reach: {fileID: 0}
+  index: 0
+  mainCamera: {fileID: 0}
   wordSpeed: 0.01
   playerIsClose: 0
   IsEndSituation: 0
+  IsOpenShelf: 0
+  IsInQuest: 0
+  IsInReachQuest: 0
+  isPuzzle: 0
 --- !u!114 &6640149164163354888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,7 +284,7 @@ Animator:
   m_GameObject: {fileID: 6640149164163354890}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e27e1205b9b74aa4997985b26a56cc3b, type: 2}
+  m_Controller: {fileID: 9100000, guid: d5e813a6da1a7b84888101c81f79b250, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

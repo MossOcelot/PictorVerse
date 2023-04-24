@@ -463,11 +463,11 @@ public class PlayerStatus : MonoBehaviour
         foreach(AccountsDetail account in accountsDetails)
         {
             int[] account_date = account.date;
-            if (account_date[2] <= date[2] - 1)
+            if (account_date[2] >= date[2] - 1)
             {
                 if (account_date[1] == date[1])
                 {
-                    if (account_date[0] <= date[0])
+                    if (account_date[0] >= date[0])
                     {
                         break;
                     }

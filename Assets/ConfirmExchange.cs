@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class ConfirmExchange : MonoBehaviour
 {
     public ExchangeManager exchangeManager;
-    public Text[] cashs;
+    public TMP_InputField cashInput;
 
-    public InputField cashInput;
+    public TextMeshProUGUI cashOutput;
     public TMPro.TMP_Dropdown fromDropBox;
     public TMPro.TMP_Dropdown toDropBox;
 
@@ -18,14 +18,13 @@ public class ConfirmExchange : MonoBehaviour
     private void Start()
     {
         exchangeBtn = gameObject.GetComponent<Button>();
-        exchangeBtn.AddEventListener(cashs, OnClickExchange);
+        exchangeBtn.AddEventListener(1, OnClickExchange);
     }
 
-    void OnClickExchange(Text[] cashs)
+    void OnClickExchange(int i)
     {
-
-        float fromCurrency = float.Parse(cashs[0].text);
-        float toCurrency = float.Parse(cashs[1].text);
+        float fromCurrency = float.Parse(cashInput.text);
+        float toCurrency = float.Parse(cashOutput.text);
 
         PlayerStatus player_status = exchangeManager.player;
         float cash_CurrencyPlayerHasExchange = player_status.player_accounts.getPocket()[checkTypeCurrency(fromDropBox.value)];
@@ -65,7 +64,7 @@ public class ConfirmExchange : MonoBehaviour
 
             Debug.Log(cashInput.text);
             cashInput.text = "0";
-            cashs[1].text = "0";
+            cashOutput.text = "0";
             return;
         }
 
@@ -73,7 +72,7 @@ public class ConfirmExchange : MonoBehaviour
 
         ///// รอเพิ่ม notification แจ้งเตือน
         cashInput.text = "0";
-        cashs[1].text = "0";
+        cashOutput.text = "0";
         Debug.Log("Out cash");
 
     }

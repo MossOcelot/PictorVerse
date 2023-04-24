@@ -16,10 +16,16 @@ MonoBehaviour:
   - account_id: 
     customer_id: 0
     account_type: 
-    amount_deposits: 0
+    amount_deposits: 10000
     currency_type: 
     place_of_deposit: 
-    account_list: []
-  InterestRate: 0
-  InterestDate: 
+    account_list:
+    - date: 0c00000001000000b70f0000090000000c000000
+      accounts_name: deposit
+      deposit: 10000
+      withdrawal: 0
+      balance: 10000
+      number: DEP/PC/CD
+  InterestRate: 2.432709
+  InterestDate: 0100000003000000
   IsActive: 0

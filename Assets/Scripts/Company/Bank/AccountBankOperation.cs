@@ -7,6 +7,7 @@ public class AccountBankOperation : MonoBehaviour
     [SerializeField]
     private List<AccountData> accountData;
 
+    int old_day;
     public float GetDeposit(string accountID)
     {
         foreach(AccountData data in accountData)
@@ -39,5 +40,31 @@ public class AccountBankOperation : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void FixedUpdate()
+    {
+        int[] present_date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>().getDateTime();
+
+        if(old_day != present_date[0]) 
+        {
+            foreach (AccountData data in accountData)
+            {
+                int[] date = data.InterestDate;
+                if (date[1] == present_date[1])
+                {
+                    if (date[0] == present_date[0])
+                    {
+                        foreach(AccountData.Accounts accountsDB in data.accountsDB)
+                        {
+                            float new_amount = accountsDB.amount_deposits * (1f + (data.InterestRate / 100f));
+                            accountsDB.amount_deposits = new_amount;
+                        }
+                    }
+                }
+            }
+            old_day = present_date[0];
+        }
+        
     }
 }

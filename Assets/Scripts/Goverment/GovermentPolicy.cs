@@ -56,7 +56,7 @@ public class GovermentPolicy : MonoBehaviour
                     UIMailBox mail_manager = GameObject.FindGameObjectWithTag("MailBox").gameObject.GetComponent<UIMailBox>();
                     mail_manager.AddMail("Goverment", $"ถึงเวลาจ่ายภาษีแล้ว ของปี {date[2] - 1}",
                         $"โปรดยื่นภาษีและจ่ายภาษีให้เรียบร้อยภายใน 30 วัน นับจากวันที่ {date[0]}/{date[1]}/{date[2]}", null, null);
-                    GameObject FileTax = Instantiate(FileTax_Template, content_FileTax);
+                    GameObject FileTax = Instantiate(FileTax_Template, transform);
                     govermentPolicy.taxCollectionDay[2]++;
                     GovermentAlert = true;
                     IsSent = true;

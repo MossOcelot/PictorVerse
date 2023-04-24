@@ -71,4 +71,12 @@ public class DoctorController : MonoBehaviour
         activity_controller.AddActivity(time.getDateTime(), UIHourActivity.acitivty_type.hospital);
         Hospital.gameObject.GetComponent<UIHospitalShow>().Show();
     }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Hospital.gameObject.GetComponent<UIHospitalShow>().Close();
+        }
+    }
 }

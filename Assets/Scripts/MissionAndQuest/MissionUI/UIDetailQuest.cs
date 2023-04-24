@@ -11,6 +11,8 @@ using System;
 public class UIDetailQuest : MonoBehaviour
 {
     public Sprite[] img_type;
+    public Sprite[] currency_reward_icons;
+    public Sprite career_reward_icon;
     public Image image;
     public TextMeshProUGUI head_name;
     public TextMeshProUGUI location_quest;
@@ -85,14 +87,15 @@ public class UIDetailQuest : MonoBehaviour
         {
             rewardPanel = Instantiate(reward_template, reward_content);
             string title = $"{currency.amount}";
-            rewardPanel.gameObject.GetComponent<UIRewardCard>().SetData(null, title);
+
+            rewardPanel.gameObject.GetComponent<UIRewardCard>().SetData(currency_reward_icons[(int)currency.currency], title);
             rewardPanel_Group.Add(rewardPanel);
         }
         if(reward.career_score > 0)
         {
             rewardPanel = Instantiate(reward_template, reward_content);
             string title = $"{reward.career_score} แต้ม";
-            rewardPanel.gameObject.GetComponent<UIRewardCard>().SetData(null, title);
+            rewardPanel.gameObject.GetComponent<UIRewardCard>().SetData(career_reward_icon, title);
             rewardPanel_Group.Add(rewardPanel);
         }
 
