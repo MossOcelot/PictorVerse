@@ -10,6 +10,7 @@ public class UIActivity : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Slash))
         {
+            Debug.Log("Slash");
             if(UI.activeSelf)
             {
                 Close();
@@ -24,7 +25,7 @@ public class UIActivity : MonoBehaviour
     public void Open()
     {
         PlayerActivityController player_activity = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerActivityController>();
-        Timesystem time = GameObject.FindGameObjectWithTag("Timed").gameObject.GetComponent<Timesystem>();
+        Timesystem time = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();
         List<ActivityInMyLife> activity_all = player_activity.activityList;
 
         UI.SetActive(true);

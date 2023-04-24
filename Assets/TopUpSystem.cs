@@ -2,18 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 public class TopUpSystem : MonoBehaviour
 {
-    [SerializeField] private Text myMoney;
+    [SerializeField] private TextMeshProUGUI myMoney;
     [SerializeField] private GameObject needTopUp;
     [SerializeField] private StockSystem stockSystem;
     [SerializeField] private Button confirmBtn;
 
-    [SerializeField] private Text myMoneyInMarket;
+    [SerializeField] private TextMeshProUGUI myMoneyInMarket;
     [SerializeField] private GameObject needGainMoney;
     [SerializeField] private Button confirmBtn2;
 
-    private string section_scene;
+    private SceneStatus.section section_scene;
     private PlayerStatus player_status;
 
     private float playerHasMoney;
@@ -27,18 +29,17 @@ public class TopUpSystem : MonoBehaviour
         SceneStatus sceneStatus = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>();
         player_status = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerStatus>();
 
-        section_scene = sceneStatus.sceneInsection.ToString();
+        section_scene = sceneStatus.sceneInsection;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        playerHasMoney = player_status.player_accounts.getPocket()[section_scene];
-        myMoney.text = "$ " + playerHasMoney.ToString("F");
+        playerHasMoney = player_status.player_accounts.getPocket()[section_scene.ToString()];
+        myMoney.text = $"<sprite index={(int)section_scene}> " + playerHasMoney.ToString("F");
 
         balanceInMarket = stockSystem.getBalance();
-        Debug.Log(balanceInMarket);
-        myMoneyInMarket.text = "$ " + balanceInMarket.ToString("F");
+        myMoneyInMarket.text = $"<sprite index={(int)section_scene}> " + balanceInMarket.ToString("F");
 
         if (playerHasMoney < TopUpCount )
         {
@@ -65,7 +66,7 @@ public class TopUpSystem : MonoBehaviour
 
         float new_player_balance = playerHasMoney - TopUpCount;
 
-        player_status.player_accounts.setPocket(section_scene, new_player_balance);
+        player_status.player_accounts.setPocket(section_scene.ToString(), new_player_balance);
         stockSystem.setBalance(newBalance);
         clearValue();
     }
@@ -75,8 +76,7 @@ public class TopUpSystem : MonoBehaviour
         float newBalance = balanceInMarket - GainMoneyInMarket;
 
         float new_player_balance = playerHasMoney + GainMoneyInMarket;
-        Debug.Log("newBalance: " + newBalance + " new_player_balance: " + new_player_balance);
-        player_status.player_accounts.setPocket(section_scene, new_player_balance);
+        player_status.player_accounts.setPocket(section_scene.ToString(), new_player_balance);
         stockSystem.setBalance(newBalance);
         clearValue2();
     }
@@ -101,16 +101,16 @@ public class TopUpSystem : MonoBehaviour
 
     public void clearValue()
     {
-        myMoney.text = "$ 0";
-        needTopUp.gameObject.GetComponent<InputField>().text = "$ 0";
+        myMoney.text = $"<sprite index={(int)section_scene}> 0";
+        needTopUp.gameObject.GetComponent<InputField>().text = $"0";
         playerHasMoney = 0f;
         TopUpCount = 0f;
     }
 
     public void clearValue2()
     {
-        myMoneyInMarket.text = "$ 0";
-        needGainMoney.gameObject.GetComponent<InputField>().text = "$ 0";
+        myMoneyInMarket.text = $"<sprite index={(int)section_scene}> 0";
+        needGainMoney.gameObject.GetComponent<InputField>().text = $"0";
         balanceInMarket = 0f;
         GainMoneyInMarket = 0f;
     }

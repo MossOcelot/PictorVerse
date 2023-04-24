@@ -30,23 +30,25 @@ public class ExchangeManager : MonoBehaviour
     string text_cash;
 
     public bool status = false;
+
+    public string old_section;
     private void Start()
     {
         player_movement = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerMovement>();
         player = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerStatus>();
-        centralBankStatus = GameObject.FindGameObjectWithTag("CentralBank").gameObject.GetComponent<CentralBankStatus>();
+        
     }
     public void Update()
     {
+        CheckCentralBankNextSection();
+
         text_cash = checkTypeCurrency(fromCurrencys.value);
         float rate = exchangeRate.getExchangeRate(fromCurrencys.value, toCurrencys.value);
         string text = textinputField.gameObject.GetComponent<TMP_InputField>().text;
         bool result = float.TryParse(textinputField.gameObject.GetComponent<TMP_InputField>().text, out float number);
 
-        Debug.Log("Hello True: "+ text + " result: " + result + " number: " + number);
         if (result)
         {
-            Debug.Log("Update True");
             if (textinputField.gameObject.GetComponent<TMP_InputField>().text == "")
             {
                 text = "0";
@@ -118,5 +120,15 @@ public class ExchangeManager : MonoBehaviour
         status = false;
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
         player_movement.isLooking = false;
+    }
+
+    private void CheckCentralBankNextSection()
+    {
+        string present_section = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>().sceneInsection.ToString();
+        if(present_section != old_section)
+        {
+            centralBankStatus = GameObject.FindGameObjectWithTag("CentralBank").gameObject.GetComponent<CentralBankStatus>();
+            old_section = present_section;
+        }
     }
 }

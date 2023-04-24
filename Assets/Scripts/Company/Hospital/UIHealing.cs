@@ -76,7 +76,7 @@ public class UIHealing : MonoBehaviour
         float newValue = player_pocket - player_cost;
         playerStatus.player_accounts.setPocket(section.ToString(), newValue );
 
-        Timesystem date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+        Timesystem date = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();
         int[] dateTime = date.getDateTime();
         AccountsDetail account = new AccountsDetail() { date = dateTime, accounts_name = "ค่ารักษาพยาบาล", account_type = "TF", income = 0, expense = player_cost, currencyIncome_Type = SceneStatus.section.section1, currencyExpense_Type = SceneStatus.section.section1 };
         playerStatus.addAccountsDetails(account);
@@ -91,7 +91,7 @@ public class UIHealing : MonoBehaviour
 
     public void SpendByLoan()
     {
-        int[] present_date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>().getDateTime();
+        int[] present_date = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>().getDateTime();
 
         LoanPlayerController player = playerStatus.loanPlayerController;
         float newDebt = player.GetDept() + player_cost;

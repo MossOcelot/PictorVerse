@@ -125,7 +125,7 @@ public class UIDetailQuest : MonoBehaviour
     private void GetReward(Quest quest)
     {
         MissionCanvasController missionController = GameObject.FindGameObjectWithTag("MissionQuest").gameObject.GetComponent<MissionCanvasController>();
-        Timesystem time_system = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+        Timesystem time_system = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();
         GameObject player = GameObject.FindGameObjectWithTag("Player").gameObject;
        
         if (quest.HaveItemReward)
@@ -133,9 +133,7 @@ public class UIDetailQuest : MonoBehaviour
             InventoryController inventoryPlayer = player.GetComponent<InventoryController>();   
             foreach(InventoryItem item in quest.Rewards.itemReward)
             {
-                Debug.Log("Item ");
                 int amount = inventoryPlayer.inventoryData.AddItem(item);
-                Debug.Log("Item: " + amount);
                 if(amount>0)
                 {
                     int miniAmount = inventoryPlayer.miniInventoryData.AddItem(item.item, amount);

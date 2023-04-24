@@ -70,7 +70,6 @@ public class MultiLineChartController : MonoBehaviour
             line.SetParent(chartContainer, false);
             line.gameObject.SetActive(true);
             line.GetComponent<UILineRenderer>().color = lineColors[i];
-            Debug.Log($"Line Data : {chartWidth} {chartHeight} {labelYWidth} {chartYScale}");
             Vector2[] points = GetPoints(Datas[i].data, chartWidth * 0.09f, chartHeight, labelYWidth, chartYScale * 0.08f);
             line.GetComponent<UILineRenderer>().points = points;
 

@@ -10,7 +10,7 @@ public class ConfirmNewBorn : MonoBehaviour
         PlayerStatus player_status = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerStatus>();
         UIGameOverController uiGameOver = GameObject.FindGameObjectWithTag("GameOver").gameObject.GetComponent<UIGameOverController>();
 
-        Timesystem time_system = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.AddComponent<Timesystem>();
+        Timesystem time_system = GameObject.FindGameObjectWithTag("Time").gameObject.AddComponent<Timesystem>();
         int[] date = time_system.getDateTime();
         player_status.newBorn();
         Destroy(CloneObj);

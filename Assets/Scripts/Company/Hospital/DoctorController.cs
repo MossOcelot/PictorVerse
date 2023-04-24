@@ -65,7 +65,7 @@ public class DoctorController : MonoBehaviour
         Hospital = Instantiate(Hospital_Template, transform);
         npcController.dialoguePanel.SetActive(false);
 
-        Timesystem time = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+        Timesystem time = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();
         PlayerActivityController activity_controller = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerActivityController>();
         activity_controller.AddActivity(time.getDateTime(), UIHourActivity.acitivty_type.hospital);
 

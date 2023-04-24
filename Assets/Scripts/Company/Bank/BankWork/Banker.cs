@@ -69,8 +69,8 @@ public class Banker : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             BankShelf.gameObject.GetComponent<Bank_Status>().Close();
-            LoanShelf.gameObject.GetComponent<BorrowingManager>().Close();
             InsuranceShelf.gameObject.GetComponent<UIInsurance>().Close();
+            LoanShelf.gameObject.GetComponent<BorrowingManager>().Close();
         }
     }
 }

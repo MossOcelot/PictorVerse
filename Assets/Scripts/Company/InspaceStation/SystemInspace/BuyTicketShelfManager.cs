@@ -103,7 +103,7 @@ public class BuyTicketShelfManager : MonoBehaviour
         // update money and price
         float newValue = myMoney - data.price;
 
-        Timesystem date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+        Timesystem date = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();
         int[] dateTime = date.getDateTime();
         AccountsDetail newAccountDetail = new AccountsDetail() { date = dateTime, accounts_name = $"buy Ticket {planet_section} to {LeaveStation}", account_type = "TE", income = 0, expense = data.price, currencyIncome_Type = section, currencyExpense_Type = section };
         playerTicket.playerStatus.addAccountsDetails(newAccountDetail);

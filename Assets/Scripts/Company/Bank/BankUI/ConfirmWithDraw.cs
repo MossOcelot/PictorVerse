@@ -35,7 +35,7 @@ public class ConfirmWithDraw : MonoBehaviour
 
     public void ConfirmWithDrawal()
     {
-        int[] present_date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>().getDateTime();
+        int[] present_date = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>().getDateTime();
         float newAmount = Player_pocket.GetPocketDetails().getPocket()[section_name.ToString()] + WithDraw_amount;
         Player_pocket.GetPocketDetails().setPocket(section_name.ToString(), newAmount);
 
@@ -51,10 +51,10 @@ public class ConfirmWithDraw : MonoBehaviour
         bank_manager.bank_status.SetBank_Financial("debt", newDept);
 
         // player account list
-        AccountsDetail newAccountDetail = new AccountsDetail() { date = present_date, accounts_name = "withDraw money", account_type = "withDraw", income = WithDraw_amount, expense = 0 };
+        AccountsDetail newAccountDetail = new AccountsDetail() { date = present_date, accounts_name = "withDraw money", account_type = "SE", income = WithDraw_amount, expense = 0, currencyIncome_Type = SceneStatus.section.section1, currencyExpense_Type = SceneStatus.section.section1 };
         bank_manager.player_status.addAccountsDetails(newAccountDetail);
         // bank account list
-        AccountsDetail newBankAccountDetail = new AccountsDetail() { date = present_date, accounts_name = "accepting withDraw money", account_type = "accepting withDraw", income = WithDraw_amount, expense = 0 };
+        AccountsDetail newBankAccountDetail = new AccountsDetail() { date = present_date, accounts_name = "accepting withDraw money", account_type = "accepting withDraw", income = WithDraw_amount, expense = 0, currencyIncome_Type = SceneStatus.section.section1, currencyExpense_Type = SceneStatus.section.section1 };
         bank_manager.bank_status.AddBank_Account(newBankAccountDetail);
 
         float exchangeCashToGold = new ExchangeRate().getExchangeRate((int)section_name, 0) * WithDraw_amount;

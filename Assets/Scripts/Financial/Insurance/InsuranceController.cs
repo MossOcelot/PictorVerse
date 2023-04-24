@@ -209,7 +209,7 @@ public class InsuranceController : MonoBehaviour
 
             if (command != "Get")
             {
-                Timesystem date = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+                Timesystem date = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();
 
                 float newValue = player_status.player_accounts.getPocket()[section_name] + protect_price;
                 player_status.player_accounts.setPocket(section_name, newValue);
@@ -217,11 +217,9 @@ public class InsuranceController : MonoBehaviour
                 int[] dateTime = date.getDateTime();
                 AccountsDetail account = new AccountsDetail() { date = dateTime, accounts_name = "hearth_insurance_claim", account_type = "claim_insurance", income = protect_price, expense = 0 };
 
-                Debug.Log("Cost Cost: " + protect_price);
                 player_status.addAccountsDetails(account);
             } 
 
-            Debug.Log("protect_price sent to player success.");
             return protect_price;
         }
 

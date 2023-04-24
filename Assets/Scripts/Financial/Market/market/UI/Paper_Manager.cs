@@ -55,7 +55,7 @@ public class Paper_Manager : MonoBehaviour
         float newbalance = stock.getBalance() - total_value;
         stock.setBalance(newbalance);
 
-        Timesystem time = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>(); 
+        Timesystem time = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>(); 
         PlayerActivityController activity_controller = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerActivityController>();
         activity_controller.AddActivity(time.getDateTime(), UIHourActivity.acitivty_type.shopping);
 

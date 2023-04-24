@@ -84,7 +84,7 @@ public class UIInsurancePaper : MonoBehaviour
         player_status = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerStatus>();        
         player_Insurance = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<InsuranceController>();
         scene = GameObject.FindGameObjectWithTag("SceneStatus").gameObject.GetComponent<SceneStatus>();
-        time_system = GameObject.FindGameObjectWithTag("TimeSystem").gameObject.GetComponent<Timesystem>();
+        time_system = GameObject.FindGameObjectWithTag("Time").gameObject.GetComponent<Timesystem>();
     }
 
     private void Update()

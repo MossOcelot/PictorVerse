@@ -209,7 +209,7 @@ public class InventoryController : MonoBehaviour
         IDestroyableItem destroyableItem = MiniItem.item as IDestroyableItem;
         if (destroyableItem != null)
         {
-            miniInventoryUI.AddActionInDescription(n, "Drop", () => DropItem(itemIndex, MiniItem.quantity));
+            miniInventoryUI.AddActionInDescription(n, "Drop", () => DropMiniItem(itemIndex, MiniItem.quantity));
         }
     }
 
@@ -257,6 +257,13 @@ public class InventoryController : MonoBehaviour
     private void DropItem(int itemIndex, int quantity)
     {
         inventoryData.RemoveItem(itemIndex, quantity);
+        inventoryUI.ResetSelection();
+        //audioSource.PlayOneShot(dropClip);
+    }
+
+    private void DropMiniItem(int itemIndex, int quantity)
+    {
+        miniInventoryData.RemoveItem(itemIndex, quantity);
         inventoryUI.ResetSelection();
         //audioSource.PlayOneShot(dropClip);
     }
