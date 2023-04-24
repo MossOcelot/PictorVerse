@@ -11,7 +11,8 @@ public class NPC_Reach : MonoBehaviour
     public bool HavePuzzles;
     public GameObject puzzles;
     public Camera mainCamera;
-
+    public NPCController npccontroller;
+    public GameObject player;
     [System.Serializable]
     public class ReachQuestEvent
     {
@@ -28,6 +29,8 @@ public class NPC_Reach : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+        npccontroller = FindObjectOfType<NPCController>();
         winPuzzles = FindObjectOfType<WinScripts>();
         puzzles.SetActive(false);
     }
@@ -90,17 +93,26 @@ public class NPC_Reach : MonoBehaviour
                     }
                     if (HavePuzzles == true )
                     {
+                        npccontroller.isPuzzling = true;
+                        player.gameObject.GetComponent<PlayerMovement>().isLooking = true;
+
                         if (winPuzzles.WinNow == true)
                             {
+                            if (Input.GetKeyDown(KeyCode.E))
+                            {
+                                npccontroller.isPuzzling = false;
+                                npccontroller.dialogue.Clear();
 
                                 mainCamera.orthographicSize = 3.9f;
                                 puzzles.SetActive(false);
-                                
+
                                 objective.currentAmount += 1;
                                 objective.completed = true;
                                 Debug.Log("Completed Puzzles");
 
-                                break;
+                            }
+
+                            break;
                                 
                             }
                         }

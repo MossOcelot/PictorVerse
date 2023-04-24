@@ -28,8 +28,13 @@ public class NPCController : MonoBehaviour
     public bool IsInQuest;
     public bool IsInReachQuest;
     public bool isPuzzle = false;
+    public bool isPuzzling = false;
 
-    // Update is called once per frame
+
+    public void Start()
+    {
+        isPuzzling = false;
+    }
 
     void Update()
     {
@@ -54,35 +59,45 @@ public class NPCController : MonoBehaviour
             IsEndSituation = false;
             RemoveText();
         }
-        if (Input.GetKeyDown(KeyCode.E) && !IsOpenShelf)
+        if (Input.GetKeyDown(KeyCode.E) && !IsOpenShelf && isPuzzling ==false)
         {
-            
 
-            if (!dialoguePanel.activeInHierarchy)
+            if (isPuzzling)
             {
-                if (!IsInQuest)
-                {
-                    dialogue.Clear();
-                    dialogue.Add(DefaultDialogue.greeting);
-                    dialogue.AddRange(DefaultDialogue.conversation);
-                }
-                if (npc_reach != null)
-                {
-                    QuestDialogue reachQuestDialogue = npc_reach.CheckQuestInPlayer();
-                    if (reachQuestDialogue != null)
-                    {
-                        IsInReachQuest = true;
-                        dialogue.Clear();
-                        dialogue.Add(reachQuestDialogue.greeting);
-                        dialogue.AddRange(reachQuestDialogue.conversation);
-                    }
-                }
                 StartDialogue();
+                player.gameObject.GetComponent<PlayerMovement>().isLooking = true;
+
             }
-            else if (dialogueText.text == dialogue[index] || IsInQuest)
+            if(isPuzzling == false)
             {
-                NextLine();
+
+                if (!dialoguePanel.activeInHierarchy)
+                {
+                    if (!IsInQuest)
+                    {
+                        dialogue.Clear();
+                        dialogue.Add(DefaultDialogue.greeting);
+                        dialogue.AddRange(DefaultDialogue.conversation);
+                    }
+                    if (npc_reach != null)
+                    {
+                        QuestDialogue reachQuestDialogue = npc_reach.CheckQuestInPlayer();
+                        if (reachQuestDialogue != null)
+                        {
+                            IsInReachQuest = true;
+                            dialogue.Clear();
+                            dialogue.Add(reachQuestDialogue.greeting);
+                            dialogue.AddRange(reachQuestDialogue.conversation);
+                        }
+                    }
+                    StartDialogue();
+                }
+                else if (dialogueText.text == dialogue[index] || IsInQuest)
+                {
+                    NextLine();
+                }
             }
+
 
 
         }
@@ -90,7 +105,6 @@ public class NPCController : MonoBehaviour
         if(IsInQuest && IsEndSituation && TimeLine != null)
         {
             TimeLine.SetActive(true);
-            
             if (mainCamera != null)
             {
                 isPuzzle = true;
@@ -120,8 +134,9 @@ public class NPCController : MonoBehaviour
         }*/
     }
     public void StartDialogue()
-    {
-        dialoguePanel.SetActive(true);
+    {if(isPuzzle == false)
+        {
+dialoguePanel.SetActive(true);
 
         if (index == dialogue.Count - 1)
         {
@@ -132,6 +147,13 @@ public class NPCController : MonoBehaviour
             player.gameObject.GetComponent<PlayerMovement>().isLooking = true;
         }
         StartCoroutine(Typing());
+        }if(isPuzzle == true)
+        {
+            TimeLine.SetActive(true);
+            player.gameObject.GetComponent<PlayerMovement>().isLooking = true;
+
+        }
+
     }
     public void SetIndexConversation(int index)
     {
@@ -225,6 +247,8 @@ public class NPCController : MonoBehaviour
             playerIsClose = false;
             RemoveText();
             player = null;
+            TimeLine.SetActive(false);
+
         }
     }
 }
