@@ -15,6 +15,6 @@ public class UIupdateDate : MonoBehaviour
     {
         int[] time = timeSystem.getDateTime();
         DateText.text = time[2].ToString() + "-" + time[1].ToString("00") + "-" + time[0].ToString("00") + " "
-            + time[3].ToString("00") + " ชั่วโมง " + time[4].ToString("00") + " นาที";
+            + time[3].ToString("00") + " ชั่วโมง " + time[4].ToString("00") + " นาที ";
     }
 }

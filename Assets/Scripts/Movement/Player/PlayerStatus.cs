@@ -459,11 +459,25 @@ public class PlayerStatus : MonoBehaviour
 
         GovermentPolicy goverment = GameObject.FindGameObjectWithTag("Goverment").gameObject.GetComponent<GovermentPolicy>();
         int[] date = goverment.govermentPolicy.taxCollectionDay;
-
-        foreach(AccountsDetail account in accountsDetails)
+        foreach (AccountsDetail account in accountsDetails)
         {
             int[] account_date = account.date;
-            if (account_date[2] >= date[2] - 1)
+            if (account_date[2] > date[2] - 2)
+            {
+                if (account_date[1] > date[1])
+                {
+                    break;
+                }
+                if(account_date[1] == date[1])
+                {
+                    if (account_date[0] > date[0])
+                    {
+                        break;
+                    }
+                }
+                
+
+            } else if (account_date[2] == date[2] - 2)
             {
                 if (account_date[1] == date[1])
                 {

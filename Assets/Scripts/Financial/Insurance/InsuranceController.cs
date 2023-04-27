@@ -280,7 +280,23 @@ public class InsuranceController : MonoBehaviour
         foreach (InsuranceData data in insuranceDataBuy)
         {
             int[] account_date = data.buyDate;
-            if (account_date[2] >= date[2] - 1)
+            if (account_date[2] > date[2] - 2)
+            {
+                if (account_date[1] > date[1])
+                {
+                    break;
+                }
+                if (account_date[1] == date[1])
+                {
+                    if (account_date[0] > date[0])
+                    {
+                        break;
+                    }
+                }
+
+
+            }
+            else if (account_date[2] == date[2] - 2)
             {
                 if (account_date[1] == date[1])
                 {
